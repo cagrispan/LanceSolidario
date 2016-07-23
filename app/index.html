@@ -6,12 +6,16 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+
+  <title>Lance Solidário</title>
+
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="assets/app.css">
+
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
@@ -21,17 +25,25 @@
 
   <div ng-view></div>
 
-  <div>Angular seed app: v<span app-version></span></div>
-
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+
+  <!-- Core -->
   <script src="app.js"></script>
-  <script src="controller/home.js"></script>
-  <script src="controller/view2.js"></script>
   <script src="config/routes.js"></script>
+
+  <!-- Controllers -->
+  <script src="controller/login.js"></script>
+  <script src="controller/home.js"></script>
+
+  <!-- Services -->
+  <script src="services/utils.js"></script>
+  <script src="services/webservice.js"></script>
+
+  <!-- Components -->
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
