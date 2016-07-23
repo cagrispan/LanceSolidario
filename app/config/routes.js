@@ -4,13 +4,15 @@
 angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $routeProvider
-            .when('/view1', {
-                templateUrl: 'view/view1.html',
-                controller: 'View1Ctrl'
+            .when('/login', {
+                templateUrl: 'view/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'login'
             })
-            .when('/view2', {
-                templateUrl: 'view/view2.html',
-                controller: 'View2Ctrl'
+            .when('/home', {
+                templateUrl: 'view/home.html',
+                controller: 'HomeCtrl',
+                controllerAs: 'home'
             })
-            .otherwise({redirectTo: '/view1'});
+            .otherwise({redirectTo: '/home'});
     }]);
