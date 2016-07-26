@@ -14,12 +14,7 @@ angular.module('utils')
 
                     self.getUserInfo();
 
-                    /*
-                     This is also the point where you should create a
-                     session for the current user.
-                     For this purpose you can use the data inside the
-                     res.authResponse object.
-                     */
+                    console.log(res.authResponse);
                 }
                 else {
                     /*
@@ -35,7 +30,7 @@ angular.module('utils')
             FB.api('/me', function(response) {
                 $rootScope.$apply(function() {
                     self.user = response;
-                    $location.path('/view1');
+                    $location.path('/home');
                 });
             });
         };

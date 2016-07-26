@@ -5,14 +5,12 @@ angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $routeProvider
             .when('/login', {
-                templateUrl: 'view/login.html',
-                controller: 'LoginCtrl',
-                controllerAs: 'login'
+                templateUrl: 'view/login.html'
             })
             .when('/home', {
                 templateUrl: 'view/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             })
-            .otherwise({redirectTo: '/home'});
+            .otherwise({redirectTo: '/login'});
     }]);
