@@ -11,7 +11,7 @@ require('./config/routes.config.js')(server);
 
 
 try{
-  server.listen(config.port, '::', function () {
+  server.listen(config.rest.port, '::', function () {
     console.log('%s listening at %s', server.name, server.url);
   });
 }catch(e){
