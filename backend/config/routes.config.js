@@ -13,8 +13,7 @@ module.exports = function (server) {
 
     server.get('/users', [TokenMiddleware,usersController.get]);
     server.get('/users/:id', usersController.getSpecific);
-    server.post('/users', usersController.add);
-    server.put('/users/:id', [usersMiddleware.hasAllInformation, usersController.update]);
+    server.put('/users/:id', [usersMiddleware.hasAllInformation, usersController.addOrUpdate]);
     server.del('/users/:id', usersController.remove);
 
     server.post('/authenticate', usersAuth.authenticate);

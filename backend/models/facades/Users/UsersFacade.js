@@ -1,69 +1,71 @@
 'use strict';
 
-var EntityItem = require('../../entities/User');
-var Sequelize = require('sequelize');
-var config = require('../dbConfig');
+var userEntity = require('../../entities/User');
+var addressEntity = require('../../entities/Address');
+var contactEntity = require('../../entities/Contact');
 
-var sequelize = new Sequelize(
-    "lance",
-    "root",
-    "admin",
-    {
-        host: 'localhost',
-        dialect: 'mysql',
+userEntity.hasMany(addressEntity);
+userEntity.hasMany(contactEntity);
 
-        pool: {
-            max: 5,
-            min: 0,
-            idle: 10000
-        }
+function UserFacade() {
+    this.facebookId = null;
+    this.token = null;
+    this.name = null;
+    this.birthday = null;
+    this.email = null;
+    this.address = null;
+    this.telephone = null;
+
+    this.createOrUpdate = function () {
+        var userFacade = this;
+        var obj = null;
+
+        return userEntity.findOrCreate({where: {facebookId: userFacade.facebookId}, defaults: userFacade})
+            .spread(function (resolution, created) {
+                userEntity = resolution;
+                if (created) {
+                    obj = created;
+                }
+            }).then(function () {
+                return userEntity.getAddresses({
+                    where: {
+                        street: userFacade.address.street,
+                        number: userFacade.address.number,
+                        complement: userFacade.address.complement,
+                        neighborhood: userFacade.address.neighborhood,
+                        city: userFacade.address.city,
+                        state: userFacade.address.state
+                    }
+                });
+            })
+            .then(function (existedAddress) {
+                if (existedAddress.length > 0) {
+                    return userEntity.addAddress(existedAddress[0].dataValues.id);
+                } else {
+                    return userEntity.createAddress(userFacade.address)
+                }
+            })
+            .then(function () {
+                return userEntity.getContacts({
+                    where: {
+                        email: userFacade.email,
+                        telephone: userFacade.telephone
+                    }
+                });
+            })
+            .then(function (existedContact) {
+                if (existedContact.length > 0) {
+                    return userEntity.addContact(existedContact[0].dataValues.id);
+                } else {
+                    return userEntity.createContact({email: userFacade.email, telephone: userFacade.telephone});
+                }
+            }).then(function () {
+                return userEntity.update(userFacade, {where: {facebookId: userFacade.facebookId}});
+            }).catch(function (err) {
+                console.log(err);
+            });
     }
-);
-
-var entityItem = new EntityItem(sequelize);
-
-function EntityItemFacade() {
 }
 
-function createOrUpdate(item) {
-    return entityItem.findOrCreate({where: {cpf: item.cpf}, defaults: item})
-        .spread(function (user, created) {
-            if (created) {
-                return created;
-            }
-            return update(item, {cpf: item.cpf});
-        });
-}
-
-function create(item) {
-    return entityItem.create(item);
-}
-
-function update(item, whereItem) {
-    return entityItem.update(item, {where: whereItem});
-}
-
-function get(whereItem) {
-    return entityItem.findAll({where: whereItem}).then(mapDataValues);
-}
-
-function mapDataValues(resultSet) {
-    return resultSet.map(function (item) {
-        return item.dataValues;
-    });
-}
-
-function getByCpf(ItemCpf) {
-    return get({CPFConsumidor: ItemCpf});
-}
-
-EntityItemFacade.prototype = {
-    create: create,
-    update: update,
-    get: get,
-    getByCpf: getByCpf,
-    createOrUpdate: createOrUpdate
-};
-
-var entityItemFacade = new EntityItemFacade();
-module.exports = entityItemFacade;
+UserFacade.constructor = UserFacade;
+module.exports = UserFacade;

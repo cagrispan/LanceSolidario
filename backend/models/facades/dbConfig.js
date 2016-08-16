@@ -1,14 +1,13 @@
-/**
- * Created by Carlos on 23/07/2016.
- */
+
 config = {
 
-    database: "ache",
-    username: "ache_integracao",
-    password: "password",
+    database: "lance",
+    username: "root",
+    password: "admin",
     options: {
         dialect: 'mysql',
-        host: 'localhost'
+        host: 'localhost',
+        port: '7780'
     }
 
 };
