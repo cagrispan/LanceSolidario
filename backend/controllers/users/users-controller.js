@@ -20,6 +20,8 @@ function UsersController() {
             } else {
                 return res.send(500);
             }
+        }, function(err) {
+            return res.send(500)
         });
     };
 
