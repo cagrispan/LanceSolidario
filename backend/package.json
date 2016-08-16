@@ -17,8 +17,10 @@
     "morgan": "~1.7.0",
     "mysql": "^2.11.1",
     "pagseguro": "^0.1.0",
+    "proxyquire": "^1.7.10",
     "restify": "^4.1.1",
     "sequelize": "^3.24.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "sinon": "^1.17.5"
   }
 }
