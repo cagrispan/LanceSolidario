@@ -6,10 +6,13 @@ angular.module('lanceSolidario')
 
     if(!auth.user){
         $location.path('/login');
-    }else{
-        var userToSave = new User();
-        userToSave
+    }else {
+        var userToSave = angular.copy(auth.user);
+
+        userToSave._save().then(function(resolve){
+        },function(){
+            $location.path('/login');
+        });
     }
-    self.user = auth.user;
 
 }]);
