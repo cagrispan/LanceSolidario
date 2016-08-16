@@ -3,9 +3,8 @@
  */
 angular.module('utils')
     .service('webService', ['$http', '$q', '$log', function ($http, $q, $log) {
-
-        var baseUrl = 'http://localhost:7780';
-
+        var baseUrl =globalConfig.backendBasePath;
+        //'http://localhost:7780';
         this.read = function (endpoint) {
 
             var req = {
@@ -33,6 +32,7 @@ angular.module('utils')
             return request(req);
 
         };
+
 
         this.update = function (endpoint, params) {
 

@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario').factory('User', [function () {
+    angular.module('lanceSolidario').factory('Products', [function () {
 
         User.prototype.constructor = User;
         

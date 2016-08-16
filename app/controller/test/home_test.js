@@ -1,6 +1,6 @@
 'use strict';
 
-describe('lanceSolidario module', function() {
+xdescribe('lanceSolidario module', function() {
 
   beforeEach(module('lanceSolidario'));
 

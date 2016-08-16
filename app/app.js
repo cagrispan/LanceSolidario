@@ -4,5 +4,6 @@
 angular.module('lanceSolidario', [
     'ngRoute',
     'utils',
-    'lanceSolidario.version'
+    'lanceSolidario.version',
+    'lanceSolidario.user'
 ]);
