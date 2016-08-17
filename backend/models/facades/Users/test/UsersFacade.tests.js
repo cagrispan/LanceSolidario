@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var UsersFacade = require('./UsersFacade');
+var UsersFacade = require('./../UsersFacade');
 
 describe('UsersFacade Tests', function () {
 

@@ -1,4 +1,4 @@
-var UsersController = require('../controllers/users/users-controller.js');
+var UsersController = require('../controllers/users/users.controller.js');
 var UsersMiddleware = require('../middlewares/users.middleware.js');
 var UsersAuth = require('../auth/users.auth.js');
 var TokenMiddleware = require('../middlewares/token.middleware');

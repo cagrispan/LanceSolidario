@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 var proxyquire = require("proxyquire");
-var UserMock = require('./../../models/facades/Users/Users.mock');
+var UserMock = require('./../../../models/facades/Users/Users.mock.js');
 var UsersController = proxyquire('./users-controller', {'../../models/facades/Users/UsersFacade': UserMock});
 var sinon = require('sinon');
 
