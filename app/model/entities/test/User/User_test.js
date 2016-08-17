@@ -31,12 +31,6 @@
         describe('save', function () {
             it('should save a user', function () {
                 var user = new User();
-                user.facebookId = 'validFacebookId';
-                user.token = 'validToken';
-                var promise  = user._save();
-                promise.then(function(resolve){
-                    expect(resolve.user.name).toBe('userTestName');
-                });
             });
         });
 
@@ -51,8 +45,12 @@
         describe('update', function () {
             it('should test update method', function () {
                 var user = new User();
-
-                expect(user._update()).toBe(false);
+                user.facebookId = 'validFacebookId';
+                user.token = 'validToken';
+                var promise  = user._save();
+                promise.then(function(resolve){
+                    expect(resolve.user.name).toBe('userTestName');
+                });
             });
         });
 
