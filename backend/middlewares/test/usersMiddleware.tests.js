@@ -31,7 +31,7 @@ describe('Users middleware Tests', function () {
                 telephone: '99999999',
                 birthday: new Date('10/09/1998'),
                 name: 'testeZao',
-                token: 'tokenTest'
+                facebookToken: 'tokenTest'
             }
         };
 
@@ -61,7 +61,7 @@ describe('Users middleware Tests', function () {
                 telephone: '99999999',
                 birthday: new Date('10/09/1998'),
                 name: 'testeZao',
-                token: 'tokenTest'
+                facebookToken: 'tokenTest'
             }
         };
 

@@ -3,8 +3,12 @@
 var expect = require('chai').expect;
 var proxyquire = require("proxyquire");
 var UserMock = require('./../../../models/facades/Users/Users.mock.js');
-var UsersController = proxyquire('./users-controller', {'../../models/facades/Users/UsersFacade': UserMock});
+var JwtMock = require('./jwt.mock');
+var UsersController = proxyquire('../users.controller.js',
+    {'../../models/facades/Users/UsersFacade': UserMock,
+    'jsonwebtoken': JwtMock});
 var sinon = require('sinon');
+var q = require('q');
 
 describe('Users controller Tests', function () {
 
@@ -33,13 +37,13 @@ describe('Users controller Tests', function () {
                 telephone: '99999999',
                 birthday: new Date('10/09/1998'),
                 name: 'testeZao',
-                token: 'tokenTest'
+                facebookToken: 'tokenTest'
             }
         };
 
         var res = {send: sinon.spy()};
 
-        usersController.addOrUpdate(req, res).then(function (result) {
+        usersController.addOrUpdate(req, res).then(function () {
             expect(res.send.calledWith(200)).to.equal(true);
             done();
         }).catch(function (err) {
@@ -71,7 +75,7 @@ describe('Users controller Tests', function () {
 
         var res = {send: sinon.spy()};
 
-        usersController.addOrUpdate(req, res).then(function (result) {
+        usersController.addOrUpdate(req, res).then(null, function() {
             expect(res.send.calledWith(500)).to.equal(true);
             done();
         }).catch(function (err) {

@@ -25,7 +25,8 @@ describe('UsersFacade Tests', function () {
         };
         usersFacade.birthday = new Date('10/09/1998');
         usersFacade.name = 'testeZao';
-        usersFacade.token = 'tokenTest';
+        usersFacade.facebookToken = 'tokenTest';
+        usersFacade.token = 'hahaha';
 
         usersFacade.createOrUpdate().then(function(result) {
             expect(result.dataValues.name).to.equal('testeZao');
