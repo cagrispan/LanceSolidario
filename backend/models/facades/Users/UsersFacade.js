@@ -9,12 +9,13 @@ userEntity.hasMany(contactEntity);
 
 function UserFacade() {
     this.facebookId = null;
-    this.token = null;
+    this.facebookToken = null;
     this.name = null;
     this.birthday = null;
     this.email = null;
     this.address = null;
     this.telephone = null;
+    this.token = null;
 
     this.createOrUpdate = function () {
         var userFacade = this;
