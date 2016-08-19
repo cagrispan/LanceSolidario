@@ -13,28 +13,33 @@ var sequelize = new Sequelize(
 );
 
 module.exports = sequelize.define('user', {
-        id: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
-        },
-        facebookId: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            unique: true
-        },
-        token: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        birthday: {
-            type: Sequelize.DATE,
-            allowNull: false
-        }
-    });
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+    },
+    facebookId: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+    },
+    facebookToken: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+    },
+    token: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    birthday: {
+        type: Sequelize.DATE,
+        allowNull: false
+    }
+});
 
