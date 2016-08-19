@@ -43,7 +43,7 @@
                 return userResource.save(this);
             };
             this._update = function () {
-                return true;
+                return userResource.update(this);
             };
             this._remove = function () {
                 return true;

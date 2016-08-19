@@ -3,7 +3,7 @@
  */
 angular.module('utils')
     .service('webService', ['$http', '$q', '$log', function ($http, $q, $log) {
-        var baseUrl =globalConfig.backendBasePath;
+        var baseUrl = globalConfig.backendBasePath;
         //'http://localhost:7780';
         this.read = function (endpoint) {
 
@@ -30,7 +30,6 @@ angular.module('utils')
             };
 
             return request(req);
-
         };
 
 
@@ -74,7 +73,7 @@ angular.module('utils')
                     config: config
                 });
             }).error(function (data, status, headers, config) {
-                $log.error('Request to endpoint ' + endpoint + ' failed');
+                //$log.error('Request to endpoint ' + endpoint + ' failed');
                 d.reject({
                     data: data,
                     status: status,
