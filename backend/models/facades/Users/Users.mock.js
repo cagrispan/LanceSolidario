@@ -8,9 +8,10 @@ function UserMock() {
     this.address = null;
     this.birthday = null;
     this.name = null;
+    this.facebookToken = null;
     this.token = null;
     this.createOrUpdate = sinon.spy(function () {
-        if (this.facebookId && this.email && this.telephone && this.address && this.birthday && this.name && this.token) {
+        if (this.facebookId && this.email && this.telephone && this.address && this.birthday && this.name && this.facebookToken) {
             return q.when({dataValues: {id: 1}});
         } else {
             return q.reject();
