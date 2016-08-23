@@ -18,9 +18,6 @@
         }));
 
         describe('save a user object', function () {
-            beforeEach(function () {
-
-            });
 
             it('should get an object with facebookId', inject(function () {
                 httpBackend.expect("POST", globalConfig.backendBasePath + "/users/validFacebookId/auth").respond(200, {
