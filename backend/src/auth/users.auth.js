@@ -1,7 +1,7 @@
 'use strict';
-var User = require ('../models/entities/User');
+var User = require ('./entities/User');
 var jwt = require('jsonwebtoken');
-var config = require('../config/env.config');
+var config = require('./env.config');
 
 function UsersAuth() {
 

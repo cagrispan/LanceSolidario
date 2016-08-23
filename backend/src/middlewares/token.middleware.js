@@ -1,5 +1,5 @@
 'use strict';
-var config = require('../config/env.config');
+var config = require('../config/env.config.js');
 var jwt = require('jsonwebtoken');
 
 module.exports = function(req, res, next) {

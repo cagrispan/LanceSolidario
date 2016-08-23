@@ -6,8 +6,8 @@ server.use(restify.bodyParser({overrideParams: true}));
 server.use(restify.queryParser());
 server.use(restify.CORS());
 
-var config = require('./config/env.config.js');
-require('./config/routes.config.js')(server);
+var config = require('./src/config/env.config.js');
+require('./src/config/routes.config.js')(server);
 
 
 try{
