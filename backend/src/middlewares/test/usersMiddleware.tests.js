@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var UsersMiddleware = require('../users.middleware');
+var UsersMiddleware = require('../users.middleware.js');
 
 describe('Users middleware Tests', function () {
 

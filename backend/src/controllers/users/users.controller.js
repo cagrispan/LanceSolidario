@@ -1,6 +1,6 @@
 'use strict';
 var User = require('../../models/facades/Users/UsersFacade');
-var config = require('../../config/env.config');
+var config = require('../../config/env.config.js');
 var jwt = require('jsonwebtoken');
 var q = require('q');
 

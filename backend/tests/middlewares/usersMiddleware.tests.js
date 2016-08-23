@@ -1,25 +1,19 @@
 'use strict';
 
 var expect = require('chai').expect;
-var proxyquire = require("proxyquire");
-var UserMock = require('./../../../models/facades/Users/Users.mock.js');
-var JwtMock = require('./jwt.mock');
-var UsersController = proxyquire('../users.controller.js',
-    {'../../models/facades/Users/UsersFacade': UserMock,
-    'jsonwebtoken': JwtMock});
 var sinon = require('sinon');
-var q = require('q');
+var UsersMiddleware = require('../../src/middlewares/users.middleware');
 
-describe('Users controller Tests', function () {
+describe('Users middleware Tests', function () {
 
-    var usersController = new UsersController();
+    var usersMiddleware = new UsersMiddleware();
 
     it('should be a function', function(done) {
-        expect(typeof usersController.addOrUpdate).to.equal('function');
+        expect(typeof usersMiddleware.hasAllInformation).to.equal('function');
         done();
     });
 
-    it('should create or update an user on database', function (done) {
+    it('should call next()', function (done) {
         var req = {
             params: {
                 id: 'teste123456'
@@ -42,17 +36,15 @@ describe('Users controller Tests', function () {
         };
 
         var res = {send: sinon.spy()};
+        var next = sinon.spy();
 
-        usersController.addOrUpdate(req, res).then(function () {
-            expect(res.send.calledWith(200)).to.equal(true);
+        usersMiddleware.hasAllInformation(req, res, next);
+            expect(next.calledOnce).to.equal(true);
             done();
-        }).catch(function (err) {
-            console.log(err);
-        });
 
     });
 
-    it('should return 500 when to try insert or update an user', function (done) {
+    it('should return 404 missing information', function (done) {
         var req = {
             params: {
             },
@@ -69,18 +61,16 @@ describe('Users controller Tests', function () {
                 telephone: '99999999',
                 birthday: new Date('10/09/1998'),
                 name: 'testeZao',
-                token: 'tokenTest'
+                facebookToken: 'tokenTest'
             }
         };
 
         var res = {send: sinon.spy()};
+        var next = sinon.spy();
 
-        usersController.addOrUpdate(req, res).then(null, function() {
-            expect(res.send.calledWith(500)).to.equal(true);
+        usersMiddleware.hasAllInformation(req, res, next);
+            expect(res.send.calledWith(404, {message: "parameters missing."})).to.equal(true);
             done();
-        }).catch(function (err) {
-            console.log(err);
-        });
 
     });
 });

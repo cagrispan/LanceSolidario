@@ -1,7 +1,7 @@
 'use strict';
 
 var Sequelize = require('sequelize');
-var config = require('../../config/env.config');
+var config = require('../../config/env.config.js');
 var sequelize = new Sequelize(
     config.db.name,
     config.db.user,
