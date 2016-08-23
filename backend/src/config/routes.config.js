@@ -1,13 +1,9 @@
-var UsersController = require('./users/users.controller.js');
-var UsersMiddleware = require('./users.middleware.js');
-var UsersAuth = require('../auth/users.auth.js');
-var TokenMiddleware = require('./token.middleware');
-var PaymentsController = require('./payments/payments-controller');
+var UsersController = require('./../controllers/users/users.controller');
+var UsersMiddleware = require('./../middlewares/users.middleware');
+var TokenMiddleware = require('./../middlewares/token.middleware');
 
 var usersController = new UsersController();
 var usersMiddleware = new UsersMiddleware();
-var usersAuth = new UsersAuth();
-var paymentsController = new PaymentsController();
 
 module.exports = function (server) {
 
@@ -19,9 +15,5 @@ module.exports = function (server) {
     server.get('/users/:id', usersController.getSpecific);
     server.put('/users/:id', [usersMiddleware.hasAllInformation, usersController.addOrUpdate]);
     server.del('/users/:id', usersController.remove);
-
-    server.post('/authenticate', usersAuth.authenticate);
-
-    server.post('/payments', paymentsController.add);
 
 };
