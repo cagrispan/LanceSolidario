@@ -23,7 +23,7 @@
             if (user.facebookId === 'validFacebookId' && user.token === 'validToken') {
                 d.resolve(userToSend);
             } else {
-                d.reject("The request fail :" + resolve.headers);
+                d.reject("The request fail :" + {'Content-Type':'application/json'});
             }
             return d.promise;
         };
@@ -36,7 +36,7 @@
             if (user.facebookId === 'validFacebookId' && user.token === 'validToken' && user.address.addressLine==='validAddressLine') {
                 d.resolve(userToSend);
             } else {
-                d.reject("The request fail :" + resolve.headers);
+                d.reject("The request fail :"+ {'Content-Type':'application/json'});
             }
             return d.promise;
         };

@@ -43,7 +43,7 @@
         });
 
         describe('update', function () {
-            it('should test update method', function () {
+            it('should get a resolved promise with a user send', function () {
                 var user = new User();
                 user.facebookId = 'validFacebookId';
                 user.token = 'validToken';
@@ -51,6 +51,18 @@
                 promise.then(function(resolve){
                     expect(resolve.user.name).toBe('userTestName');
                 });
+            });
+
+            it('should get a reject promise when send a empty user object', function () {
+                var user = new User();
+                var promise  = user._save();
+
+                promise.then(function(resolve){
+                    expect(true).toBe(false);
+                },function(resolve){
+                    expect(resolve).toBe(true);
+                })
+
             });
         });
 
