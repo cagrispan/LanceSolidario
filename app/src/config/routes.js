@@ -3,13 +3,18 @@
  */
 angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+        //noinspection JSUnresolvedFunction
         $routeProvider
             .when('/login', {
-                templateUrl: 'view/login.html'
+                templateUrl: 'src/view/login.html'
             })
             .when('/home', {
-                templateUrl: 'view/home.html',
+                templateUrl: 'src/view/home.html',
                 controller: 'HomeCtrl',
+                controllerAs: 'home'
+            }).when('/user', {
+                templateUrl: 'src/view/editUser.html',
+                controller: 'UserUpdate',
                 controllerAs: 'home'
             })
             .otherwise({redirectTo: '/login'});
