@@ -7,5 +7,6 @@ angular.module('lanceSolidario', [
     'ngRoute',
     'utils',
     'lanceSolidario.version',
-    'lanceSolidario.user'
+    'lanceSolidario.user',
+    'lanceSolidario.product'
 ]);
