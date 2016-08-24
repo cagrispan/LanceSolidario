@@ -68,7 +68,6 @@ describe('UsersFacade Tests', function () {
         usersFacade.facebookToken = 'tokenTestLogin';
 
         usersFacade.facebookLogin().then(function (result) {
-            console.log(result);
             expect(result.dataValues.facebookToken).to.equal('tokenTestLogin');
             done();
         });
