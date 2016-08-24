@@ -1,15 +1,16 @@
-
 (function () {
     'use strict';
 
     describe('User entity', function () {
         var User;
         var userResource;
+        var $q;
 
-        beforeEach(module('lanceSolidario.user.user','lanceSolidario.user.userResourceMock'));
-        beforeEach(inject(function (_userResource_,_User_) {
+        beforeEach(module('lanceSolidario.user.user', 'lanceSolidario.user.userResourceMock'));
+        beforeEach(inject(function (_userResource_, _User_, _$q_) {
             User = _User_;
             userResource = _userResource_;
+            $q = _$q_;
         }));
 
         describe('new', function () {
@@ -20,11 +21,14 @@
         });
 
         describe('add', function () {
-            it('should add a user', function () {
+            it('should call add method of resource with a user like parameter', function () {
                 var user = new User();
                 user.facebookId = 'ThisIdExists';
-                var x  = user._add();
-                expect(x).toBe(22);
+                var fakePromise = $q.when();
+                spyOn(userResource, 'add').and.returnValue(fakePromise);
+
+                var x = user._add();
+                expect(userResource.add).toHaveBeenCalledWith(user);
             });
         });
 
@@ -38,38 +42,26 @@
         describe('remove', function () {
             it('should test remove method', function () {
                 var user = new User();
-                expect(user._remove()).toBe(false);
+                expect(user._remove()).toBe(true);
             });
         });
 
         describe('update', function () {
-            it('should get a resolved promise with a user send', function () {
+
+            it('should call update method of resource with a user like parameter', function () {
                 var user = new User();
-                user.facebookId = 'validFacebookId';
-                user.token = 'validToken';
-                var promise  = user._save();
-                promise.then(function(resolve){
-                    expect(resolve.user.name).toBe('userTestName');
-                });
-            });
-
-            it('should get a reject promise when send a empty user object', function () {
-                var user = new User();
-                var promise  = user._save();
-
-                promise.then(function(resolve){
-                    expect(true).toBe(false);
-                },function(resolve){
-                    expect(resolve).toBe(true);
-                })
-
+                user.facebookId = 'ThisIdExists';
+                var fakePromise = $q.when();
+                spyOn(userResource, 'update').and.returnValue(fakePromise);
+                var x = user._update();
+                expect(userResource.update).toHaveBeenCalledWith(user);
             });
         });
 
         describe('load', function () {
             it('should test load method', function () {
                 var user = new User();
-                expect(user._load()).toBe(false);
+                expect(user._load()).toBe(true);
             });
         });
 
