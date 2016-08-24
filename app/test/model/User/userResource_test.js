@@ -20,7 +20,7 @@
         describe('save a user object', function () {
 
             it('should get an object with facebookId', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/users/validFacebookId/auth").respond(200, {
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/auth/validFacebookId').respond(200, {
                     name: 'userTestName',
                     facebookId: 'validId'
                 });
@@ -36,8 +36,8 @@
             }));
 
             it('should get an fail request, request without token/facebookId', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/users/invalidId/auth").respond(404, {
-                    "message": "parameters missing."
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/auth/invalidId').respond(404, {
+                    'message': 'parameters missing.'
                 });
                 promise = userResource.save({'facebookId': 'invalidId'});
                 httpBackend.flush();
@@ -54,7 +54,7 @@
         describe('update a user object', function () {
 
             it('should get an object with facebookId', inject(function () {
-                httpBackend.expect("PUT", globalConfig.backendBasePath + "/users/validFacebookId").respond(200, {
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/validFacebookId').respond(200, {
                     name: 'userTestName',
                     facebookId: 'validId'
                 });
@@ -70,10 +70,10 @@
             }));
 
             it('should get an fail request, request without token/facebookId', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/users/invalidId/auth").respond(404, {
-                    "message": "parameters missing."
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/invalidId').respond(404, {
+                    'message': 'parameters missing.'
                 });
-                promise = userResource.save({'facebookId': 'invalidId'});
+                promise = userResource.update({'facebookId': 'invalidId'});
                 httpBackend.flush();
 
                 promise.then(function (resolve) {

@@ -9,7 +9,7 @@
         self.save = function(user){
             var d = $q.defer();
             //user map
-            var endpoint = '/users/'+user.facebookId+'/auth';
+            var endpoint = '/auth/'+user.facebookId;
 
             webService.add(endpoint,user).then(
                 function(resolve){
@@ -32,7 +32,7 @@
 
                     return d.resolve(resolve.data);
                 }, function(resolve){
-                    return d.reject("The request fail :"+resolve.headers);
+                    return d.reject(resolve.data);
                 }
             );
             return d.promise;
