@@ -7,9 +7,11 @@ angular.module('lanceSolidario')
     if(!auth.user){
         $location.path('/login');
     }else {
-        var userToSave = angular.copy(auth.user);
-
-        userToSave._save().then(function(resolve){
+        var userToSave = auth.user;
+        userToSave._getToken().then(function(resolve){
+            userToSave.token = resolve.token;
+            self.user = userToSave;
+            self.accessToken = userToSave.token;
         },function(){
             $location.path('/login');
         });

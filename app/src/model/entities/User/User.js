@@ -11,8 +11,8 @@
         function User() {
 
             //identification
-            this.id = null;
             this.facebookId = null;
+            this.facebookToken = null;
             this.token = null;
 
             //personal info
@@ -35,19 +35,21 @@
             this.purchases = null;
             this.bids = null;
 
+
             //Method
-            this._add = function () {
-                return userResource.add(this);
+            //If not exist, create a new user
+            this._getToken = function () {
+                return userResource.getToken(this);
             };
-            this._save = function () {
-                return userResource.save(this);
-            };
+
             this._update = function () {
                 return userResource.update(this);
             };
+
             this._remove = function () {
                 return true;
             };
+
             this._load = function () {
                 return true;
             };

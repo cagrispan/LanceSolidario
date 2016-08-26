@@ -6,7 +6,7 @@
     angular.module('lanceSolidario.user.userResource',['utils']).service('userResource', ['webService','$q', function (webService,$q) {
         var self = this;
 
-        self.save = function(user){
+        self.getToken = function(user){
             var d = $q.defer();
             //user map
             var endpoint = '/auth/'+user.facebookId;
