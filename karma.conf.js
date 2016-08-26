@@ -8,8 +8,7 @@ module.exports = function (config) {
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-mocks/angular-mocks.js',
-            'src/services/utils.js',
-            'src/services/auth.js',
+            'app/src/services/facebookAPI.js',
             'src/services/webservice.js',
             'components/**/*.js',
             'src/app.js',
@@ -23,6 +22,8 @@ module.exports = function (config) {
              ],
 
         autoWatch: true,
+
+        singleRun: false,
 
         frameworks: ['jasmine'],
 

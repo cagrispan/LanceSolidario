@@ -2,7 +2,7 @@
  * Created by Carlos on 23/07/2016.
  */
 angular.module('utils')
-    .service('auth', ['webService', '$rootScope', '$location', 'User', function (webService, $rootScope, $location, User) {
+    .service('auth', ['$rootScope', '$location', 'User', function ($rootScope, $location, User) {
 
         var self = this;
 
@@ -11,8 +11,8 @@ angular.module('utils')
             FB.Event.subscribe('auth.authResponseChange', function (res) {
 
                 if (res.status === 'connected') {
-                    self.accessToken = res.authResponse.accessToken;
-                    self.getUserInfo();
+                    //self.accessToken = res.authResponse.accessToken;
+                    self.getUserInfo(res.authResponse.accessToken);
                     console.log('DEBUG: Auth response: ' + res.authResponse);
                 }
                 else {
@@ -21,7 +21,7 @@ angular.module('utils')
             });
         };
 
-        this.getUserInfo = function () {
+        this.getUserInfo = function (facebookToken) {
 
             FB.api('/me', function (response) {
                 $rootScope.$apply(function () {
@@ -30,11 +30,16 @@ angular.module('utils')
 
                     user.name = response.name;
                     user.facebookId = response.id;
-                    user.token = self.accessToken;
+                    user.facebookToken = facebookToken;
 
                     self.user = user;
                     console.log('DEBUG: Facebook User:' + self.user);
 
+                    user._getToken().then(function(){
+                        $location.path('/home');
+                    },function(){
+                        $location.path('/login');
+                    });
                     $location.path('/home');
 
                 });
