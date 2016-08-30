@@ -6,14 +6,14 @@ angular.module('lanceSolidario')
         //noinspection JSUnresolvedFunction
         $routeProvider
             .when('/login', {
-                templateUrl: 'src/view/login.html'
+                templateUrl: 'views/login.html'
             })
             .when('/home', {
-                templateUrl: 'src/view/home.html',
+                templateUrl: 'views/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/user', {
-                templateUrl: 'src/view/editUser.html',
+                templateUrl: 'views/editUser.html',
                 controller: 'UserUpdate',
                 controllerAs: 'home'
             })

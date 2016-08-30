@@ -19,7 +19,7 @@ angular.module('lanceSolidario')
                     version: 'v2.7'
                 });
 
-                auth.watchLoginChange();
+                facebookAPI.watchLoginChange();
 
             };
 
