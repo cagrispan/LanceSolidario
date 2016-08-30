@@ -4,6 +4,7 @@ node_js:
 
 before_script:
   - npm install grunt-cli -g
+  - npm install
 
 script:
   - grunt commit
