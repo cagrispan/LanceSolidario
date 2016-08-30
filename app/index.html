@@ -1,62 +1,81 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="lanceSolidario" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="lanceSolidario" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="lanceSolidario" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="lanceSolidario" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <title>Lance Solidário</title>
-
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="style/assets/app.css">
-
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body>
-  <!--[if lt IE 7]>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(./) styles/vendor.css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/app.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="lanceSolidario">
+    <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+    <![endif]-->
 
-  <div ng-view></div>
+    <!-- Add your site or application content here -->
+    <!-- CONTENT -->
+    <div ng-view class="container-fluid"></div>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
 
-  <!-- Core -->
-  <script src="src/app.js"></script>
-  <script src="src/config/routes.js"></script>
-  <script src="src/config/run.js"></script>
-  <script src="src/config/modules.js"></script>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  <!-- Controllers -->
-  <script src="src/controller/home.js"></script>
-  <script src="src/controller/userUpdateController.js"></script>
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
 
-  <!-- Services -->
-  <script src="src/services/webservice.js"></script>
-  <script src="src/services/facebookAPI.js"></script>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
-  <!-- Components -->
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- Core -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/config/routes.js"></script>
+    <script src="scripts/config/run.js"></script>
+    <script src="scripts/config/modules.js"></script>
 
-  <!-- Modules -->
+    <!-- controllers -->
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/controllers/userUpdateController.js"></script>
+
+    <!-- Services -->
+    <script src="scripts/services/webservice.js"></script>
+    <script src="scripts/services/facebookAPI.js"></script>
+
+    <!-- Modules -->
     <!-- User -->
-  <script src="src/model/entities/User/userResource.js"></script>
-  <script src="src/model/entities/User/User.js"></script>
+    <script src="scripts/models/entities/User/userResource.js"></script>
+    <script src="scripts/models/entities/User/User.js"></script>
     <!-- Product -->
-  <script src="src/model/entities/Products/productResource.js"></script>
-  <script src="src/model/entities/Products/Product.js"></script>
-
+    <script src="scripts/models/entities/Products/productResource.js"></script>
+    <script src="scripts/models/entities/Products/Product.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

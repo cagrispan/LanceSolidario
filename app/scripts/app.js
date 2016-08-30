@@ -6,7 +6,6 @@ var globalConfig = {"backendBasePath":"http://10.41.1.57:7780"};
 angular.module('lanceSolidario', [
     'ngRoute',
     'utils',
-    'lanceSolidario.version',
     'lanceSolidario.user',
     'lanceSolidario.product'
 ]);
