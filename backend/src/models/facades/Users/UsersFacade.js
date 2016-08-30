@@ -20,24 +20,30 @@ function UserFacade() {
     this.telephone = null;
     this.token = null;
 
-    this.facebookLogin = function() {
+    this.get = function () {
         var userFacade = this;
 
-        if(!userFacade.address) {
+        return userEntity.findOne({where: {facebookId: userFacade.facebookId}});
+    };
+
+    this.facebookLogin = function () {
+        var userFacade = this;
+
+        if (!userFacade.address) {
             userFacade.address = {};
         }
         return userEntity.findOne({where: {facebookId: userFacade.facebookId}})
-            .then(function(resolution) {
-                if(resolution) {
+            .then(function (resolution) {
+                if (resolution) {
                     userFacade.token = resolution.dataValues.token;
                     userFacade.name = resolution.dataValues.name;
                     userFacade.birthday = resolution.dataValues.birthday;
                     return userEntity.update(userFacade, {where: {facebookId: userFacade.facebookId}})
-                        .then(function(){
+                        .then(function () {
                             return userEntity.findOne({where: {facebookId: userFacade.facebookId}});
                         });
                 } else {
-                    var token = jwt.sign({id: userFacade.facebookId}, 'banana', { algorithm: 'HS256'});
+                    var token = jwt.sign({id: userFacade.facebookId}, 'banana', {algorithm: 'HS256'});
                     userFacade.token = token;
                     return userFacade.createOrUpdate();
                 }
@@ -52,23 +58,14 @@ function UserFacade() {
             .spread(function (resolution) {
                 userToUpdate = resolution;
             }).then(function () {
-                return userToUpdate.getAddresses({
-                    where: {
-                        street: userFacade.address.street,
-                        number: userFacade.address.number,
-                        complement: userFacade.address.complement,
-                        neighborhood: userFacade.address.neighborhood,
-                        city: userFacade.address.city,
-                        state: userFacade.address.state
-                    }
-                });
+                return userToUpdate.getAddresses();
             })
             .then(function (existedAddress) {
                 if (existedAddress.length > 0) {
-                    return userToUpdate.addAddress(existedAddress[0].dataValues.id);
-                } else {
-                    return userToUpdate.createAddress(userFacade.address)
+                    addressEntity.destroy({where:{id: existedAddress[0].dataValues.id}, truncate: true});
+                    userToUpdate.removeAddress(existedAddress[0]);
                 }
+                return userToUpdate.createAddress(userFacade.address);
             })
             .then(function () {
                 return userToUpdate.getContacts({
@@ -80,10 +77,10 @@ function UserFacade() {
             })
             .then(function (existedContact) {
                 if (existedContact.length > 0) {
-                    return userToUpdate.addContact(existedContact[0].dataValues.id);
-                } else {
-                    return userToUpdate.createContact({email: userFacade.email, telephone: userFacade.telephone});
+                    contactEntity.destroy({where:{id: existedContact[0].dataValues.id}, truncate: true});
+                    userToUpdate.removeContact(existedContact[0]);
                 }
+                return userToUpdate.createContact({telephone: userFacade.telephone, email: userFacade.email});
             }).then(function () {
                 return userToUpdate.update(userFacade, {where: {facebookId: userFacade.facebookId}});
             }).catch(function (err) {
