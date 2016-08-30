@@ -2,8 +2,8 @@
  * Created by Carlos on 23/07/2016.
  */
 angular.module('lanceSolidario')
-    .run(['$rootScope', '$window', 'auth',
-        function ($rootScope, $window, auth) {
+    .run(['$rootScope', '$window', 'facebookAPI',
+        function ($rootScope, $window, facebookAPI) {
 
             $rootScope.user = {};
 
