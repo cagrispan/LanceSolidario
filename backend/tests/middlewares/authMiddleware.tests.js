@@ -2,14 +2,18 @@
 
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var UsersMiddleware = require('../users.middleware.js');
+var proxyquire = require("proxyquire");
 
-describe('Users middleware Tests', function () {
+var JwtMock = require('./../controllers/jwt.mock.js');
+var AuthMiddleware = proxyquire('../../src/middlewares/auth.middleware.js',
+    {'jsonwebtoken': JwtMock});
 
-    var usersMiddleware = new UsersMiddleware();
+describe('Auth middleware Tests', function () {
 
-    it('should be a function', function(done) {
-        expect(typeof usersMiddleware.hasAllInformation).to.equal('function');
+    var authMiddleware = new AuthMiddleware();
+
+    it('should be a function', function (done) {
+        expect(typeof authMiddleware.isLogged).to.equal('function');
         done();
     });
 
@@ -31,22 +35,25 @@ describe('Users middleware Tests', function () {
                 telephone: '99999999',
                 birthday: new Date('10/09/1998'),
                 name: 'testeZao',
-                facebookToken: 'tokenTest'
+                facebookToken: 'facebookTokenTest',
+                token: 'tokenTest',
+                facebookId: 'teste123456'
             }
         };
 
         var res = {send: sinon.spy()};
         var next = sinon.spy();
 
-        usersMiddleware.hasAllInformation(req, res, next);
-            expect(next.calledOnce).to.equal(true);
-            done();
+        authMiddleware.isLogged(req, res, next);
+        expect(next.calledOnce).to.equal(true);
+        done();
 
     });
 
-    it('should return 404 missing information', function (done) {
+    it('should return 401', function (done) {
         var req = {
             params: {
+                id: 'testefail'
             },
             body: {
                 email: 'teste@teste',
@@ -61,16 +68,17 @@ describe('Users middleware Tests', function () {
                 telephone: '99999999',
                 birthday: new Date('10/09/1998'),
                 name: 'testeZao',
-                facebookToken: 'tokenTest'
+                facebookToken: 'facebookTokenTest',
+                token: 'tokenTest'
             }
         };
 
         var res = {send: sinon.spy()};
         var next = sinon.spy();
 
-        usersMiddleware.hasAllInformation(req, res, next);
-            expect(res.send.calledWith(404, {message: "parameters missing."})).to.equal(true);
-            done();
+        authMiddleware.isLogged(req, res, next);
+        expect(res.send.calledWith(401)).to.equal(true);
+        done();
 
     });
 });

@@ -3,6 +3,9 @@
 var userEntity = require('../../entities/User');
 var addressEntity = require('../../entities/Address');
 var contactEntity = require('../../entities/Contact');
+var clone = require('clone');
+var jwt = require('jsonwebtoken');
+var q = require('q');
 
 userEntity.hasMany(addressEntity);
 userEntity.hasMany(contactEntity);
@@ -17,37 +20,55 @@ function UserFacade() {
     this.telephone = null;
     this.token = null;
 
+    this.get = function () {
+        var userFacade = this;
+
+        return userEntity.findOne({where: {facebookId: userFacade.facebookId}});
+    };
+
+    this.facebookLogin = function () {
+        var userFacade = this;
+
+        if (!userFacade.address) {
+            userFacade.address = {};
+        }
+        return userEntity.findOne({where: {facebookId: userFacade.facebookId}})
+            .then(function (resolution) {
+                if (resolution) {
+                    userFacade.token = resolution.dataValues.token;
+                    userFacade.name = resolution.dataValues.name;
+                    userFacade.birthday = resolution.dataValues.birthday;
+                    return userEntity.update(userFacade, {where: {facebookId: userFacade.facebookId}})
+                        .then(function () {
+                            return userEntity.findOne({where: {facebookId: userFacade.facebookId}});
+                        });
+                } else {
+                    var token = jwt.sign({id: userFacade.facebookId}, 'banana', {algorithm: 'HS256'});
+                    userFacade.token = token;
+                    return userFacade.createOrUpdate();
+                }
+            });
+    };
+
     this.createOrUpdate = function () {
         var userFacade = this;
-        var obj = null;
+        var userToUpdate;
 
         return userEntity.findOrCreate({where: {facebookId: userFacade.facebookId}, defaults: userFacade})
-            .spread(function (resolution, created) {
-                userEntity = resolution;
-                if (created) {
-                    obj = created;
-                }
+            .spread(function (resolution) {
+                userToUpdate = resolution;
             }).then(function () {
-                return userEntity.getAddresses({
-                    where: {
-                        street: userFacade.address.street,
-                        number: userFacade.address.number,
-                        complement: userFacade.address.complement,
-                        neighborhood: userFacade.address.neighborhood,
-                        city: userFacade.address.city,
-                        state: userFacade.address.state
-                    }
-                });
+                return userToUpdate.getAddresses();
             })
             .then(function (existedAddress) {
                 if (existedAddress.length > 0) {
-                    return userEntity.addAddress(existedAddress[0].dataValues.id);
-                } else {
-                    return userEntity.createAddress(userFacade.address)
+                    addressEntity.destroy({where:{id: existedAddress[0].dataValues.id}, truncate: true});
+                    userToUpdate.removeAddress(existedAddress[0]);
                 }
+                return userToUpdate.createAddress(userFacade.address);
             })
             .then(function () {
-                return userEntity.getContacts({
+                return userToUpdate.getContacts({
                     where: {
                         email: userFacade.email,
                         telephone: userFacade.telephone
@@ -56,12 +77,12 @@ function UserFacade() {
             })
             .then(function (existedContact) {
                 if (existedContact.length > 0) {
-                    return userEntity.addContact(existedContact[0].dataValues.id);
-                } else {
-                    return userEntity.createContact({email: userFacade.email, telephone: userFacade.telephone});
+                    contactEntity.destroy({where:{id: existedContact[0].dataValues.id}, truncate: true});
+                    userToUpdate.removeContact(existedContact[0]);
                 }
+                return userToUpdate.createContact({telephone: userFacade.telephone, email: userFacade.email});
             }).then(function () {
-                return userEntity.update(userFacade, {where: {facebookId: userFacade.facebookId}});
+                return userToUpdate.update(userFacade, {where: {facebookId: userFacade.facebookId}});
             }).catch(function (err) {
                 console.log(err);
             });

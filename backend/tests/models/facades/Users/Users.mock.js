@@ -17,6 +17,10 @@ function UserMock() {
             return q.reject();
         }
     });
+
+    this.facebookLogin = sinon.spy(function () {
+        return q.when({dataValues: {token: 1}});
+    });
 }
 
 module.exports = UserMock;
