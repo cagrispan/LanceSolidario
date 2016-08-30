@@ -27,6 +27,11 @@
 
             //history
             this.auctions = null;
+
+            //methods
+            this._add = function(){
+                return productResource.add(this);
+            }
         }
 
         return Product

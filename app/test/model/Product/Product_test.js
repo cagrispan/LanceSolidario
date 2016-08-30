@@ -20,6 +20,18 @@
             }));
         });
 
+        describe('add', function () {
+            it('should call add method of resource with a product like parameter', function () {
+                var product = new Product();
+                product.title = 'ThisIsATitle';
+                var fakePromise = $q.when();
+                spyOn(productResource, 'add').and.returnValue(fakePromise);
+
+                var x = product._add();
+                expect(productResource.add).toHaveBeenCalledWith(product);
+            });
+        });
+
         /*
         describe('add', function () {
             it('should call add method of resource with a product like parameter', function () {
