@@ -24,7 +24,7 @@
                     name: 'userTestName',
                     facebookId: 'validId'
                 });
-                promise = userResource.save({'facebookId': 'validFacebookId', 'token': 'validToken'});
+                promise = userResource.getToken({'facebookId': 'validFacebookId', 'token': 'validToken'});
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
@@ -39,7 +39,7 @@
                 httpBackend.expect('POST', globalConfig.backendBasePath + '/auth/invalidId').respond(404, {
                     'message': 'parameters missing.'
                 });
-                promise = userResource.save({'facebookId': 'invalidId'});
+                promise = userResource.getToken({'facebookId': 'invalidId'});
                 httpBackend.flush();
 
                 promise.then(function (resolve) {

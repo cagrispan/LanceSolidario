@@ -15,7 +15,7 @@
             }
         };
 
-        self.save = function (user) {
+        self.getToken = function (user) {
             var d = $q.defer();
             //user map
             var userToSend = {name:'userTestName'};
