@@ -20,15 +20,15 @@
             }));
         });
 
-        describe('add', function () {
+        describe('_getToken', function () {
             it('should call add method of resource with a user like parameter', function () {
                 var user = new User();
                 user.facebookId = 'ThisIdExists';
                 var fakePromise = $q.when();
-                spyOn(userResource, 'add').and.returnValue(fakePromise);
+                spyOn(userResource, 'getToken').and.returnValue(fakePromise);
 
-                var x = user._add();
-                expect(userResource.add).toHaveBeenCalledWith(user);
+                var x = user._getToken();
+                expect(userResource.getToken).toHaveBeenCalledWith(user);
             });
         });
 
