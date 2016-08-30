@@ -3,3 +3,5 @@
 /.tmp
 /bower_components
 .idea
+app/bower_components
+app/node_modules
