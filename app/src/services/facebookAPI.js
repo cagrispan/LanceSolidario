@@ -2,13 +2,13 @@
  * Created by Carlos on 23/07/2016.
  */
 angular.module('utils')
-    .service('auth', ['$rootScope', '$location', 'User', function ($rootScope, $location, User) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User', function ($rootScope, $location, User) {
 
         var self = this;
 
         this.watchLoginChange = function () {
 
-            FB.Event.subscribe('auth.authResponseChange', function (res) {
+            FB.Event.subscribe('facebookAPI.authResponseChange', function (res) {
 
                 if (res.status === 'connected') {
                     //self.accessToken = res.authResponse.accessToken;
