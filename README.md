@@ -10,3 +10,7 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+## For Commit Purpose
+
+Running `grunt commit` will run jscs, jshint and unit tests with karma.
