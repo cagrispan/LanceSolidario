@@ -5,6 +5,21 @@
     'use strict';
     angular.module('lanceSolidario.product.productResource',['utils']).service('productResource', ['webService','$q', function (webService,$q) {
         var self = this;
+
+        self.add = function(product){
+            var d = $q.defer();
+            //user map
+            var endpoint = '/products';
+
+            webService.add(endpoint,product).then(
+                function(resolve){
+                    return d.resolve(resolve.data);
+                }, function(resolve){
+                    return d.reject(resolve.data);
+                }
+            );
+            return d.promise;
+        };
         /*
         self.save = function(user){
             var d = $q.defer();
