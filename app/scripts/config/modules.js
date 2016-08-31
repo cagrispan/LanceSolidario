@@ -11,4 +11,9 @@ angular.module('lanceSolidario.product', [
     'lanceSolidario.product.product'
 ]);
 
+angular.module('lanceSolidario.auction', [
+  'lanceSolidario.auction.auctionResource',
+  'lanceSolidario.auction.auction'
+]);
+
 angular.module('utils',['lanceSolidario']);
