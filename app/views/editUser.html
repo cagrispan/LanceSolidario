@@ -1,24 +1,14 @@
-I can add: {{1}} + {{2}} = {{ 1+2 }}
-<div ng-controller="UserUpdate">
+<div ng-include="'views/components/common/header.html'"></div>
+<div class="content container">
 
-    Name:<input type="text" ng-model="home.user.name"><br/>
-    Aniversario:<input type="date" ng-model="home.user.birthday"><br/>
-    facebookToken:<input type="text" ng-model="home.user.facebookToken"><br/>
-    Email:<input type="text" ng-model="home.user.email"><br/>
-    Id:<input type="text" ng-model="home.user.id"><br/>
-    <b>Addres:</b><br/>
-    Number<input type="text" ng-model="home.user.address.number"><br/>
-    Zip Code:<input type="text" ng-model="home.user.address.zip"><br/>
-    Complement:<input type="text" ng-model="home.user.address.complement"><br/>
-    Street:<input type="text" ng-model="home.user.address.street"><br/>
-    City:<input type="text" ng-model="home.user.address.city"><br/>
-    Neighborhood:<input type="text" ng-model="home.user.address.neighborhood"><br/>
-    State:<input type="text" ng-model="home.user.address.state"><br/><br/>
-    Phone:<input type="text" ng-model="home.user.telephone"><br/>
+    <div class="col-sm-4 col-md-4 col-lg-2">
+        <div ng-include="'views/components/user/profile_actions.html'"></div>
+    </div>
 
-
-    <input type="button" label="Salvar" ng-click="home.update(user)"></input><br/>
-
+    <div class="col-sm-8 col-md-8 col-lg-10">
+        <div ng-include="'views/components/user/edit.html'"></div>
+    </div>
 
 
 </div>
+<div ng-include="'views/components/common/footer.html'"></div>
