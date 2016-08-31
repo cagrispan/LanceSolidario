@@ -1,6 +1,4 @@
-/**
- * Created by Carlos on 23/07/2016.
- */
+'use strict';
 angular.module('utils')
     .service('facebookAPI', ['$rootScope', '$location', 'User', function ($rootScope, $location, User) {
 
@@ -55,6 +53,6 @@ angular.module('utils')
                 });
             });
 
-        }
+        };
 
     }]);

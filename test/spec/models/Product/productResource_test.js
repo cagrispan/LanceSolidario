@@ -1,6 +1,8 @@
 /**
  * Created by Aliss on 11/08/2016.
  */
+  //TODO:Define global variables config
+var globalConfig = {'backendBasePath':'http://10.41.1.57:7780'};
 (function () {
     'use strict';
 
