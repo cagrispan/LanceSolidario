@@ -3,7 +3,25 @@
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
 
-## Build & development
+## Getting Started
+
+### Prerequisites
+
+This project needs Node.js (v6.5.0) and it's package manager npm installed. You can get it at [Node.js](https://nodejs.org/en/).
+
+Also you need to install bower and grunt command line interface. Run:
+
+```
+npm install -g grunt-cli bower
+```
+
+Then, install all dependencies with:
+
+```
+npm install
+```
+
+## Build & Development
 
 Run `grunt` for building and `grunt serve` for preview.
 
@@ -15,7 +33,7 @@ Running `grunt test` will run the unit tests with karma.
 
 Running `grunt commit` will run jscs, jshint and unit tests with karma.
 
-### Commit pattern
+### Commit Pattern
 
 This describes the kind of change that this commit is providing.
 
