@@ -1,8 +1,8 @@
-/**
- * Created by Carlos on 23/07/2016.
- */
+'use strict';
 angular.module('utils')
-    .service('webService', ['$http', '$q', '$log', function ($http, $q, $log) {
+    .service('webService', ['$http', '$q',  function ($http, $q) {
+        //TODO:Define global variables config
+        var globalConfig = {'backendBasePath':'http://10.41.1.57:7780'};
         var baseUrl = globalConfig.backendBasePath;
         //'http://localhost:7780';
         this.read = function (endpoint) {

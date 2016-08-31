@@ -1,6 +1,4 @@
-/**
- * Created by Carlos on 23/07/2016.
- */
+'use strict';
 angular.module('lanceSolidario')
     .run(['$rootScope', '$window', 'facebookAPI',
         function ($rootScope, $window, facebookAPI) {
@@ -36,7 +34,7 @@ angular.module('lanceSolidario')
                 js = d.createElement('script');
                 js.id = id;
                 js.async = true;
-                js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.7&appId=145525159212250";
+                js.src = '//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.7&appId=145525159212250';
 
                 ref.parentNode.insertBefore(js, ref);
 
