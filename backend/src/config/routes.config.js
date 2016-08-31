@@ -3,11 +3,15 @@ var UsersMiddleware = require('./../middlewares/users.middleware');
 var TokenMiddleware = require('./../middlewares/token.middleware');
 var AuthController = require('./../controllers/auth/auth.controller');
 var AuthMiddleware = require('./../middlewares/auth.middleware');
+var ProductController = require('./../controllers/product/product.controller');
+var ProductMiddleware = require('./../middlewares/product.middleware');
 
 var usersController = new UsersController();
 var usersMiddleware = new UsersMiddleware();
 var authController = new AuthController();
 var authMiddleware = new AuthMiddleware();
+var productController = new ProductController();
+var productMiddleware = new ProductMiddleware();
 
 module.exports = function (server) {
 
@@ -20,11 +24,10 @@ module.exports = function (server) {
         res.send(200);
     });
 
-    server.get('/users', [TokenMiddleware, usersController.get]);
-    server.get('/users/:id', usersController.getSpecific);
     server.put('/users/:id', [authMiddleware.isLogged, usersMiddleware.hasAllInformation, usersController.addOrUpdate]);
-    server.del('/users/:id', usersController.remove);
 
     server.post('/auth/:facebookId', authController.login);
+
+    server.post('/products', [productMiddleware.hasAllInformation,  productController.create]);
 
 };
