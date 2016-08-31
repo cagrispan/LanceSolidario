@@ -1,13 +1,13 @@
 'use strict';
 angular.module('lanceSolidario')
-.controller('HomeCtrl',  ['facebookAPI', '$location','User', function(facebookAPI, $location, User) {
+.controller('HomeCtrl',  ['facebookAPI', '$location', function(facebookAPI, $location) {
 
     var self = this;
 
-    if(!auth.user){
+    if(!facebookAPI.user){
         $location.path('/login');
     }else {
-        var userToSave = auth.user;
+        var userToSave = facebookAPI.user;
         userToSave._getToken().then(function(resolve){
             userToSave.token = resolve.token;
             self.user = userToSave;

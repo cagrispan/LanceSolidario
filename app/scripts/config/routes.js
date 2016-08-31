@@ -1,6 +1,4 @@
-/**
- * Created by Carlos on 23/07/2016.
- */
+'use strict';
 angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         //noinspection JSUnresolvedFunction
