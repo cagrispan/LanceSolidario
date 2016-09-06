@@ -5,7 +5,7 @@ angular.module('lanceSolidario')
     var self = this;
 
     if(!facebookAPI.user){
-        $location.path('/login');
+        //$location.path('/login');
     }
     var userToUpdate = facebookAPI.user;
 
