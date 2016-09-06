@@ -21,6 +21,22 @@
             );
             return d.promise;
         };
+
+      self.load = function(auction){
+        var d = $q.defer();
+        //auction map
+        var actionTosend = angular.copy(auction);
+        var endpoint = '/auctions/'+auction.id;
+
+        webService.read(endpoint,actionTosend).then(
+          function(resolve){
+            return d.resolve(resolve.data);
+          }, function(resolve){
+            return d.reject(resolve.data);
+          }
+        );
+        return d.promise;
+      };
         /*
         self.save = function(user){
             var d = $q.defer();
