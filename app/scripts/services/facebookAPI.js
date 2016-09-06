@@ -58,8 +58,6 @@ angular.module('utils')
         this.isLogged = function () {
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-                    var uid = response.authResponse.userID;
-                    var accessToken = response.authResponse.accessToken;
                     return true;
                 } else if (response.status === 'not_authorized') {
 
