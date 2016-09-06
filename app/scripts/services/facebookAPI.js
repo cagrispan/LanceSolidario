@@ -6,8 +6,8 @@ angular.module('utils')
 
         this.watchLoginChange = function () {
 
-            FB.Event.subscribe('facebookAPI.authResponseChange', function (res) {
-
+            FB.Event.subscribe('auth.authResponseChange', function (res) {
+                console.log('DEBUG: Auth response: ' + res);
                 if (res.status === 'connected') {
                     //self.accessToken = res.authResponse.accessToken;
                     self.getUserInfo(res.authResponse.accessToken);
@@ -31,15 +31,15 @@ angular.module('utils')
                     user.facebookToken = facebookToken;
 
                     self.user = user;
-                    console.log('DEBUG: Facebook User:' + self.user);
+                    console.log('DEBUG: Facebook User info:' + self.user);
 
-                    user._getToken().then(function(){
-                        $location.path('/home');
-                    },function(){
+                    user._getToken().then(function () {
+                        if ($location.path() === '/login') {
+                            $location.path('/home');
+                        }
+                    }, function () {
                         $location.path('/login');
                     });
-                    $location.path('/home');
-
                 });
             });
         };
@@ -53,6 +53,22 @@ angular.module('utils')
                 });
             });
 
+        };
+
+        this.isLogged = function () {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    var uid = response.authResponse.userID;
+                    var accessToken = response.authResponse.accessToken;
+                    return true;
+                } else if (response.status === 'not_authorized') {
+
+                    return false;
+                } else {
+                    return false;
+
+                }
+            });
         };
 
     }]);
