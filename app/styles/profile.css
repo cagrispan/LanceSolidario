@@ -1,0 +1,21 @@
+.profile-actions {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.profile-actions li {
+    margin: 0 0 0 0 !important;
+    width: 100% !important;
+    border-right: solid 2px #3c3c3c;
+}
+
+.profile-actions li:hover {
+    border-right: solid 2px red;
+}
+
+.profile-sidebar
+{
+    padding: 0 0 0 0 !important;
+}
