@@ -1,7 +1,7 @@
 <div ng-include="'views/common/components/header.html'"></div>
 <div class="content container">
 
-    <div class="col-sm-2 col-md-2 col-lg-2">
+    <div class="col-sm-2 col-md-2 col-lg-2 profile-sidebar">
         <div ng-include="'views/user/components/profile_actions.html'"></div>
     </div>
 
@@ -11,6 +11,13 @@
             Aqui estão listadas todas os seu produtos. Você pode criar um novo leilão para seu produto.
             Apagar um produto, ou editar as informações.
         </p>
+
+        <div class="row text-center product-new">
+            <a href="products/new" class="btn btn-success btn-md">
+                <span class="glyphicon glyphicon-plus"></span>
+                Adicionar um novo produto
+            </a>
+        </div>
 
 
         <div ng-include="'views/product/components/list_table.html'"></div>
