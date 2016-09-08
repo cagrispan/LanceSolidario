@@ -7,13 +7,15 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/user/login.html'
             })
             .when('/home', {
-                templateUrl: 'views/commmom/home.html',
+                templateUrl: 'views/commom/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/user', {
                 templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
                 controllerAs: 'home'
+            }).when('/products/new', {
+                templateUrl: 'views/product/new.html'
             })
             .otherwise({redirectTo: '/login'});
     }]);
