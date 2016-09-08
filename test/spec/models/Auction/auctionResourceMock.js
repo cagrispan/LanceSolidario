@@ -4,36 +4,47 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auctionResourceMock', []).service('auctionResource',['$q',function ($q) {
+    angular.module('lanceSolidario.auction.auctionResourceMock', []).service('auctionResource', ['$q', function ($q) {
         var self = this;
 
 
-
-        self.add = function (user) {
+        self.add = function (auction) {
             var d = $q.defer();
-            //user map
-            var userToSend = {name:'userTestName','address':{'addressLine':'validAddressLine'}};
-            //var endpoint = '/users/' + user.facebookId;
-            if (user.facebookId === 'validFacebookId' && user.token === 'validToken' && user.address.addressLine==='validAddressLine') {
-                d.resolve(userToSend);
+            //auction map
+            var auctionToSend = {name: 'auctionTestName', 'address': {'addressLine': 'validAddressLine'}};
+            //var endpoint = '/auctions/' + auction.facebookId;
+            if (auction.title === 'validFacebookId' && auction.token === 'validToken' && auction.address.addressLine === 'validAddressLine') {
+                d.resolve(auctionToSend);
             } else {
-                d.reject("The request fail :"+ {'Content-Type':'application/json'});
+                d.reject("The request fail :" + {'Content-Type': 'application/json'});
             }
             return d.promise;
         };
 
-        /*
-        self.update = function (user) {
+        self.load = function (auction) {
             var d = $q.defer();
-            //user map
-            var userToSend = {name:'userTestName','address':{'addressLine':'validAddressLine'}};
-            //var endpoint = '/users/' + user.facebookId;
-            if (user.facebookId === 'validFacebookId' && user.token === 'validToken' && user.address.addressLine==='validAddressLine') {
-                d.resolve(userToSend);
+            //auction map
+            var auctionToSend = {title: 'auctionTestName', 'description': 'descriptionText', 'id':'ThisIsAnId'};
+            //var endpoint = '/auctions/' + auction.facebookId;
+            if (auction.title) {
+                d.resolve(auctionToSend);
             } else {
-                d.reject("The request fail :"+ {'Content-Type':'application/json'});
+                d.reject("The request fail :" + {'Content-Type': 'application/json'});
             }
             return d.promise;
-        };*/
+        };
+        /*
+         self.update = function (auction) {
+         var d = $q.defer();
+         //auction map
+         var auctionToSend = {name:'auctionTestName','address':{'addressLine':'validAddressLine'}};
+         //var endpoint = '/auctions/' + auction.facebookId;
+         if (auction.facebookId === 'validFacebookId' && auction.token === 'validToken' && auction.address.addressLine==='validAddressLine') {
+         d.resolve(auctionToSend);
+         } else {
+         d.reject("The request fail :"+ {'Content-Type':'application/json'});
+         }
+         return d.promise;
+         };*/
     }])
 })(angular);

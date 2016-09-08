@@ -1,16 +1,16 @@
 'use strict';
 
-xdescribe('lanceSolidario module', function() {
+xdescribe('lanceSolidario module', function () {
 
-  beforeEach(module('lanceSolidario'));
+    beforeEach(module('lanceSolidario'));
 
-  describe('view1 controller', function(){
+    describe('view1 controller', function () {
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var view1Ctrl = $controller('View1Ctrl');
-      expect(view1Ctrl).toBeDefined();
-    }));
+        it('should ....', inject(function ($controller) {
+            //spec body
+            var view1Ctrl = $controller('View1Ctrl');
+            expect(view1Ctrl).toBeDefined();
+        }));
 
-  });
+    });
 });

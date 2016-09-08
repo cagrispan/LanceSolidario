@@ -6,6 +6,7 @@ angular.module('lanceSolidario', [
     'ui.bootstrap',
     'ngRoute',
     'utils',
+    'entity',
     'lanceSolidario.user',
     'lanceSolidario.product',
     'lanceSolidario.auction'
