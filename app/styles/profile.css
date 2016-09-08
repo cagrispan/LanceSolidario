@@ -5,17 +5,32 @@
     padding-right: 0;
 }
 
+.profile-actions ul {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
 .profile-actions li {
     margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
     width: 100% !important;
-    border-right: solid 2px #3c3c3c;
+    border-right: solid 3px #FF9505;
+
+    /* ----------- Transitions ----------- */
+    transition: border-right 0.15s;
 }
 
 .profile-actions li:hover {
-    border-right: solid 2px red;
+    border-right: solid 3px #016FB9;
+
+    /* ----------- Transitions ----------- */
+    transition: border-right 0.15s;
 }
 
-.profile-sidebar
-{
+.profile-sidebar {
     padding: 0 0 0 0 !important;
+}
+
+.profile-sidebar img {
+
 }
