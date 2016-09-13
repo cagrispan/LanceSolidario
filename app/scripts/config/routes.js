@@ -15,9 +15,13 @@ angular.module('lanceSolidario')
                 controller: 'UserUpdate',
                 controllerAs: 'home'
             }).when('/products', {
-                templateUrl: 'views/product/list.html'
+                templateUrl: 'views/product/list.html',
+                controller: 'ProductCtrl',
+                controllerAs: 'productCtrl'
             }).when('/products/new', {
-                templateUrl: 'views/product/new.html'
+                templateUrl: 'views/product/new.html',
+                controller: 'NewProductCtrl',
+                controllerAs: 'productCtrl'
             })
             .otherwise({redirectTo: '/login'});
     }]);

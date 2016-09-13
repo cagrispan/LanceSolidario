@@ -26,8 +26,7 @@
   <div class="container-fluid product-image text-center">
 
     <div class="col-sm-12 col-md-12 col-lg-6 drop-box">
-      <label class="btn btn-default btn-file" class="btn btn-primary" uib-btn-checkbox
-             btn-checkbox-true="1" btn-checkbox-false="0">
+      <label class="btn btn-default btn-file" class="btn btn-primary">
         Escolher Imagens <input type="file" style="display: none;">
       </label>
       <p>Ou arraste imagens para este quadro</p>
@@ -36,8 +35,8 @@
 
   <div class="container-fluid product-action">
     <div class="col-sm-12 col-md-12 col-lg-6 text-center">
-      <button type="button" class="btn btn-success" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-        Criar Produto
+      <button type="button" class="btn btn-success" ng-click="productCtrl.add()">
+        Cadastrar Produto
       </button>
     </div>
   </div>
