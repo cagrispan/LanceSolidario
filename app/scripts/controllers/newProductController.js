@@ -12,6 +12,6 @@ angular.module('lanceSolidario')
     self.newProduct = new Product();
 
     self.add = function(){
-        self.newProduct._add()
+        self.newProduct._add();
     };
 }]);
