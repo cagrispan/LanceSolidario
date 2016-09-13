@@ -6,7 +6,11 @@
     </div>
 
     <div class="col-sm-8 col-md-8 col-lg-10">
-        <div ng-include="'views/components/user/edit.html'"></div>
+        <form ng-submit="userCtrl.update(userCtrl.user)">
+
+            <div ng-include="'views/components/user/edit.html'"></div>
+            <input type="submit" value="Salvar"/>
+        </form>
     </div>
 
 

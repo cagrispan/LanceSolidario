@@ -2,7 +2,7 @@
 angular.module('utils')
     .service('webService', ['$http', '$q',  function ($http, $q) {
         //TODO:Define global variables config
-        var globalConfig = {'backendBasePath':'http://10.41.1.57:7780'};
+        var globalConfig = {backendBasePath:'http://127.0.0.1:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
         var baseUrl = globalConfig.backendBasePath;
         //'http://localhost:7780';
         this.read = function (endpoint) {

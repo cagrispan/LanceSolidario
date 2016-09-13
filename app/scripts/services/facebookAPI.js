@@ -33,7 +33,7 @@ angular.module('utils')
                     self.user = user;
                     console.log('DEBUG: Facebook User info:' + self.user);
 
-                    user._getToken().then(function () {
+                    user._updateAPIToken().then(function () {
                         if ($location.path() === '/login') {
                             $location.path('/home');
                         }
@@ -45,13 +45,13 @@ angular.module('utils')
         };
 
 
-        this.logout = function () {
+        this.getAPItoken = function () {
 
-            FB.logout(function () {
-                $rootScope.$apply(function () {
-                    $rootScope.user = self.user = {};
-                });
-            });
+            if(self.user && self.user.token){
+                return self.user.token;
+            }else{
+                return false;
+            }
 
         };
 

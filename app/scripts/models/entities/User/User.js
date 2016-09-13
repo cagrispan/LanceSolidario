@@ -38,8 +38,17 @@
 
             //Method
             //If not exist, create a new user
+            this._updateAPIToken = function () {
+                var user = this;
+                return userResource.getToken(user).then(function (resolve) {
+                    if (resolve.token) {
+                        user.token = resolve.token;
+                    }
+                })
+            };
+
             this._getToken = function () {
-                return userResource.getToken(this);
+                return this.token;
             };
 
             this._update = function () {

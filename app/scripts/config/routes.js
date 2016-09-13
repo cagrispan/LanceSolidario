@@ -13,7 +13,7 @@ angular.module('lanceSolidario')
             }).when('/user', {
                 templateUrl: 'views/editUser.html',
                 controller: 'UserUpdate',
-                controllerAs: 'home'
+                controllerAs: 'userCtrl'
             })
             .otherwise({redirectTo: '/login'});
     }]);
