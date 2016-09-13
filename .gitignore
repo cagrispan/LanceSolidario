@@ -6,3 +6,6 @@
 app/bower_components
 app/node_modules
 /npm-debug.log
+app/scripts/controllers/test.js
+test/spec/controllers/home_test.js
+test/spec/controllers/home_test.js
