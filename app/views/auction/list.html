@@ -6,21 +6,21 @@
     </div>
 
     <div class="col-sm-10 col-md-10 col-lg-10">
-        <h1>Meus Produtos:</h1>
+        <h1>Meus Leilões:</h1>
         <p>
-            Aqui estão listadas todos os seu produtos. Você pode criar um novo leilão para seu produto.
-            Apagar um produto, ou editar as informações.
+            Aqui estão listados todos os seus produtos. Você pode criar um novo leilão para seu produto.
+            Apagar um produto, ou editar as informações dele.
         </p>
 
         <div class="row text-center product-new">
-            <a href="auctions/new" class="btn btn-success btn-md">
+            <a href="products/new" class="btn btn-success btn-md">
                 <span class="glyphicon glyphicon-plus"></span>
                 Adicionar um novo produto
             </a>
         </div>
 
 
-        <div ng-include="'views/product/components/list_table.html'"></div>
+        <div ng-include="'views/auction/components/list_table.html'"></div>
     </div>
 
 

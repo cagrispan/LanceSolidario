@@ -3,6 +3,7 @@
 @import "utils.css";
 @import "product.css";
 @import "profile.css";
+@import "auction.css";
 
 html,
 body {
@@ -34,3 +35,5 @@ footer {
 footer .container .text-muted {
     margin: 20px 0;
 }
+
+

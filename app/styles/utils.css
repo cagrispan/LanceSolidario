@@ -3,6 +3,11 @@
     padding: 0 0 0 0 !important;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 
 .black             {background: #0f0f0f !important; color: #cccccc !important;}
 .dark-gray         {background: #3c3c3c !important; color: #FFFFFF !important;}
@@ -27,3 +32,4 @@
 .tertiary          {background: #EC4E20 !important; color: #0f0f0f !important;}
 .tertiary-light    {background: #cccccc !important; color: #3c3c3c !important;}
 .tertiary-lighter  {background: #FFFFFF !important; color: #3c3c3c !important;}
+
