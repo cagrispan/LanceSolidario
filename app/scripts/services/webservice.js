@@ -1,31 +1,27 @@
 'use strict';
+var globalConfig = {backendBasePath:'http://10.41.1.22:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
 angular.module('utils')
     .service('webService', ['$http', '$q',  function ($http, $q) {
         //TODO:Define global variables config
-        var globalConfig = {backendBasePath:'http://127.0.0.1:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
         var baseUrl = globalConfig.backendBasePath;
         //'http://localhost:7780';
-        this.read = function (endpoint) {
-
+        this.read = function (endpoint, headers) {
+            headers['Content-Type'] = 'application/json';
             var req = {
                 method: 'GET',
                 url: baseUrl + endpoint,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: headers
             };
 
             return request(req);
         };
 
-        this.add = function (endpoint, params) {
-
+        this.add = function (endpoint, params, headers) {
+            headers['Content-Type'] = 'application/json';
             var req = {
                 method: 'POST',
                 url: baseUrl + endpoint,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: headers,
                 data: params
             };
 
@@ -33,14 +29,12 @@ angular.module('utils')
         };
 
 
-        this.update = function (endpoint, params) {
-
+        this.update = function (endpoint, params, headers) {
+            headers['Content-Type'] = 'application/json';
             var req = {
                 method: 'PUT',
                 url: baseUrl + endpoint,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: headers,
                 data: params
             };
 
@@ -48,14 +42,12 @@ angular.module('utils')
 
         };
 
-        this.remove = function (endpoint) {
-
+        this.remove = function (endpoint, headers) {
+            headers['Content-Type'] = 'application/json';
             var req = {
                 method: 'DELETE',
                 url: baseUrl + endpoint,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: headers
             };
 
             return request(req);
