@@ -1,0 +1,43 @@
+<div class="container-fluid product-new">
+
+  <div class="container-fluid product-title">
+
+    <div class="col-sm-12 col-md-12 col-lg-6">
+      <div class="form-group">
+        <label for="product_title">Nome do produto:</label>
+        <input type="text" class="form-control" ng-model="productCtrl.product.name" id="product_title"
+               placeholder="Ex: Camera Fotográfica">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid product-description">
+
+    <div class="col-sm-12 col-md-12 col-lg-6">
+      <div class="form-group">
+        <label for="product_description">Descrição do produto:</label>
+        <textarea class="form-control" ng-model="productCtrl.product.description" id="product_description"
+                  placeholder="Ex: Possui 45 megapixels, com zoom ótico de 30x, visor lcd, levemente riscada." rows="5">
+        </textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid product-image text-center">
+
+    <div class="col-sm-12 col-md-12 col-lg-6 drop-box">
+      <label class="btn btn-default btn-file" class="btn btn-primary">
+        Escolher Imagens <input type="file" style="display: none;">
+      </label>
+      <p>Ou arraste imagens para este quadro</p>
+    </div>
+  </div>
+
+  <div class="container-fluid product-action">
+    <div class="col-sm-12 col-md-12 col-lg-6 text-center">
+      <button type="button" class="btn btn-success" ng-click="productCtrl.add()">
+        Cadastrar Produto
+      </button>
+    </div>
+  </div>
+</div>

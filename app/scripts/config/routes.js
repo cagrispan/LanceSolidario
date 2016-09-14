@@ -4,16 +4,24 @@ angular.module('lanceSolidario')
         //noinspection JSUnresolvedFunction
         $routeProvider
             .when('/login', {
-                templateUrl: 'views/login.html'
+                templateUrl: 'views/user/login.html'
             })
             .when('/home', {
-                templateUrl: 'views/home.html',
+                templateUrl: 'views/commom/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/user', {
-                templateUrl: 'views/editUser.html',
+                templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
                 controllerAs: 'userCtrl'
+            }).when('/products', {
+                templateUrl: 'views/product/list.html',
+                controller: 'ProductCtrl',
+                controllerAs: 'productCtrl'
+            }).when('/products/new', {
+                templateUrl: 'views/product/new.html',
+                controller: 'NewProductCtrl',
+                controllerAs: 'productCtrl'
             })
             .otherwise({redirectTo: '/login'});
     }]);
