@@ -44,15 +44,6 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 }
             },
-            recess: {
-                options: {
-                    compile: true
-                },
-                dist: {
-                    files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
-                    tasks: ['recess:dist']
-                }
-            },
             jsTest: {
                 files: ['test/spec/{,*/}*.js'],
                 tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
@@ -73,6 +64,24 @@ module.exports = function (grunt) {
                     '.tmp/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
+            },
+            less: {
+                options: {
+                    paths: ['assets/css']
+                },
+                files: {
+                    'app/styles/app.css': 'app/styles/app.less'
+                }
+            },
+            spell: {
+                all: {
+                    src: ['app/views/*'],
+                    options: {
+                        lang: 'pt',
+                        ignore: ['cliches', 'double negatives']
+                    }
+                },
+                files: ['app/views/*']
             }
         },
 
@@ -177,21 +186,6 @@ module.exports = function (grunt) {
                 }]
             },
             server: '.tmp'
-        },
-
-        recess: {
-            options: {
-                compile: true
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/styles',
-                    src: '{,*/}*.less',
-                    dest: '.tmp/styles/',
-                    ext: '.css'
-                }]
-            }
         },
 
         // Add vendor prefixed styles
@@ -429,14 +423,12 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up the build process
         concurrent: {
             server: [
-                'recess',
                 'copy:styles'
             ],
             test: [
                 'copy:styles'
             ],
             dist: [
-                'recess',
                 'copy:styles',
                 'imagemin',
                 'svgmin'
@@ -449,8 +441,34 @@ module.exports = function (grunt) {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
             }
+        },
+
+        less: {
+            development: {
+                files: {
+                    'app/styles/app.css': 'app/styles/app.less'
+                }
+            },
+            production: {
+                files: {
+                    'app/styles/app.css': 'app/styles/app.less'
+                }
+            }
+        },
+        spell: {
+            all: {
+                src: ['app/views/*'],
+                options: {
+                    lang: 'pt',
+                    ignore: ['cliches', 'double negatives']
+                }
+            },
+            files: ['app/views/*.html']
         }
     });
+
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-spell');
 
 
     grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
@@ -498,7 +516,8 @@ module.exports = function (grunt) {
         'filerev',
         'usemin',
         'htmlmin',
-        'recess'
+        'spell',
+        'less'
     ]);
 
     grunt.registerTask('default', [
