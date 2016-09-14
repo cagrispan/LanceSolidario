@@ -11,8 +11,9 @@
             //auction map
             var actionTosend = angular.copy(auction);
             var endpoint = '/auctions';
+            var headers ={};
 
-            webService.add(endpoint,actionTosend).then(
+            webService.add(endpoint,actionTosend, headers).then(
                 function(resolve){
                     return d.resolve(resolve.data);
                 }, function(resolve){
@@ -27,8 +28,9 @@
         //auction map
         var actionTosend = angular.copy(auction);
         var endpoint = '/auctions/'+auction.id;
+        var headers ={};
 
-        webService.read(endpoint,actionTosend).then(
+        webService.read(endpoint,actionTosend, headers).then(
           function(resolve){
             return d.resolve(resolve.data);
           }, function(resolve){

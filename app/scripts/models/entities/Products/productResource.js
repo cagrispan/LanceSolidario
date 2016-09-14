@@ -10,8 +10,8 @@
             var d = $q.defer();
             //user map
             var endpoint = '/products';
-
-            webService.add(endpoint,product).then(
+            var headers  ={};
+            webService.add(endpoint,product,headers).then(
                 function(resolve){
                     return d.resolve(resolve.data);
                 }, function(resolve){

@@ -11,42 +11,71 @@
 
         function Auction() {
 
-            //identification
+            /*
+             Id
+             */
             this.id = null;
+            /*
+             Product Object
+             */
+            this.product = null;
+
+            /*
+             User Object
+             */
             this.donorUser = null;
+
+            /*
+             User Object
+             */
             this.buyerUser = null;
 
-            //Product info
-            this.title = null;
-            this.description = null;
-            this.category = null;
-            this.tags = null;
-            this.isUsed = null;
+            /*
+             Institution Object
+             */
+            this.institution = null;
 
-            //Image
-            this.images = null;
+            /*
+             Array DeliveryMethod Object
+             */
+            this.deliveryMethods = null;
 
-            //history
-            this.auctions = null;
+            /*
+             Number
+             */
+            this.minimumBid = null;
 
-            //methods
+            /*
+             Array Object Bid
+             */
+            this.bids = null;
+
+            /*
+              Date
+             */
+            this.startDate = null;
+
+            /*
+             Date
+             */
+            this.endDate = null;
+
+            /*
+             Methods
+             */
             this._add = function () {
                 return auctionResource.add(this);
             };
 
             this._load = function () {
-                //var defer = $q.defer();
                 return auctionResource.load(this).then(
                     function (auctionReturned) {
                         this._set(auctionReturned);
                         return this;
-                        //defer.resolve(this);
                     },
                     function (errorCallback) {
                         return errorCallback;
-                        //defer.reject(errorCallback);
                     });
-                //return defer.promise;
             };
         }
 

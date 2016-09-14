@@ -13,7 +13,7 @@ angular.module('lanceSolidario')
             }).when('/user', {
                 templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
-                controllerAs: 'home'
+                controllerAs: 'userCtrl'
             }).when('/products', {
                 templateUrl: 'views/product/list.html',
                 controller: 'ProductCtrl',
