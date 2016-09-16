@@ -1,0 +1,31 @@
+exclude_paths:
+- "Gruntfile.js"
+- "test/"
+- "tests/"
+- "spec/"
+- "**/vendor/"
+
+engines:
+    csslint:
+        enabled: true
+        checks:
+            important:
+                enabled: false
+            import:
+                enabled: false
+    duplication:
+        enabled: true
+        config:
+              languages:
+                  - javascript
+
+    eslint:
+        enabled: true
+
+    fixme:
+        enabled: true
+
+ratings:
+    paths:
+        - "**.css"
+        - "**.js"

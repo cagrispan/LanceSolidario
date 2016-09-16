@@ -1,18 +1,33 @@
 'use strict';
 angular.module('lanceSolidario')
-.controller('UserUpdate',  ['$scope','User','facebookAPI','$location', function($scope, User, facebookAPI, $location) {
+    .controller('UserUpdate', ['User', 'facebookAPI', '$location', function (User, facebookAPI, $location) {
 
-    var self = this;
+        var self = this;
 
-    if(!facebookAPI.user){
-        $location.path('/login');
-    }
-    var userToUpdate = facebookAPI.user;
+        function init() {
+            if (!facebookAPI.user) {
+                //facebookAPI.getUserInfo();
+                $location.path('/login');
+            }
+            var userToUpdate = facebookAPI.user;
+            self.user = userToUpdate;
+            return self.user._load();
+        }
+
+        init().then(function(){
 
 
-    self.user = userToUpdate;
-    self.update = function(){
-        userToUpdate._update();
-        console.log('lolll');
-    };
-}]);
+        });
+
+        self.saveUser= function (userToUpdate) {
+            userToUpdate._update().then(function(resolve){
+                console.log('Success', resolve);
+            }, function(resolve){
+                console.log('Fail',resolve);
+            });
+
+        };
+
+
+
+    }]);
