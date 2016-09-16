@@ -17,3 +17,8 @@ engines:
 
     fixme:
         enabled: true
+
+ratings:
+    paths:
+        - "**.css"
+        - "**.js"
