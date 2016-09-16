@@ -9,6 +9,8 @@ engines:
                 enabled: false
             import:
                 enabled: false
+    duplication:
+        enabled: true
 
     eslint:
         enabled: true
