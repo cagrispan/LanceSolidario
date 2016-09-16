@@ -9,8 +9,11 @@ engines:
                 enabled: false
             import:
                 enabled: false
-    #duplication:#
-    #    enabled: true#
+    duplication:
+        enabled: true
+        config:
+              languages:
+                  - javascript
 
     eslint:
         enabled: true
