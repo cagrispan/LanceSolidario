@@ -1,4 +1,5 @@
-# Lance Solidario
+# Lance Solidario [![Build Status](https://travis-ci.org/cagrispan/LanceSolidario.svg?branch=master)](https://travis-ci.org/cagrispan/LanceSolidario)
+
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
