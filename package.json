@@ -46,6 +46,7 @@
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",

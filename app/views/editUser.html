@@ -2,13 +2,15 @@
 <div class="content container">
 
     <div class="col-sm-4 col-md-4 col-lg-2">
-        <div ng-include="'profile_actions.html'"></div>
+        <div ng-include="'views/components/user/profile_actions.html'"></div>
     </div>
 
     <div class="col-sm-8 col-md-8 col-lg-10">
+        <form ng-submit="userCtrl.update(userCtrl.user)">
 
-            <div ng-include="'edit_forms.html'"></div>
-
+            <div ng-include="'views/components/user/edit.html'"></div>
+            <input type="submit" value="Salvar"/>
+        </form>
     </div>
 
 
