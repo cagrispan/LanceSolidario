@@ -1,6 +1,9 @@
 exclude_paths:
 - "Gruntfile.js"
-- test/
+- "test/"
+- "tests/"
+- "spec/"
+- "**/vendor/"
 
 engines:
     csslint:
