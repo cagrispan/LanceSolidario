@@ -2,25 +2,16 @@ exclude_paths:
 - "Gruntfile.js"
 
 engines:
-  # ... CONFIG CONTENT ...
     csslint:
         enabled: true
-    # ... CONFIG CONTENT ...
         checks:
             important:
                 enabled: false
             import:
                 enabled: false
-    duplication:
-        enabled: true
 
     eslint:
         enabled: true
 
     fixme:
         enabled: true
-
-    nodesecurity:
-        enabled: true
-
-# ... CONFIG CONTENT ...
