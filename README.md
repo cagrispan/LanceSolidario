@@ -1,4 +1,4 @@
-# Lance Solidario [![Build Status](https://travis-ci.org/cagrispan/LanceSolidario.svg?branch=master)](https://travis-ci.org/cagrispan/LanceSolidario)
+# Lance Solidario [![Build Status](https://travis-ci.org/cagrispan/LanceSolidario.svg?branch=master)](https://travis-ci.org/cagrispan/LanceSolidario) [![Code Climate](https://codeclimate.com/github/cagrispan/LanceSolidario/badges/gpa.svg)](https://codeclimate.com/github/cagrispan/LanceSolidario) [![Test Coverage](https://codeclimate.com/github/cagrispan/LanceSolidario/badges/coverage.svg)](https://codeclimate.com/github/cagrispan/LanceSolidario/coverage) [![Issue Count](https://codeclimate.com/github/cagrispan/LanceSolidario/badges/issue_count.svg)](https://codeclimate.com/github/cagrispan/LanceSolidario)
 
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
