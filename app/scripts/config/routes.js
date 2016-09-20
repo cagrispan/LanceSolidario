@@ -7,7 +7,7 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/user/login.html'
             })
             .when('/home', {
-                templateUrl: 'views/commom/home.html',
+                templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/user', {
@@ -27,5 +27,5 @@ angular.module('lanceSolidario')
                 controller: 'NewAuctionCtrl',
                 controllerAs: 'auctionCtrl'
             })
-            .otherwise({redirectTo: '/login'});
+            .otherwise({redirectTo: '/home'});
     }]);
