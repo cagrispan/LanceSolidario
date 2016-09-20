@@ -477,6 +477,7 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run([
+            'less',
             'clean:server',
             'wiredep',
             'concurrent:server',
@@ -501,6 +502,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
+        'less',
         'clean:dist',
         'wiredep',
         'useminPrepare',
@@ -516,8 +518,7 @@ module.exports = function (grunt) {
         'filerev',
         'usemin',
         'htmlmin',
-        'spell',
-        'less'
+        'spell'
     ]);
 
     grunt.registerTask('default', [
