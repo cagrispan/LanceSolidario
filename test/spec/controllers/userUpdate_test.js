@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    describe('UserUpdate controller', function () {
+    xdescribe('UserUpdate controller', function () {
 
         var User;
         var facebookAPI;

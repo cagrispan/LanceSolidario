@@ -15,11 +15,11 @@
             $q = _$q_;
             rootScope = _$rootScope_;
 
-            Address = function(){
+            Address = function () {
                 this.city = null;
                 this.complement = null;
                 this.zip = null;
-                this._set = function(address){
+                this._set = function (address) {
                     this.city = address.city;
                     this.complement = address.complement;
                     this.zip = address.zip;
@@ -34,8 +34,8 @@
             }));
         });
 
-        describe('_updateAPIToken', function () {
-            it('should call add method of resource with a user like parameter', function () {
+        describe('get token', function () {
+            it('should call getToken method of resource with a user like parameter', function () {
                 var user = new User();
                 user.facebookId = 'ThisIdExists';
                 var fakePromise = $q.when();
@@ -46,47 +46,27 @@
             });
         });
 
-        describe('save', function () {
-            it('should save a user', function () {
-                var user = new User();
-            });
-        });
+        describe('create or update', function () {
 
-
-        describe('remove', function () {
-            it('should test remove method', function () {
-                var user = new User();
-                expect(user._remove()).toBe(true);
-            });
-        });
-
-        describe('update', function () {
-
-            it('should call update method of resource with a user like parameter', function () {
+            it('should call createOrUpdate method of resource with a user like parameter', function () {
                 var user = new User();
                 user.facebookId = 'ThisIdExists';
                 var fakePromise = $q.when();
-                spyOn(userResource, 'update').and.returnValue(fakePromise);
-                var x = user._update();
-                expect(userResource.update).toHaveBeenCalledWith(user);
+                spyOn(userResource, 'createOrUpdate').and.returnValue(fakePromise);
+                var x = user._save();
+                expect(userResource.createOrUpdate).toHaveBeenCalledWith(user);
             });
         });
 
         describe('load', function () {
-            it('should test load method', function () {
+            it('should call load method of resource with a user like parameter', function () {
 
                 var user = new User();
                 user.facebookId = 'ThisIdExists';
                 var defer = $q.defer();
                 var fakePromise = defer.promise;
                 defer.resolve({
-                    name: 'TestName', birthday: '08/07/1996', address: {
-                        addressLine: 'addressLineTest',
-                        city: 'cityTest',
-                        complement: 'complementTest',
-                        state: 'stateTest',
-                        zip: 'zip Test'
-                    }
+                    name: 'TestName', birthday: '08/07/1996'
                 });
                 spyOn(userResource, 'load').and.returnValue(fakePromise);
 
@@ -94,9 +74,97 @@
                 rootScope.$apply();
 
                 expect(userResource.load).toHaveBeenCalledWith(user);
-                expect(user.address.city).toBe('cityTest');
                 expect(user.birthday.class).toBe(Date.class);
 
+            });
+        });
+
+        describe('load Address list', function () {
+            it('should return a array of Address object', function () {
+
+                var user = new User();
+                user.facebookId = 'ThisIdExists';
+                var defer = $q.defer();
+                var fakePromise = defer.promise;
+                defer.resolve([
+                    {
+                        city: 'Araucária',
+                        state: 'Paraná'
+                    },
+                    {
+                        city: 'Curitiba',
+                        state: 'Paraná'
+                    }
+                ]);
+                spyOn(userResource, 'loadAddresses').and.returnValue(fakePromise);
+
+                user._loadAddresses();
+                rootScope.$apply();
+
+                expect(userResource.loadAddresses).toHaveBeenCalledWith(user);
+                expect(user.addressList[0].city).toBe('Araucária');
+                expect(user.addressList[1].city).toBe('Curitiba');
+            });
+        });
+
+        describe('load Telephone list', function () {
+            it('should return a array of Telephone object', function () {
+
+                var user = new User();
+                user.facebookId = 'ThisIdExists';
+                var defer = $q.defer();
+                var fakePromise = defer.promise;
+                defer.resolve([
+                    {
+                        telephone: '12345678'
+                    },
+                    {
+                        telephone: '87654321'
+
+                    }
+                ]);
+                spyOn(userResource, 'loadTelephones').and.returnValue(fakePromise);
+
+                user._loadTelephones();
+                rootScope.$apply();
+
+                expect(userResource.loadTelephones).toHaveBeenCalledWith(user);
+                expect(user.telephoneList[0].telephone).toBe('12345678');
+                expect(user.telephoneList[1].telephone).toBe('87654321');
+            });
+        });
+
+        describe('load Email list', function () {
+            it('should return a array of Email object', function () {
+
+                var user = new User();
+                user.facebookId = 'ThisIdExists';
+                var defer = $q.defer();
+                var fakePromise = defer.promise;
+                defer.resolve([
+                    {
+                        email: 'asd@lol.com'
+                    },
+                    {
+                        email: 'akr@gmail.com'
+
+                    }
+                ]);
+                spyOn(userResource, 'loadEmails').and.returnValue(fakePromise);
+
+                user._loadEmails();
+                rootScope.$apply();
+
+                expect(userResource.loadEmails).toHaveBeenCalledWith(user);
+                expect(user.emailList[0].email).toBe('asd@lol.com');
+                expect(user.emailList[1].email).toBe('akr@gmail.com');
+            });
+        });
+
+        xdescribe('remove', function () {
+            it('should test remove method', function () {
+                var user = new User();
+                expect(user._remove()).toBe(true);
             });
         });
 

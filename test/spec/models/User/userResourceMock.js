@@ -53,5 +53,22 @@
             }
             return d.promise;
         };
+
+        self.loadAddresses = function (user) {
+
+        };
+
+        self.loadEmails = function (user) {
+
+        };
+
+        self.loadTelephones = function (user) {
+
+        };
+
+        self.createOrUpdate = function (user) {
+
+        };
+
     }])
 })(angular);

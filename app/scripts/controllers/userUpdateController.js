@@ -9,16 +9,17 @@ angular.module('lanceSolidario')
                 //facebookAPI.getUserInfo();
                 $location.path('/login');
             }
-            var userToUpdate = facebookAPI.user;
+            alert('oi');
+            var userToUpdate = new User();
+            userToUpdate._set(facebookAPI.user);
             self.user = userToUpdate;
-            return self.user._load();
+            return self.user._loadAll();
         }
 
         init().then(function(){
-
-
+            alert(self.user);
         });
-
+        self.user._loadAll();
         self.saveUser= function (userToUpdate) {
             userToUpdate._update().then(function(resolve){
                 console.log('Success', resolve);

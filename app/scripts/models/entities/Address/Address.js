@@ -11,6 +11,7 @@
 
         function Address() {
 
+            this.addressId = null;
             this.addressLine = null;
             this.city = null;
             this.complement = null;

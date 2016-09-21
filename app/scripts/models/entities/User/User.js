@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address']).factory('User', ['userResource','Entity','Address', function (userResource, Entity, Address) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address', 'lanceSolidario.telephone', 'lanceSolidario.email']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', function (userResource, Entity, Address, Email, Telephone) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -25,9 +25,19 @@
             this.phone = null;
 
             /*
-             Object Address
+             Array Object Address
              */
-            this.address = null;
+            this.addressList = null;
+
+            /*
+             Array Object Telephone
+             */
+            this.telephoneList = null;
+
+            /*
+             Array Object Email
+             */
+            this.emailList = null;
 
             //products
             this.products = null;
@@ -52,9 +62,6 @@
                 return this.token;
             };
 
-            this._update = function () {
-                return userResource.update(this);
-            };
 
             this._remove = function () {
                 return true;
@@ -62,26 +69,82 @@
 
             this._load = function () {
                 var user = this;
-                return userResource.load(user).then(
-                    function (userReturned) {
+                var loadUserPromise = userResource.load(user);
+                return loadUserPromise
+                    .then(function (userReturned) {
                         user._set(userReturned);
-
-                        //Special map
                         user.birthday = new Date(user.birthday);
-
-                        var address = new Address();
-                        address._set(user.address);
-                        user.address = address;
-                        return this;
-                    },
-                    function (errorCallback) {
-                        return errorCallback;
-
+                        return user;
                     });
             };
+
+
+            this._loadAddresses = function () {
+                var user = this;
+                return userResource.loadAddresses(user)
+                    .then(function (addressList) {
+                        if (addressList && addressList[0]) {
+                            var address;
+                            user.addressList = [];
+                            for (var i in addressList) {
+                                address = new Address();
+                                address._set(addressList[i]);
+                                user.addressList.push(address);
+                            }
+                        }
+                        return user;
+                    })
+            };
+
+            this._loadEmails = function () {
+                var user = this;
+                return userResource.loadEmails(user)
+                    .then(function (emailList) {
+                        if (emailList && emailList[0]) {
+                            var email;
+                            user.emailList = [];
+                            for (var i in emailList) {
+                                email = new Email();
+                                email._set(emailList[i]);
+                                user.emailList.push(email);
+                            }
+                        }
+                        return user;
+                    })
+            };
+
+
+            this._loadTelephones = function () {
+                var user = this;
+                return userResource.loadTelephones(user)
+                    .then(function (telephonesList) {
+                        if (telephonesList && telephonesList[0]) {
+                            var telephone;
+                            user.telephoneList = [];
+                            for (var i in telephonesList) {
+                                telephone = new Telephone();
+                                telephone._set(telephonesList[i]);
+                                user.telephoneList.push(telephone);
+                            }
+                        }
+                        return user;
+                    });
+            };
+
+            this._loadAll = function () {
+                var user = this;
+                return user._load()
+                    .then(user._loadAddresses())
+                    .then(user._loadEmails())
+                    .then(user._loadTelephones());
+            }
         }
 
         return User
-    }]);
-})(angular);
+    }
+
+    ])
+    ;
+})
+(angular);
 
