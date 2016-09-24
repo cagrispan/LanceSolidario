@@ -3,15 +3,15 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.telephone.telephoneResource', ['utils']).service('telephoneResource', ['webService', '$q','facebookAPI', function (webService, $q, facebookAPI) {
+    angular.module('lanceSolidario.telephone.telephoneResource', ['utils']).service('telephoneResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function (userId, telephone) {
+        self.add = function (telephone) {
             var headers = {};
             var endpoint = "";
-            var token = facebookAPI.getAPItoken();
-            var telephoneId = "";
-            var objectToSend = {};
+            var token = apiToken.getApiToken();
+            var objectToSend;
+
             //Validate and Mapping
             objectToSend = angular.copy(telephone);
 
@@ -20,16 +20,8 @@
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-
-            if (telephone && telephone.telephoneId) {
-                headers.token = token;
-            } else {
-                return $q.reject({errorMessage: 'Telephone id missing'});
-            }
-
-
-            if (userId) {
-                endpoint = String.format('/users/%s/telephones/%s', userId, telephoneId);
+            if (telephone && telephone.facebookId) {
+                endpoint = '/users/'+telephone.facebookId+'/telephones';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -42,12 +34,13 @@
             );
         };
 
-        self.update = function (userId, telephone) {
+        self.update = function (telephone) {
             var headers = {};
             var endpoint = "";
-            var token = facebookAPI.getAPItoken();
+            var token = apiToken.getApiToken();
             var telephoneId = "";
-            var objectToSend = {};
+            var objectToSend;
+
             //Validate and Mapping
             objectToSend = angular.copy(telephone);
 
@@ -58,15 +51,17 @@
             }
 
             if (telephone && telephone.telephoneId) {
-                headers.token = token;
+                telephoneId = telephone.telephoneId;
             } else {
+
                 return $q.reject({errorMessage: 'Telephone id missing'});
             }
 
 
-            if (userId) {
-                endpoint = String.format('/users/%s/telephones/%s', userId, telephoneId);
+            if (telephone && telephone.facebookId) {
+                endpoint = '/users/'+telephone.facebookId+'/telephones/'+telephoneId;
             } else {
+
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
 

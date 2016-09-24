@@ -3,15 +3,15 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.email.emailResource', ['utils']).service('emailResource', ['webService', '$q','facebookAPI', function (webService, $q, facebookAPI) {
+    angular.module('lanceSolidario.email.emailResource', ['utils']).service('emailResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function (userId, email) {
+        self.add = function (email) {
             var headers = {};
             var endpoint = "";
-            var token = facebookAPI.getAPItoken();
-            var emailId = "";
-            var objectToSend = {};
+            var token = apiToken.getApiToken();
+            var objectToSend;
+
             //Validate and Mapping
             objectToSend = angular.copy(email);
 
@@ -20,16 +20,8 @@
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-
-            if (email && email.emailId) {
-                headers.token = token;
-            } else {
-                return $q.reject({errorMessage: 'Email id missing'});
-            }
-
-
-            if (userId) {
-                endpoint = String.format('/users/%s/emails/%s', userId, emailId);
+            if (email && email.facebookId) {
+                endpoint = '/users/'+email.facebookId+'/emails';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -42,12 +34,13 @@
             );
         };
 
-        self.update = function (userId, email) {
+        self.update = function (email) {
             var headers = {};
             var endpoint = "";
-            var token = facebookAPI.getAPItoken();
+            var token = apiToken.getApiToken();
             var emailId = "";
-            var objectToSend = {};
+            var objectToSend;
+
             //Validate and Mapping
             objectToSend = angular.copy(email);
 
@@ -58,15 +51,17 @@
             }
 
             if (email && email.emailId) {
-                headers.token = token;
+                emailId = email.emailId;
             } else {
+
                 return $q.reject({errorMessage: 'Email id missing'});
             }
 
 
-            if (userId) {
-                endpoint = String.format('/users/%s/emails/%s', userId, emailId);
+            if (email && email.facebookId) {
+                endpoint = '/users/'+email.facebookId+'/emails/'+emailId;
             } else {
+
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
 
