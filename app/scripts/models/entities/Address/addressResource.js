@@ -3,33 +3,25 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.address.addressResource', ['utils']).service('addressResource', ['webService', '$q', 'facebookAPI', function (webService, $q, facebookAPI) {
+    angular.module('lanceSolidario.address.addressResource', ['utils']).service('addressResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function (userId, address) {
+        self.add = function (address) {
             var headers = {};
             var endpoint = "";
-            var token = facebookAPI.getAPItoken();
-            var addressId = "";
-            var objectToSend = {};
+            var token = apiToken.getApiToken();
+            var objectToSend;
+
             //Validate and Mapping
-            objectToSend = angular.copy(email);
+            objectToSend = angular.copy(address);
 
             if (token) {
                 headers.token = token;
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-
-            if (email && email.emailId) {
-                headers.token = token;
-            } else {
-                return $q.reject({errorMessage: 'Address id missing'});
-            }
-
-
-            if (userId) {
-                endpoint = String.format('/users/%s/emails/%s', userId, addressId);
+            if (address && address.facebookId) {
+                endpoint = '/users/'+address.facebookId+'/addresses';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -42,14 +34,15 @@
             );
         };
 
-        self.update = function (userId, email) {
+        self.update = function (address) {
             var headers = {};
             var endpoint = "";
-            var token = facebookAPI.getAPItoken();
+            var token = apiToken.getApiToken();
             var addressId = "";
-            var objectToSend = {};
+            var objectToSend;
+
             //Validate and Mapping
-            objectToSend = angular.copy(email);
+            objectToSend = angular.copy(address);
 
             if (token) {
                 headers.token = token;
@@ -57,16 +50,18 @@
                 return $q.reject({errorMessage: 'Access token missing'});
             }
 
-            if (email && email.emailId) {
-                headers.token = token;
+            if (address && address.addressId) {
+                addressId = address.addressId;
             } else {
+
                 return $q.reject({errorMessage: 'Address id missing'});
             }
 
 
-            if (userId) {
-                endpoint = String.format('/users/%s/emails/%s', userId, addressId);
+            if (address && address.facebookId) {
+                endpoint = '/users/'+address.facebookId+'/addresses/'+addressId;
             } else {
+
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
 
