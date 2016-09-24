@@ -3,38 +3,78 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.product.productResource',['utils']).service('productResource', ['webService','$q', function (webService,$q) {
+    angular.module('lanceSolidario.email.emailResource', ['utils']).service('emailResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function(product){
-            var d = $q.defer();
-            //user map
-            var endpoint = '/products';
-            var headers  ={};
-            webService.add(endpoint,product,headers).then(
-                function(resolve){
-                    return d.resolve(resolve.data);
-                }, function(resolve){
-                    return d.reject(resolve.data);
-                }
-            );
-            return d.promise;
-        };
-        /*
-        self.save = function(user){
-            var d = $q.defer();
-            //user map
-            var endpoint = '/users/'+user.facebookId+'/auth';
+        self.add = function (email) {
+            var headers = {};
+            var endpoint = "";
+            var token = apiToken.getApiToken();
+            var objectToSend;
 
-            webService.add(endpoint,user).then(
-                function(resolve){
-                    return d.resolve(resolve.data);
-                }, function(resolve){
-                    return d.reject(resolve.data);
+            //Validate and Mapping
+            objectToSend = angular.copy(email);
+
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+            if (email && email.facebookId) {
+                endpoint = '/users/'+email.facebookId+'/emails';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.add(endpoint, objectToSend, headers).then(
+                function (resolve) {
+                    return resolve.data;
                 }
             );
-            return d.promise;
         };
-        */
-    }])
-})(angular);
+
+        self.update = function (email) {
+            var headers = {};
+            var endpoint = "";
+            var token = apiToken.getApiToken();
+            var emailId = "";
+            var objectToSend;
+
+            //Validate and Mapping
+            objectToSend = angular.copy(email);
+
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (email && email.emailId) {
+                emailId = email.emailId;
+            } else {
+
+                return $q.reject({errorMessage: 'Email id missing'});
+            }
+
+
+            if (email && email.facebookId) {
+                endpoint = '/users/'+email.facebookId+'/emails/'+emailId;
+            } else {
+
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.update(endpoint, objectToSend, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
+        //server.delete('/users/:id/email/:id') //delete email
+    }
+    ])
+})
+(angular);
