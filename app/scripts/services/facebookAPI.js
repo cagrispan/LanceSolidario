@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .service('facebookAPI', ['$rootScope', '$location', 'User', function ($rootScope, $location, User) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User','apiToken', function ($rootScope, $location, User, apiToken) {
 
         var self = this;
 
@@ -35,6 +35,7 @@ angular.module('utils')
 
                     user._updateAPIToken().then(function () {
                         if ($location.path() === '/login') {
+                            apiToken.updateApiToken(user.token);
                             $location.path('/home');
                         }
                     }, function () {
