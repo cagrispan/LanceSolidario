@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address', 'lanceSolidario.telephone', 'lanceSolidario.email']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', function (userResource, Entity, Address, Email, Telephone) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone','Product', function (userResource, Entity, Address, Email, Telephone, Product) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -78,6 +78,11 @@
                     });
             };
 
+            this._save = function () {
+                var user = this;
+                return userResource.createOrUpdate(user);
+            };
+
 
             this._loadAddresses = function () {
                 var user = this;
@@ -89,6 +94,7 @@
                             for (var i in addressList) {
                                 address = new Address();
                                 address._set(addressList[i]);
+                                address.facebookId = user.facebookId;
                                 user.addressList.push(address);
                             }
                         }
@@ -106,6 +112,7 @@
                             for (var i in emailList) {
                                 email = new Email();
                                 email._set(emailList[i]);
+                                email.facebookId = user.facebookId;
                                 user.emailList.push(email);
                             }
                         }
@@ -124,7 +131,26 @@
                             for (var i in telephonesList) {
                                 telephone = new Telephone();
                                 telephone._set(telephonesList[i]);
+                                telephone.facebookId = user.facebookId;
                                 user.telephoneList.push(telephone);
+                            }
+                        }
+                        return user;
+                    });
+            };
+
+            this._loadProducts = function () {
+                var user = this;
+                return userResource.loadProducts(user)
+                    .then(function (productsList) {
+                        if (productsList && productsList[0]) {
+                            var product;
+                            user.productList = [];
+                            for (var i in productsList) {
+                                product = new Product();
+                                product._set(productsList[i]);
+                                product.facebookId = user.facebookId;
+                                user.productList.push(product);
                             }
                         }
                         return user;

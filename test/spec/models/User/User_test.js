@@ -161,6 +161,34 @@
             });
         });
 
+
+        describe('load Product list', function () {
+            it('should return a array of Product object', function () {
+
+                var user = new User();
+                user.facebookId = 'ThisIdExists';
+                var defer = $q.defer();
+                var fakePromise = defer.promise;
+                defer.resolve([
+                    {
+                        productId: '12345678'
+                    },
+                    {
+                        productId: '87654321'
+
+                    }
+                ]);
+                spyOn(userResource, 'loadProducts').and.returnValue(fakePromise);
+
+                user._loadProducts();
+                rootScope.$apply();
+
+                expect(userResource.loadProducts).toHaveBeenCalledWith(user);
+                expect(user.productList[0].productId).toBe('12345678');
+                expect(user.productList[1].productId).toBe('87654321');
+            });
+        });
+
         xdescribe('remove', function () {
             it('should test remove method', function () {
                 var user = new User();
