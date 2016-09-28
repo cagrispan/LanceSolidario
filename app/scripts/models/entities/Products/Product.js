@@ -4,8 +4,9 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.product.product', ['lanceSolidario.product.productResource']).factory('Product', ['productResource', function (productResource) {
+    angular.module('lanceSolidario.product.product', ['lanceSolidario.product.productResource']).factory('Product', ['Entity', 'productResource', function (Entity, productResource) {
 
+        angular.extend(Product.prototype, Entity.prototype);
         Product.prototype.constructor = Product;
 
         function Product() {

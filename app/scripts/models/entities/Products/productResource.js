@@ -3,25 +3,25 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.email.emailResource', ['utils']).service('emailResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
+    angular.module('lanceSolidario.product.productResource', ['utils']).service('productResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function (email) {
+        self.add = function (product) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();
             var objectToSend;
 
             //Validate and Mapping
-            objectToSend = angular.copy(email);
+            objectToSend = angular.copy(product);
 
             if (token) {
                 headers.token = token;
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-            if (email && email.facebookId) {
-                endpoint = '/users/'+email.facebookId+'/emails';
+            if (product && product.facebookId) {
+                endpoint = '/users/'+product.facebookId+'/products';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -34,15 +34,15 @@
             );
         };
 
-        self.update = function (email) {
+        self.update = function (product) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();
-            var emailId = "";
+            var productId = "";
             var objectToSend;
 
             //Validate and Mapping
-            objectToSend = angular.copy(email);
+            objectToSend = angular.copy(product);
 
             if (token) {
                 headers.token = token;
@@ -50,16 +50,16 @@
                 return $q.reject({errorMessage: 'Access token missing'});
             }
 
-            if (email && email.emailId) {
-                emailId = email.emailId;
+            if (product && product.productId) {
+                productId = product.productId;
             } else {
 
-                return $q.reject({errorMessage: 'Email id missing'});
+                return $q.reject({errorMessage: 'product id missing'});
             }
 
 
-            if (email && email.facebookId) {
-                endpoint = '/users/'+email.facebookId+'/emails/'+emailId;
+            if (product && product.facebookId) {
+                endpoint = '/users/'+product.facebookId+'/products/'+productId;
             } else {
 
                 return $q.reject({errorMessage: 'FacebookId missing'});
@@ -73,7 +73,7 @@
             );
         };
 
-        //server.delete('/users/:id/email/:id') //delete email
+        //server.delete('/users/:id/product/:id') //delete product
     }
     ])
 })
