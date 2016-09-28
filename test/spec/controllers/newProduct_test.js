@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    describe('NewProduct controller', function () {
+    xdescribe('NewProduct controller', function () {
 
         var Product;
         var facebookAPI;
