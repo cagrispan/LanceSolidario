@@ -9,5 +9,8 @@ angular.module('lanceSolidario', [
     'entity',
     'lanceSolidario.user',
     'lanceSolidario.product',
-    'lanceSolidario.auction'
+    'lanceSolidario.auction',
+    'lanceSolidario.address',
+    'lanceSolidario.email',
+    'lanceSolidario.telephone'
 ]);
