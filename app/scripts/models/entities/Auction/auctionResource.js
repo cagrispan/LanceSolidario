@@ -3,57 +3,101 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auctionResource',['utils']).service('auctionResource', ['webService','$q', function (webService,$q) {
+    angular.module('lanceSolidario.auction.auctionResource', ['utils']).service('auctionResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function(auction){
-            var d = $q.defer();
-            //auction map
-            var actionTosend = angular.copy(auction);
-            var endpoint = '/auctions';
-            var headers ={};
+        self.add = function (auction) {
+            var headers = {};
+            var endpoint = "";
+            var token = apiToken.getApiToken();
+            var objectToSend;
 
-            webService.add(endpoint,actionTosend, headers).then(
-                function(resolve){
-                    return d.resolve(resolve.data);
-                }, function(resolve){
-                    return d.reject(resolve.data);
+            //Validate and Mapping
+            objectToSend = angular.copy(auction);
+
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+            if (auction && auction.facebookId) {
+                endpoint = '/users/' + auction.facebookId + '/auctions';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.add(endpoint, objectToSend, headers).then(
+                function (resolve) {
+                    return resolve.data;
                 }
             );
-            return d.promise;
         };
 
-      self.load = function(auction){
-        var d = $q.defer();
-        //auction map
-        var actionTosend = angular.copy(auction);
-        var endpoint = '/auctions/'+auction.id;
-        var headers ={};
+        self.update = function (auction) {
+            var headers = {};
+            var endpoint = "";
+            var token = apiToken.getApiToken();
+            var auctionId = "";
+            var objectToSend;
 
-        webService.read(endpoint,actionTosend, headers).then(
-          function(resolve){
-            return d.resolve(resolve.data);
-          }, function(resolve){
-            return d.reject(resolve.data);
-          }
-        );
-        return d.promise;
-      };
-        /*
-        self.save = function(user){
-            var d = $q.defer();
-            //user map
-            var endpoint = '/users/'+user.facebookId+'/auth';
+            //Validate and Mapping
+            objectToSend = angular.copy(auction);
 
-            webService.add(endpoint,user).then(
-                function(resolve){
-                    return d.resolve(resolve.data);
-                }, function(resolve){
-                    return d.reject(resolve.data);
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (auction && auction.auctionId) {
+                auctionId = auction.auctionId;
+            } else {
+
+                return $q.reject({errorMessage: 'Auction id missing'});
+            }
+
+
+            if (auction && auction.facebookId) {
+                endpoint = '/users/' + auction.facebookId + '/auctions/' + auctionId;
+            } else {
+
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.update(endpoint, objectToSend, headers).then(
+                function (resolve) {
+                    return resolve.data;
                 }
             );
-            return d.promise;
         };
-        */
+
+        self.loadAuctions = function (user) {
+            var headers = {};
+            var endpoint = '';
+            var token = apiToken.getApiToken();
+
+            //Validate and Mapping
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+
+            if (user && user.facebookId) {
+                endpoint = '/users/' + user.facebookId + '/auctions';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
     }])
 })(angular);

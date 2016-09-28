@@ -1,6 +1,6 @@
-/**
- * Created by Aliss on 11/08/2016.
- */
+//TODO:Define global variables config
+//var globalConfig = {backendBasePath:'http://10.41.1.22:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
+
 (function () {
     'use strict';
 
@@ -9,84 +9,224 @@
         var httpBackend;
         var promise;
         var scope;
+        var apiToken;
 
-        beforeEach(module('lanceSolidario.auction.auctionResource'));
-        beforeEach(inject(function (_auctionResource_, $httpBackend, $rootScope) {
-            httpBackend = $httpBackend;
-            auctionResource = _auctionResource_;
-            scope = $rootScope;
-        }));
+        beforeEach(module('lanceSolidario.auction.auctionResource', 'utils'));
+
+        beforeEach(function () {
+            module(function ($provide) {
+                $provide.value('apiToken', {
+                    getApiToken: function () {
+                        return 'validAccessToken'
+                    }
+                })
+            });
+
+            inject(function (_auctionResource_, $httpBackend, $rootScope) {
+                httpBackend = $httpBackend;
+                auctionResource = _auctionResource_;
+                scope = $rootScope;
+            })
+        });
 
 
-        describe('create a auction object', function () {
+        describe('update', function () {
 
-            it('should get a object with id when sending a object with a title "ThisIsATitle"', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/auctions").respond(200, {
-                    id: 'thisIsAValidId',
-                    title: 'ThisIsATitle'
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/validFacebookId/auctions/' + 'validAuctionId',{
+                    'facebookId': 'validFacebookId',
+                    'auctionId': 'validAuctionId',
+                    'auction': 'auction'
+                }).respond(200, {
+                    facebookId: 'facebookId'
                 });
-                promise = auctionResource.add({'title': 'ThisIsATitle'});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = auctionResource.update({
+                    'facebookId': 'validFacebookId',
+                    'auctionId': 'validAuctionId',
+                    'auction': 'auction'
+                });
+
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
-                    expect(resolve.title).toBe('ThisIsATitle');
-                }, function (resolve) {
-                    expect(true).toBe(false);
-                });
+                    expect(resolve.facebookId).toBe('facebookId');
+                }, errorCallback);
                 scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
             }));
 
-            it('should get an fail request whwn send a auction without a title', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/auctions").respond(404, {
-                    "message": "parameters missing."
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/invalidFacebookId/auctions/' + 'invalidAuctionId',{
+                    'facebookId': 'invalidFacebookId',
+                    'auctionId': 'invalidAuctionId',
+                    'auction': 'auction'
+                }).respond(404, {
+                    'message': 'parameters missing.'
                 });
-                promise = auctionResource.add({'title': ''});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = auctionResource.update({
+                    'facebookId': 'invalidFacebookId',
+                    'auctionId': 'invalidAuctionId',
+                    'auction': 'auction'
+                });
+
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
-                    expect(true).toBe(false);
-                }, function (resolve) {
-                    expect(resolve.message).toBe('parameters missing.');
-                });
+                }, errorCallback);
                 scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+            }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.update({token: 'validAccessToken'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+            it('should return a rejected promise when not send a token', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.update({facebookId: 'validFacebookId'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
             }));
         });
 
-        /*
-         describe('save a auction object', function () {
 
-         it('should get an object with facebookId', inject(function () {
-         httpBackend.expect("POST", globalConfig.backendBasePath + "/auctions/validFacebookId/auth").respond(200, {
-         name: 'auctionTestName',
-         facebookId: 'validId'
-         });
-         promise = auctionResource.save({'facebookId': 'validFacebookId', 'token': 'validToken'});
-         httpBackend.flush();
+        describe('add', function () {
 
-         promise.then(function (resolve) {
-         expect(resolve.name).toBe('auctionTestName');
-         }, function (resolve) {
-         expect(true).toBe(false);
-         });
-         scope.$digest();
-         }));
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/validFacebookId/auctions',{
+                    'facebookId': 'validFacebookId',
+                    'auction': 'auction'
+                }).respond(200, {
+                    facebookId: 'facebookId'
+                });
 
-         it('should get an fail request, request without token/facebookId', inject(function () {
-         httpBackend.expect("POST", globalConfig.backendBasePath + "/auctions/invalidId/auth").respond(404, {
-         "message": "parameters missing."
-         });
-         promise = auctionResource.save({'facebookId': 'invalidId'});
-         httpBackend.flush();
+                var errorCallback = jasmine.createSpy('errorCallback');
 
-         promise.then(function (resolve) {
-         expect(true).toBe(false);
-         }, function (resolve) {
-         expect(resolve.message).toBe('parameters missing.');
-         });
-         scope.$digest();
-         }));
-         });
+                promise = auctionResource.add({
+                    'facebookId': 'validFacebookId',
+                    'auction': 'auction'
+                });
 
-         */
+                httpBackend.flush();
+
+                promise.then(function (resolve) {
+                    expect(resolve.facebookId).toBe('facebookId');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
+            }));
+
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/invalidFacebookId/auctions',{
+                    'facebookId': 'invalidFacebookId',
+                    'auction': 'auction'
+                }).respond(404, {
+                    'message': 'parameters missing.'
+                });
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.add({
+                    'facebookId': 'invalidFacebookId',
+                    'auction': 'auction'
+                });
+
+                httpBackend.flush();
+
+                promise.then(function (resolve) {
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+            }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.add({token: 'validAccessToken'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+        });
+
+
+        describe('list', function () {
+
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('GET', globalConfig.backendBasePath + '/users/validFacebookId/auctions').respond(200, {
+                    'facebookId': 'validFacebookId',
+                    'auction': [{'auctionId':'validAuctionId'}]
+                });
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.loadAuctions({
+                    'facebookId': 'validFacebookId',
+                    'auction': 'auction'
+                });
+                httpBackend.flush();
+                promise.then(function (resolve) {
+                    expect(resolve.facebookId).toBe('validFacebookId');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
+            }));
+
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('GET', globalConfig.backendBasePath + '/users/invalidFacebookId/auctions').respond(404, {
+                    'message': 'parameters missing.'
+                });
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.loadAuctions({
+                    'facebookId': 'invalidFacebookId',
+                    'auction': 'auction'
+                });
+
+                httpBackend.flush();
+
+                promise.then(function (resolve) {
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+            }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = auctionResource.loadAuctions({});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+        });
+
     });
 })();
