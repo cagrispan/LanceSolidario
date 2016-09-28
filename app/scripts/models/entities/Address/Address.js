@@ -18,6 +18,7 @@
             this.complement = null;
             this.state = null;
             this.zip = null;
+
             this._add = function(){
                 return addressResource.add(this);
             };

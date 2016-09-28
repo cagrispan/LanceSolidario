@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    describe('Address entity', function () {
+    xdescribe('Address entity', function () {
         var Address;
         var addressResource;
         var $q;

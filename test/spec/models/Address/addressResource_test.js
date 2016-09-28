@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    describe('Address resource', function () {
+   xdescribe('Address resource', function () {
         var addressResource;
         var httpBackend;
         var promise;
