@@ -5,11 +5,11 @@ angular.module('utils')
         var self = this;
 
         this.updateApiToken = function (token) {
-            this.token = token;
+            self.token = token;
         };
 
         this.getApiToken = function () {
-            return this.token;
+            return self.token;
         };
 
 

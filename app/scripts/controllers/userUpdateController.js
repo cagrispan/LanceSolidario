@@ -9,7 +9,6 @@ angular.module('lanceSolidario')
                 //facebookAPI.getUserInfo();
                 $location.path('/login');
             }
-            alert('oi');
             var userToUpdate = new User();
             userToUpdate._set(facebookAPI.user);
             self.user = userToUpdate;
@@ -17,7 +16,6 @@ angular.module('lanceSolidario')
         }
 
         init().then(function(){
-            alert(self.user);
         });
         self.user._loadAll();
         self.saveUser= function (userToUpdate) {
