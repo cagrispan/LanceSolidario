@@ -16,12 +16,16 @@ angular.module('lanceSolidario')
                 controllerAs: 'userCtrl'
             }).when('/products', {
                 templateUrl: 'views/product/list.html',
-                controller: 'ProductCtrl',
-                controllerAs: 'productCtrl'
             }).when('/products/new', {
                 templateUrl: 'views/product/new.html',
                 controller: 'NewProductCtrl',
                 controllerAs: 'productCtrl'
+            }).when('/auctions', {
+                templateUrl: 'views/auction/list.html',
+            }).when('/auctions/new', {
+                templateUrl: 'views/auction/new.html',
+                controller: 'NewAuctionCtrl',
+                controllerAs: 'auctionCtrl'
             })
             .otherwise({redirectTo: '/login'});
     }]);
