@@ -49,6 +49,33 @@
             })
         });
 
+        describe('loadListByAuction', function () {
+
+            it('should call load method of resource with a auction like parameter', function () {
+                var auction = {};
+                var product = new Product();
+                auction.auctionId = 'validAuctionId';
+                var fakePromise = $q.when({
+                    'auctionId': 'validAuctionId',
+                    'products': [{
+                        'productId': 'validProductId'
+                    }, {
+                        'productId': 'validProductId2'
+                    }]
+                });
+                spyOn(productResource, 'loadProductsByAuction').and.returnValue(fakePromise);
+                var result = product._listByAuction({'auctionId':'validAuctionId'});
+
+                expect(productResource.loadProductsByAuction).toHaveBeenCalledWith({'auctionId':'validAuctionId'});
+                result.then(function (result) {
+                    //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
+                    expect(result[1].productId).toBe('validProductId2');
+                    //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
+                });
+                rootScope.$digest();
+            })
+        });
+
 
     });
 })();

@@ -172,5 +172,60 @@
 
         });
 
+        describe('listByAuction', function () {
+
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('GET', globalConfig.backendBasePath + '/auctions/validAuctionId/products').respond(200, {
+                    'auctionId': 'validAuctionId',
+                    'product': [{'productId':'validProductId'}]
+                });
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.loadProductsByAuction({
+                    'auctionId': 'validAuctionId',
+                    'facebookId': 'facebookId'
+                });
+                httpBackend.flush();
+                promise.then(function (resolve) {
+                    expect(resolve.auctionId).toBe('validAuctionId');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
+            }));
+
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('GET', globalConfig.backendBasePath + '/auctions/invalidAuctionId/products').respond(404, {
+                    'message': 'parameters missing.'
+                });
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.loadProductsByAuction({
+                    'auctionId': 'invalidAuctionId',
+                    'facebookId': 'facebookId'
+                });
+
+                httpBackend.flush();
+
+                promise.then(function (resolve) {
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+            }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.loadProductsByAuction({});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+        });
+
     });
 })();
