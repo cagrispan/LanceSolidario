@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-   xdescribe('Address resource', function () {
+   describe('Address resource', function () {
         var addressResource;
         var httpBackend;
         var promise;
@@ -108,6 +108,76 @@
             }));
         });
 
+
+       describe('remove', function () {
+
+           it('should receive a 200', inject(function () {
+               httpBackend.expect('DELETE', globalConfig.backendBasePath + '/users/validFacebookId/addresses/' + 'validAddressId').respond(200, {
+                   facebookId: 'facebookId'
+               });
+
+               var errorCallback = jasmine.createSpy('errorCallback');
+
+               promise = addressResource.remove({
+                   'facebookId': 'validFacebookId',
+                   'addressId': 'validAddressId',
+                   'address': 'address'
+               });
+
+               httpBackend.flush();
+
+               promise.then(function (resolve) {
+                   expect(resolve.facebookId).toBe('facebookId');
+               }, errorCallback);
+               scope.$digest();
+               expect(errorCallback).not.toHaveBeenCalled();
+           }));
+
+
+           it('should get an fail request, request with invalid token/facebookId', inject(function () {
+               httpBackend.expect('DELETE', globalConfig.backendBasePath + '/users/invalidFacebookId/addresses/' + 'invalidAddressId').respond(404, {
+                   'message': 'parameters missing.'
+               });
+
+               var errorCallback = jasmine.createSpy('errorCallback');
+
+               promise = addressResource.remove({
+                   'facebookId': 'invalidFacebookId',
+                   'addressId': 'invalidAddressId',
+                   'address': 'address'
+               });
+
+               httpBackend.flush();
+
+               promise.then(function (resolve) {
+               }, errorCallback);
+               scope.$digest();
+               expect(errorCallback).toHaveBeenCalled();
+           }));
+
+           it('should return a rejected promise when not send a facebookId', inject(function () {
+               var errorCallback = jasmine.createSpy('errorCallback');
+               promise = addressResource.remove({token: 'validAccessToken'});
+               promise.then(function (resolve) {
+                   expect(resolve.errorMessage).toBe('FacebookId missing');
+               }, errorCallback);
+
+               scope.$digest();
+               expect(errorCallback).toHaveBeenCalled();
+
+           }));
+
+           it('should return a rejected promise when not send a token', inject(function () {
+               var errorCallback = jasmine.createSpy('errorCallback');
+               promise = addressResource.remove({facebookId: 'validFacebookId'});
+               promise.then(function (resolve) {
+                   expect(resolve.errorMessage).toBe('FacebookId missing');
+               }, errorCallback);
+               scope.$digest();
+               expect(errorCallback).toHaveBeenCalled();
+
+           }));
+       });
 
         describe('add', function () {
 

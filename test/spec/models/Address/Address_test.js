@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    xdescribe('Address entity', function () {
+    describe('Address entity', function () {
         var Address;
         var addressResource;
         var $q;
@@ -34,6 +34,18 @@
                 spyOn(addressResource, 'update').and.returnValue(fakePromise);
                 var x = address._update();
                 expect(addressResource.update).toHaveBeenCalledWith(address);
+            });
+        });
+
+        describe('remove', function () {
+
+            it('should call remove method of resource with a address like parameter', function () {
+                var address = new Address();
+                address.facebookId = 'ThisIdExists';
+                var fakePromise = $q.when();
+                spyOn(addressResource, 'remove').and.returnValue(fakePromise);
+                var x = address._remove();
+                expect(addressResource.remove).toHaveBeenCalledWith(address);
             });
         });
 

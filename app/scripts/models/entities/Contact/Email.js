@@ -18,7 +18,11 @@
 
             this._update = function(){
                 return emailResource.update(this);
-            }
+            };
+
+            this._remove = function(){
+                return emailResource.remove(this);
+            };
         }
 
         return Email;

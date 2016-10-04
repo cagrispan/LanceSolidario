@@ -49,6 +49,18 @@
             })
         });
 
+        describe('remove', function () {
+
+            it('should call remove method of resource with a telephone like parameter', function () {
+                var telephone = new Telephone();
+                telephone.facebookId = 'ThisIdExists';
+                var fakePromise = $q.when();
+                spyOn(telephoneResource, 'remove').and.returnValue(fakePromise);
+                var x = telephone._remove();
+                expect(telephoneResource.remove).toHaveBeenCalledWith(telephone);
+            });
+        });
+
 
     });
 })();

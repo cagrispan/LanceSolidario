@@ -80,7 +80,7 @@
 
             this._listByAuction = function (auction) {
                 var bidListtoReturn = [];
-                return bidResource.loadBidsByAuction(user).then(function (response) {
+                return bidResource.loadBidsByAuction(auction).then(function (response) {
                     var bidList = [];
                     var facebookId = '';
 

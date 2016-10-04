@@ -13,5 +13,9 @@
         self.update = function (product) {
         };
 
+        self.loadProductsByAuction = function (auction) {
+        };
+
+
     }])
 })(angular);

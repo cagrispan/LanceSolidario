@@ -29,6 +29,29 @@
 
             this._update = function () {
                 return productResource.update(this);
+            };
+
+            this._listByAuction = function (auction) {
+                var productListtoReturn = [];
+                return productResource.loadProductsByAuction(auction).then(function (response) {
+                    var productList = [];
+                    var facebookId = '';
+
+                    if(response.products){  productList = response.products;}
+                    if(auction.facebookId){  facebookId = auction.facebookId;}
+                    else if(response.facebookId){  facebookId = response.facebookId;}
+
+                    if (productList && productList[0]) {
+                        var product;
+                        for (var i in productList) {
+                            product = new Product();
+                            product._set(productList[i]);
+                            product.facebookId = facebookId;
+                            productListtoReturn.push(product);
+                        }
+                    }
+                    return productListtoReturn;
+                });
             }
         }
 

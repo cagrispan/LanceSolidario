@@ -55,7 +55,7 @@
             })
         });
 
-        describe('loadList', function () {
+        describe('loadListByUser', function () {
 
             it('should call load method of resource with a user like parameter and populate auction/institution object', function () {
                 var user = {};
@@ -77,6 +77,38 @@
                 var result = bid._listByUser({'facebookId':'validFacebookId'});
 
                 expect(bidResource.loadBidsByUser).toHaveBeenCalledWith({'facebookId':'validFacebookId'});
+                result.then(function (result) {
+                    expect(result[0].auction.auctionId).toBe('validAuctionId1');
+                    //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
+                    expect(result[1].auction.auctionId).toBe('validAuctionId2');
+                    //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
+                });
+                rootScope.$digest();
+            })
+        });
+
+        describe('loadListByAuction', function () {
+
+            it('should call load method of resource with a auction like parameter and populate auction/institution object', function () {
+                var auction = {};
+                var bid = new Bid();
+                auction.auctionId = 'validAuctionId';
+                var fakePromise = $q.when({
+                    'auctionId': 'validAuctionId',
+                    'bids': [{
+                        'bidId': 'validBidId',
+                        'institutionId': 'validInstitutionId1',
+                        'auctionId': 'validAuctionId1'
+                    }, {
+                        'bidId': 'validBidId2',
+                        'institutionId': 'validInstitutionId2',
+                        'auctionId': 'validAuctionId2'
+                    }]
+                });
+                spyOn(bidResource, 'loadBidsByAuction').and.returnValue(fakePromise);
+                var result = bid._listByAuction({'auctionId':'validAuctionId'});
+
+                expect(bidResource.loadBidsByAuction).toHaveBeenCalledWith({'auctionId':'validAuctionId'});
                 result.then(function (result) {
                     expect(result[0].auction.auctionId).toBe('validAuctionId1');
                     //expect(result[0].institution.institutionId).toBe('validInstitutionId1');

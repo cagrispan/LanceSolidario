@@ -13,5 +13,8 @@
         self.update = function (email) {
         };
 
+        self.remove = function (email) {
+        };
+
     }])
 })(angular);

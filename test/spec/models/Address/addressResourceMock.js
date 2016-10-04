@@ -13,5 +13,8 @@
         self.update = function (address) {
         };
 
+        self.remove = function (address) {
+        };
+
     }])
 })(angular);

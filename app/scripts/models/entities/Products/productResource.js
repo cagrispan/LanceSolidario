@@ -73,6 +73,33 @@
             );
         };
 
+        self.loadProductsByAuction = function (auction) {
+            var headers = {};
+            var endpoint = '';
+            var token = apiToken.getApiToken();
+
+            //Validate and Mapping
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+
+            if (auction && auction.auctionId) {
+                endpoint = '/auctions/' + auction.auctionId + '/products';
+            } else {
+                return $q.reject({errorMessage: 'AuctionId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
         //server.delete('/users/:id/product/:id') //delete product
     }
     ])

@@ -13,5 +13,8 @@
         self.update = function (telephone) {
         };
 
+        self.remove = function (email) {
+        };
+
     }])
 })(angular);
