@@ -1,13 +1,14 @@
 <div ng-include="'views/common/components/header.html'"></div>
-<div class="content container">
+<div class="no-pad-bot content user">
+    <div ng-include="'views/user/components/header.html'"></div>
+x
+    <div class="container">
 
-  <div class="col-sm-2 col-md-2 col-lg-2">
     <div ng-include="'views/user/components/profile_actions.html'"></div>
-  </div>
 
-  <div class="col-sm-10 col-md-10 col-lg-10">
-    <div ng-include="'views/product/components/new.html'"></div>
-  </div>
+    <div class="col-sm-9 col-md-9 col-lg-9">
+        <div ng-include="'views/product/components/new.html'"></div>
+    </div>
 
 
 </div>

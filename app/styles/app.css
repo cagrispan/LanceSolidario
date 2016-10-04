@@ -126,28 +126,6 @@
   text-shadow: 2px 2px #0f0f0f;
   text-align: center;
 }
-.product-new .drop-box {
-  height: 10em;
-  border: dotted #2b669a;
-  border-radius: 25px;
-  transition: border 850ms;
-}
-.product-new .drop-box:hover {
-  border: dotted #9acfea;
-  border-radius: 25px;
-  transition: border 850ms;
-}
-.product-new .product-image .btn {
-  margin-top: 3em !important;
-}
-.product-new .product-action {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-.product-new .product-new {
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
 .profile {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -208,24 +186,28 @@
 }
 .user .panel .panel-body table {
   margin: 0 0 0 0;
-  font-size: 12pt;
+  font-size: 12pt
+            ;
 }
-.user .panel .panel-body table tr {
-  height: 60px;
-}
-.user .panel .panel-body table.table-hover tr:hover {
+.user .panel .panel-body table.table-hover tbody tr:hover {
   border-left: solid 5px #016DB8;
   cursor: pointer;
 }
-.user .panel .panel-body table td {
+.user .panel .panel-body table tbody tr {
+  height: 60px;
+}
+.user .panel .panel-body table tbody td {
   vertical-align: middle;
 }
-.user .panel .panel-body table .name {
+.user .panel .panel-body table tbody .name {
   font-weight: bold;
   font-size: 15pt;
 }
 .user-edit .container {
   padding: 0px 0px 0px 0px !important;
+}
+.margin-default {
+  margin: 10px 10px 10px 10px !important;
 }
 .no-padding {
   padding: 0 0 0 0 !important;
@@ -362,10 +344,12 @@ div {
 .content > .container {
   padding-top: 20px !important;
 }
+/*
 .panel-body {
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
-}
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+ }
+*/
 .navbar {
   background: #016DB8 !important;
   height: 52px;
