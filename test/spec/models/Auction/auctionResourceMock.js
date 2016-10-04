@@ -10,15 +10,20 @@
 
         self.add = function (auction) {
         };
+        self.add = function (auction) {
+        };
 
         self.load = function (auction) {
+        };
+        self.loadAll = function (params) {
         };
 
         self.loadAuctions = function (user) {
         };
 
-         self.update = function (auction) {
+        self.update = function (auction) {
 
-         }
-    }])
+        }
+    }
+    ])
 })(angular);
