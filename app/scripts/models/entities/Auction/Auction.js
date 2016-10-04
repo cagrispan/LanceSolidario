@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product']).factory('Auction', ['auctionResource', 'Entity','Product', function (auctionResource, Entity, Product) {
+    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product']).factory('Auction', ['auctionResource', 'Entity', 'Product', function (auctionResource, Entity, Product) {
 
         angular.extend(Auction.prototype, Entity.prototype);
         Auction.prototype.constructor = Auction;
@@ -57,40 +57,83 @@
                 return auctionResource.update(this);
             };
 
-            this._list = function (user) {
-                var auctionListtoReturn = [];
-                return auctionResource.loadAuctions(user).then(function (response) {
-                    var auctionList = [];
-                    var facebookId = '';
+            this._load = function () {
+                return auctionResource.load(this).then(function (response) {
+                    var auction = this;
+                    auction._setAuction(response);
+                    return auction;
+                });
+            };
 
-                    if(response.auctions){  auctionList = response.auctions;}
-                    if(response.facebookId){  facebookId = response.facebookId;}
+            this._listAll = function (params) {
+                var auctionListtoReturn = [];
+
+                return auctionResource.loadAll(params).then(function (response) {
+                    var auctionList = [];
+
+                    if (response.auctions) {
+                        auctionList = response.auctions;
+                    }
 
                     if (auctionList && auctionList[0]) {
                         var auction;
                         for (var i in auctionList) {
                             auction = new Auction();
-                            auction._set(auctionList[i]);
-                            //Product
-                            if (auctionList[i].productId) {
-                                var product = new Product();
-                                product.productId = auctionList[i].productId;
-                                auction.product = product;
-                            }
-
-                            /*//Institution
-                             if(auctionList[i].institutionId){
-                             var institution = new Institution();
-                             institution.institutionId = auctionList[i].institutionId;
-                             auction.institution = institution;
-                             }//*/
-                            auction.facebookId = facebookId;
+                            auction._setAuction(auctionList[i]);
                             auctionListtoReturn.push(auction);
                         }
                     }
-
                     return auctionListtoReturn;
                 });
+            };
+
+
+            this._listByUser = function (user) {
+                var auctionListtoReturn = [];
+
+                return auctionResource.loadAuctions(user).then(function (response) {
+                    var auctionList = [];
+                    var facebookId = '';
+
+                    if (response.auctions) {
+                        auctionList = response.auctions;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
+
+                    if (auctionList && auctionList[0]) {
+                        var auction;
+                        for (var i in auctionList) {
+                            auction = new Auction();
+                            auction.facebookId = facebookId;
+                            auction._setAuction(auctionList[i]);
+                            auctionListtoReturn.push(auction);
+                        }
+                    }
+                    return auctionListtoReturn;
+                });
+            };
+
+
+            this._setAuction = function (objectToSet) {
+                var auction = this;
+                auction._set(objectToSet);
+
+                //Product
+                if (objectToSet.productId) {
+                    var product = new Product();
+                    product.productId = objectToSet.productId;
+                    auction.product = product;
+                }
+
+                /*//Institution
+                 if(auctionList[i].institutionId){
+                 var institution = new Institution();
+                 institution.institutionId = auctionList[i].institutionId;
+                 auction.institution = institution;
+                 }//*/
+                return auction;
             }
 
         }
