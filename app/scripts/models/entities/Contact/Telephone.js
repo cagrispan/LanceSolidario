@@ -18,7 +18,11 @@
 
             this._update = function(){
                 return telephoneResource.update(this);
-            }
+            };
+
+            this._remove = function(){
+                return telephoneResource.remove(this);
+            };
         }
 
         return Telephone;

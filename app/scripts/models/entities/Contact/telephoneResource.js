@@ -73,6 +73,45 @@
             );
         };
 
+        self.remove = function (telephone) {
+            var headers = {};
+            var endpoint = "";
+            var token = apiToken.getApiToken();
+            var telephoneId = "";
+            var objectToSend;
+
+            //Validate and Mapping
+            objectToSend = angular.copy(telephone);
+
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (telephone && telephone.telephoneId) {
+                telephoneId = telephone.telephoneId;
+            } else {
+
+                return $q.reject({errorMessage: 'telephone id missing'});
+            }
+
+
+            if (telephone && telephone.facebookId) {
+                endpoint = '/users/'+telephone.facebookId+'/telephones/'+telephoneId;
+            } else {
+
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.remove(endpoint, objectToSend, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
         //server.delete('/users/:id/telephone/:id') //delete telephone
     }
     ])
