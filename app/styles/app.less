@@ -1,10 +1,11 @@
 /* app css stylesheet */
-
-@import "utils.less";
-@import "product.less";
-@import "profile.less";
 @import "auction.less";
 @import "home.less";
+@import "login.less";
+@import "product.less";
+@import "profile.less";
+@import "user.less";
+@import "utils.less";
 
 @font-face {
     font-family: markMyWords;
@@ -15,15 +16,62 @@ html,
 body {
     margin: 0;
     height: 100%;
+    background: #FCFCFC;
+
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+p, div {
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .content {
-    margin-top: 100px;
+    margin-top: 50px;
     padding-bottom: 100px; /* Height of the footer element */
-    min-height: calc(~'100vh - 100 px')!important;
+    min-height: calc(~'100vh - 50px') !important;
 
-    @media only screen and (max-width: 768px) {
-        margin-top: 50px;
+    >.container {
+        padding-top: 20px !important;
+    }
+}
+
+.navbar {
+    background: #016DB8 !important;
+    height: 52px;
+    color: #FFFFFF !important;
+
+    ul, a {
+        opacity: 0.95;
+        color: #FFFFFF !important;
+    }
+
+    li {
+        box-sizing: border-box;
+        margin-left: 2px;
+        margin-right: 2px;
+        background-color: #016DB8 !important;
+    }
+
+    li > a:focus{
+        background-color: transparent !important;
+    }
+
+    li > a:hover {
+        opacity: 1;
+        font-weight: bolder;
+
+        box-sizing: border-box;
+        background-color: #016DB8 !important;
+        border-bottom: solid 2px #FFFFFF;
+        color: #FFFFFF;
+    }
+
+    .navbar-right{
+        font-size: 20px;
     }
 }
 
@@ -32,7 +80,7 @@ body {
     min-height: 250px;
     position: relative;
 
-    h1{
+    h1 {
         color: #d9edf7;
         font-size: 16pt;
     }

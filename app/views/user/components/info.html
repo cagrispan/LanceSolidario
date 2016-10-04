@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Informações Básicas
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <br>
+        <!-- Informações Básicas -->
+        <div class="container-fluid">
+            <!-- Nome -->
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group">
+                    <label for="user_name">Nome:</label>
+                    <input type="text" class="form-control" ng-model="userCtrl.user.name" id="user_name"
+                           placeholder="Ex: seuemail@exemplo.com">
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group">
+                    <label for="user_email">Email address</label>
+                    <input type="email" class="form-control" id="user_email" ng-model="userCtrl.user.email"
+                           placeholder="Ex: seuemail@exemplo.com">
+                </div>
+            </div>
+        </div>
+
+        <!-- Aniversário -->
+        <div class="container-fluid">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label for="user_birthday">Aniversário:</label>
+                    <input type="date" class="form-control" id="user_birthday" ng-model="userCtrl.user.birthday">
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label for="user_phone">Telefone:</label>
+                    <input type="text" class="form-control" id="user_phone" ng-model="userCtrl.user.telephone">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

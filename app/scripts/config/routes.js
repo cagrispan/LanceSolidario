@@ -11,9 +11,13 @@ angular.module('lanceSolidario')
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/user', {
+                templateUrl: 'views/user/dashboard.html',
+            }).when('/user/edit', {
                 templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
                 controllerAs: 'userCtrl'
+            }).when('/user/edit/address', {
+                templateUrl: 'views/user/edit_address.html',
             }).when('/products', {
                 templateUrl: 'views/product/list.html',
             }).when('/products/new', {
