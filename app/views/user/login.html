@@ -1,19 +1,34 @@
 <div ng-include="'views/common/components/header.html'"></div>
 <div class="content container">
-    <div class="col-sm-12 col-md-10 col-md-offset-2">
-            <span class="text">
-                <p>
-                    Olá visitante! Para ter acesso ao Lance solidário é necessário fazer login utilizando
-                    sua conta do facebook.
-                </p>
-            </span>
+    <div class="col-sm-12 col-md-10 col-centered">
+
+        <div class="login-box col-sm-12 col-md-10 col-lg-8 col-centered">
+            <h1>Bem vindo ao Lance Solidário!</h1>
+            <span>Ajude instituições leiloando ou comprando itens doados</span>
+
+            <div class="alert alert-danger">
+                Para usufruir do serviço, é necessário se registrar com sua conta do facebook.
+            </div>
+
+            <div class="">
+                <div class="col-sm-12 col-md-6 col-lg-4 col-centered">
+                    <div class="facebook-login">
+                        <div id="fb-root"></div>
+
+                        <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
+                             data-auto-logout-link="false">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-        <div id="fb-root"></div>
 
-        <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
-             data-auto-logout-link="false">
         </div>
+
+
+
+
     </div>
 </div>
 <div ng-include="'views/common/components/footer.html'"></div>

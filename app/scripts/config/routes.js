@@ -7,25 +7,31 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/user/login.html'
             })
             .when('/home', {
-                templateUrl: 'views/commom/home.html',
+                templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/user', {
+                templateUrl: 'views/user/dashboard.html',
+            }).when('/user/edit', {
                 templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
                 controllerAs: 'userCtrl'
-            }).when('/products', {
+            }).when('/user/edit/address', {
+                templateUrl: 'views/user/edit_address.html',
+            }).when('/user/edit/contact', {
+                templateUrl: 'views/user/edit_contact.html',
+            }).when('/user/products', {
                 templateUrl: 'views/product/list.html',
-            }).when('/products/new', {
+            }).when('/user/products/new', {
                 templateUrl: 'views/product/new.html',
                 controller: 'NewProductCtrl',
                 controllerAs: 'productCtrl'
-            }).when('/auctions', {
+            }).when('/user/auctions', {
                 templateUrl: 'views/auction/list.html',
-            }).when('/auctions/new', {
+            }).when('/user/auctions/new', {
                 templateUrl: 'views/auction/new.html',
                 controller: 'NewAuctionCtrl',
                 controllerAs: 'auctionCtrl'
             })
-            .otherwise({redirectTo: '/login'});
+            .otherwise({redirectTo: '/home'});
     }]);

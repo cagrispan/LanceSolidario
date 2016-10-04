@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Endereços de email:
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <tr>
+                <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
+                    fulanodasilva@dominio.com
+                </td>
+                <td class="col-sm-1 text-center">
+                    <button class="btn btn-xs btn-danger">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
+                    fulanodasilva@dominio.com
+                </td>
+                <td class="col-sm-1 text-center">
+                    <button class="btn btn-xs btn-danger">
+                        <i class="fa fa-close"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <div class="container-fluid">
+            <form class="form-inline" action="">
+                <div class="form-group">
+                    <label for="user_email">Novo Email:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="user_email"
+                               ng-model="userCtrl.user.email">
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
