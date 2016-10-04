@@ -1,8 +1,6 @@
-/**
- * Created by Aliss on 11/08/2016.
- */
-  //TODO:Define global variables config
+//TODO:Define global variables config
 //var globalConfig = {backendBasePath:'http://10.41.1.22:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
+
 (function () {
     'use strict';
 
@@ -11,84 +9,168 @@
         var httpBackend;
         var promise;
         var scope;
+        var apiToken;
 
-        beforeEach(module('lanceSolidario.product.productResource'));
-        beforeEach(inject(function (_productResource_, $httpBackend, $rootScope) {
-            httpBackend = $httpBackend;
-            productResource = _productResource_;
-            scope = $rootScope;
-        }));
+        beforeEach(module('lanceSolidario.product.productResource', 'utils'));
+
+        beforeEach(function () {
+            module(function ($provide) {
+                $provide.value('apiToken', {
+                    getApiToken: function () {
+                        return 'validAccessToken'
+                    }
+                })
+            });
+
+            inject(function (_productResource_, $httpBackend, $rootScope) {
+                httpBackend = $httpBackend;
+                productResource = _productResource_;
+                scope = $rootScope;
+            })
+        });
 
 
-        describe('create a product object', function () {
+        describe('update', function () {
 
-            it('should get a object with id when sending a object with a title "ThisIsATitle"', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/products").respond(200, {
-                    id: 'thisIsAValidId',
-                    title:'ThisIsATitle'
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/validFacebookId/products/' + 'validProductId',{
+                    'facebookId': 'validFacebookId',
+                    'productId': 'validProductId',
+                    'product': 'product'
+                }).respond(200, {
+                    facebookId: 'facebookId'
                 });
-                promise = productResource.add({'title': 'ThisIsATitle'});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = productResource.update({
+                    'facebookId': 'validFacebookId',
+                    'productId': 'validProductId',
+                    'product': 'product'
+                });
+
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
-                    expect(resolve.title).toBe('ThisIsATitle');
-                }, function (resolve) {
-                    expect(true).toBe(false);
-                });
+                    expect(resolve.facebookId).toBe('facebookId');
+                }, errorCallback);
                 scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
             }));
 
-            it('should get an fail request whwn send a product without a title', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/products").respond(404, {
-                    "message": "parameters missing."
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/invalidFacebookId/products/' + 'invalidProductId',{
+                    'facebookId': 'invalidFacebookId',
+                    'productId': 'invalidProductId',
+                    'product': 'product'
+                }).respond(404, {
+                    'message': 'parameters missing.'
                 });
-                promise = productResource.add({'title': ''});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = productResource.update({
+                    'facebookId': 'invalidFacebookId',
+                    'productId': 'invalidProductId',
+                    'product': 'product'
+                });
+
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
-                    expect(true).toBe(false);
-                }, function (resolve) {
-                    expect(resolve.message).toBe('parameters missing.');
-                });
+                }, errorCallback);
                 scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+            }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.update({token: 'validAccessToken'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+            it('should return a rejected promise when not send a token', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.update({facebookId: 'validFacebookId'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
             }));
         });
 
-        /*
-        describe('save a product object', function () {
 
-            it('should get an object with facebookId', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/products/validFacebookId/auth").respond(200, {
-                    name: 'productTestName',
-                    facebookId: 'validId'
+        describe('add', function () {
+
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/validFacebookId/products',{
+                    'facebookId': 'validFacebookId',
+                    'product': 'product'
+                }).respond(200, {
+                    facebookId: 'facebookId'
                 });
-                promise = productResource.save({'facebookId': 'validFacebookId', 'token': 'validToken'});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = productResource.add({
+                    'facebookId': 'validFacebookId',
+                    'product': 'product'
+                });
+
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
-                    expect(resolve.name).toBe('productTestName');
-                }, function (resolve) {
-                    expect(true).toBe(false);
-                });
+                    expect(resolve.facebookId).toBe('facebookId');
+                }, errorCallback);
                 scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
             }));
 
-            it('should get an fail request, request without token/facebookId', inject(function () {
-                httpBackend.expect("POST", globalConfig.backendBasePath + "/products/invalidId/auth").respond(404, {
-                    "message": "parameters missing."
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/invalidFacebookId/products',{
+                    'facebookId': 'invalidFacebookId',
+                    'product': 'product'
+                }).respond(404, {
+                    'message': 'parameters missing.'
                 });
-                promise = productResource.save({'facebookId': 'invalidId'});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.add({
+                    'facebookId': 'invalidFacebookId',
+                    'product': 'product'
+                });
+
                 httpBackend.flush();
 
                 promise.then(function (resolve) {
-                    expect(true).toBe(false);
-                }, function (resolve) {
-                    expect(resolve.message).toBe('parameters missing.');
-                });
+                }, errorCallback);
                 scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
             }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = productResource.add({token: 'validAccessToken'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
         });
 
-        */
     });
 })();

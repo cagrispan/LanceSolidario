@@ -16,4 +16,20 @@ angular.module('lanceSolidario.auction', [
   'lanceSolidario.auction.auction'
 ]);
 
+angular.module('lanceSolidario.address', [
+    'lanceSolidario.address.addressResource',
+    'lanceSolidario.address.address'
+]);
+
+angular.module('lanceSolidario.email', [
+    'lanceSolidario.email.emailResource',
+    'lanceSolidario.email.email'
+]);
+
+
+angular.module('lanceSolidario.telephone', [
+    'lanceSolidario.telephone.telephoneResource',
+    'lanceSolidario.telephone.telephone'
+]);
+
 angular.module('utils',['lanceSolidario']);

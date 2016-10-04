@@ -3,25 +3,25 @@
  */
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.product.productResource', ['utils']).service('productResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
+    angular.module('lanceSolidario.telephone.telephoneResource', ['utils']).service('telephoneResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function (product) {
+        self.add = function (telephone) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();
             var objectToSend;
 
             //Validate and Mapping
-            objectToSend = angular.copy(product);
+            objectToSend = angular.copy(telephone);
 
             if (token) {
                 headers.token = token;
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-            if (product && product.facebookId) {
-                endpoint = '/users/'+product.facebookId+'/products';
+            if (telephone && telephone.facebookId) {
+                endpoint = '/users/'+telephone.facebookId+'/telephones';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -34,15 +34,15 @@
             );
         };
 
-        self.update = function (product) {
+        self.update = function (telephone) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();
-            var productId = "";
+            var telephoneId = "";
             var objectToSend;
 
             //Validate and Mapping
-            objectToSend = angular.copy(product);
+            objectToSend = angular.copy(telephone);
 
             if (token) {
                 headers.token = token;
@@ -50,16 +50,16 @@
                 return $q.reject({errorMessage: 'Access token missing'});
             }
 
-            if (product && product.productId) {
-                productId = product.productId;
+            if (telephone && telephone.telephoneId) {
+                telephoneId = telephone.telephoneId;
             } else {
 
-                return $q.reject({errorMessage: 'product id missing'});
+                return $q.reject({errorMessage: 'Telephone id missing'});
             }
 
 
-            if (product && product.facebookId) {
-                endpoint = '/users/'+product.facebookId+'/products/'+productId;
+            if (telephone && telephone.facebookId) {
+                endpoint = '/users/'+telephone.facebookId+'/telephones/'+telephoneId;
             } else {
 
                 return $q.reject({errorMessage: 'FacebookId missing'});
@@ -73,7 +73,7 @@
             );
         };
 
-        //server.delete('/users/:id/product/:id') //delete product
+        //server.delete('/users/:id/telephone/:id') //delete telephone
     }
     ])
 })

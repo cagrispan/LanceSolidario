@@ -16,42 +16,36 @@
         };
 
         self.getToken = function (user) {
-            var d = $q.defer();
-            //user map
-            var userToSend = {name:'userTestName'};
-            //var endpoint = '/users/' + user.facebookId + '/token/' + user.token;
-            if (user.facebookId === 'validFacebookId' && user.token === 'validToken') {
-                d.resolve(userToSend);
-            } else {
-                d.reject("The request fail :" + {'Content-Type':'application/json'});
-            }
-            return d.promise;
+
         };
 
         self.update = function (user) {
-            var d = $q.defer();
-            //user map
-            var userToSend = {name:'userTestName','address':{'addressLine':'validAddressLine'}};
-            //var endpoint = '/users/' + user.facebookId;
-            if (user.facebookId === 'validFacebookId' && user.token === 'validToken' && user.address.addressLine==='validAddressLine') {
-                d.resolve(userToSend);
-            } else {
-                d.reject("The request fail :"+ {'Content-Type':'application/json'});
-            }
-            return d.promise;
+
         };
 
         self.load = function (user) {
-            var d = $q.defer();
-            //user map
-            var userToSend = {name:'userTestName','address':{'addressLine':'validAddressLine'}};
-            //var endpoint = '/users/' + user.facebookId;
-            if (user.facebookId === 'validFacebookId' && user.token === 'validToken' && user.address.addressLine==='validAddressLine') {
-                d.resolve(userToSend);
-            } else {
-                d.reject("The request fail :"+ {'Content-Type':'application/json'});
-            }
-            return d.promise;
+
         };
+
+        self.loadAddresses = function (user) {
+
+        };
+
+        self.loadEmails = function (user) {
+
+        };
+
+        self.loadTelephones = function (user) {
+
+        };
+
+        self.createOrUpdate = function (user) {
+
+        };
+
+        self.loadProducts = function (user) {
+
+        };
+
     }])
 })(angular);

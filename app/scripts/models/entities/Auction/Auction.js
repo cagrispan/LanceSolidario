@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource']).factory('Auction', ['auctionResource', 'Entity', '$q', function (auctionResource, Entity, $q) {
+    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product']).factory('Auction', ['auctionResource', 'Entity','Product', function (auctionResource, Entity, Product) {
 
         angular.extend(Auction.prototype, Entity.prototype);
         Auction.prototype.constructor = Auction;
@@ -14,21 +14,12 @@
             /*
              Id
              */
-            this.id = null;
+            this.auctionId = null;
+
             /*
              Product Object
              */
             this.product = null;
-
-            /*
-             User Object
-             */
-            this.donorUser = null;
-
-            /*
-             User Object
-             */
-            this.buyerUser = null;
 
             /*
              Institution Object
@@ -36,9 +27,9 @@
             this.institution = null;
 
             /*
-             Array DeliveryMethod Object
+             User Object
              */
-            this.deliveryMethods = null;
+            this.donorUser = null;
 
             /*
              Number
@@ -46,12 +37,7 @@
             this.minimumBid = null;
 
             /*
-             Array Object Bid
-             */
-            this.bids = null;
-
-            /*
-              Date
+             Date
              */
             this.startDate = null;
 
@@ -67,16 +53,46 @@
                 return auctionResource.add(this);
             };
 
-            this._load = function () {
-                return auctionResource.load(this).then(
-                    function (auctionReturned) {
-                        this._set(auctionReturned);
-                        return this;
-                    },
-                    function (errorCallback) {
-                        return errorCallback;
-                    });
+            this._update = function () {
+                return auctionResource.update(this);
             };
+
+            this._list = function (user) {
+                var auctionListtoReturn = [];
+                return auctionResource.loadAuctions(user).then(function (response) {
+                    var auctionList = [];
+                    var facebookId = '';
+
+                    if(response.auctions){  auctionList = response.auctions;}
+                    if(response.facebookId){  facebookId = response.facebookId;}
+
+                    if (auctionList && auctionList[0]) {
+                        var auction;
+                        for (var i in auctionList) {
+                            auction = new Auction();
+                            auction._set(auctionList[i]);
+                            //Product
+                            if (auctionList[i].productId) {
+                                var product = new Product();
+                                product.productId = auctionList[i].productId;
+                                auction.product = product;
+                            }
+
+                            /*//Institution
+                             if(auctionList[i].institutionId){
+                             var institution = new Institution();
+                             institution.institutionId = auctionList[i].institutionId;
+                             auction.institution = institution;
+                             }//*/
+                            auction.facebookId = facebookId;
+                            auctionListtoReturn.push(auction);
+                        }
+                    }
+
+                    return auctionListtoReturn;
+                });
+            }
+
         }
 
         return Auction

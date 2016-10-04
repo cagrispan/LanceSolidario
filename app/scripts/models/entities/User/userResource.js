@@ -7,51 +7,180 @@
         var self = this;
 
         self.getToken = function (user) {
-            var d = $q.defer();
-            //user map
-            var endpoint = '/auth/' + user.facebookId;
+            //Config
+            var endpoint = '/auth';
             var headers = {};
-            webService.add(endpoint, user, headers).then(
+            //Validate
+            if (user && user.facebookId) {
+                headers.facebookId = user.facebookId;
+            } else {
+                return $q.reject({errorMessage: 'facebookId missing'});
+            }
+            //Make the request
+            return webService.add(endpoint, user, headers).then(
                 function (resolve) {
-                    return d.resolve(resolve.data);
-                }, function (resolve) {
-                    return d.reject(resolve.data);
+                    return resolve.data;
                 }
             );
-            return d.promise;
         };
 
-        self.update = function (user) {
-            var d = $q.defer();
-            //user map
-            var objectToSend = user;
-            var endpoint = '/users/' + user.facebookId;
-            var headers = {'token': user.token, 'facebookId': user.facebookId};
+        self.createOrUpdate = function (user) {
+            var headers = {};
+            var endpoint = "";
+            var objectToSend = "";
+            //Validate and Mapping
+            objectToSend = angular.copy(user);
 
-            webService.update(endpoint, user, headers).then(
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId;
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.update(endpoint, objectToSend, headers).then(
                 function (resolve) {
-                    return d.resolve(resolve.data);
-                }, function (resolve) {
-                    return d.reject(resolve.data);
+                    return resolve.data;
                 }
             );
-            return d.promise;
         };
 
         self.load = function (user) {
-            var d = $q.defer();
+            var headers = {};
+            var endpoint = "";
 
-            var endpoint = '/users/' + user.facebookId;
-            var headers = {'token': user.token, 'facebookId': user.facebookId};
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
 
-            webService.read(endpoint, headers).then(
+            if (user && user.facebookId) {
+                endpoint = '/users/'+ user.facebookId;
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
                 function (resolve) {
-                    return d.resolve(resolve.data);
-                }, function (resolve) {
-                    return d.reject(resolve.data);
+                    return resolve.data;
                 }
             );
-            return d.promise;
         };
-    }])
-})(angular);
+
+
+        // Address
+
+        self.loadAddresses = function (user) {
+            var headers = {};
+            var endpoint = '';
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/addresses';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.addresses;
+                }
+            );
+        };
+
+        // Emails
+        self.loadEmails = function (user) {
+            var headers = {};
+            var endpoint = '';
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/emails' ;
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.emails;
+                }
+            );
+        };
+
+        //Telephones
+        self.loadTelephones = function (user) {
+            var headers = {};
+            var endpoint = '';
+
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/telephones';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.telephones;
+                }
+            );
+        };
+
+        //Products
+        self.loadProducts = function (user) {
+            var headers = {};
+            var endpoint = '';
+
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/products';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.products;
+                }
+            );
+        };
+
+    }
+    ])
+})
+(angular);

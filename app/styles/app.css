@@ -126,53 +126,51 @@
   text-shadow: 2px 2px #0f0f0f;
   text-align: center;
 }
-.drop-box {
+.product-new .drop-box {
   height: 10em;
   border: dotted #2b669a;
   border-radius: 25px;
   transition: border 850ms;
 }
-.drop-box:hover {
+.product-new .drop-box:hover {
   border: dotted #9acfea;
   border-radius: 25px;
   transition: border 850ms;
 }
-.product-image .btn {
+.product-new .product-image .btn {
   margin-top: 3em !important;
 }
-.product-action {
+.product-new .product-action {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-.product-new {
+.product-new .product-new {
   margin-top: 2em;
   margin-bottom: 2em;
 }
-.profile-actions {
+.profile {
   margin-top: 1em;
   margin-bottom: 1em;
   padding-left: 0;
   padding-right: 0;
 }
-.profile-actions ul {
+.profile .profile-sidebar {
+  padding: 0 0 0 0 !important;
+}
+.profile .profile-sidebar .actions ul {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
-.profile-actions li {
+.profile .profile-sidebar .actions li {
   margin: 0 0 0 0 !important;
   padding: 0 0 0 0 !important;
   width: 100% !important;
   border-right: solid 3px #FF9505;
-  /* ----------- Transitions ----------- */
   transition: border-right 0.15s;
 }
-.profile-actions li:hover {
+.profile .profile-sidebar .actions li:hover {
   border-right: solid 3px #016FB9;
-  /* ----------- Transitions ----------- */
   transition: border-right 0.15s;
-}
-.profile-sidebar {
-  padding: 0 0 0 0 !important;
 }
 .profile-header {
   background: #016DB8;
@@ -194,9 +192,6 @@
 .profile-header .container h1 {
   color: #FFFFFF;
   text-shadow: 2px 2px #0f0f0f;
-}
-.user-dashboard .panel.collapsing {
-  transition-duration: 1.25s;
 }
 .user-dashboard .dashboard {
   padding-top: 20px !important;
