@@ -26,10 +26,14 @@ angular.module('lanceSolidario.email', [
     'lanceSolidario.email.email'
 ]);
 
-
 angular.module('lanceSolidario.telephone', [
     'lanceSolidario.telephone.telephoneResource',
     'lanceSolidario.telephone.telephone'
+]);
+
+angular.module('lanceSolidario.bid', [
+    'lanceSolidario.bid.bidResource',
+    'lanceSolidario.bid.bid'
 ]);
 
 angular.module('utils',['lanceSolidario']);
