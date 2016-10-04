@@ -193,29 +193,34 @@
   color: #FFFFFF;
   text-shadow: 2px 2px #0f0f0f;
 }
-.user-dashboard .dashboard {
+.user .dashboard {
   padding-top: 20px !important;
 }
-.user-dashboard .panel {
+.user .container-fluid > form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.user .panel {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
 }
-.user-dashboard .panel .panel-body {
+.user .panel .panel-body {
   padding: 0 0 0 0;
 }
-.user-dashboard .panel .panel-body table {
+.user .panel .panel-body table {
   margin: 0 0 0 0;
   font-size: 12pt;
 }
-.user-dashboard .panel .panel-body table tr {
+.user .panel .panel-body table tr {
   height: 60px;
 }
-.user-dashboard .panel .panel-body table tr:hover {
+.user .panel .panel-body table.table-hover tr:hover {
   border-left: solid 5px #016DB8;
+  cursor: pointer;
 }
-.user-dashboard .panel .panel-body table td {
+.user .panel .panel-body table td {
   vertical-align: middle;
 }
-.user-dashboard .panel .panel-body table .name {
+.user .panel .panel-body table .name {
   font-weight: bold;
   font-size: 15pt;
 }
@@ -357,6 +362,10 @@ div {
 .content > .container {
   padding-top: 20px !important;
 }
+.panel-body {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
 .navbar {
   background: #016DB8 !important;
   height: 52px;
@@ -364,7 +373,6 @@ div {
 }
 .navbar ul,
 .navbar a {
-  opacity: 0.95;
   color: #FFFFFF !important;
 }
 .navbar li {
@@ -376,16 +384,24 @@ div {
 .navbar li > a:focus {
   background-color: transparent !important;
 }
-.navbar li > a:hover {
+.navbar li > a {
+  opacity: 0.92;
+  transition: opacity 1s;
+}
+.navbar li a:hover {
   opacity: 1;
   font-weight: bolder;
   box-sizing: border-box;
   background-color: #016DB8 !important;
   border-bottom: solid 2px #FFFFFF;
   color: #FFFFFF;
+  transition: opacity 1s;
 }
-.navbar .navbar-right {
-  font-size: 20px;
+.navbar .menuitem {
+  font-size: 20pt !important;
+}
+.navbar .fa {
+  font-size: 16px;
 }
 .footer {
   background: #05283F;

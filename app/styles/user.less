@@ -29,10 +29,18 @@
 }
 
 
-.user-dashboard {
+.user {
     .dashboard {
         padding-top: 20px !important;
     }
+
+    .container-fluid {
+        > form {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+
 
     .panel {
 
@@ -49,8 +57,11 @@
                     height: 60px;
                 }
 
-                tr:hover {
-                    border-left: solid 5px #016DB8;
+                &.table-hover{
+                    tr:hover {
+                        border-left: solid 5px #016DB8;
+                        cursor: pointer;
+                    }
                 }
 
                 td {
