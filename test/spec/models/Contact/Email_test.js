@@ -49,6 +49,18 @@
             })
         });
 
+        describe('remove', function () {
+
+            it('should call remove method of resource with a email like parameter', function () {
+                var email = new Email();
+                email.facebookId = 'ThisIdExists';
+                var fakePromise = $q.when();
+                spyOn(emailResource, 'remove').and.returnValue(fakePromise);
+                var x = email._remove();
+                expect(emailResource.remove).toHaveBeenCalledWith(email);
+            });
+        });
+
 
     });
 })();
