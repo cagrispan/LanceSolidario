@@ -19,6 +19,9 @@
         self.loadBidsByUser = function (user) {
         };
 
+        self.loadBidsByAuction = function (auction) {
+        };
+
         self.update = function (bid) {
 
          }
