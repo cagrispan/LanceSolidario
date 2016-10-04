@@ -26,6 +26,8 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/product/new.html',
                 controller: 'NewProductCtrl',
                 controllerAs: 'productCtrl'
+            }).when('/user/purchases', {
+                templateUrl: 'views/purchase/list.html',
             }).when('/user/auctions', {
                 templateUrl: 'views/auction/list.html',
             }).when('/user/auctions/new', {

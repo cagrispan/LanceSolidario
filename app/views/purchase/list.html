@@ -1,0 +1,68 @@
+<div ng-include="'views/common/components/header.html'"></div>
+<div class="no-pad-bot content user">
+    <div ng-include="'views/user/components/header.html'"></div>
+
+    <div class="container">
+
+
+        <div ng-include="'views/user/components/profile_actions.html'"></div>
+
+        <div class="col-sm-9 col-md-9 col-lg-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Minhas Compras
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Nome</th>
+                        <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Data da compra</th>
+                        <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Estado:</th>
+                        <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Camera Fotográfica</td>
+                        <td>07/09/2016</td>
+                        <td>Aguardando Entrega</td>
+
+                        <td>
+                            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Play Station 2</td>
+                        <td>05/09/2016</td>
+                        <td>Finalizado</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Notebook Acer</td>
+                        <td>01/02/2016</td>
+                        <td>Finalizado</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+<div ng-include="'views/common/components/footer.html'"></div>

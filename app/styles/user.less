@@ -28,7 +28,6 @@
     }
 }
 
-
 .user {
     .dashboard {
         padding-top: 20px !important;
@@ -41,7 +40,6 @@
         }
     }
 
-
     .panel {
 
         box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
@@ -51,34 +49,42 @@
 
             table {
                 margin: 0 0 0 0;
-                font-size: 12pt;
-
-                tr {
-                    height: 60px;
-                }
-
-                &.table-hover{
-                    tr:hover {
-                        border-left: solid 5px #016DB8;
-                        cursor: pointer;
+                font-size: 12pt
+            ;
+                &.table-hover {
+                    tbody {
+                        tr:hover {
+                            border-left: solid 5px #016DB8;
+                            cursor: pointer;
+                        }
                     }
                 }
 
-                td {
-                    vertical-align: middle;
-                }
-                .date {
+                tbody {
 
+                    tr {
+                        height: 60px;
+                    }
+
+
+
+                    td {
+                        vertical-align: middle;
+                    }
+                    .date {
+
+                    }
+
+                    .name {
+                        font-weight: bold;
+                        font-size: 15pt;
+                    }
+
+                    .value {
+
+                    }
                 }
 
-                .name {
-                    font-weight: bold;
-                    font-size: 15pt;
-                }
-
-                .value {
-
-                }
             }
         }
     }

@@ -4,8 +4,9 @@
         <th class="col-xs-5 col-sm-5 col-md-5 col-lg-5">Nome</th>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Data de criação</th>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Estado:</th>
-        <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Ações:</th>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Leilão:</th>
+        <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>
+
     </tr>
     </thead>
     <tbody>
@@ -14,19 +15,15 @@
         <td>07/09/2016</td>
         <td>Pendente</td>
         <td>
-            <button class="btn btn-xs btn-primary" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                <span class="glyphicon glyphicon-edit"></span>
-            </button>
-
-            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                <span class="glyphicon glyphicon-trash"></span>
+            <button class="btn btn-xs btn-success" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                <i class="fa fa-flag"></i> &nbsp;
+                Iniciar Leilão
             </button>
         </td>
 
         <td>
-            <button class="btn btn-xs btn-success" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                <span class="glyphicon glyphicon-flag"></span>
-                Iniciar Leilão
+            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                <i class="fa fa-close"></i>
             </button>
         </td>
     </tr>
@@ -34,20 +31,24 @@
         <td>Play Station 2</td>
         <td>05/09/2016</td>
         <td>Em Leilão</td>
-        <td></td>
+        <td>
+            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                <i class="fa fa-stop"></i> &nbsp;
+                Parar Leilão
+            </button>
+        </td>
 
         <td>
             <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                <span class="glyphicon glyphicon-stop"></span>
-                Parar Leilão
+                <i class="fa fa-close"></i>
             </button>
-
         </td>
     </tr>
     <tr>
         <td>Notebook Acer</td>
         <td>01/02/2016</td>
         <td>Leiloado</td>
+        <td></td>
         <td></td>
     </tr>
     </tbody>
