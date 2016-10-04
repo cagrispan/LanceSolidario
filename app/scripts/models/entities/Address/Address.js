@@ -25,6 +25,10 @@
 
             this._update = function(){
                 return addressResource.update(this);
+            };
+
+            this._remove = function(){
+                return addressResource.remove(this);
             }
 
         }
