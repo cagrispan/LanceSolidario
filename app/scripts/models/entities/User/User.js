@@ -39,11 +39,19 @@
              */
             this.emailList = null;
 
-            //products
-            this.products = null;
+            /*
+             Array Object product
+             */
+            this.productsList = null;
 
-            //purchases
+            /*
+             Array Object purchase
+             */
             this.purchases = null;
+
+            /*
+             Array Object bids
+             */
             this.bids = null;
 
 
@@ -108,7 +116,7 @@
                     .then(function (emailList) {
                         if (emailList && emailList[0]) {
                             var email;
-                            user.emailList = [];
+                            user.emailList =[];
                             for (var i in emailList) {
                                 email = new Email();
                                 email._set(emailList[i]);

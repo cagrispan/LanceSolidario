@@ -23,6 +23,16 @@
             this._remove = function(){
                 return emailResource.remove(this);
             };
+
+            //TODO : Need tests
+            this._save = function(){
+                if(this.emailId){
+                    return emailResource.update(this);
+
+                }else{
+                    return emailResource.add(this);
+                }
+            }
         }
 
         return Email;
