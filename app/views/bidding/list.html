@@ -1,0 +1,24 @@
+<div ng-include="'views/common/components/header.html'"></div>
+<div class="no-pad-bot content user">
+    <div ng-include="'views/user/components/header.html'"></div>
+
+    <div class="container">
+
+        <div ng-include="'views/user/components/profile_actions.html'"></div>
+
+        <div class="col-sm-9 col-md-9 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Histórico de Lances
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div ng-include="'views/bidding/components/list_table.html'"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'views/common/components/footer.html'"></div>
