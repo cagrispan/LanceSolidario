@@ -23,6 +23,15 @@
             this._remove = function(){
                 return telephoneResource.remove(this);
             };
+
+            //TODO : Need tests
+            this._save = function(){
+                if(this.telephoneId){
+                    return telephoneResource.update(this);
+                }else{
+                    return telephoneResource.add(this);
+                }
+            }
         }
 
         return Telephone;
