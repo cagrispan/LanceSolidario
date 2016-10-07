@@ -90,10 +90,15 @@
   height: 400px !important;
   background-size: cover;
   /* Sets background image to cover entire element */
-  background-image: url("../images/index_cover.jpg");
+  background-image: url("../images/index_cover_2.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
 }
 .content .full-section .back-image .btn {
   font-size: 14pt;

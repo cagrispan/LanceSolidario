@@ -12,6 +12,8 @@ angular.module('lanceSolidario')
                 controllerAs: 'home'
             }).when('/user', {
                 templateUrl: 'views/user/dashboard.html',
+            }).when('/user/biddings', {
+                templateUrl: 'views/bidding/list.html',
             }).when('/user/edit', {
                 templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
