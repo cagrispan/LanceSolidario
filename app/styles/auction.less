@@ -50,6 +50,73 @@
             border: solid #e38d13 1px;
         }
     }
+
+    .show {
+        .title {
+            color: #05283F;
+            font-size: 20pt;
+
+        }
+
+        .info {
+            .details {
+                border: solid 1px #DDDDDD;
+
+                .value {
+                    > p {
+                        font-size: 40px;
+
+                        @media @mobile {
+                            font-size: 20px;
+                        }
+                    }
+
+                    table{
+                        border: 0;
+                        width: 100%;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .counter {
+                    color: #FFFFFF;
+
+                    font-size: 40px;
+                    width: 100%;
+                    background: #00CF92;
+
+                    @media @mobile {
+                        font-size: 20px;
+                    }
+
+                }
+
+                .button > .btn{
+                    height:50px;
+                    font-size: 20px;
+                    background-color: #00CF92;
+
+                    @media @mobile {
+                        height: 50px;
+                        font-size: 20px;
+                    }
+                }
+
+                .button > .btn:hover{
+                    background: #40D7AB;
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    }
 }
 
 /* Large Devices, Wide Screens */

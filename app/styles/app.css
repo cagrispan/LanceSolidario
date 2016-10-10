@@ -38,6 +38,58 @@
 .auction .section .cover-image:hover {
   border: solid #e38d13 1px;
 }
+.auction .show .title {
+  color: #05283F;
+  font-size: 20pt;
+}
+.auction .show .info .details {
+  border: solid 1px #DDDDDD;
+}
+.auction .show .info .details .value > p {
+  font-size: 40px;
+}
+@media only screen and (max-width: 529px) {
+  .auction .show .info .details .value > p {
+    font-size: 20px;
+  }
+}
+.auction .show .info .details .value table {
+  border: 0;
+  width: 100%;
+  margin-bottom: 0;
+}
+.auction .show .info .details .counter {
+  color: #FFFFFF;
+  font-size: 40px;
+  width: 100%;
+  background: #00CF92;
+}
+@media only screen and (max-width: 529px) {
+  .auction .show .info .details .counter {
+    font-size: 20px;
+  }
+}
+.auction .show .info .details .button > .btn {
+  height: 50px;
+  font-size: 20px;
+  background-color: #00CF92;
+}
+@media only screen and (max-width: 529px) {
+  .auction .show .info .details .button > .btn {
+    height: 50px;
+    font-size: 20px;
+  }
+}
+.auction .show .info .details .button > .btn:hover {
+  background: #40D7AB;
+}
+.auction .show .info .details p {
+  margin-bottom: 0;
+}
+.auction .show h2 {
+  font-size: 14pt;
+  font-weight: bold;
+}
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
   .step-image {
@@ -393,7 +445,7 @@ div {
   font-size: 16px;
 }
 .footer {
-  background: #05283F;
+  background: #002138;
   min-height: 250px;
   position: relative;
 }
