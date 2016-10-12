@@ -78,7 +78,7 @@
             );
         };
 
-        self.removes = function (email) {
+        self.remove = function (email) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();

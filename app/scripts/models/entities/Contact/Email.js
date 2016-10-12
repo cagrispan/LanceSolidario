@@ -21,7 +21,7 @@
             };
 
             this._remove = function(){
-                return emailResource.removes(this);
+                return emailResource.remove(this);
             };
 
             //TODO : Need tests
