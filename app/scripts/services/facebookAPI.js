@@ -7,7 +7,7 @@ angular.module('utils')
         this.watchLoginChange = function () {
 
             FB.Event.subscribe('auth.authResponseChange', function (res) {
-                console.log('DEBUG: Auth response: ' + res);
+                    console.log('DEBUG: Auth response: ' + res);
                 if (res.status === 'connected') {
                     //self.accessToken = res.authResponse.accessToken;
                     self.getUserInfo(res.authResponse.accessToken);
@@ -39,7 +39,7 @@ angular.module('utils')
                             $location.path('/home');
                         }
                     }, function () {
-                        $location.path('/login');
+                        //$location.path('/login');
                     });
                 });
             });
