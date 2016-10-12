@@ -19,7 +19,7 @@
         </table>
 
         <div class="container-fluid">
-            <form class="form-inline">
+            <form class="form-inline" ng-submit="contactCtrl.addTelephone()">
                 <div class="form-group">
                     <label for="user_phone">Novo Telefone:</label>
                     <div class="input-group">
@@ -27,7 +27,7 @@
                                ng-model="contactCtrl.telephoneToAdd.telephone" required>
 
                         <span class="input-group-btn">
-                            <button type="submit" ng-click="contactCtrl.addTelephone()" class="btn btn-success">
+                            <button type="submit" class="btn btn-success">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </span>

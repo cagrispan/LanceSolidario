@@ -19,7 +19,7 @@
         </table>
 
         <div class="container-fluid">
-            <form class="form-inline">
+            <form class="form-inline" ng-submit="contactCtrl.addEmail()">
                 <div class="form-group">
                     <label for="user_email">Novo Email:</label>
                     <div class="input-group">
@@ -27,7 +27,7 @@
                                ng-model="contactCtrl.emailToAdd.email" required>
 
                         <span class="input-group-btn">
-                            <button ng-click="contactCtrl.addEmail()" class="btn btn-success">
+                            <button  class="btn btn-success">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </span>
