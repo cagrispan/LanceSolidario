@@ -26,11 +26,12 @@
 
             //TODO : Need tests
             this._save = function(){
-                if(this.emailId){
-                    return emailResource.update(this);
+                var email = this;
+                if(email.emailId){
+                    return emailResource.update(email);
 
                 }else{
-                    return emailResource.add(this);
+                    return emailResource.add(email);
                 }
             }
         }

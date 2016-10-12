@@ -6,23 +6,12 @@
     </div>
     <div class="panel-body">
         <table class="table table-hover">
-            <tr>
+            <tr ng-repeat="telephone in contactCtrl.user.telephoneList">
                 <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
-                    (11) 11111-1111
+                    {{telephone.telephone}}
                 </td>
                 <td class="col-sm-1 text-center">
-                    <button class="btn btn-xs btn-danger">
-                        <i class="fa fa-close"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
-                    (22) 2222-2222
-                </td>
-                <td class="col-sm-1 text-center">
-                    <button class="btn btn-xs btn-danger">
+                    <button ng-click ="contactCtrl.deleteTelephone(telephone)" class="btn btn-xs btn-danger">
                         <i class="fa fa-close"></i>
                     </button>
                 </td>
@@ -30,15 +19,15 @@
         </table>
 
         <div class="container-fluid">
-            <form class="form-inline" action="">
+            <form class="form-inline" ng-submit="contactCtrl.addTelephone()">
                 <div class="form-group">
                     <label for="user_phone">Novo Telefone:</label>
                     <div class="input-group">
                         <input type="text" class="form-control" id="user_phone"
-                               ng-model="userCtrl.user.phone">
+                               ng-model="contactCtrl.telephoneToAdd.telephone" required>
 
                         <span class="input-group-btn">
-                            <button class="btn btn-success">
+                            <button type="submit" class="btn btn-success">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </span>

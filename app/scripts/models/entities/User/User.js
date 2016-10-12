@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone','Product', function (userResource, Entity, Address, Email, Telephone, Product) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', function (userResource, Entity, Address, Email, Telephone, Product) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -114,9 +114,9 @@
                 var user = this;
                 return userResource.loadEmails(user)
                     .then(function (emailList) {
+                        user.emailList = [];
                         if (emailList && emailList[0]) {
                             var email;
-                            user.emailList =[];
                             for (var i in emailList) {
                                 email = new Email();
                                 email._set(emailList[i]);
@@ -133,9 +133,9 @@
                 var user = this;
                 return userResource.loadTelephones(user)
                     .then(function (telephonesList) {
+                        user.telephoneList = [];
                         if (telephonesList && telephonesList[0]) {
                             var telephone;
-                            user.telephoneList = [];
                             for (var i in telephonesList) {
                                 telephone = new Telephone();
                                 telephone._set(telephonesList[i]);
@@ -151,9 +151,9 @@
                 var user = this;
                 return userResource.loadProducts(user)
                     .then(function (productsList) {
+                        user.productList = [];
                         if (productsList && productsList[0]) {
                             var product;
-                            user.productList = [];
                             for (var i in productsList) {
                                 product = new Product();
                                 product._set(productsList[i]);

@@ -100,12 +100,11 @@
             if (telephone && telephone.facebookId) {
                 endpoint = '/users/'+telephone.facebookId+'/telephones/'+telephoneId;
             } else {
-
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
 
             //Make the request
-            return webService.remove(endpoint, objectToSend, headers).then(
+            return webService.remove(endpoint, headers).then(
                 function (resolve) {
                     return resolve.data;
                 }

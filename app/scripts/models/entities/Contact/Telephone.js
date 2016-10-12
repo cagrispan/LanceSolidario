@@ -26,10 +26,11 @@
 
             //TODO : Need tests
             this._save = function(){
-                if(this.telephoneId){
-                    return telephoneResource.update(this);
+                var telephone = this;
+                if(telephone && telephone.telephoneId){
+                    return telephoneResource.update(telephone);
                 }else{
-                    return telephoneResource.add(this);
+                    return telephoneResource.add(telephone);
                 }
             }
         }
