@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Lance Solidário</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -28,7 +28,14 @@
 
     <!-- Add your site or application content here -->
     <!-- CONTENT -->
-    <div ng-view></div>
+    <div ng-include="'views/common/components/header.html'"></div>
+
+    <div class="content">
+        <div ng-view></div>
+    </div>
+
+    <div ng-include="'views/common/components/footer.html'"></div>
+
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

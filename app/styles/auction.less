@@ -50,10 +50,77 @@
             border: solid #e38d13 1px;
         }
     }
+
+    .show {
+        .title {
+            color: #05283F;
+            font-size: 20pt;
+
+        }
+
+        .info {
+            .details {
+                border: solid 1px #DDDDDD;
+
+                .value {
+                    > p {
+                        font-size: 40px;
+
+                        @media @mobile {
+                            font-size: 20px;
+                        }
+                    }
+
+                    table{
+                        border: 0;
+                        width: 100%;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .counter {
+                    color: #FFFFFF;
+
+                    font-size: 40px;
+                    width: 100%;
+                    background: #00CF92;
+
+                    @media @mobile {
+                        font-size: 20px;
+                    }
+
+                }
+
+                .button > .btn{
+                    height:50px;
+                    font-size: 20px;
+                    background-color: #00CF92;
+
+                    @media @mobile {
+                        height: 50px;
+                        font-size: 20px;
+                    }
+                }
+
+                .button > .btn:hover{
+                    background: #40D7AB;
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+        }
+    }
 }
 
 /* Large Devices, Wide Screens */
-@media only screen and (max-width: 1200px) {
+@media @desktop-xl {
     .step-image {
         max-width: 200px;
         max-height: 200px;
@@ -64,7 +131,7 @@
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px) {
+@media @desktop {
     .step-image {
         max-width: 250px;
         max-height: 250px;
@@ -75,7 +142,7 @@
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px) {
+@media @tablet {
     .step-image {
         max-width: 300px;
         max-height: 300px;
@@ -86,23 +153,12 @@
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px) {
+@media @mobile {
     .step-image {
         max-width: 300px;
         max-height: 300px;
 
         width: 35%;
         height: 35%;
-    }
-}
-
-/* Custom, iPhone Retina */
-@media only screen and (max-width: 320px) {
-    .step-image {
-        max-width: 200px;
-        max-height: 200px;
-
-        width: 20%;
-        height: 20%;
     }
 }
