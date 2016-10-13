@@ -115,6 +115,34 @@
                 });
             };
 
+            this._listByProduct = function (product) {
+                var auctionListtoReturn = [];
+
+                return auctionResource.loadAuctionsByProduct(product).then(function (response) {
+                    var auctionList = [];
+                    var facebookId = '';
+
+                    if (response.auctions) {
+                        auctionList = response.auctions;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
+
+                    if (auctionList && auctionList[0]) {
+                        var auction;
+                        for (var i in auctionList) {
+                            auction = new Auction();
+                            auction.facebookId = facebookId;
+                            auction._setAuction(auctionList[i]);
+                            auctionListtoReturn.push(auction);
+                        }
+                    }
+                    return auctionListtoReturn;
+                });
+            };
+
+
 
             this._setAuction = function (objectToSet) {
                 var auction = this;

@@ -100,6 +100,39 @@
             );
         };
 
+        self.loadAuctionsByProduct = function (product) {
+            var headers = {};
+            var endpoint = '';
+            var productId;
+            var token = apiToken.getApiToken();
+
+            //Validate and Mapping
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (product && product.productId) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'ProductId missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/' + user.facebookId + '/products/'+product.productId+'/auctions';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
         self.load = function (auction) {
             var headers = {};
             var endpoint = '';

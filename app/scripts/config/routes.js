@@ -16,6 +16,8 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/user/dashboard.html',
             }).when('/user/biddings', {
                 templateUrl: 'views/bidding/list.html',
+                controller: 'BidList',
+                controllerAs: 'bidCtrl'
             }).when('/user/edit', {
                 templateUrl: 'views/user/edit.html',
                 controller: 'UserUpdate',
@@ -32,7 +34,7 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/product/list.html',
             }).when('/user/products/new', {
                 templateUrl: 'views/product/new.html',
-                controller: 'NewProductCtrl',
+                controller: 'ProductNew',
                 controllerAs: 'productCtrl'
             }).when('/user/purchases', {
                 templateUrl: 'views/purchase/list.html',

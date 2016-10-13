@@ -7,9 +7,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="danger">
-        <td>Play Station 3</td>
-        <td>RS300,00</td>
+    <tr ng-class="{danger:bid.isCovered, success:!bid.isCovered}" ng-repeat="bid in bidCtrl.bids">
+        <td>{{bid.auction.auctionTitle}}</td>
+        <td>{{bid.bid | currency:"R$"}}</td>
     </tr>
     </tbody>
 </table>
