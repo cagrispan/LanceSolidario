@@ -96,6 +96,7 @@
                 var user = this;
                 return userResource.loadAddresses(user)
                     .then(function (addressList) {
+                        user.addressList = [];
                         if (addressList && addressList[0]) {
                             var address;
                             user.addressList = [];

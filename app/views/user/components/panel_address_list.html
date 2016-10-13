@@ -1,21 +1,31 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-title">
+        <div class="panel-title text-left">
             Endereços:
+            <div class="input-group-btn text-right">
+                <button class="btn btn-success" ng-click="addressCtrl.newAddress()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+
         </div>
+        <div class="">
+        </div>
+
     </div>
     <div class="panel-body">
         <table class="table table-hover">
-            <tr>
-                <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
+            <tr ng-repeat="address in addressCtrl.user.addressList">
+                <td class="col-sm-11"
+                    ng-click="addressCtrl.showAddress(address)">
                     <p>
-                        Rua: Presidente Faria nº2079, casa 02 <br>
-                        Bairro: Colônia Faria <br>
-                        Cidade: Colombo UF:PR <br>
+                        Rua:{{address.street}}, {{address.complement}} <br>
+                        Bairro: {{address.neighborhood}}<br>
+                        Cidade: {{address.city}} UF:{{address.state}}<br>
                     </p>
                 </td>
                 <td class="col-sm-1">
-                    <button class="btn btn-xs btn-danger">
+                    <button ng-click="addressCtrl.deleteAddress(address)" class="btn btn-xs btn-danger">
                         <i class="fa fa-close"></i>
                     </button>
                 </td>
