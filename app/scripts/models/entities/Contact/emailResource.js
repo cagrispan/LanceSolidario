@@ -65,6 +65,11 @@
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
 
+            delete objectToSend._update;
+            delete objectToSend._save;
+            delete objectToSend._remove;
+            delete objectToSend._add;
+
             //Make the request
             return webService.update(endpoint, objectToSend, headers).then(
                 function (resolve) {
@@ -105,7 +110,7 @@
             }
 
             //Make the request
-            return webService.remove(endpoint, objectToSend, headers).then(
+            return webService.remove(endpoint, headers).then(
                 function (resolve) {
                     return resolve.data;
                 }

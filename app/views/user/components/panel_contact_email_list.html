@@ -6,23 +6,12 @@
     </div>
     <div class="panel-body">
         <table class="table table-hover">
-            <tr>
+            <tr ng-repeat="email in contactCtrl.user.emailList">
                 <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
-                    fulanodasilva@dominio.com
+                    {{email.email}}
                 </td>
                 <td class="col-sm-1 text-center">
-                    <button class="btn btn-xs btn-danger">
-                        <i class="fa fa-close"></i>
-                    </button>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
-                    fulanodasilva@dominio.com
-                </td>
-                <td class="col-sm-1 text-center">
-                    <button class="btn btn-xs btn-danger">
+                    <button ng-click="contactCtrl.deleteEmail(email)" class="btn btn-xs btn-danger">
                         <i class="fa fa-close"></i>
                     </button>
                 </td>
@@ -30,15 +19,15 @@
         </table>
 
         <div class="container-fluid">
-            <form class="form-inline" action="">
+            <form class="form-inline" ng-submit="contactCtrl.addEmail()">
                 <div class="form-group">
                     <label for="user_email">Novo Email:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="user_email"
-                               ng-model="userCtrl.user.email">
+                        <input type="email" class="form-control" id="user_email"
+                               ng-model="contactCtrl.emailToAdd.email" required>
 
                         <span class="input-group-btn">
-                            <button class="btn btn-success">
+                            <button  class="btn btn-success">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </span>
