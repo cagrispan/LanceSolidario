@@ -91,7 +91,7 @@
   font-weight: bold;
 }
 /* Large Devices, Wide Screens */
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1129px) {
   .step-image {
     max-width: 200px;
     max-height: 200px;
@@ -100,7 +100,7 @@
   }
 }
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px) {
+@media only screen and (min-width: 950px) and (max-width: 1128px) {
   .step-image {
     max-width: 250px;
     max-height: 250px;
@@ -109,7 +109,7 @@
   }
 }
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 530px) and (max-width: 949px) {
   .step-image {
     max-width: 300px;
     max-height: 300px;
@@ -118,21 +118,12 @@
   }
 }
 /* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 529px) {
   .step-image {
     max-width: 300px;
     max-height: 300px;
     width: 35%;
     height: 35%;
-  }
-}
-/* Custom, iPhone Retina */
-@media only screen and (max-width: 320px) {
-  .step-image {
-    max-width: 200px;
-    max-height: 200px;
-    width: 20%;
-    height: 20%;
   }
 }
 .content .full-section {
@@ -228,7 +219,7 @@
   color: #FFFFFF;
   text-shadow: 2px 2px #0f0f0f;
 }
-.user .dashboard {
+.user .container {
   padding-top: 20px !important;
 }
 .user .container-fluid > form {
@@ -400,6 +391,9 @@ div {
 }
 .content > .container {
   padding-top: 20px !important;
+}
+.content .full-section {
+  width: 100vw !important;
 }
 /*
 .panel-body {

@@ -120,7 +120,7 @@
 }
 
 /* Large Devices, Wide Screens */
-@media only screen and (max-width: 1200px) {
+@media @desktop-xl {
     .step-image {
         max-width: 200px;
         max-height: 200px;
@@ -131,7 +131,7 @@
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (max-width: 992px) {
+@media @desktop {
     .step-image {
         max-width: 250px;
         max-height: 250px;
@@ -142,7 +142,7 @@
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width: 768px) {
+@media @tablet {
     .step-image {
         max-width: 300px;
         max-height: 300px;
@@ -153,23 +153,12 @@
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width: 480px) {
+@media @mobile {
     .step-image {
         max-width: 300px;
         max-height: 300px;
 
         width: 35%;
         height: 35%;
-    }
-}
-
-/* Custom, iPhone Retina */
-@media only screen and (max-width: 320px) {
-    .step-image {
-        max-width: 200px;
-        max-height: 200px;
-
-        width: 20%;
-        height: 20%;
     }
 }
