@@ -1,5 +1,5 @@
-<div class="panel panel-default panel-collapse" uib-collapse="isCollapsed">
-    <div class="panel-body">
+<div class="panel panel-default panel-collapse" uib-collapse="addressCtrl.isCollapsed">
+    <form class="panel-body" ng-submit="addressCtrl.saveAddress()">
         <br>
         <!-- Endereço -->
         <div class="container-fluid">
@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label for="user_address_street">Rua:</label>
                     <input type="text" class="form-control" id="user_address_street"
-                           ng-model="userCtrl.user.address.street">
+                           ng-model="addressCtrl.addressToAdd.street" required>
                 </div>
             </div>
 
@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <label for="user_address_number">Número:</label>
                     <input type="text" class="form-control" id="user_address_number"
-                           ng-model="userCtrl.user.address.number">
+                           ng-model="addressCtrl.addressToAdd.number" required>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="user_address_number">Complemento:</label>
                     <input type="text" class="form-control" id="user_address_complement"
-                           ng-model="userCtrl.user.address.complement">
+                           ng-model="addressCtrl.addressToAdd.complement" required>
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="user_address_neighborhood">Bairro:</label>
                     <input type="text" class="form-control" id="user_address_neighborhood"
-                           ng-model="userCtrl.user.address.neighborhood">
+                           ng-model="addressCtrl.addressToAdd.neighborhood" required>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="user_address_neighborhood">Cidade:</label>
                     <input type="text" class="form-control" id="user_address_city"
-                           ng-model="userCtrl.user.address.city">
+                           ng-model="addressCtrl.addressToAdd.city" required>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label for="user_address_state">Estado:</label>
                     <select class="form-control" id="user_address_state"
-                            ng-model="userCtrl.user.address.state">
+                            ng-model="addressCtrl.addressToAdd.state" required>
                         <option value="">Selecione</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -91,17 +91,17 @@
                 <div class="form-group">
                     <label for="user_address_zipcode">CEP:</label>
                     <input type="text" class="form-control" id="user_address_zipcode"
-                           ng-model="userCtrl.user.address.zip">
+                           ng-model="addressCtrl.addressToAdd.cep" required>
                 </div>
             </div>
 
             <div class="container-fluid text-right">
                 <div class="margin-default">
-                    <button class="btn btn-sm btn-danger"  ng-click="isCollapsed = !isCollapsed"><i class="fa fa-close">&nbsp; Descartar</i></button>
-                    <button class="btn btn-sm btn-success" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-check">&nbsp; Salvar</i></button>
+                    <div class="btn btn-sm btn-danger" ng-click="addressCtrl.discartChanges()"><i class="fa fa-close">&nbsp; Descartar</i></div>
+                    <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-check">&nbsp; Salvar</i></button>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 </div>

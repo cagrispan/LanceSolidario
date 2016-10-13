@@ -22,6 +22,8 @@ angular.module('lanceSolidario')
                 controllerAs: 'userCtrl'
             }).when('/user/edit/address', {
                 templateUrl: 'views/user/edit_address.html',
+                controller:'AddressUpdate',
+                controllerAs:'addressCtrl'
             }).when('/user/edit/contact', {
                 templateUrl: 'views/user/edit_contact.html',
                 controller:'ContactUpdate',

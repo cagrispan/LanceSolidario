@@ -105,7 +105,7 @@
             }
 
             //Make the request
-            return webService.remove(endpoint, objectToSend, headers).then(
+            return webService.remove(endpoint, headers).then(
                 function (resolve) {
                     return resolve.data;
                 }

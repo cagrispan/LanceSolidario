@@ -4,33 +4,46 @@
 (function (angular) {
     'use strict';
 
-    angular.module('lanceSolidario.address.address',['lanceSolidario.address.addressResource']).factory('Address',['Entity','addressResource', function (Entity, addressResource) {
+    angular.module('lanceSolidario.address.address', ['lanceSolidario.address.addressResource']).factory('Address', ['Entity', 'addressResource', function (Entity, addressResource) {
 
         angular.extend(Address.prototype, Entity.prototype);
         Address.prototype.constructor = Address;
 
         function Address() {
 
-            this.addressId = null;
-            this.facebookId = null;
-            this.addressLine = null;
-            this.city = null;
-            this.complement = null;
-            this.state = null;
-            this.zip = null;
 
-            this._add = function(){
+            this.facebookId = null;
+            this.addressId = null;
+            this.street = null;
+            this.number = null;
+            this.complement = null;
+            this.neighborhood = null;
+            this.city = null;
+            this.state = null;
+            this.cep = null;
+
+            this._add = function () {
                 return addressResource.add(this);
             };
 
-            this._update = function(){
+            this._update = function () {
                 return addressResource.update(this);
             };
 
-            this._remove = function(){
+            this._remove = function () {
                 return addressResource.remove(this);
-            }
+            };
 
+            //TODO : Need tests
+            this._save = function () {
+                var address = this;
+                if (address && address.addressId) {
+                    return addressResource.update(address);
+
+                } else {
+                    return addressResource.add(address);
+                }
+            }
         }
 
         return Address;
