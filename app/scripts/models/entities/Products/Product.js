@@ -69,9 +69,9 @@
                 var product = this;
                 if(product && product.auctionList && product.auctionList[0]){
                     if(product.auctionList[0].endDate && product.auctionList[0].endDate <= new Date()){
-                        return 'Encerrado';
+                        return 'Leiloado';
                     }else{
-                        return 'Leiloado'
+                        return 'Em Leilão';
                     }
                 }else{
                     return 'Pendente';

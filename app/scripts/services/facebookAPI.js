@@ -1,13 +1,13 @@
 'use strict';
 angular.module('utils')
-    .service('facebookAPI', ['$rootScope', '$location', 'User','apiToken', function ($rootScope, $location, User, apiToken) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', function ($rootScope, $location, User, apiToken) {
 
         var self = this;
 
         this.watchLoginChange = function () {
 
             FB.Event.subscribe('auth.authResponseChange', function (res) {
-                    console.log('DEBUG: Auth response: ' + res);
+                console.log('DEBUG: Auth response: ' + res);
                 if (res.status === 'connected') {
                     //self.accessToken = res.authResponse.accessToken;
                     self.getUserInfo(res.authResponse.accessToken);
@@ -30,6 +30,8 @@ angular.module('utils')
                     user.facebookId = response.id;
                     user.facebookToken = facebookToken;
 
+                    getUserPicture(facebookToken);
+
                     self.user = user;
                     console.log('DEBUG: Facebook User info:' + self.user);
 
@@ -45,19 +47,30 @@ angular.module('utils')
             });
         };
 
+        var getUserPicture = function (facebookToken) {
+
+            FB.api('/me/picture?type=large', function (response) {
+                $rootScope.$apply(function () {
+                    console.log(response);
+                    self.profilePicure = response.data.url;
+
+                });
+            });
+        };
+
 
         this.getAPItoken = function () {
 
-            if(self.user && self.user.token){
+            if (self.user && self.user.token) {
                 return self.user.token;
-            }else{
+            } else {
                 return false;
             }
 
         };
 
         this.isLogged = function () {
-            FB.getLoginStatus(function(response) {
+            FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
                     return true;
                 } else if (response.status === 'not_authorized') {
