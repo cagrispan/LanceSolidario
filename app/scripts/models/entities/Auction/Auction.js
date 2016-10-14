@@ -4,7 +4,8 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product']).factory('Auction', ['auctionResource', 'Entity', 'Product', function (auctionResource, Entity, Product) {
+    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product'])
+        .factory('Auction', ['auctionResource', 'Entity', 'Product', function (auctionResource, Entity, Product) {
 
         angular.extend(Auction.prototype, Entity.prototype);
         Auction.prototype.constructor = Auction;
@@ -19,17 +20,17 @@
             /*
              Product Object
              */
-            this.product = null;
+            this.productId = null;
 
             /*
              Institution Object
              */
-            this.institution = null;
+            this.institutionId = null;
 
             /*
              User Object
              */
-            this.donorUser = null;
+            this.facebookId = null;
 
             /*
              Number
@@ -141,7 +142,6 @@
                     return auctionListtoReturn;
                 });
             };
-
 
 
             this._setAuction = function (objectToSet) {

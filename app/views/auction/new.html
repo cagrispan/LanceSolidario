@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="container-fluid auction">
-        <div class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard">
+        <form class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard">
 
             <!-- Product Section -->
             <div class="row section text-center">
@@ -13,15 +13,14 @@
                         <label for="auction_product">
                             Escolha qual dos seus produtos você irá leiloar:
                         </label>
-                        <select class="form-control" id="auction_product">
-                            <option value="28">Cama Elástica</option>
-                            <option value="28">Vestido de Festa</option>
-                            <option value="28">Berçario</option>
+                        <select class="form-control" id="auction_product"
+                                ng-options="product as product.title for product in auctionCtrl.user.productList"
+                                ng-model="auctionCtrl.product">
                         </select>
                         <br>
 
                         <label> Não tem produtos cadastrados?</label>
-                        <a href="#/products/new" class="form-control btn btn-success btn-md">
+                        <a href="#/user/products/new" class="form-control btn btn-success btn-md">
                             Criar novo produto
                         </a>
 
@@ -44,7 +43,7 @@
                         </p>
 
                         <div class="checkbox">
-                            <label><input type="checkbox"><b>Eu aceito que o valor sera entregue ao TETO.</b></label>
+                            <label><input type="checkbox" required><b>Eu aceito que o valor sera entregue ao TETO.</b></label>
                         </div>
                     </div>
                 </div>
@@ -77,8 +76,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
                     <div class="form-group">
                         <label for="auction_price"> Qual o valor inicial?</label>
-                        <input type="number" class="form-control" id="auction_price" min="5"
-                               placeholder="Ex: R$ 50,00">
+                        <input type="number" class="form-control" id="auction_price" min="5.0" step="0.01"
+                               placeholder="Ex: R$ 50,00" ng-model="auctionCtrl.auctionToAdd.minimumBid" required>
                     </div>
                 </div>
             </div>
@@ -89,23 +88,23 @@
                 <h1>5</h1>
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <b> Para qual data será iniciado seu leilão?</b>
+                    <b> Quando será iniciado seu leilão?</b>
 
-                    <p>{{dt | date:'fullDate' }}</p>
+                    <p>{{auctionCtrl.dt | date:'fullDate' }}</p>
 
                     <div class="row well well-sm">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <div style="display:inline-block;">
-                                <div uib-datepicker ng-model="dt" datepicker-options="options"></div>
+                                <div uib-datepicker ng-model="auctionCtrl.dt" datepicker-options="auctionCtrl.options"></div>
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <b>Hora de Início:</b>
 
-                            <div uib-timepicker ng-model="dt" ng-change="changed()" hour-step="hstep"
-                                 minute-step="mstep"
-                                 show-meridian="ismeridian"></div>
+                            <div uib-timepicker ng-model="auctionCtrl.dt" ng-change="auctionCtrl.changed()" hour-step="auctionCtrl.hstep"
+                                 minute-step="auctionCtrl.mstep"
+                                 show-meridian="auctionCtrl.ismeridian"></div>
                         </div>
                     </div>
                 </div>
@@ -118,8 +117,8 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
                     <p>
-                        Neste primeiro momento, a única opção de envio é através do contato
-                        do comprador com o vendedor.
+                        Neste primeiro momento, o envio é combinado entre o
+                        comprador e o doador.
                     </p>
                 </div>
             </div>
@@ -133,7 +132,7 @@
                     <table class="table table-striped">
                         <tr>
                             <td><b>Produto:</b></td>
-                            <td> Vestido</td>
+                            <td>{{auctionCtrl.product.title}}</td>
                         </tr>
                         <tr>
                             <td><b>Instituição:</b></td>
@@ -141,7 +140,7 @@
                         </tr>
                         <tr>
                             <td><b>Valor Inicial:</b></td>
-                            <td> R$ 25,00</td>
+                            <td>{{auctionCtrl.auctionToAdd.minimumBid | currency}}</td>
                         </tr>
                         <tr>
                             <td><b>Taxa Administrativa:</b></td>
@@ -154,12 +153,12 @@
                     </table>
 
                     <div class="container-fluid text-center">
-                        <button type="button" class="btn btn-lg btn-success" ng-click="auctionCtrl.add()">
+                        <button type="submit" class="btn btn-lg btn-success" ng-click="auctionCtrl.addAuction()">
                             Tudo certo! Criar leilão
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
