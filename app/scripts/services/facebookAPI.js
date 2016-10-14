@@ -47,7 +47,7 @@ angular.module('utils')
             });
         };
 
-        var getUserPicture = function (facebookToken) {
+        var getUserPicture = function () {
 
             FB.api('/me/picture?type=large', function (response) {
                 $rootScope.$apply(function () {
