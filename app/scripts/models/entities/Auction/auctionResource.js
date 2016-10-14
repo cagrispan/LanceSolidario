@@ -100,6 +100,7 @@
             );
         };
 
+        //TODO: Need Unit tests
         self.loadAuctionsByProduct = function (product) {
             var headers = {};
             var endpoint = '';
@@ -119,8 +120,8 @@
                 return $q.reject({errorMessage: 'ProductId missing'});
             }
 
-            if (user && user.facebookId) {
-                endpoint = '/users/' + user.facebookId + '/products/'+product.productId+'/auctions';
+            if (product && product.facebookId) {
+                endpoint = '/users/'+product.facebookId+'/products/'+product.productId+'/auctions';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -144,7 +145,6 @@
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-
 
             if (auction && auction.auctionId) {
                 endpoint = '/auctions/' + auction.auctionId;

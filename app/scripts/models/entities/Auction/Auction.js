@@ -4,8 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product'])
-        .factory('Auction', ['auctionResource', 'Entity', 'Product', function (auctionResource, Entity, Product) {
+    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource']).factory('Auction', ['auctionResource', 'Entity',function (auctionResource, Entity) {
 
         angular.extend(Auction.prototype, Entity.prototype);
         Auction.prototype.constructor = Auction;
@@ -116,9 +115,9 @@
                 });
             };
 
+            //TODO: Need Unit tests
             this._listByProduct = function (product) {
                 var auctionListtoReturn = [];
-
                 return auctionResource.loadAuctionsByProduct(product).then(function (response) {
                     var auctionList = [];
                     var facebookId = '';
@@ -144,15 +143,18 @@
             };
 
 
+
             this._setAuction = function (objectToSet) {
                 var auction = this;
                 auction._set(objectToSet);
 
-                //Product
-                if (objectToSet.productId) {
-                    var product = new Product();
-                    product.productId = objectToSet.productId;
-                    auction.product = product;
+                //Auction
+                if (objectToSet.auctionId) {
+                    var auction = new Auction();
+                    auction.auctionId = objectToSet.auctionId;
+                    auction.endDate = new Date(auction.endDate);
+                    auction.startDate = new  Date(auction.startDate);
+                    auction.auction = auction;
                 }
 
                 /*//Institution
