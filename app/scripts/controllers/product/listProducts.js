@@ -21,13 +21,26 @@ angular.module('lanceSolidario')
             });
         }
 
+
         init().then(function(){
             self.loading = false;
         }, function(err){
             failFeedback(err)
         });
 
-        self.openProduct = function(product){
+        self.stopAuction= function(product){
+            alert('yey')
+        };
+
+        self.startAuction = function(product){
+            alert('yey')
+        };
+
+        self.showProduct = function(product){
+            alert('yey')
+        };
+
+        self.deleteProduct= function(product){
             alert('yey')
         };
 
