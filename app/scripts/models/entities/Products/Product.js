@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.product.product', ['lanceSolidario.product.productResource']).factory('Product', ['Entity', 'productResource', function (Entity, productResource) {
+    angular.module('lanceSolidario.product.product', ['lanceSolidario.product.productResource','lanceSolidario.auction.auction']).factory('Product', ['Entity', 'productResource','Auction', function (Entity, productResource, Auction) {
 
         angular.extend(Product.prototype, Entity.prototype);
         Product.prototype.constructor = Product;
@@ -18,6 +18,7 @@
             this.description = null;
             this.isUsed = null;
             this.isDeleted = null;
+            this.auctionList = null;
 
             //Image
             this.images = null;
@@ -52,7 +53,30 @@
                     }
                     return productListtoReturn;
                 });
-            }
+            };
+
+            //TODO: Need Unit tests
+            this._loadAuctions = function () {
+                var product = this;
+                var auction = new Auction();
+                return auction._listByProduct(product).then(function(returnList){
+                    product.auctionList = returnList;
+                });
+            };
+
+            //TODO: Need Unit tests
+            this._getStatus = function () {
+                var product = this;
+                if(product && product.auctionList && product.auctionList[0]){
+                    if(product.auctionList[0].endDate && product.auctionList[0].endDate <= new Date()){
+                        return 'Encerrado';
+                    }else{
+                        return 'Leiloado'
+                    }
+                }else{
+                    return 'Pendente';
+                }
+            };
         }
 
         return Product

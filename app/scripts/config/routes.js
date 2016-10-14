@@ -32,6 +32,8 @@ angular.module('lanceSolidario')
                 controllerAs:'contactCtrl'
             }).when('/user/products', {
                 templateUrl: 'views/product/list.html',
+                controller: 'ProductList',
+                controllerAs: 'productCtrl'
             }).when('/user/products/new', {
                 templateUrl: 'views/product/new.html',
                 controller: 'ProductNew',

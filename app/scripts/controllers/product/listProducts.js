@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('ProductList', ['Product', 'facebookAPI', '$location', function (Product, facebookAPI, $location) {
+    .controller('ProductList', ['Product', 'facebookAPI', '$location', '$q', function (Product, facebookAPI, $location, $q) {
 
         var self = this;
 
@@ -12,8 +12,15 @@ angular.module('lanceSolidario')
                 $location.path('/login');
             }
             self.user = facebookAPI.user;
-            return self.user._loadProducts();
+            return self.user._loadProducts().then(function(){
+                var promisses = [];
+                for(var prodIndx in self.user.productList){
+                    promisses.push(self.user.productList[prodIndx]._loadAuctions());
+                }
+                return $q.all(promisses);
+            });
         }
+
         init().then(function(){
             self.loading = false;
         }, function(err){
@@ -32,7 +39,5 @@ angular.module('lanceSolidario')
             console.log('Error: ');
             console.log(JSON.stringify(error))
         };
-
-
 
     }]);
