@@ -11,6 +11,8 @@ angular.module('lanceSolidario')
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/auctions', {
+                templateUrl: 'views/auction/list.html',
+            }).when('/auctions/template', {
                 templateUrl: 'views/auction/show.html',
             }).when('/user', {
                 templateUrl: 'views/user/dashboard.html',
