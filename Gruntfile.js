@@ -136,6 +136,57 @@ module.exports = function (grunt) {
             }
         },
 
+        // The actual grunt server settings
+        connectCommit: {
+            options: {
+                port: 9000,
+                // Change this to '0.0.0.0' to access the server from outside.
+                hostname: 'localhost',
+                livereload: 35729
+            },
+            livereload: {
+                options: {
+                    open: true,
+                    middleware: function (connect) {
+                        return [
+                            connect.static('.tmp'),
+                            connect().use(
+                                '/bower_components',
+                                connect.static('./bower_components')
+                            ),
+                            connect().use(
+                                '/app/styles',
+                                connect.static('./app/styles')
+                            ),
+                            connect.static(appConfig.app)
+                        ];
+                    }
+                }
+            },
+            test: {
+                options: {
+                    port: 9001,
+                    middleware: function (connect) {
+                        return [
+                            connect.static('.tmp'),
+                            connect.static('test'),
+                            connect().use(
+                                '/bower_components',
+                                connect.static('./bower_components')
+                            ),
+                            connect.static(appConfig.app)
+                        ];
+                    }
+                }
+            },
+            dist: {
+                options: {
+                    open: true,
+                    base: '<%= yeoman.dist %>'
+                }
+            }
+        },
+
         // Make sure there are no obvious mistakes
         jshint: {
             options: {
@@ -501,6 +552,15 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
+    grunt.registerTask('commitTest', [
+        'clean:server',
+        'wiredep',
+        'concurrent:test',
+        'postcss',
+        'connectCommit:test',
+        'karma'
+    ]);
+
     grunt.registerTask('build', [
         'less',
         'clean:dist',
@@ -531,6 +591,6 @@ module.exports = function (grunt) {
     grunt.registerTask('commit', [
         'newer:jshint',
         'newer:jscs',
-        'test'
+        'commitTest'
     ]);
 };
