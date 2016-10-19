@@ -1,17 +1,36 @@
 'use strict';
 angular.module('lanceSolidario')
-.controller('NewProductCtrl',  ['Product','facebookAPI','$location', function(Product, facebookAPI, $location) {
+    .controller('ProductNew', ['Product', 'facebookAPI', '$location', function (Product, facebookAPI, $location) {
 
-    var self = this;
+        var self = this;
 
-   if(!facebookAPI.user){
-       $location.path('/login');
-   }
+        function init() {
+            if (!facebookAPI.user) {
+                $location.path('/login');
+            }
+            self.user = facebookAPI.user;
+            self.newProduct = new Product();
+            self.newProduct.facebookId = self.user.facebookId;
+        }
 
-    self.user = facebookAPI.user;
-    self.newProduct = new Product();
+        self.addProduct = function () {
+            self.newProduct._add().then(function (success) {
+                successFeedback('Produto criado com sucesso');
+                $location.path('user/products');
+            }, function (err) {
+                failFeedback(err)
+            })
+        };
 
-    self.add = function(){
-        self.newProduct._add();
-    };
-}]);
+        var successFeedback = function (message) {
+            alert(message);
+        };
+
+        var failFeedback = function (error) {
+            alert('Erro');
+            console.log(JSON.stringify(error))
+        };
+
+        init();
+
+    }]);

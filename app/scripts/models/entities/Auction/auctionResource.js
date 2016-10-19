@@ -100,6 +100,40 @@
             );
         };
 
+        //TODO: Need Unit tests
+        self.loadAuctionsByProduct = function (product) {
+            var headers = {};
+            var endpoint = '';
+            var productId;
+            var token = apiToken.getApiToken();
+
+            //Validate and Mapping
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (product && product.productId) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'ProductId missing'});
+            }
+
+            if (product && product.facebookId) {
+                endpoint = '/users/'+product.facebookId+'/products/'+product.productId+'/auctions';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
         self.load = function (auction) {
             var headers = {};
             var endpoint = '';
@@ -111,7 +145,6 @@
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-
 
             if (auction && auction.auctionId) {
                 endpoint = '/auctions/' + auction.auctionId;

@@ -9,43 +9,30 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Camera Fotográfica</td>
-        <td>Pendente</td>
+    <tr ng-repeat="product in productCtrl.user.productList">
+        <td>{{product.title}}</td>
+        <td>{{product._getStatus()}}</td>
+
         <td>
             <button class="btn btn-xs btn-success" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                 <i class="fa fa-flag"></i> &nbsp;
                 Iniciar Leilão
             </button>
-        </td>
 
-        <td>
-            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-                <i class="fa fa-close"></i>
-            </button>
-        </td>
-    </tr>
-    <tr>
-        <td>Play Station 2</td>
-        <td>Em Leilão</td>
-        <td>
-            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+            <button ng-show="product._getStatus()==='Em Leilão'" class="btn btn-xs btn-danger" ng-model="singleModel"
+                    uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                 <i class="fa fa-stop"></i> &nbsp;
                 Parar Leilão
             </button>
         </td>
 
-        <td>
-            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+        <td ng-show="product._getStatus()==='Pendente'">
+            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1"
+                    btn-checkbox-false="0">
                 <i class="fa fa-close"></i>
             </button>
         </td>
-    </tr>
-    <tr>
-        <td>Notebook Acer</td>
-        <td>Leiloado</td>
-        <td></td>
-        <td></td>
+
     </tr>
     </tbody>
 </table>
