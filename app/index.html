@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="3rdparty/social-buttons/bootstrap-social.css">
 
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.css" />
     <!-- endbower -->
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
@@ -36,11 +37,15 @@
 
     <div ng-include="'views/common/components/footer.html'"></div>
 
+    <toast></toast>
+
     <div id="messages">
-        <div class="alert alert-info">
+        <!-- <div class="alert alert-info">
             <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Success!</strong> Indicates a successful or positive action.
         </div>
+
+        -->
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -69,6 +74,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/ngToast/dist/ngToast.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

@@ -5,6 +5,7 @@
 angular.module('lanceSolidario', [
     'ui.bootstrap',
     'ngRoute',
+    'ngToast',
     'utils',
     'entity',
     'lanceSolidario.user',
@@ -13,4 +14,13 @@ angular.module('lanceSolidario', [
     'lanceSolidario.address',
     'lanceSolidario.email',
     'lanceSolidario.telephone'
-]);
+]).config(['ngToastProvider', function(ngToast) {
+    ngToast.configure(
+        {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'left',
+            dismissButton: true,
+            className: 'info'
+        }
+    )
+}])

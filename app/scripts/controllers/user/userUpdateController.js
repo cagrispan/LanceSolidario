@@ -73,12 +73,13 @@ angular.module('lanceSolidario')
             return $q.all(listPromise);
         };
 
-        var successFeedback = function () {
-            alert('Usuário salvo com sucesso');
+        var successFeedback = function (message) {
+            ngToast,success('Usuário salvo com sucesso!');
         };
 
         var failFeedback = function (error) {
-            alert(JSON.stringify(error))
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição');
+            console.log(JSON.stringify(error))
         };
 
     }]);

@@ -5,8 +5,13 @@ angular.module('lanceSolidario')
         $routeProvider
             .when('/login', {
                 templateUrl: 'views/user/login.html'
-            })
-            .when('/home', {
+            }).when('/about', {
+                templateUrl: 'views/common/about.html'
+            }).when('/partners', {
+                templateUrl: 'views/common/partners.html'
+            }).when('/us', {
+                templateUrl: 'views/common/us                                                                               .html'
+            }).when('/home', {
                 templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'

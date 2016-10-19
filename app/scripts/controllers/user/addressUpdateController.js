@@ -67,11 +67,11 @@ angular.module('lanceSolidario')
 
 
         var successFeedback = function (message) {
-            alert(message);
+            ngToast,success(message);
         };
 
         var failFeedback = function (error) {
-            alert('Erro');
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição.');
             console.log(JSON.stringify(error))
         };
 
