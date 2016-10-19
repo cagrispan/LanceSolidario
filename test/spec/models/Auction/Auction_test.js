@@ -78,9 +78,9 @@
 
                 expect(auctionResource.loadAuctions).toHaveBeenCalledWith({'facebookId': 'validFacebookId'});
                 result.then(function (result) {
-                    expect(result[0].product.productId).toBe('validProductId1');
+                    expect(result[0].productId).toBe('validProductId1');
                     //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
-                    expect(result[1].product.productId).toBe('validProductId2');
+                    expect(result[1].productId).toBe('validProductId2');
                     //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
                 });
                 rootScope.$digest();
@@ -109,9 +109,9 @@
 
                 expect(auctionResource.loadAll).toHaveBeenCalledWith({'facebookId': 'validFacebookId'});
                 result.then(function (result) {
-                    expect(result[0].product.productId).toBe('validProductId1');
+                    expect(result[0].productId).toBe('validProductId1');
                     //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
-                    expect(result[1].product.productId).toBe('validProductId2');
+                    expect(result[1].productId).toBe('validProductId2');
                     //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
                 });
                 rootScope.$digest();

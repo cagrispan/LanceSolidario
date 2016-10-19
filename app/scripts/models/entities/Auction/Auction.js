@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource', 'lanceSolidario.product.product']).factory('Auction', ['auctionResource', 'Entity', 'Product', function (auctionResource, Entity, Product) {
+    angular.module('lanceSolidario.auction.auction', ['lanceSolidario.auction.auctionResource']).factory('Auction', ['auctionResource', 'Entity',function (auctionResource, Entity) {
 
         angular.extend(Auction.prototype, Entity.prototype);
         Auction.prototype.constructor = Auction;
@@ -19,17 +19,17 @@
             /*
              Product Object
              */
-            this.product = null;
+            this.productId = null;
 
             /*
              Institution Object
              */
-            this.institution = null;
+            this.institutionId = null;
 
             /*
              User Object
              */
-            this.donorUser = null;
+            this.facebookId = null;
 
             /*
              Number
@@ -115,16 +115,46 @@
                 });
             };
 
+            //TODO: Need Unit tests
+            this._listByProduct = function (product) {
+                var auctionListtoReturn = [];
+                return auctionResource.loadAuctionsByProduct(product).then(function (response) {
+                    var auctionList = [];
+                    var facebookId = '';
+
+                    if (response.auctions) {
+                        auctionList = response.auctions;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
+
+                    if (auctionList && auctionList[0]) {
+                        var auction;
+                        for (var i in auctionList) {
+                            auction = new Auction();
+                            auction.facebookId = facebookId;
+                            auction._setAuction(auctionList[i]);
+                            auctionListtoReturn.push(auction);
+                        }
+                    }
+                    return auctionListtoReturn;
+                });
+            };
+
+
 
             this._setAuction = function (objectToSet) {
                 var auction = this;
                 auction._set(objectToSet);
 
-                //Product
-                if (objectToSet.productId) {
-                    var product = new Product();
-                    product.productId = objectToSet.productId;
-                    auction.product = product;
+                //Auction
+                if (objectToSet.auctionId) {
+                    var auction = new Auction();
+                    auction.auctionId = objectToSet.auctionId;
+                    auction.endDate = new Date(auction.endDate);
+                    auction.startDate = new  Date(auction.startDate);
+                    auction.auction = auction;
                 }
 
                 /*//Institution

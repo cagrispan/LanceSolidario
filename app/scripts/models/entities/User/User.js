@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', function (userResource, Entity, Address, Email, Telephone, Product) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product','Bid', function (userResource, Entity, Address, Email, Telephone, Product, Bid) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -42,7 +42,7 @@
             /*
              Array Object product
              */
-            this.productsList = null;
+            this.productList = null;
 
             /*
              Array Object purchase
@@ -52,7 +52,7 @@
             /*
              Array Object bids
              */
-            this.bids = null;
+            this.bidList = null;
 
 
             //Method
@@ -164,6 +164,15 @@
                         }
                         return user;
                     });
+            };
+
+            //TODO: Need Unit tests
+            this._loadBids = function () {
+                var user = this;
+                var bid = new Bid();
+                return bid._listByUser(user).then(function(returnList){
+                   user.bidList = returnList;
+                });
             };
 
             this._loadAll = function () {

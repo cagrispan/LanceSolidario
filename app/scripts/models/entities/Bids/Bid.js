@@ -50,7 +50,7 @@
             };
 
             this._listByUser = function (user) {
-                var bidListtoReturn = [];
+                var bidListToReturn = [];
                 return bidResource.loadBidsByUser(user).then(function (response) {
                     var bidList = [];
                     var facebookId = '';
@@ -71,10 +71,10 @@
                             }
 
                             bid.facebookId = facebookId;
-                            bidListtoReturn.push(bid);
+                            bidListToReturn.push(bid);
                         }
                     }
-                    return bidListtoReturn;
+                    return bidListToReturn;
                 });
             };
 
