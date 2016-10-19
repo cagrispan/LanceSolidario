@@ -11,6 +11,8 @@ angular.module('lanceSolidario')
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             }).when('/auctions', {
+                templateUrl: 'views/auction/list.html',
+            }).when('/auctions/template', {
                 templateUrl: 'views/auction/show.html',
             }).when('/user', {
                 templateUrl: 'views/user/dashboard.html',
@@ -40,6 +42,8 @@ angular.module('lanceSolidario')
                 controllerAs: 'productCtrl'
             }).when('/user/purchases', {
                 templateUrl: 'views/purchase/list.html',
+            }).when('/user/purchases/template', {
+                templateUrl: 'views/purchase/edit.html',
             }).when('/user/auctions', {
                 templateUrl: 'views/auction/list.html',
             }).when('/user/auctions/new', {

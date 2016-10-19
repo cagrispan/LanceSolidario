@@ -1,7 +1,7 @@
 <table class="table table-striped table-hover">
     <thead>
     <tr>
-        <th class="col-xs-5 col-sm-5 col-md-5 col-lg-5">Nome</th>
+        <th class="col-xs-7 col-sm-7 col-md-7 col-lg-7">Nome</th>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Estado:</th>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Leilão:</th>
         <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>
@@ -14,8 +14,7 @@
         <td>{{product._getStatus()}}</td>
 
         <td>
-            <button ng-show="product._getStatus()==='Pendente'" class="btn btn-xs btn-success" ng-model="singleModel"
-                    uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+            <button class="btn btn-xs btn-success" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                 <i class="fa fa-flag"></i> &nbsp;
                 Iniciar Leilão
             </button>
