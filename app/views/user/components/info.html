@@ -10,14 +10,6 @@
 
             <br>
 
-            <div class="text-center">
-                <label class="btn btn-default btn-file" class="btn btn-primary">
-                    Alterar foto <input type="file" style="display: none;">
-                </label>
-            </div>
-
-            <br>
-
             <!-- Informações Básicas -->
             <div class="container-fluid">
                 <!-- Nome -->
@@ -25,15 +17,6 @@
                     <div class="form-group">
                         <label for="user_name">Nome:</label>
                         <input type="text" class="form-control" ng-model="userCtrl.user.name" id="user_name"
-                               placeholder="Ex: seuemail@exemplo.com" required>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="form-group">
-                        <label for="user_email">Email address</label>
-                        <input type="email" class="form-control" id="user_email" ng-model="userCtrl.user.emailList[0].email"
                                placeholder="Ex: seuemail@exemplo.com" required>
                     </div>
                 </div>
@@ -45,13 +28,6 @@
                     <div class="form-group">
                         <label for="user_birthday">Aniversário:</label>
                         <input type="date" class="form-control" id="user_birthday" ng-model="userCtrl.user.birthday" required>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <label for="user_phone">Telefone:</label>
-                        <input type="text" class="form-control" id="user_phone" ng-model="userCtrl.user.telephoneList[0].telephone" required>
                     </div>
                 </div>
             </div>
