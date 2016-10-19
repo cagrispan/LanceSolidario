@@ -498,6 +498,9 @@ div {
   margin-top: 25px;
   margin-bottom: 25px;
 }
+#navbar {
+  background: #016DB8 !important;
+}
 #messages {
   position: fixed;
   z-index: auto;
