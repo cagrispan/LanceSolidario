@@ -23,7 +23,6 @@ angular.module('lanceSolidario')
                         self.loading = false;
                     });
             }
-
         }
 
         init();
@@ -74,12 +73,12 @@ angular.module('lanceSolidario')
             return $q.all(listPromise);
         };
 
-        var successFeedback = function (message) {
+        var successFeedback = function () {
             ngToast.success('Usuário salvo com sucesso!');
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição');
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 
