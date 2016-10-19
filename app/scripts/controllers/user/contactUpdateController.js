@@ -12,21 +12,21 @@ angular.module('lanceSolidario')
             self.loading = true;
 
             if (!facebookAPI.user) {
-                facebookAPI.getUserInfo();
                 $location.path('/login');
+            } else {
+                self.user = facebookAPI.user;
+
+                self.telephoneToAdd.facebookId = self.user.facebookId;
+                self.emailToAdd.facebookId = self.user.facebookId;
+
+                self.user._loadTelephones().catch(function () {
+                    failFeedback('Load Telephone Error');
+                });
+
+                self.user._loadEmails().catch(function () {
+                    failFeedback('Load Emails Error');
+                });
             }
-            self.user = facebookAPI.user;
-
-            self.telephoneToAdd.facebookId = self.user.facebookId;
-            self.emailToAdd.facebookId = self.user.facebookId;
-
-            self.user._loadTelephones().catch(function () {
-                failFeedback('Load Telephone Error');
-            });
-
-            self.user._loadEmails().catch(function () {
-                failFeedback('Load Emails Error');
-            });
         }
 
 
@@ -74,11 +74,11 @@ angular.module('lanceSolidario')
 
 
         var successFeedback = function (message) {
-            ngToast,success(message);
+            ngToast.success(message);
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição');
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 
