@@ -87,103 +87,103 @@ module.exports = function (grunt) {
 
         // The actual grunt server settings
         connect: {
-            options: {
-                port: 9000,
-                // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'local.lancesolidario.com.br',
-                livereload: 35729
-            },
-            livereload: {
+            lance: {
                 options: {
-                    open: true,
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect().use(
-                                '/bower_components',
-                                connect.static('./bower_components')
-                            ),
-                            connect().use(
-                                '/app/styles',
-                                connect.static('./app/styles')
-                            ),
-                            connect.static(appConfig.app)
-                        ];
+                    port: 9000,
+                    // Change this to '0.0.0.0' to access the server from outside.
+                    hostname: 'local.lancesolidario.com.br',
+                    livereload: 35729
+                },
+                livereload: {
+                    options: {
+                        open: true,
+                        middleware: function (connect) {
+                            return [
+                                connect.static('.tmp'),
+                                connect().use(
+                                    '/bower_components',
+                                    connect.static('./bower_components')
+                                ),
+                                connect().use(
+                                    '/app/styles',
+                                    connect.static('./app/styles')
+                                ),
+                                connect.static(appConfig.app)
+                            ];
+                        }
+                    }
+                },
+                test: {
+                    options: {
+                        port: 9001,
+                        middleware: function (connect) {
+                            return [
+                                connect.static('.tmp'),
+                                connect.static('test'),
+                                connect().use(
+                                    '/bower_components',
+                                    connect.static('./bower_components')
+                                ),
+                                connect.static(appConfig.app)
+                            ];
+                        }
+                    }
+                },
+                dist: {
+                    options: {
+                        open: true,
+                        base: '<%= yeoman.dist %>'
                     }
                 }
-            },
-            test: {
+            }, local: {
                 options: {
-                    port: 9001,
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect.static('test'),
-                            connect().use(
-                                '/bower_components',
-                                connect.static('./bower_components')
-                            ),
-                            connect.static(appConfig.app)
-                        ];
+                    port: 9000,
+                    // Change this to '0.0.0.0' to access the server from outside.
+                    hostname: 'localhost',
+                    livereload: 35729
+                },
+                livereload: {
+                    options: {
+                        open: true,
+                        middleware: function (connect) {
+                            return [
+                                connect.static('.tmp'),
+                                connect().use(
+                                    '/bower_components',
+                                    connect.static('./bower_components')
+                                ),
+                                connect().use(
+                                    '/app/styles',
+                                    connect.static('./app/styles')
+                                ),
+                                connect.static(appConfig.app)
+                            ];
+                        }
+                    }
+                },
+                test: {
+                    options: {
+                        port: 9001,
+                        middleware: function (connect) {
+                            return [
+                                connect.static('.tmp'),
+                                connect.static('test'),
+                                connect().use(
+                                    '/bower_components',
+                                    connect.static('./bower_components')
+                                ),
+                                connect.static(appConfig.app)
+                            ];
+                        }
+                    }
+                },
+                dist: {
+                    options: {
+                        open: true,
+                        base: '<%= yeoman.dist %>'
                     }
                 }
-            },
-            dist: {
-                options: {
-                    open: true,
-                    base: '<%= yeoman.dist %>'
-                }
-            }
-        },
 
-        // The actual grunt server settings
-        connectCommit: {
-            options: {
-                port: 9000,
-                // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'localhost',
-                livereload: 35729
-            },
-            livereload: {
-                options: {
-                    open: true,
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect().use(
-                                '/bower_components',
-                                connect.static('./bower_components')
-                            ),
-                            connect().use(
-                                '/app/styles',
-                                connect.static('./app/styles')
-                            ),
-                            connect.static(appConfig.app)
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    port: 9001,
-                    middleware: function (connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect.static('test'),
-                            connect().use(
-                                '/bower_components',
-                                connect.static('./bower_components')
-                            ),
-                            connect.static(appConfig.app)
-                        ];
-                    }
-                }
-            },
-            dist: {
-                options: {
-                    open: true,
-                    base: '<%= yeoman.dist %>'
-                }
             }
         },
 
@@ -524,7 +524,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
+            return grunt.task.run(['build', 'connect:lance:dist:keepalive']);
         }
 
         grunt.task.run([
@@ -533,7 +533,7 @@ module.exports = function (grunt) {
             'wiredep',
             'concurrent:server',
             'postcss:server',
-            'connect:livereload',
+            'connect:lance:livereload',
             'watch'
         ]);
     });
@@ -548,7 +548,7 @@ module.exports = function (grunt) {
         'wiredep',
         'concurrent:test',
         'postcss',
-        'connect:test',
+        'connect:lance:test',
         'karma'
     ]);
 
@@ -557,7 +557,7 @@ module.exports = function (grunt) {
         'wiredep',
         'concurrent:test',
         'postcss',
-        'connectCommit:test',
+        'connect:local:test',
         'karma'
     ]);
 
