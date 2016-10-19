@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AddressUpdate', ['Address', 'facebookAPI', '$location', function (Address, facebookAPI, $location) {
+    .controller('AddressUpdate', ['Address', 'facebookAPI', '$location', 'ngToast', function (Address, facebookAPI, $location, ngToast) {
 
         var self = this;
         self.addressToAdd = new Address();

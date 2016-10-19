@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('ContactUpdate', ['Email', 'Telephone', 'facebookAPI', '$location', function (Email, Telephone, facebookAPI, $location) {
+    .controller('ContactUpdate', ['Email', 'Telephone', 'facebookAPI', '$location', 'ngToast', function (Email, Telephone, facebookAPI, $location, ngToast) {
 
         var self = this;
         self.telephoneToAdd = new Telephone();
