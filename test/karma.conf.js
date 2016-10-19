@@ -33,6 +33,7 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/ngToast/dist/ngToast.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/app.js',

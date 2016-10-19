@@ -90,7 +90,7 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'local.lancesolidario.com.br',
+                hostname: 'localhost',
                 livereload: 35729
             },
             livereload: {
@@ -501,6 +501,15 @@ module.exports = function (grunt) {
         'karma'
     ]);
 
+    grunt.registerTask('commitTest', [
+        'clean:server',
+        'wiredep',
+        'concurrent:test',
+        'postcss',
+        'connect:test',
+        'karma'
+    ]);
+
     grunt.registerTask('build', [
         'less',
         'clean:dist',
@@ -531,6 +540,6 @@ module.exports = function (grunt) {
     grunt.registerTask('commit', [
         'newer:jshint',
         'newer:jscs',
-        'test'
+        'commitTest'
     ]);
 };
