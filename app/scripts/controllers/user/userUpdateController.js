@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('UserUpdate', ['User', 'Email', 'Telephone', 'facebookAPI', '$location', '$q', function (User, Email, Telephone, facebookAPI, $location, $q) {
+    .controller('UserUpdate', ['User', 'Email', 'Telephone', 'facebookAPI', '$location', '$q', 'ngToast', function (User, Email, Telephone, facebookAPI, $location, $q, ngToast) {
 
         var self = this;
 
@@ -49,7 +49,7 @@ angular.module('lanceSolidario')
             var promise = userToUpdate._save()
                 .then(saveTelephones)
                 .then(saveEmails);
-            promise.then(successFeedback,failFeedback);
+            promise.then(successFeedback, failFeedback);
 
         };
 
@@ -73,12 +73,13 @@ angular.module('lanceSolidario')
             return $q.all(listPromise);
         };
 
-        var successFeedback = function () {
-            alert('Usuário salvo com sucesso');
+        var successFeedback = function (message) {
+            ngToast, success('Usuário salvo com sucesso!');
         };
 
         var failFeedback = function (error) {
-            alert(JSON.stringify(error))
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição');
+            console.log(JSON.stringify(error))
         };
 
     }]);

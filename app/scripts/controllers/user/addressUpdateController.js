@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AddressUpdate', ['Address', 'facebookAPI', '$location', function (Address, facebookAPI, $location) {
+    .controller('AddressUpdate', ['Address', 'facebookAPI', '$location', 'ngToast', function (Address, facebookAPI, $location, ngToast) {
 
         var self = this;
         self.addressToAdd = new Address();
@@ -67,11 +67,11 @@ angular.module('lanceSolidario')
 
 
         var successFeedback = function (message) {
-            alert(message);
+            ngToast,success(message);
         };
 
         var failFeedback = function (error) {
-            alert('Erro');
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição.');
             console.log(JSON.stringify(error))
         };
 
