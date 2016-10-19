@@ -22,5 +22,5 @@ angular.module('lanceSolidario', [
             dismissButton: true,
             className: 'info'
         }
-    )
-}])
+    );
+}]);

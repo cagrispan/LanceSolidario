@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('HomeCtrl', ['facebookAPI', '$location', 'ngToast', function (facebookAPI, $location, ngToast) {
+    .controller('HomeCtrl', ['facebookAPI', '$location', function (facebookAPI, $location) {
         var self = this;
 
         function init() {
