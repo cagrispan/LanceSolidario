@@ -1,9 +1,7 @@
 'use strict';
 angular.module('lanceSolidario')
-    .run(['$rootScope', '$window', 'facebookAPI',
-        function ($rootScope, $window, facebookAPI) {
-
-            $rootScope.user = {};
+    .controller('LoginCtrl', ['$window', 'facebookAPI',
+        function ($window, facebookAPI) {
 
             $window.fbAsyncInit = function () {
                 // Executed when the SDK is loaded

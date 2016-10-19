@@ -3,19 +3,36 @@ angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         //noinspection JSUnresolvedFunction
         $routeProvider
-            .when('/login', {
-                templateUrl: 'views/user/login.html'
-            })
+            //Open routes
             .when('/home', {
                 templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
-            }).when('/auctions', {
-                templateUrl: 'views/auction/show.html',
-            }).when('/user', {
+            })
+
+            .when('/login', {
+                templateUrl: 'views/user/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'loginCtrl'
+            })
+
+            //Authenticated routes
+            .when('/user', {
                 templateUrl: 'views/user/dashboard.html',
-            }).when('/user/biddings', {
-                templateUrl: 'views/bidding/list.html',
+                controller: 'DashboardCtrl',
+                controllerAs: 'dashboardCtrl'
+            })
+
+            .when('/user/purchases', {
+                templateUrl: 'views/purchase/list.html',
+                controller: 'PurchaseListCtrl',
+                controllerAs: 'purchaseListCtrl'
+            })
+
+            .when('/auctions', {
+                templateUrl: 'views/auction/show.html',
+            }).when('/user/bids', {
+                templateUrl: 'views/bid/list.html',
                 controller: 'BidList',
                 controllerAs: 'bidCtrl'
             }).when('/user/edit', {
@@ -38,8 +55,6 @@ angular.module('lanceSolidario')
                 templateUrl: 'views/product/new.html',
                 controller: 'ProductNew',
                 controllerAs: 'productCtrl'
-            }).when('/user/purchases', {
-                templateUrl: 'views/purchase/list.html',
             }).when('/user/auctions', {
                 templateUrl: 'views/auction/list.html',
             }).when('/user/auctions/new', {

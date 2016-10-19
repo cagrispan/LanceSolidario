@@ -66,7 +66,7 @@ angular.module('lanceSolidario')
                 return self.user._loadEmails();
             }).then(function () {
                 self.emailToAdd.email = '';
-                successFeedback('Telefone Adicionado com sucesso');
+                successFeedback('Email Adicionado com sucesso');
             }, function () {
                 failFeedback('Email Add Error');
             });

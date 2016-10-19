@@ -12,18 +12,21 @@
             <ul class="nav navbar-nav navbar-left">
                 <ul class="nav navbar-nav">
                     <li><a href="#/home">Início</a></li>
-                    <li><a href="#/about">Sobre</a></li>
+                    <!--li><a href="#/about">Sobre</a></li>
                     <li><a href="#/about">Quem somos</a></li>
-                    <li><a href="#/partiners">Parceiros</a></li>
-                    <li><a href="#/login">Entrar</a></li>
-                    <li><a href="#/login">Inscrever-se</a></li>
+                    <li><a href="#/partiners">Parceiros</a></li-->
+
                 </ul>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right" uib-dropdown dropdown-append-to-body>
+            <ul class="nav navbar-nav navbar-right" uib-dropdown dropdown-append-to-body ng-if="!$root.user">
+                <li><a href="#/login">Entrar</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" uib-dropdown dropdown-append-to-body ng-if="$root.user">
 
                 <li>
-                    <a href="#/user">Olá, {{user.name}}</a>
+                    <a href="#/user">Olá, {{$root.user.name}}</a>
                 </li>
 
                 <li><a href="#/user/auctions/new">Leiloar um item</a></li>
@@ -32,17 +35,16 @@
                     <ul class=" dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
                         <li role="menuitem"><a href="#/user">&nbsp;Painel</a></li>
                         <li class="divider"></li>
-                        <li role="menuitem"><a href="#/user/purchases">&nbsp; Compras</a></li>
-                        <li role="menuitem"><a href="#/user/products">&nbsp; Doações</a></li>
+                        <li role="menuitem"><a href="#/user/purchases">&nbsp;Compras</a></li>
+                        <li role="menuitem"><a href="#/user/products">&nbsp;Doações</a></li>
 
                         <li class="divider"></li>
 
-                        <li role="menuitem"><a href="#/user">&nbsp;Meu perfil</a></li>
                         <li role="menuitem"><a href="#/user/edit">&nbsp;Configurações</a></li>
 
                         <li class="divider"></li>
 
-                        <li role="menuitem"><a href="#/loggout">&nbsp; Sair</a></li>
+                        <li role="menuitem"><a href="#/logout">&nbsp; Sair</a></li>
                     </ul>
                 </li>
             </ul>

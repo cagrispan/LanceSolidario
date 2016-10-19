@@ -3,6 +3,8 @@ angular.module('utils')
     .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', function ($rootScope, $location, User, apiToken) {
 
         var self = this;
+        self.user = null;
+        $rootScope.user = null;
 
         this.watchLoginChange = function () {
 
@@ -14,7 +16,7 @@ angular.module('utils')
                     console.log('DEBUG: Auth response: ' + res.authResponse);
                 }
                 else {
-                    self.user = {};
+                    self.user = null;
                 }
             });
         };
@@ -33,6 +35,7 @@ angular.module('utils')
                     getUserPicture(facebookToken);
 
                     self.user = user;
+                    $rootScope.user = user;
                     console.log('DEBUG: Facebook User info:' + self.user);
 
                     user._updateAPIToken().then(function () {
@@ -51,7 +54,6 @@ angular.module('utils')
 
             FB.api('/me/picture?type=large', function (response) {
                 $rootScope.$apply(function () {
-                    console.log(response);
                     self.profilePicure = response.data.url;
 
                 });

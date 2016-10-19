@@ -11,16 +11,17 @@ angular.module('lanceSolidario')
             self.isCollapsed = true;
 
             if (!facebookAPI.user) {
-                facebookAPI.getUserInfo();
                 $location.path('/login');
+            } else {
+                self.user = facebookAPI.user;
+
+                self.addressToAdd.facebookId = self.user.facebookId;
+
+                self.user._loadAddresses().catch(function () {
+                    failFeedback('Load Addresses Error');
+                });
             }
-            self.user = facebookAPI.user;
 
-            self.addressToAdd.facebookId = self.user.facebookId;
-
-            self.user._loadAddresses().catch(function () {
-                failFeedback('Load Addresses Error');
-            });
         }
 
 
@@ -45,7 +46,9 @@ angular.module('lanceSolidario')
             self.addressToAdd._save().then(function () {
                 return self.user._loadAddresses();
             }).then(function () {
-                self.addressToAdd.address = '';
+                self.isCollapsed = true;
+                self.addressToAdd = new Address();
+                self.addressToAdd.facebookId = self.user.facebookId;
                 successFeedback('Endereço adicionado com sucesso');
             }, function () {
                 failFeedback('Address Add Error');

@@ -11,6 +11,7 @@ angular.module('lanceSolidario')
             self.user = facebookAPI.user;
             self.newProduct = new Product();
             self.newProduct.facebookId = self.user.facebookId;
+            self.newProduct.isUsed = false;
         }
 
         self.addProduct = function () {
