@@ -1,24 +1,20 @@
 <div class="container">
 
-    <div class="col-sm-2 col-md-2 col-lg-2 profile-sidebar">
-        <div ng-include="'views/user/components/profile_actions.html'"></div>
-    </div>
+    <a href="#/auctions/template" class="link-no-style">
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+            <div class="panel panel-default auction-card">
+                <div class="panel-image">
+                    <img src="../images/product_playstation_3.jpg" class="img-responsive" alt="">
+                </div>
 
-    <div class="col-sm-10 col-md-10 col-lg-10">
-        <h1>Meus Leilões:</h1>
-        <p>
-            Aqui estão listados todos os seus produtos. Você pode criar um novo leilão para seu produto.
-            Apagar um produto, ou editar as informações dele.
-        </p>
+                <div class="counter text-center">
+                    00:00:00:00
+                </div>
 
-        <div class="row text-center product-new">
-            <a href="products/new" class="btn btn-success btn-md">
-                <span class="glyphicon glyphicon-plus"></span>
-                Adicionar um novo produto
-            </a>
+                <div class="value text-center">
+                    R$399,00
+                </div>
+            </div>
         </div>
-
-
-        <div ng-include="'views/auction/components/list_table.html'"></div>
-    </div>
+    </a>
 </div>
