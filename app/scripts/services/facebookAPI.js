@@ -34,15 +34,20 @@ angular.module('utils')
 
                     getUserPicture(facebookToken);
 
-                    self.user = user;
-                    $rootScope.user = user;
+
                     console.log('DEBUG: Facebook User info:' + self.user);
 
                     user._updateAPIToken().then(function () {
-                        if ($location.path() === '/login') {
-                            apiToken.updateApiToken(user.token);
-                            $location.path('/home');
-                        }
+                        user._load().then(function(){
+
+                            self.user = user;
+                            $rootScope.user = user;
+
+                            if ($location.path() === '/login') {
+                                apiToken.updateApiToken(user.token);
+                                $location.path('/home');
+                            }
+                        });
                     }, function () {
                         //$location.path('/login');
                     });
