@@ -59,7 +59,7 @@ angular.module('utils')
 
             FB.api('/me/picture?type=large', function (response) {
                 $rootScope.$apply(function () {
-                    self.profilePicure = response.data.url;
+                    self.profilePicture = response.data.url;
 
                 });
             });
