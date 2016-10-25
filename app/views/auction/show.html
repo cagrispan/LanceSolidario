@@ -5,8 +5,8 @@
             <div class="panel panel-default">
                 <div class="panel-body text-center">
                     <a href="#/users/1">
-                        <img src="images/user_profile.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Fulano da Silva</h4>
+                        <img src="{{auctionDetailCtrl.profilePicture}}" class="img-responsive img-circle" alt="">
+                        <h4>{{auctionDetailCtrl.user.name}}</h4>
                     </a>
                     Curitiba, Paraná <br>
                 </div>
@@ -20,13 +20,6 @@
                     </a>
                 </div>
             </div>
-
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                </div>
-            </div>
-
         </div>
 
         <div class="col-sm-10">
@@ -34,7 +27,7 @@
                 <div class="panel-body">
                     <div class="container-fluid">
                         <div class="row title">
-                            <h1>Play Station 3 - 500 gb</h1>
+                            <h1>{{auctionDetailCtrl.product.title}}</h1>
                         </div>
 
                         <div class="row info">
@@ -45,37 +38,50 @@
                             <div class="col-sm-6 text-center">
                                 <div class="details">
                                     <div class="counter">
-                                        <p>02 : 12 : 41 : 28</p>
+                                        <timer countdown="auctionDetailCtrl.duration" max-time-unit="'hour'"
+                                               interval="1000">
+                                            {{hours}}:{{minutes}}:{{seconds}}
+                                        </timer>
                                     </div>
-
                                     <div class="value">
-                                        <p> R$ 389,90 </p>
+                                        <p>{{auctionDetailCtrl.auction.bidList[auctionDetailCtrl.auction.bidList.length - 1].bid
+                                            | currency:'R$ '}}</p>
                                         <table class="table">
                                             <tr>
-                                                <td class="text-right col-xs-6">R$ 140,00</td>
+                                                <td class="text-right col-xs-6">{{auctionDetailCtrl.auction.minimumBid
+                                                    | currency:'R$ '}}
+                                                </td>
                                                 <td class=" text-left col-xs-6">valor inicial</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right col-xs-6">+ R$ 244,00</td>
-                                                <td class=" text-left col-xs-6">de lances</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right col-xs-6">+ R$ 5,90</td>
+                                                <td class="text-right col-xs-6">+ R$ 0,00</td>
                                                 <td class=" text-left col-xs-6">de taxa administrativa.</td>
                                             </tr>
                                         </table>
                                     </div>
 
                                     <div class="button">
-                                        <button class="btn btn-block btn-success btn-lg">
+                                        <button class="btn btn-block btn-success btn-lg"
+                                                ng-click="auctionDetailCtrl.showBidForm = !auctionDetailCtrl.showBidForm"
+                                                data-target="#bid">
                                             <i class="fa fa-gavel"></i> &nbsp; Dar Lance
                                         </button>
                                     </div>
-
-                                    <div class="institution">
-
-                                    </div>
                                 </div>
+                                <span id="bid" ng-if="auctionDetailCtrl.showBidForm">
+                                    <br>
+                                    <form class="form-group">
+                                        <label class="sr-only" for="input-amount">Valor (em reais)</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">R$</div>
+                                            <input type="number" class="form-control " id="input-amount"
+                                                   placeholder="Valor" step="0.01" ng-model="auctionDetailCtrl.newBid">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="submit" ng-click="auctionDetailCtrl.bid()">Confirmar</button>
+                                              </span>
+                                        </div>
+                                    </form>
+                                </span>
                             </div>
                         </div>
 
@@ -83,23 +89,10 @@
 
                         <div class="row">
                             <h2> Descrição </h2>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                mollit anim id est laborum
-                            </p>
+                            <p>{{auctionDetailCtrl.product.description}}</p>
 
-                            <h2> Estado de Conservação:</h2>
-                            <p> Em bom estado, mas há leves riscos.</p>
-
-                            <h2> Motivos da doação:</h2>
-                            <ul>
-                                <li>Não uso mais.</li>
-                                <li>Só tem ocupado espaço na estante.</li>
-                            </ul>
-
+                            <p ng-if="!auctionDetailCtrl.product.isUsed"> *Produto Novo.</p>
+                            <p ng-if="auctionDetailCtrl.product.isUsed"> *Produto Usado.</p>
                         </div>
 
 
@@ -138,66 +131,13 @@
                             </h2>
                             <table class="table table-striped">
                                 <tbody>
-                                <tr class="info">
-                                    <td>R$550,00</td>
-                                    <td>18/10/2016 22:24:33</td>
-                                    <td class="col-xs-1 text-center">
-                                        <button class="btn btn-danger btn-xs">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$340,00</td>
-                                    <td>18/10/2016 17:04:03</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$290,00</td>
-                                    <td>18/10/2016 12:44:23</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$280,00</td>
-                                    <td>18/10/2016 10:34:53</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>R$210,00</td>
-                                    <td>17/10/2016 22:44:23</td>
-                                    <td></td>
+                                <tr ng-repeat="bid in auctionDetailCtrl.auction.bidList | orderBy:bid:true | limitTo: 5">
+                                    <td>{{bid.bid | currency:'R$ '}}</td>
+                                    <td>{{bid.date | date:'dd/MM/yyyy hh:mm'}}</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-
-                        <div class="container-fluid">
-                            <div class="col-md-6 col-centered">
-
-
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="input-amount">Valor (em reais)</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">R$</div>
-                                            <input type="number" class="form-control " id="input-amount"
-                                                   placeholder="Valor">
-                                            <div class="input-group-addon">.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-success btn-lg">Dar Lance</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-
                     </div>
                 </div>
             </div>
