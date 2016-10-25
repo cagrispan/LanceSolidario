@@ -6,7 +6,7 @@
     angular.module('lanceSolidario.bid.bidResource', ['utils']).service('bidResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.add = function (bid) {
+        self.add = function (bid, user) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();
@@ -20,11 +20,14 @@
             } else {
                 return $q.reject({errorMessage: 'Access token missing'});
             }
-            if (bid && bid.facebookId) {
-                endpoint = '/users/' + bid.facebookId + '/bids';
+            if (user && user.facebookId) {
+                endpoint = '/users/' + user.facebookId + '/bids';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
+
+            delete objectToSend.isDeleted;
+            delete objectToSend.bidId;
 
             //Make the request
             return webService.add(endpoint, objectToSend, headers).then(

@@ -4,7 +4,8 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.bid.bid', ['lanceSolidario.bid.bidResource', 'lanceSolidario.auction.auction']).factory('Bid', ['bidResource', 'Entity','Auction', function (bidResource, Entity, Auction) {
+    angular.module('lanceSolidario.bid.bid', ['lanceSolidario.bid.bidResource', 'lanceSolidario.auction.auction'])
+        .factory('Bid', ['bidResource', 'Entity', function (bidResource, Entity) {
 
         angular.extend(Bid.prototype, Entity.prototype);
         Bid.prototype.constructor = Bid;
@@ -19,7 +20,7 @@
             /*
              Auction Object
              */
-            this.auction = null;
+            this.auctionId = null;
 
 
             /*
@@ -41,8 +42,8 @@
             /*
              Methods
              */
-            this._add = function () {
-                return bidResource.add(this);
+            this._add = function (user) {
+                return bidResource.add(this, user);
             };
 
             this._update = function () {
@@ -63,13 +64,6 @@
                         for (var i in bidList) {
                             bid = new Bid();
                             bid._set(bidList[i]);
-                            //Auction
-                            if (bidList[i].auctionId) {
-                                var auction = new Auction();
-                                auction.auctionId = bidList[i].auctionId;
-                                bid.auction = auction;
-                            }
-
                             bid.facebookId = facebookId;
                             bidListToReturn.push(bid);
                         }
@@ -92,13 +86,6 @@
                         for (var i in bidList) {
                             bid = new Bid();
                             bid._set(bidList[i]);
-                            //Auction
-                            if (bidList[i].auctionId) {
-                                var auction = new Auction();
-                                auction.auctionId = bidList[i].auctionId;
-                                bid.auction = auction;
-                            }
-
                             bid.facebookId = facebookId;
                             bidListtoReturn.push(bid);
                         }

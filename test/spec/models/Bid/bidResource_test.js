@@ -33,7 +33,7 @@
         describe('update', function () {
 
             it('should receive a 200', inject(function () {
-                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/validFacebookId/bids/' + 'validBidId',{
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/validFacebookId/bids/' + 'validBidId', {
                     'facebookId': 'validFacebookId',
                     'bidId': 'validBidId',
                     'bid': 'bid'
@@ -60,7 +60,7 @@
 
 
             it('should get an fail request, request with invalid token/facebookId', inject(function () {
-                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/invalidFacebookId/bids/' + 'invalidBidId',{
+                httpBackend.expect('PUT', globalConfig.backendBasePath + '/users/invalidFacebookId/bids/' + 'invalidBidId', {
                     'facebookId': 'invalidFacebookId',
                     'bidId': 'invalidBidId',
                     'bid': 'bid'
@@ -112,8 +112,7 @@
         describe('add', function () {
 
             it('should receive a 200', inject(function () {
-                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/validFacebookId/bids',{
-                    'facebookId': 'validFacebookId',
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/validFacebookId/bids', {
                     'bid': 'bid'
                 }).respond(200, {
                     facebookId: 'facebookId'
@@ -122,9 +121,11 @@
                 var errorCallback = jasmine.createSpy('errorCallback');
 
                 promise = bidResource.add({
-                    'facebookId': 'validFacebookId',
-                    'bid': 'bid'
-                });
+                        'bid': 'bid'
+                    },
+                    {
+                        'facebookId': 'validFacebookId'
+                    });
 
                 httpBackend.flush();
 
@@ -137,8 +138,7 @@
 
 
             it('should get an fail request, request with invalid token/facebookId', inject(function () {
-                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/invalidFacebookId/bids',{
-                    'facebookId': 'invalidFacebookId',
+                httpBackend.expect('POST', globalConfig.backendBasePath + '/users/invalidFacebookId/bids', {
                     'bid': 'bid'
                 }).respond(404, {
                     'message': 'parameters missing.'
@@ -146,9 +146,11 @@
 
                 var errorCallback = jasmine.createSpy('errorCallback');
                 promise = bidResource.add({
-                    'facebookId': 'invalidFacebookId',
-                    'bid': 'bid'
-                });
+                        'bid': 'bid'
+                    },
+                    {
+                        'facebookId': 'invalidFacebookId'
+                    });
 
                 httpBackend.flush();
 
@@ -178,7 +180,7 @@
             it('should receive a 200', inject(function () {
                 httpBackend.expect('GET', globalConfig.backendBasePath + '/users/validFacebookId/bids').respond(200, {
                     'facebookId': 'validFacebookId',
-                    'bid': [{'bidId':'validBidId'}]
+                    'bid': [{'bidId': 'validBidId'}]
                 });
 
                 var errorCallback = jasmine.createSpy('errorCallback');
@@ -233,7 +235,7 @@
             it('should receive a 200', inject(function () {
                 httpBackend.expect('GET', globalConfig.backendBasePath + '/auctions/validAuctionId/bids').respond(200, {
                     'auctionId': 'validAuctionId',
-                    'bid': [{'bidId':'validBidId'}]
+                    'bid': [{'bidId': 'validBidId'}]
                 });
 
                 var errorCallback = jasmine.createSpy('errorCallback');

@@ -9,23 +9,23 @@ angular.module('lanceSolidario')
             self.loading = true;
 
             if (!facebookAPI.user) {
-                facebookAPI.getUserInfo();
                 $location.path('/login');
+            } else {
+                var userToUpdate = facebookAPI.user;
+                self.user = userToUpdate;
+                return self.user._load()
+                    .then(self.user._loadTelephones())
+                    .then(self.user._loadEmails())
+                    .then(function () {
+                        parseEmails();
+                        parseTelephones();
+                        self.saveUser = saveUserFunction;
+                        self.loading = false;
+                    });
             }
-            var userToUpdate = facebookAPI.user;
-            self.user = userToUpdate;
-            return self.user._load()
-                .then(self.user._loadTelephones())
-                .then(self.user._loadEmails())
         }
 
-        init().then(function () {
-            parseEmails();
-            parseTelephones();
-            self.saveUser = saveUserFunction;
-
-            self.loading = false;
-        });
+        init();
 
         var parseEmails = function () {
             if (!self.user.emailList || !self.user.emailList[0] || !self.user.emailList[0].emailId) {
@@ -73,12 +73,12 @@ angular.module('lanceSolidario')
             return $q.all(listPromise);
         };
 
-        var successFeedback = function (message) {
-            ngToast, success('Usuário salvo com sucesso!');
+        var successFeedback = function () {
+            ngToast.success('Usuário salvo com sucesso!');
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição');
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 

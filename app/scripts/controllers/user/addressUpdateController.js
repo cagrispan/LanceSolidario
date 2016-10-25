@@ -11,16 +11,17 @@ angular.module('lanceSolidario')
             self.isCollapsed = true;
 
             if (!facebookAPI.user) {
-                facebookAPI.getUserInfo();
                 $location.path('/login');
+            } else {
+                self.user = facebookAPI.user;
+
+                self.addressToAdd.facebookId = self.user.facebookId;
+
+                self.user._loadAddresses().catch(function () {
+                    failFeedback('Load Addresses Error');
+                });
             }
-            self.user = facebookAPI.user;
 
-            self.addressToAdd.facebookId = self.user.facebookId;
-
-            self.user._loadAddresses().catch(function () {
-                failFeedback('Load Addresses Error');
-            });
         }
 
 
@@ -28,7 +29,7 @@ angular.module('lanceSolidario')
             addressToDelete._remove().then(function () {
                 return self.user._loadAddresses();
             }).then(function () {
-                successFeedback('Endereço removido com sucesso');
+                successFeedback('Endereço removido com sucesso.');
             }, function () {
                 failFeedback('Address Delete Error');
             });
@@ -45,8 +46,10 @@ angular.module('lanceSolidario')
             self.addressToAdd._save().then(function () {
                 return self.user._loadAddresses();
             }).then(function () {
-                self.addressToAdd.address = '';
-                successFeedback('Endereço adicionado com sucesso');
+                self.isCollapsed = true;
+                self.addressToAdd = new Address();
+                self.addressToAdd.facebookId = self.user.facebookId;
+                successFeedback('Endereço adicionado com sucesso.');
             }, function () {
                 failFeedback('Address Add Error');
             });
@@ -67,11 +70,11 @@ angular.module('lanceSolidario')
 
 
         var successFeedback = function (message) {
-            ngToast,success(message);
+            ngToast.success(message);
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição.');
+            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 

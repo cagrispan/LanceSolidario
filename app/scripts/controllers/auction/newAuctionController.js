@@ -9,19 +9,19 @@ angular.module('lanceSolidario')
             self.loading = true;
 
             if (!facebookAPI.user) {
-                facebookAPI.getUserInfo();
                 $location.path('/login');
-            }
-            self.user = facebookAPI.user;
-            self.auctionToAdd = new Auction();
-            self.auctionToAdd.facebookId = self.user.facebookId;
-            self.auctionToAdd.institutionId = 1;
+            } else {
+                self.user = facebookAPI.user;
+                self.auctionToAdd = new Auction();
+                self.auctionToAdd.facebookId = self.user.facebookId;
+                self.auctionToAdd.institutionId = 1;
 
-            self.user._loadProducts().then(function () {
-                self.product = self.user.productList[0];
-            },function () {
-                failFeedback('Load Products Error');
-            });
+                self.user._loadProducts().then(function () {
+                    self.product = self.user.productList[0];
+                },function () {
+                    failFeedback('Load Products Error');
+                });
+            }
         }
 
         self.addAuction = function () {

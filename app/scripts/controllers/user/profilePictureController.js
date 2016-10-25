@@ -4,6 +4,6 @@ angular.module('lanceSolidario')
 
         var self = this;
 
-        self.profilePicure = facebookAPI.profilePicure;
+        self.profilePicture = facebookAPI.profilePicture;
         self.user = facebookAPI.user;
     }]);

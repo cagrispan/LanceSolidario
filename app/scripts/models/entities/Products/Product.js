@@ -18,6 +18,7 @@
             this.description = null;
             this.isUsed = null;
             this.isDeleted = null;
+            this.isSold = null;
             this.auctionList = null;
 
             //Image
@@ -61,25 +62,32 @@
                 var auction = new Auction();
                 return auction._listByProduct(product).then(function(returnList){
                     product.auctionList = returnList;
+                    product._getStatus();
                 });
             };
 
             //TODO: Need Unit tests
             this._getStatus = function () {
                 var product = this;
-                if(product && product.auctionList && product.auctionList[0]){
-                    if(product.auctionList[0].endDate && product.auctionList[0].endDate <= new Date()){
-                        return 'Leiloado';
+                if(product.auctionList){
+                    if(product.isSold){
+                        product.status =  'Vendido';
                     }else{
-                        return 'Em Leilão';
+                        product.auctionList.forEach(function(auction){
+                            if(auction.status === 'active'){
+                                product.status =  'Em Leilão';
+                            }
+                        });
+                        if(!product.status){
+                            product.status =  'Pendente';
+                        }
                     }
-                }else{
-                    return 'Pendente';
+
                 }
             };
         }
 
-        return Product
+        return Product;
     }
     ])
     ;

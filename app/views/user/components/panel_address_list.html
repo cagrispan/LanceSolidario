@@ -19,9 +19,10 @@
                 <td class="col-sm-11"
                     ng-click="addressCtrl.showAddress(address)">
                     <p>
-                        Rua:{{address.street}}, {{address.complement}} <br>
-                        Bairro: {{address.neighborhood}}<br>
-                        Cidade: {{address.city}} UF:{{address.state}}<br>
+                        <b>Rua</b>: {{address.street}}, {{address.number}} - {{address.complement}} <br>
+                        <b>Bairro</b>: {{address.neighborhood}}<br>
+                        <b>Cidade</b>: {{address.city}} - {{address.state}}<br>
+                        <b>CEP</b>: {{address.cep}}<br>
                     </p>
                 </td>
                 <td class="col-sm-1">
