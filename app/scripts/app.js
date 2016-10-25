@@ -8,6 +8,7 @@ angular.module('lanceSolidario', [
     'ngToast',
     'utils',
     'entity',
+    'timer',
     'lanceSolidario.user',
     'lanceSolidario.product',
     'lanceSolidario.auction',
