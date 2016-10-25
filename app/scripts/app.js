@@ -17,8 +17,8 @@ angular.module('lanceSolidario', [
 ]).config(['ngToastProvider', function(ngToast) {
     ngToast.configure(
         {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'left',
+            verticalPosition: 'top',
+            horizontalPosition: 'right',
             dismissButton: true,
             className: 'info'
         }
