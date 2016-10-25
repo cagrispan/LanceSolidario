@@ -239,7 +239,7 @@
 }
 .profile-header .container .profile-image {
   border-radius: 50% 50% 50% 50%;
-  border: solid #00CF92 5px;
+  border: solid #FEFEFE 5px;
   height: 120px;
   width: 120px;
   overflow: auto;
@@ -251,7 +251,7 @@
   color: #FFFFFF;
   text-shadow: 2px 2px #0f0f0f;
 }
-.user .container {
+.user > .container {
   padding-top: 20px !important;
 }
 .user .container-fluid > form {
@@ -409,7 +409,7 @@ html,
 body {
   margin: 0;
   height: 100%;
-  background: #FCFCFC;
+  background: #FAFAFA;
   font-family: 'Roboto Condensed', sans-serif;
 }
 h1,
@@ -505,5 +505,8 @@ div {
   position: fixed;
   z-index: auto;
   right: 10px;
+  top: 60px;
+}
+.toast {
   top: 60px;
 }

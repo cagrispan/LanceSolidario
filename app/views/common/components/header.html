@@ -14,8 +14,10 @@
                     <li><a href="#/home">Início</a></li>
                     <!--li><a href="#/about">Sobre</a></li>
                     <li><a href="#/about">Quem somos</a></li>
-                    <li><a href="#/partiners">Parceiros</a></li-->
-
+                    <li><a href="#/partiners">Parceiros</a></li>
+                    <li><a href="#/login">Entrar</a></li>
+                    <li><a href="#/login">Inscrever-se</a></li>
+                    <li><a href="#/auctions">Ver leilões</a></li-->
                 </ul>
             </ul>
 
@@ -26,7 +28,7 @@
             <ul class="nav navbar-nav navbar-right" uib-dropdown dropdown-append-to-body ng-if="$root.user">
 
                 <li>
-                    <a href="#/user">Olá, {{$root.user.name}}</a>
+                    <a href="#/user">Olá, {{$root.user.name.split(' ')[0]}}</a>
                 </li>
 
                 <li><a href="#/user/auctions/new">Leiloar um item</a></li>
