@@ -9,26 +9,26 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="product in productCtrl.user.productList">
+    <tr ng-repeat="product in productCtrl.user.productList" ng-click="productCtrl.productDetail(product)">
         <td>{{product.title}}</td>
-        <td>{{product._getStatus()}}</td>
+        <td>{{product.status}}</td>
 
         <td>
-            <button ng-show="product._getStatus()==='Pendente'" class="btn btn-xs btn-success" ng-model="singleModel"
+            <button ng-show="product.status === 'Pendente'" class="btn btn-xs btn-success" ng-model="singleModel"
                     uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                 <i class="fa fa-flag"></i> &nbsp;
                 Iniciar Leilão
             </button>
 
-            <button ng-show="product._getStatus()==='Em Leilão'" class="btn btn-xs btn-danger" ng-model="singleModel"
+            <button ng-show="product.status ==='Em Leilão'" class="btn btn-xs btn-danger" ng-model="singleModel"
                     uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
                 <i class="fa fa-stop"></i> &nbsp;
                 Parar Leilão
             </button>
         </td>
 
-        <td ng-show="product._getStatus()==='Pendente'">
-            <button class="btn btn-xs btn-danger" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1"
+        <td>
+            <button class="btn btn-xs btn-danger" ng-show="product.status ==='Pendente'" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1"
                     btn-checkbox-false="0">
                 <i class="fa fa-close"></i>
             </button>

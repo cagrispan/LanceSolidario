@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('ProductNew', ['Product', 'facebookAPI', '$location', function (Product, facebookAPI, $location) {
+    .controller('NewProductCtrl', ['Product', 'facebookAPI', '$location', function (Product, facebookAPI, $location) {
 
         var self = this;
 
