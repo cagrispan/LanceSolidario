@@ -36,4 +36,9 @@ angular.module('lanceSolidario.bid', [
     'lanceSolidario.bid.bid'
 ]);
 
+angular.module('lanceSolidario.image', [
+    'lanceSolidario.image.imageResource',
+    'lanceSolidario.image.image'
+]);
+
 angular.module('utils',['lanceSolidario']);

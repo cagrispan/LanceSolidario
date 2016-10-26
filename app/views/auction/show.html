@@ -5,7 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-body text-center">
                     <a href="#/users/1">
-                        <img src="{{auctionDetailCtrl.profilePicture}}" class="img-responsive img-circle" alt="">
+                        <img ng-src="{{auctionDetailCtrl.profilePicture}}" class="img-responsive img-circle" alt="">
                         <h4>{{auctionDetailCtrl.user.name}}</h4>
                     </a>
                     Curitiba, Paraná <br>
@@ -31,8 +31,8 @@
                         </div>
 
                         <div class="row info">
-                            <div class="col-sm-6">
-                                <img src="images/product_playstation_3.jpg" alt="" class="img-responsive">
+                            <div class="col-sm-6" ng-if="auctionDetailCtrl.product">
+                                <img ng-src="data:image/*;base64,{{auctionDetailCtrl.product.imageList[0].base64}}" alt="" class="img-responsive">
                             </div>
 
                             <div class="col-sm-6 text-center">

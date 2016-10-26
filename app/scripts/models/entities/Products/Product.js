@@ -4,7 +4,8 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.product.product', ['lanceSolidario.product.productResource','lanceSolidario.auction.auction']).factory('Product', ['Entity', 'productResource','Auction', function (Entity, productResource, Auction) {
+    angular.module('lanceSolidario.product.product', ['lanceSolidario.product.productResource','lanceSolidario.auction.auction'])
+        .factory('Product', ['Entity', 'productResource','Auction', 'Image', function (Entity, productResource, Auction, Image) {
 
         angular.extend(Product.prototype, Entity.prototype);
         Product.prototype.constructor = Product;
@@ -22,7 +23,7 @@
             this.auctionList = null;
 
             //Image
-            this.images = null;
+            this.imageList = null;
 
             //methods
             this._add = function () {
@@ -63,6 +64,15 @@
                 return auction._listByProduct(product).then(function(returnList){
                     product.auctionList = returnList;
                     product._getStatus();
+                });
+            };
+
+            this._loadImages = function () {
+                var product = this;
+                var image = new Image();
+                return image._listByProduct(product).then(function(returnList){
+                    console.log(returnList);
+                    product.imageList = returnList;
                 });
             };
 
