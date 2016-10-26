@@ -53,6 +53,13 @@
                         </form>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="image in productCtrl.product.imageList">
+                            <img ng-src="data:image/*;base64,{{image.base64}}"
+                                 class="img-responsive img-thumbnail" alt="">
+                        </div>
+                    </div>
+
                     <div>
                         <div class="container-fluid">
                             <b> Leilões dessa doação: </b>

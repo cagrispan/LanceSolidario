@@ -9,11 +9,13 @@ angular.module('lanceSolidario', [
     'utils',
     'entity',
     'timer',
+    'naif.base64',
     'lanceSolidario.user',
     'lanceSolidario.product',
     'lanceSolidario.auction',
     'lanceSolidario.address',
     'lanceSolidario.email',
+    'lanceSolidario.image',
     'lanceSolidario.telephone'
 ]).config(['ngToastProvider', function(ngToast) {
     ngToast.configure(

@@ -13,6 +13,7 @@ angular.module('lanceSolidario')
             } else {
                 self.user = facebookAPI.user;
                 self.product = shareData.get('lastProduct');
+                self.product._loadImages();
             }
         }
 
