@@ -9,28 +9,25 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="product in productCtrl.user.productList" ng-click="productCtrl.productDetail(product)">
+    <tr ng-repeat="product in productCtrl.user.productList | filter:{isDeleted:false}" ng-click="productCtrl.productDetail(product)">
         <td>{{product.title}}</td>
         <td>{{product.status}}</td>
 
         <td>
-            <button ng-show="product.status === 'Pendente'" class="btn btn-xs btn-success" ng-model="singleModel"
-                    uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+            <button ng-show="product.status === 'Pendente'" class="btn btn-xs btn-success">
                 <i class="fa fa-flag"></i> &nbsp;
                 Iniciar Leilão
             </button>
 
-            <button ng-show="product.status ==='Em Leilão'" class="btn btn-xs btn-danger" ng-model="singleModel"
-                    uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+            <button ng-show="product.status ==='Em Leilão'" class="btn btn-xs btn-danger">
                 <i class="fa fa-stop"></i> &nbsp;
                 Parar Leilão
             </button>
         </td>
 
         <td>
-            <button class="btn btn-xs btn-danger" ng-show="product.status ==='Pendente'" ng-model="singleModel" uib-btn-checkbox btn-checkbox-true="1"
-                    btn-checkbox-false="0">
-                <i class="fa fa-close"></i>
+            <button class="btn btn-xs btn-danger" ng-show="product.status ==='Pendente'" ng-click="productCtrl.removeProduct(product)">
+                <i class="fa fa-trash"></i>
             </button>
         </td>
 
