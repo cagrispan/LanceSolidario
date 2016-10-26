@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('ProductListCtrl', ['Product', 'facebookAPI', '$location', '$q','shareData', function (Product, facebookAPI, $location, $q, shareData) {
+    .controller('ProductListCtrl', ['Product', 'facebookAPI', '$location', '$q', 'shareData', function (Product, facebookAPI, $location, $q, shareData) {
 
         var self = this;
 
@@ -41,12 +41,22 @@ angular.module('lanceSolidario')
         };
 
         self.productDetail = function (product) {
-            shareData.set(product,'lastProduct');
+            shareData.set(product, 'lastProduct');
             $location.path('/user/products/detail');
         };
 
-        self.deleteProduct = function (product) {
-            alert('yey')
+        self.removeProduct = function (product) {
+            if(!product.auctionList){
+                product.isDeleted = true;
+                product._update().then(function () {
+                    init();
+                    successFeedback('Yay');
+                }, function (err) {
+                    failFeedback(err)
+                })
+            } else {
+                failFeedback('Esse produto não pode ser removido');
+            }
         };
 
         var successFeedback = function (message) {
@@ -54,7 +64,7 @@ angular.module('lanceSolidario')
         };
 
         var failFeedback = function (error) {
-            console.log('Error: ');
+            console.log('Error: ' + error);
             console.log(JSON.stringify(error))
         };
 
