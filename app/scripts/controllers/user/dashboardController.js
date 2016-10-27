@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('DashboardCtrl', ['facebookAPI', '$location', function (facebookAPI, $location) {
+    .controller('DashboardCtrl', ['facebookAPI', '$location','shareData', function (facebookAPI, $location, shareData) {
 
         var self = this;
 
@@ -8,6 +8,7 @@ angular.module('lanceSolidario')
         function init() {
             //Useful flags
             self.loading = true;
+            shareData.set($location.path(), 'lastPath');
 
             if (!facebookAPI.user) {
                 $location.path('/login');

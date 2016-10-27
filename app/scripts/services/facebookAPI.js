@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken','shareData', function ($rootScope, $location, User, apiToken, shareData) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', 'shareData', '$q', function ($rootScope, $location, User, apiToken, shareData, $q) {
 
         var self = this;
         self.user = null;
@@ -32,42 +32,43 @@ angular.module('utils')
                     user.facebookId = response.id;
                     user.facebookToken = facebookToken;
 
-                    getUserPicture(facebookToken);
+                    getUserPicture(facebookToken).then(function () {
+                        console.log('DEBUG: Facebook User info:' + self.user);
 
+                        user._updateAPIToken().then(function () {
+                            user._load().then(function () {
 
-                    console.log('DEBUG: Facebook User info:' + self.user);
+                                self.user = user;
+                                $rootScope.user = user;
 
-                    user._updateAPIToken().then(function () {
-                        user._load().then(function(){
+                                if ($location.path() === '/login') {
+                                    apiToken.updateApiToken(user.token);
 
-                            self.user = user;
-                            $rootScope.user = user;
-
-                            if ($location.path() === '/login') {
-                                apiToken.updateApiToken(user.token);
-
-                                if(shareData.get('lastPath')) {
-                                    $location.path(shareData.get('lastPath'));
-                                }else{
-                                    $location.path('/home');
+                                    if (shareData.get('lastPath')) {
+                                        $location.path(shareData.get('lastPath'));
+                                    } else {
+                                        $location.path('/home');
+                                    }
                                 }
-                            }
+                            });
+                        }, function () {
+                            //$location.path('/login');
                         });
-                    }, function () {
-                        //$location.path('/login');
                     });
                 });
             });
+
         };
 
         var getUserPicture = function () {
-
+            var defer = $q.defer();
             FB.api('/me/picture?type=large', function (response) {
                 $rootScope.$apply(function () {
                     self.profilePicture = response.data.url;
-
+                    defer.resolve();
                 });
             });
+            return defer.promise;
         };
 
 
@@ -94,4 +95,5 @@ angular.module('utils')
             });
         };
 
-    }]);
+    }
+    ]);
