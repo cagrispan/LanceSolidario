@@ -6,19 +6,25 @@ angular.module('lanceSolidario')
 
         function init() {
             //Useful flags
-            self.loading =  true;
+            self.loading = true;
 
             if (!facebookAPI.user) {
                 $location.path('/login');
+            } else {
+                self.user = facebookAPI.user;
+                self.user._loadBids().then(function () {
+                    self.loading = false;
+                }, function (err) {
+                    failFeedback(err)
+                });
             }
-            self.user = facebookAPI.user;
-            return self.user._loadBids();
         }
-        init().then(function(){
-            self.loading = false;
-        }, function(err){
-            failFeedback(err)
-        });
+
+        init();
+
+        self.auctionDetail = function (auctionId) {
+            $location.path('/auctions/' + auctionId);
+        };
 
         var successFeedback = function (message) {
             alert(message);
@@ -28,7 +34,6 @@ angular.module('lanceSolidario')
             console.log('Error: ');
             console.log(JSON.stringify(error))
         };
-
 
 
     }]);
