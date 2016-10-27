@@ -13,7 +13,7 @@ angular.module('utils').service('shareData', function(){
     };
 
     self.get = function(key){
-        return self.list[key];
+        return self.list[key] ? self.list[key] : null;
     };
 
 });
