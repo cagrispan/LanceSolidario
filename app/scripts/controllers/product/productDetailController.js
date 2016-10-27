@@ -31,10 +31,10 @@ angular.module('lanceSolidario')
                 });
         };
 
-        self.auctionDetail = function(auction){
+        self.auctionDetail = function (auction) {
             shareData.set(self.product, 'lastProduct');
             shareData.set(auction, 'lastAuction');
-            $location.path('/auctions/detail');
+            $location.path('/auctions/' + auction.auctionId);
         };
 
         var successFeedback = function (message) {

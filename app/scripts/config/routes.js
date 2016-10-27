@@ -3,37 +3,39 @@ angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         //noinspection JSUnresolvedFunction
         $routeProvider
-            //Open routes
+
+            // ---------------- Open routes ----------------
+
+            //404
+            .when('/404', {
+                templateUrl: '404.html'
+            })
+
+            //Institutional
             .when('/home', {
                 templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
             })
-
             .when('/login', {
                 templateUrl: 'views/user/login.html',
                 controller: 'LoginCtrl',
                 controllerAs: 'loginCtrl'
             })
 
-            //Authenticated routes
+            //Auctions
+            .when('/auctions', {
+                templateUrl: 'views/auction/list.html'
+            })
+            .when('/auctions/:auctionId', {
+                templateUrl: 'views/auction/show.html',
+                controller: 'AuctionDetailCtrl',
+                controllerAs: 'auctionDetailCtrl'
+            })
 
-            //Profile
-            .when('/user/edit', {
-                templateUrl: 'views/user/edit.html',
-                controller: 'UserUpdate',
-                controllerAs: 'userCtrl'
-            })
-            .when('/user/edit/address', {
-                templateUrl: 'views/user/edit_address.html',
-                controller: 'AddressUpdate',
-                controllerAs: 'addressCtrl'
-            })
-            .when('/user/edit/contact', {
-                templateUrl: 'views/user/edit_contact.html',
-                controller: 'ContactUpdate',
-                controllerAs: 'contactCtrl'
-            })
+
+            //---------------- Authenticated routes ----------------
+
 
             //Dashboard
             .when('/user', {
@@ -42,51 +44,63 @@ angular.module('lanceSolidario')
                 controllerAs: 'dashboardCtrl'
             })
 
+            //Profile
+            .when('/user/profile', {
+                templateUrl: 'views/user/edit.html',
+                controller: 'UserUpdate',
+                controllerAs: 'userCtrl'
+            })
+            .when('/user/address', {
+                templateUrl: 'views/user/edit_address.html',
+                controller: 'AddressUpdate',
+                controllerAs: 'addressCtrl'
+            })
+            .when('/user/contact', {
+                templateUrl: 'views/user/edit_contact.html',
+                controller: 'ContactUpdate',
+                controllerAs: 'contactCtrl'
+            })
+
             //Products
             .when('/user/products', {
                 templateUrl: 'views/product/list.html',
                 controller: 'ProductListCtrl',
                 controllerAs: 'productCtrl'
             })
-
-            .when('/user/products/new', {
+            .when('/user/products/add', {
                 templateUrl: 'views/product/new.html',
                 controller: 'NewProductCtrl',
                 controllerAs: 'productCtrl'
             })
-
-            .when('/user/products/detail', {
+            .when('/user/products/:productId', {
                 templateUrl: 'views/product/edit.html',
                 controller: 'ProductDetailCtrl',
                 controllerAs: 'productCtrl'
             })
 
-            //Auctions
-            .when('/auctions/detail', {
-                templateUrl: 'views/auction/show.html',
-                controller: 'AuctionDetailCtrl',
-                controllerAs: 'auctionDetailCtrl'
-            })
-
+            //Purchases
             .when('/user/purchases', {
                 templateUrl: 'views/purchase/list.html',
                 controller: 'PurchaseListCtrl',
                 controllerAs: 'purchaseListCtrl'
             })
+            .when('/user/purchases/:purchaseId', {
+                templateUrl: 'views/purchase/edit.html'
+            })
 
+            //Auctions
+            .when('/user/auctions/add', {
+                templateUrl: 'views/auction/new.html',
+                controller: 'NewAuctionCtrl',
+                controllerAs: 'auctionCtrl'
+            })
 
+            //Bids
             .when('/user/bids', {
                 templateUrl: 'views/bid/list.html',
                 controller: 'BidList',
                 controllerAs: 'bidCtrl'
             })
-            .when('/user/auctions', {
-                templateUrl: 'views/auction/list.html'
-            })
-            .when('/user/auctions/new', {
-                templateUrl: 'views/auction/new.html',
-                controller: 'NewAuctionCtrl',
-                controllerAs: 'auctionCtrl'
-            })
-            .otherwise({redirectTo: '/home'});
+
+            .otherwise({redirectTo: '/404'});
     }]);
