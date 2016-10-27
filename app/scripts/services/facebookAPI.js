@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', function ($rootScope, $location, User, apiToken) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken','shareData', function ($rootScope, $location, User, apiToken, shareData) {
 
         var self = this;
         self.user = null;
@@ -45,7 +45,12 @@ angular.module('utils')
 
                             if ($location.path() === '/login') {
                                 apiToken.updateApiToken(user.token);
-                                $location.path('/home');
+
+                                if(shareData.get('lastPath')) {
+                                    $location.path(shareData.get('lastPath'));
+                                }else{
+                                    $location.path('/home');
+                                }
                             }
                         });
                     }, function () {
@@ -81,7 +86,6 @@ angular.module('utils')
                 if (response.status === 'connected') {
                     return true;
                 } else if (response.status === 'not_authorized') {
-
                     return false;
                 } else {
                     return false;
