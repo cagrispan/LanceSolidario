@@ -32,29 +32,33 @@ angular.module('utils')
                     user.facebookId = response.id;
                     user.facebookToken = facebookToken;
 
-                    getUserPicture(facebookToken).then(function () {
-                        console.log('DEBUG: Facebook User info:' + self.user);
+                    getUserPicture(facebookToken)
+                        .then(function () {
+                            console.log('DEBUG: Facebook User info:' + self.user);
 
-                        user._updateAPIToken().then(function () {
-                            user._load().then(function () {
+                            return user._updateAPIToken();
+                        })
+                        .then(function () {
+                            return user._load();
+                        })
+                        .then(function () {
 
-                                self.user = user;
-                                $rootScope.user = user;
+                            self.user = user;
+                            $rootScope.user = user;
 
-                                if ($location.path() === '/login') {
-                                    apiToken.updateApiToken(user.token);
+                            if ($location.path() === '/login') {
+                                apiToken.updateApiToken(user.token);
 
-                                    if (shareData.get('lastPath')) {
-                                        $location.path(shareData.get('lastPath'));
-                                    } else {
-                                        $location.path('/home');
-                                    }
+                                if (shareData.get('lastPath')) {
+                                    $location.path(shareData.get('lastPath'));
+                                } else {
+                                    $location.path('/home');
                                 }
-                            });
-                        }, function () {
-                            //$location.path('/login');
+                            }
                         });
-                    });
+                }, function () {
+                    console.log('That Stranger thing happen');
+                    $location.path('/home');
                 });
             });
 
@@ -96,4 +100,5 @@ angular.module('utils')
         };
 
     }
-    ]);
+    ])
+;
