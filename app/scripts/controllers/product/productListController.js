@@ -42,11 +42,11 @@ angular.module('lanceSolidario')
 
         self.productDetail = function (product) {
             shareData.set(product, 'lastProduct');
-            $location.path('/user/products/detail');
+            $location.path('/user/products/' + product.productId);
         };
 
         self.removeProduct = function (product) {
-            if(!product.auctionList){
+            if (!product.auctionList) {
                 product.isDeleted = true;
                 product._update().then(function () {
                     init();

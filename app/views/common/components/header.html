@@ -28,10 +28,10 @@
             <ul class="nav navbar-nav navbar-right" uib-dropdown dropdown-append-to-body ng-if="$root.user">
 
                 <li>
-                    <a href="#/user">Olá, {{$root.user.name.split(' ')[0]}}</a>
+                    <a href="#/user">Olá, {{$root.user.name.split(' ')[0]}}!</a>
                 </li>
 
-                <li><a href="#/user/auctions/new">Leiloar um item</a></li>
+                <li><a href="#/user/auctions/add">Leiloar um item</a></li>
                 <li class="options">
                     <a href="" uib-dropdown-toggle><i class="fa fa-gear"></i></a>
                     <ul class=" dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
@@ -42,7 +42,7 @@
 
                         <li class="divider"></li>
 
-                        <li role="menuitem"><a href="#/user/edit">&nbsp;Configurações</a></li>
+                        <li role="menuitem"><a href="#/user/profile">&nbsp;Configurações</a></li>
 
                         <li class="divider"></li>
 
