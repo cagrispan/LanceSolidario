@@ -35,11 +35,13 @@
 
 
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    <label class="btn btn-default btn-file" class="btn btn-primary">
+                    <label class="btn btn-default btn-file" class="btn btn-primary" ng-if="productCtrl.images.length<3">
                         Escolher Imagens <input type="file" style="display: none;"
                                                 ng-model="productCtrl.image" on-after-validate="productCtrl.addImage"
                                                 maxsize="5000" base-sixty-four-input>
                     </label>
+                    <p ng-if="productCtrl.images.length>=3">Número máximo de fotos atingido.</p>
+
                 </div>
                 <div class="row">
                     <div class="col-md-4" ng-repeat="image in productCtrl.images">
