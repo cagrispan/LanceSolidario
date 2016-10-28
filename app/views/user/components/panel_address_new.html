@@ -3,12 +3,22 @@
         <br>
         <!-- Endereço -->
         <div class="container-fluid">
+
+            <!-- CEP -->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    <label for="user_address_zipcode" >CEP:</label>
+                    <input type="text" ui-mask="99999-999" class="form-control" id="user_address_zipcode"
+                           ng-model="addressCtrl.addressToAdd.cep" via-cep="cep" required>
+                </div>
+            </div>
+
             <!-- Rua -->
             <div class="col-sm-8 col-md-8 col-lg-6">
                 <div class="form-group">
                     <label for="user_address_street">Rua:</label>
                     <input type="text" class="form-control" id="user_address_street"
-                           ng-model="addressCtrl.addressToAdd.street" required>
+                           ng-model="addressCtrl.addressToAdd.street" via-cep="logradouro" required>
                 </div>
             </div>
 
@@ -16,8 +26,8 @@
             <div class="col-sm-4 col-md-4 col-lg-2">
                 <div class="form-group">
                     <label for="user_address_number">Número:</label>
-                    <input type="number" class="form-control" id="user_address_number"
-                           ng-model="addressCtrl.addressToAdd.number" required>
+                    <input type="text"  class="form-control" id="user_address_number"
+                           ng-model="addressCtrl.addressToAdd.number" pattern="\d*" required>
                 </div>
             </div>
 
@@ -35,7 +45,7 @@
                 <div class="form-group">
                     <label for="user_address_neighborhood">Bairro:</label>
                     <input type="text" class="form-control" id="user_address_neighborhood"
-                           ng-model="addressCtrl.addressToAdd.neighborhood" required>
+                           ng-model="addressCtrl.addressToAdd.neighborhood"  via-cep="bairro" required>
                 </div>
             </div>
 
@@ -44,7 +54,7 @@
                 <div class="form-group">
                     <label for="user_address_neighborhood">Cidade:</label>
                     <input type="text" class="form-control" id="user_address_city"
-                           ng-model="addressCtrl.addressToAdd.city" required>
+                           ng-model="addressCtrl.addressToAdd.city" via-cep="localidade" required>
                 </div>
             </div>
 
@@ -53,7 +63,7 @@
                 <div class="form-group">
                     <label for="user_address_state">Estado:</label>
                     <select class="form-control" id="user_address_state"
-                            ng-model="addressCtrl.addressToAdd.state" required>
+                            ng-model="addressCtrl.addressToAdd.state" via-cep="uf" required>
                         <option value="">Selecione</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -86,18 +96,24 @@
                 </div>
             </div>
 
-            <!-- CEP -->
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="form-group">
-                    <label for="user_address_zipcode">CEP:</label>
-                    <input type="number" class="form-control" id="user_address_zipcode"
-                           ng-model="addressCtrl.addressToAdd.cep" required>
-                </div>
-            </div>
 
             <div class="container-fluid text-right">
                 <div class="margin-default">
-                    <div class="btn btn-sm btn-danger" ng-click="addressCtrl.discartChanges()"><i class="fa fa-close">&nbsp; Descartar</i></div>
+
+                    <div
+                        class="btn btn-sm btn-danger"
+                        mwl-confirm
+                        title="Atenção!!"
+                        message="Deseja realmente realizar essa ação?"
+                        confirm-text="Confirmar"
+                        cancel-text="Cancelar"
+                        on-confirm="addressCtrl.discartChanges()"
+                        confirm-button-type="danger"
+                        placement="left"
+                        cancel-button-type="default">
+                        <i class="fa fa-close">Descartar</i>
+                    </div>
+
                     <button class="btn btn-sm btn-success" type="submit"><i class="fa fa-check">&nbsp; Salvar</i></button>
                 </div>
             </div>
