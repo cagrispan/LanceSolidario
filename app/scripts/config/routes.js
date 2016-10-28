@@ -12,7 +12,7 @@ angular.module('lanceSolidario')
             })
 
             //Institutional
-            .when('/home', {
+            .when('/', {
                 templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'home'
@@ -25,7 +25,9 @@ angular.module('lanceSolidario')
 
             //Auctions
             .when('/auctions', {
-                templateUrl: 'views/auction/list.html'
+                templateUrl: 'views/auction/list.html',
+                controller: 'AuctionListCtrl',
+                controllerAs: 'auctionListCtrl'
             })
             .when('/auctions/:auctionId', {
                 templateUrl: 'views/auction/show.html',

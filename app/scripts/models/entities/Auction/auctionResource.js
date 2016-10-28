@@ -161,22 +161,14 @@
         };
 
         self.loadAll = function (params) {
+
             var headers = {};
-            var endpoint = '';
-            var token = apiToken.getApiToken();
+            var endpoint = '/auctions';
 
             //Validate and Mapping
             if (params) {
                 headers = params;
             }
-
-            if (token) {
-                headers.token = token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
-
-            endpoint = '/auctions';
 
             //Make the request
             return webService.read(endpoint, headers).then(
