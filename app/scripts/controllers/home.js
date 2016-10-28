@@ -5,7 +5,7 @@ angular.module('lanceSolidario')
 
         function init() {
             if (!facebookAPI.user) {
-                $location.path('/home');
+                $location.path('/');
             } else {
                 var userToSave = facebookAPI.user;
                 self.user = userToSave;

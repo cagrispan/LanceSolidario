@@ -52,13 +52,13 @@ angular.module('utils')
                                 if (shareData.get('lastPath')) {
                                     $location.path(shareData.get('lastPath'));
                                 } else {
-                                    $location.path('/home');
+                                    $location.path('/');
                                 }
                             }
                         });
                 }, function () {
                     console.log('That Stranger thing happen');
-                    $location.path('/home');
+                    $location.path('/');
                 });
             });
 
