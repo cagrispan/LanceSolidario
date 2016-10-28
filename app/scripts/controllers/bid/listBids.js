@@ -22,6 +22,15 @@ angular.module('lanceSolidario')
 
         init();
 
+        self.removeBid = function (bid) {
+            bid.isDeleted = true;
+            bid._update().then(function () {
+                self.user._loadBids();
+            }, function (err) {
+                failFeedback(err);
+            });
+        };
+
         self.auctionDetail = function (auctionId) {
             $location.path('/auctions/' + auctionId);
         };

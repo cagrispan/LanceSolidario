@@ -13,10 +13,10 @@
         <td>{{bid.auctionId}}</td>
         <td>{{bid.bid | currency: 'R$ '}}</td>
         <td>{{bid.date | date:'dd/MM/yyyy hh:mm'}}</td>
-        <td>{{bid.status}}</td>
-        <td>
-            <button class="btn btn-xs btn-danger" ng-click="bidCtrl.removeBid(bid)">
-                <i class="fa fa-close"></i>
+        <td>{{bid.isDeleted ? 'Cancelado' : 'Ativo'}}</td>
+        <td ng-click="$event.stopPropagation()">
+            <button ng-if="!bid.isDeleted" class="btn btn-xs btn-danger" ng-click="bidCtrl.removeBid(bid)">
+                <i class="fa fa-close"></i> Cancelar Lance
             </button>
         </td>
     </tr>
