@@ -8,10 +8,20 @@
         <table class="table table-hover">
             <tr ng-repeat="telephone in contactCtrl.user.telephoneList">
                 <td class="col-sm-11" ng-click="isCollapsed = !isCollapsed">
-                    {{telephone.telephone}}
+                    {{telephone.telephone | telephoneMask}}
                 </td>
                 <td class="col-sm-1 text-center">
-                    <button ng-click ="contactCtrl.deleteTelephone(telephone)" class="btn btn-xs btn-danger">
+                    <button
+                        class="btn btn-xs btn-danger"
+                        mwl-confirm
+                        title="Atenção!!"
+                        message="Deseja realmente realizar essa ação?"
+                        confirm-text="Confirmar"
+                        cancel-text="Cancelar"
+                        on-confirm="contactCtrl.deleteTelephone(telephone)"
+                        confirm-button-type="danger"
+                        placement="left"
+                        cancel-button-type="default">
                         <i class="fa fa-close"></i>
                     </button>
                 </td>
@@ -23,8 +33,8 @@
                 <div class="form-group">
                     <label for="user_phone">Novo Telefone:</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="user_phone"
-                               ng-model="contactCtrl.telephoneToAdd.telephone" required>
+                        <input type="text" class="form-control" id="user_phone"
+                               ng-model="contactCtrl.telephoneToAdd.telephone" ui-mask="(99) 99999999?9" required>
 
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-success">
