@@ -1,3 +1,4 @@
+'use strict';
 angular.module('utils').filter('telephoneMask', function () {
     return function (tel) {
         if (!tel) {
