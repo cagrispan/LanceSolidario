@@ -26,7 +26,18 @@
                     </p>
                 </td>
                 <td class="col-sm-1">
-                    <button ng-click="addressCtrl.deleteAddress(address)" class="btn btn-xs btn-danger">
+
+                    <button
+                        class="btn btn-xs btn-danger"
+                        mwl-confirm
+                        title="Atenção!!"
+                        message="Deseja realmente realizar essa ação?"
+                        confirm-text="Confirmar"
+                        cancel-text="Cancelar"
+                        on-confirm="addressCtrl.deleteAddress(address)"
+                        confirm-button-type="danger"
+                        placement="left"
+                        cancel-button-type="default">
                         <i class="fa fa-close"></i>
                     </button>
                 </td>

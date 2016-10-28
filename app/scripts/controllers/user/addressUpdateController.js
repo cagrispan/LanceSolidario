@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AddressUpdate', ['Address', 'facebookAPI', '$location', 'ngToast', function (Address, facebookAPI, $location, ngToast) {
+    .controller('AddressUpdate', ['Address', 'facebookAPI', '$location', 'ngToast', 'shareData', function (Address, facebookAPI, $location, ngToast, shareData) {
 
         var self = this;
         self.addressToAdd = new Address();
@@ -9,6 +9,7 @@ angular.module('lanceSolidario')
             //Useful flags
             self.loading = true;
             self.isCollapsed = true;
+            shareData.set($location.path(), 'lastPath');
 
             if (!facebookAPI.user) {
                 $location.path('/login');
@@ -18,7 +19,7 @@ angular.module('lanceSolidario')
                 self.addressToAdd.facebookId = self.user.facebookId;
 
                 self.user._loadAddresses().catch(function () {
-                    failFeedback('Load Addresses Error');
+                    failFeedback('Problemas ao carregar os endereços.');
                 });
             }
 
@@ -31,7 +32,7 @@ angular.module('lanceSolidario')
             }).then(function () {
                 successFeedback('Endereço removido com sucesso.');
             }, function () {
-                failFeedback('Address Delete Error');
+                failFeedback('Ploblemas ao tentar deletar o endereço.');
             });
         };
 
@@ -51,7 +52,7 @@ angular.module('lanceSolidario')
                 self.addressToAdd.facebookId = self.user.facebookId;
                 successFeedback('Endereço adicionado com sucesso.');
             }, function () {
-                failFeedback('Address Add Error');
+                failFeedback('Problema ao adicionar um endereço.');
             });
         };
 
@@ -74,7 +75,7 @@ angular.module('lanceSolidario')
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
+            ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 
