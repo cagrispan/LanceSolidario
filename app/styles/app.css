@@ -206,6 +206,9 @@
   text-shadow: 2px 2px #0f0f0f;
   text-align: center;
 }
+.panel-heading-button {
+  margin-right: 5px;
+}
 .profile {
   margin-top: 1em;
   margin-bottom: 1em;
