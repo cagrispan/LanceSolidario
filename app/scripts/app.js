@@ -4,7 +4,9 @@
 // Declare app level module which depends on views, and components
 angular.module('lanceSolidario', [
     'ui.bootstrap',
+    'mwl.confirm',
     'ngRoute',
+    'ui.mask',
     'ngToast',
     'utils',
     'entity',

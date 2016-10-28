@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('ContactUpdate', ['Email', 'Telephone', 'facebookAPI', '$location', 'ngToast', function (Email, Telephone, facebookAPI, $location, ngToast) {
+    .controller('ContactUpdate', ['Email', 'Telephone', 'facebookAPI', '$location', 'ngToast', 'shareData', function (Email, Telephone, facebookAPI, $location, ngToast, shareData) {
 
         var self = this;
         self.telephoneToAdd = new Telephone();
@@ -11,6 +11,7 @@ angular.module('lanceSolidario')
             //Useful flags
             self.loading = true;
 
+            shareData.set($location.path(), 'lastPath');
             if (!facebookAPI.user) {
                 $location.path('/login');
             } else {
@@ -57,7 +58,7 @@ angular.module('lanceSolidario')
                 self.telephoneToAdd.telephone = '';
                 successFeedback('Telefone Adicionado com sucesso');
             }, function () {
-                failFeedback('Telephone Add Error');
+                failFeedback('Erro ao adicionar um Telefone');
             });
         };
 
@@ -68,7 +69,7 @@ angular.module('lanceSolidario')
                 self.emailToAdd.email = '';
                 successFeedback('Email Adicionado com sucesso');
             }, function () {
-                failFeedback('Email Add Error');
+                failFeedback('Erro ao adicionar um Email');
             });
         };
 
@@ -78,7 +79,7 @@ angular.module('lanceSolidario')
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
+            ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 

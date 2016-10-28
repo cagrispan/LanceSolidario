@@ -11,7 +11,17 @@
                     {{email.email}}
                 </td>
                 <td class="col-sm-1 text-center">
-                    <button ng-click="contactCtrl.deleteEmail(email)" class="btn btn-xs btn-danger">
+                    <button
+                        class="btn btn-xs btn-danger"
+                        mwl-confirm
+                        title="Atenção!!"
+                        message="Deseja realmente realizar essa ação?"
+                        confirm-text="Confirmar"
+                        cancel-text="Cancelar"
+                        on-confirm="contactCtrl.deleteEmail(email)"
+                        confirm-button-type="danger"
+                        placement="left"
+                        cancel-button-type="default">
                         <i class="fa fa-close"></i>
                     </button>
                 </td>
@@ -27,7 +37,7 @@
                                ng-model="contactCtrl.emailToAdd.email" required>
 
                         <span class="input-group-btn">
-                            <button  class="btn btn-success">
+                            <button class="btn btn-success">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </span>
