@@ -60,7 +60,7 @@ angular.module('lanceSolidario')
         };
 
         var successFeedback = function (message) {
-            ng.success(message);
+            ngToast.success(message);
         };
 
         var failFeedback = function (error) {
