@@ -38,6 +38,16 @@
                 this.minimumBid = null;
 
                 /*
+                 Number
+                 */
+                this.maxBid = null;
+
+                /*
+                 Base64 Image
+                 */
+                this.image = null;
+
+                /*
                  Date
                  */
                 this.startDate = null;
@@ -45,11 +55,26 @@
                 /*
                  Date
                  */
+                this.currentServerDate = null;
+
+                /*
+                 Date
+                 */
                 this.endDate = null;
 
+                /*
+                 String
+                 */
                 this.status = null;
+
+                /*
+                 Boolean
+                 */
                 this.isClosed = null;
 
+                /*
+                 Array of Bid
+                 */
                 this.bidList = null;
 
                 /*
@@ -75,7 +100,7 @@
                 this._loadBids = function () {
                     var auction = this;
                     var bid = new Bid();
-                    return bid._listByAuction(auction).then(function(returnList){
+                    return bid._listByAuction(auction).then(function (returnList) {
                         auction.bidList = returnList;
                     });
                 };
@@ -182,7 +207,29 @@
 
             }
 
-            return Auction
+            Auction._listAll = function (params) {
+                var auctionListtoReturn = [];
+
+                return auctionResource.loadAll(params).then(function (response) {
+                    var auctionList = [];
+
+                    if (response.auctions) {
+                        auctionList = response.auctions;
+                    }
+
+                    if (auctionList && auctionList[0]) {
+                        var auction;
+                        for (var i in auctionList) {
+                            auction = new Auction();
+                            auction._setAuction(auctionList[i]);
+                            auctionListtoReturn.push(auction);
+                        }
+                    }
+                    return auctionListtoReturn;
+                });
+            };
+
+            return Auction;
         }]);
 })(angular);
 
