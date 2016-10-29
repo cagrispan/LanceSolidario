@@ -51,12 +51,14 @@
 
                         <div class="col-xs-3 v-m-parent">
                             <div class="dummy"></div>
+                            <label class="add-new-image v-m-child" ng-if="productCtrl.product.imageList.length<3">
                                     <i class="fa fa-plus fa-2x"></i><br>
                                     Escolher Imagens <input type="file" style="display: none;"
                                                             ng-model="productCtrl.image"
                                                             on-after-validate="productCtrl.addImage"
                                                             maxsize="5000" base-sixty-four-input>
                             </label>
+                            <p ng-if="productCtrl.product.imageList.length>=3">Número máximo de fotos atingido.</p>
                         </div>
 
                         <div class="col-xs-3" ng-repeat="image in productCtrl.product.imageList">
