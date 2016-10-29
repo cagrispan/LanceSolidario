@@ -73,6 +73,32 @@
             );
         };
 
+        self.load = function (product) {
+            var headers = {};
+            var endpoint = '';
+            var token = apiToken.getApiToken();
+
+            //Validate and Mapping
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (product && product.facebookId) {
+                endpoint = '/users/' + product.facebookId + '/products/' + product.productId ;
+            } else {
+                return $q.reject({errorMessage: 'Id missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
         self.loadProductsByAuction = function (auction) {
             var headers = {};
             var endpoint = '';
