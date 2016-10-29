@@ -11,25 +11,17 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         Minhas Doações
+
+                        <div class="row text-center panel-heading-button pull-right">
+                            <a href="#/user/products/add" class="btn btn-success btn-xs">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="panel-body">
                     <div ng-include="'views/product/components/list_table.html'"></div>
-
-                    <div class="container-fluid margin-default">
-                        <p>
-                            Aqui estão listadas todos os seu produtos. Você pode criar um novo leilão para seu produto.
-                            Apagar um produto, ou editar as informações.
-                        </p>
-
-                        <div class="row text-center product-new">
-                            <a href="#/user/products/add" class="btn btn-success btn-md">
-                                <i class="fa fa-plus"></i> &nbsp;
-                                Adicionar um novo produto
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
