@@ -517,7 +517,6 @@ div {
 }
 .navbar li a:hover {
   opacity: 1;
-  font-weight: bolder;
   box-sizing: border-box;
   background-color: #016DB8 !important;
   border-bottom: solid 2px #FFFFFF;

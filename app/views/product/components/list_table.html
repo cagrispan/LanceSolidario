@@ -1,9 +1,9 @@
-<table class="table table-striped table-hover">
+<table class="table table-striped table-selectable">
     <thead>
     <tr>
         <th class="col-xs-7 col-sm-7 col-md-7 col-lg-7">Título:</th>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Estado:</th>
-        <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>
+        <th ng-if="false" class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>
 
     </tr>
     </thead>
@@ -11,7 +11,7 @@
     <tr ng-repeat="product in productCtrl.user.productList | filter:{isDeleted:false}" ng-click="productCtrl.productDetail(product)">
         <td>{{product.title}}</td>
         <td>{{product.status}}</td>
-        <td>
+        <td ng-if="false">
             <button class="btn btn-xs btn-danger" ng-show="product.status ==='Pendente'" ng-click="productCtrl.removeProduct(product)">
                 <i class="fa fa-trash"></i>
             </button>
