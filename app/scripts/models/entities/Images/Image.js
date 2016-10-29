@@ -34,8 +34,8 @@
                 return imageResource.add(this, user);
             };
 
-            this._update = function () {
-                return imageResource.update(this);
+            this._remove = function (user) {
+                return imageResource.remove(this, user);
             };
 
             this._listByProduct = function (product) {
@@ -59,7 +59,7 @@
             };
         }
 
-        return Image
+        return Image;
     }]);
 })(angular);
 

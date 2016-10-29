@@ -1,12 +1,12 @@
 'use strict';
 angular.module('lanceSolidario')
-    .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+    .config(['$locationProvider', '$routeProvider', '$facebookProvider', function ($locationProvider, $routeProvider, $facebookProvider) {
         //noinspection JSUnresolvedFunction
         $routeProvider
 
-            // ---------------- Open routes ----------------
+        // ---------------- Open routes ----------------
 
-            //404
+        //404
             .when('/404', {
                 templateUrl: '404.html'
             })
@@ -105,4 +105,27 @@ angular.module('lanceSolidario')
             })
 
             .otherwise({redirectTo: '/404'});
-    }]);
+
+        $facebookProvider.setAppId('145525159212250');
+    }])
+    .run(function () {
+
+        (function (d) {
+
+            var js,
+                id = 'facebook-jssdk',
+                ref = d.getElementsByTagName('script')[0];
+
+            if (d.getElementById(id)) {
+                return;
+            }
+
+            js = d.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = '//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.7&appId=145525159212250';
+
+            ref.parentNode.insertBefore(js, ref);
+
+        }(document));
+    });
