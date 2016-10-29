@@ -46,6 +46,11 @@ angular.module('lanceSolidario')
                     });
             };
 
+            self.feed = function(){
+                facebookAPI.feed();
+            };
+
+
 
             init();
         }]);
