@@ -17,6 +17,8 @@
                 <div class="panel-body">
                     <br>
                     <div class="container-fluid">
+                        <h3>Informações dessa Doação:</h3>
+                        <br>
                         <form class="text-right">
                             <div class="form-group row">
                                 <label for="product-name" class="col-sm-2 col-form-label">Título da Doação</label>
@@ -53,16 +55,44 @@
                         </form>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-4" ng-repeat="image in productCtrl.product.imageList">
-                            <img ng-src="data:image/*;base64,{{image.base64}}"
-                                 class="img-responsive img-thumbnail" alt="">
+                    <div class="container-fluid image-manager">
+                        <h3>Imagens da doação:</h3>
+                        <br>
+
+                        <div class="col-xs-3 v-m-parent">
+                            <div class="dummy"></div>
+                            <label class="add-new-image v-m-child">
+                                    <i class="fa fa-plus fa-2x"></i><br>
+                                    Escolher Imagens <input type="file" style="display: none;"
+                                                            ng-model="productCtrl.image"
+                                                            on-after-validate="productCtrl.addImage"
+                                                            maxsize="5000" base-sixty-four-input>
+                            </label>
+
                         </div>
+
+                        <div class="col-xs-3" ng-repeat="image in productCtrl.product.imageList">
+                            <div class="dummy"></div>
+
+                            <div class="thumbnail-square"
+                                 ng-style="{'background-image': 'url(data:image/*;base64,{{image.base64}})'}">
+                                <div class="fade-hover text-right">
+                                    <button class="btn btn-danger btn-xs">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <br>
+                    <hr>
+                    <br>
 
                     <div>
                         <div class="container-fluid">
-                            <b> Leilões dessa doação: </b>
+                            <h3> Leilões dessa doação: </h3>
                             <br>
                             <div ng-if="!productCtrl.product.auctionList[0]">
                                 Nenhum leilão cadastrado para este produto.

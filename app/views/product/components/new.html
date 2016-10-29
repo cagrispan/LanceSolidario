@@ -34,20 +34,31 @@
                 </div>
 
 
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <label class="btn btn-default btn-file" class="btn btn-primary">
-                        Escolher Imagens <input type="file" style="display: none;"
-                                                ng-model="productCtrl.image" on-after-validate="productCtrl.addImage"
-                                                maxsize="5000" base-sixty-four-input>
-                    </label>
-                </div>
-                <div class="row">
-                    <div class="col-md-4" ng-repeat="image in productCtrl.images">
-                        <img ng-src="data:image/*;base64,{{image.base64}}"
-                             class="img-responsive img-thumbnail" alt="">
+                <div class="container-fluid image-manager">
+                    <div class="col-xs-3 v-m-parent">
+                        <div class="dummy"></div>
+                        <label class="add-new-image v-m-child">
+                            <i class="fa fa-plus fa-2x"></i><br>
+                            Escolher Imagens <input type="file" style="display: none;"
+                                                    ng-model="productCtrl.image"
+                                                    on-after-validate="productCtrl.addImage"
+                                                    maxsize="5000" base-sixty-four-input>
+                        </label>
+                    </div>
+
+                    <div class="col-xs-3" ng-repeat="image in productCtrl.images">
+                        <div class="dummy"></div>
+
+                        <div class="thumbnail-square"
+                             ng-style="{'background-image': 'url(data:image/*;base64,{{image.base64}})'}">
+                            <div class="fade-hover text-right">
+                                <button class="btn btn-danger btn-xs">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
 
                 <div class="container-fluid margin-default">
                     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
