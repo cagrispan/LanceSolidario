@@ -3,18 +3,15 @@
 
 
         <div class="col-md-12 col-lg-12 v-m-child"  ng-controller="ProfilePicture as profile">
-            <div class="col-md-6 col-lg-6 v-m-parent">
+            <div class="v-m-parent">
                 <div class="profile-image v-m-child">
                     <a href="#/user">
                         <img src="{{profile.profilePicture}}" class="img-responsive">
                     </a>
                 </div>
                 <div class="profile-greetings v-m-child">
-                    <h1>Olá, {{profile.user.name.split(' ')[0]}}!</h1>
+                    <h1>{{profile.user.name}}</h1>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-
             </div>
         </div>
     </div>

@@ -317,7 +317,7 @@
   margin: 0 0 0 0;
   font-size: 12pt;
 }
-.user .panel .panel-body table.table-hover tbody tr:hover {
+.user .panel .panel-body table.table-selectable tbody tr:hover {
   border-left: solid 5px #016DB8;
   cursor: pointer;
 }
@@ -517,7 +517,6 @@ div {
 }
 .navbar li a:hover {
   opacity: 1;
-  font-weight: bolder;
   box-sizing: border-box;
   background-color: #016DB8 !important;
   border-bottom: solid 2px #FFFFFF;
@@ -558,6 +557,6 @@ div {
   right: 10px;
   top: 60px;
 }
-.toast {
-  top: 60px;
+.ng-toast.ng-toast--top {
+  top: 50px !important;
 }
