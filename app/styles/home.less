@@ -1,13 +1,10 @@
 .content
 {
     .full-section {
-        width: 100vw !important;
+        .back-image {
+            height: 65vh !important;
 
-        .back-image
-        {
-            height: 400px !important;
-
-            background-size:cover;        /* Sets background image to cover entire element */
+            background-size: cover; /* Sets background image to cover entire element */
             background-image: url("../images/index_cover_2.jpg");
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -19,13 +16,12 @@
             -ms-transition: all 1s ease;
             transition: all 1s ease;
 
-            .btn{
+            .btn {
                 font-size: 14pt;
                 border-radius: 25px;
             }
 
-
-            h1,h2 {
+            h1, h2 {
 
                 color: white;
                 font-family: markMyWords;
@@ -40,5 +36,9 @@
                 font-size: 35pt !important;
             }
         }
+    }
+
+    .info {
+        height: 35vh !important;
     }
 }

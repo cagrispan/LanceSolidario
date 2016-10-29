@@ -158,11 +158,8 @@
     height: 35%;
   }
 }
-.content .full-section {
-  width: 100vw !important;
-}
 .content .full-section .back-image {
-  height: 400px !important;
+  height: 65vh !important;
   background-size: cover;
   /* Sets background image to cover entire element */
   background-image: url("../images/index_cover_2.jpg");
@@ -191,6 +188,9 @@
 .content .full-section .back-image h2 {
   font-size: 35pt !important;
 }
+.content .info {
+  height: 35vh !important;
+}
 .login-box {
   background-size: cover;
   /* Sets background image to cover entire element */
@@ -205,6 +205,55 @@
   color: #ffffff;
   text-shadow: 2px 2px #0f0f0f;
   text-align: center;
+}
+.panel-heading-button {
+  margin-right: 5px;
+}
+.dummy {
+  margin-top: 110%;
+}
+.add-new-image {
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 7px;
+  right: 7px;
+  text-align: center;
+  padding-top: calc(20%);
+  border: dashed 3px #778899;
+  color: #778899;
+  cursor: pointer;
+}
+.add-new-image:hover {
+  border: dashed 3px #9db2c4;
+  color: #9db2c4;
+  cursor: pointer;
+}
+.thumbnail-square {
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 7px;
+  right: 7px;
+  text-align: center;
+  padding-top: calc(20%);
+}
+.fade-hover {
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 5px 5px 5px;
+  animation: opacity 1s ;
+}
+.fade-hover:hover {
+  opacity: 1;
+  animation: opacity 1s ;
 }
 .profile {
   margin-top: 1em;
@@ -266,8 +315,7 @@
 }
 .user .panel .panel-body table {
   margin: 0 0 0 0;
-  font-size: 12pt
-            ;
+  font-size: 12pt;
 }
 .user .panel .panel-body table.table-hover tbody tr:hover {
   border-left: solid 5px #016DB8;
@@ -315,6 +363,9 @@
 .panel .panel-image {
   width: 100%;
   height: 30%;
+}
+.full-section {
+  width: 100vw !important;
 }
 .link-no-style,
 .link-no-style:hover,
