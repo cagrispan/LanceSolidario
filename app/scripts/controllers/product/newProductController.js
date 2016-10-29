@@ -1,11 +1,14 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('NewProductCtrl', ['Product', 'facebookAPI', '$location', 'Image', '$q',
-        function (Product, facebookAPI, $location, Image, $q) {
+    .controller('NewProductCtrl', ['Product', 'facebookAPI', '$location', 'Image', '$q', 'shareData','ngToast',
+        function (Product, facebookAPI, $location, Image, $q, shareData,ngToast) {
 
             var self = this;
 
             function init() {
+
+                shareData.set($location.path(), 'lastPath');
+
                 if (!facebookAPI.user) {
                     $location.path('/login');
                 } else {
@@ -34,6 +37,8 @@ angular.module('lanceSolidario')
                     $q.all(promises).then(function () {
                         successFeedback('Produto criado com sucesso');
                         $location.path('user/products');
+                    }, function (err) {
+                        failFeedback(err)
                     });
 
                 }, function (err) {
@@ -61,14 +66,13 @@ angular.module('lanceSolidario')
             };
 
             var successFeedback = function (message) {
-                alert(message);
+                ngToast.success(message);
             };
 
             var failFeedback = function (error) {
-                alert('Erro');
+                ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
                 console.log(JSON.stringify(error))
             };
-
             init();
 
         }]);
