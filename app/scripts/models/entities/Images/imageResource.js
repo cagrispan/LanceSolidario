@@ -36,6 +36,31 @@
             );
         };
 
+        self.remove = function (image, user) {
+            var headers = {};
+            var endpoint = "";
+            var token = apiToken.getApiToken();
+
+
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+            if (user && user.facebookId) {
+                endpoint = '/users/' + user.facebookId + '/products/'+ image.productId +'/images/' + image.imageId;
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.remove(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
         self.loadImagesByProduct = function (product) {
             var headers = {};
             var endpoint = '';

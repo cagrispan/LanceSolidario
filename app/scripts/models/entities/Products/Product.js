@@ -34,6 +34,14 @@
                 return productResource.update(this);
             };
 
+            this._load = function () {
+                var product = this;
+                return productResource.load(product)
+                    .then(function (result) {
+                        product._set(result);
+                    });
+            };
+
             this._listByAuction = function (auction) {
                 var productListtoReturn = [];
                 return productResource.loadProductsByAuction(auction).then(function (response) {
@@ -71,7 +79,6 @@
                 var product = this;
                 var image = new Image();
                 return image._listByProduct(product).then(function(returnList){
-                    console.log(returnList);
                     product.imageList = returnList;
                 });
             };
