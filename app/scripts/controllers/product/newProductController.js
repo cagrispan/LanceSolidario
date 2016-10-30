@@ -65,6 +65,10 @@ angular.module('lanceSolidario')
 
             };
 
+            self.removeImage = function (index) {
+                self.images.splice(index, 1);
+            };
+
             var successFeedback = function (message) {
                 ngToast.success(message);
             };
