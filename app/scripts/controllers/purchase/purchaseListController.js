@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('PurchaseListCtrl', ['facebookAPI', '$location', '$q', function (facebookAPI, $location, $q) {
+    .controller('PurchaseListCtrl', ['facebookAPI', '$location', 'Purchase', function (facebookAPI, $location, Purchase) {
 
         var self = this;
 
@@ -12,28 +12,19 @@ angular.module('lanceSolidario')
                 $location.path('/login');
             } else {
                 self.user = facebookAPI.user;
+                Purchase._listAll(self.user)
+                    .then(function (purchaseList) {
+                        self.purchaseList = purchaseList;
+                    }, function () {
+                        //fail(err)
+                    })
             }
-
-            //return self.user._loadPurchases().then(function(){
-            //    var promises = [];
-            //    for(var prodIndx in self.user.purchaseList){
-            //        promises.push(self.user.purchaseList[prodIndx]._loadAuctions());
-            //    }
-            //    return $q.all(promises);
-            //});
         }
 
+        self.pay = function (purchase) {
+            alert(purchase)
+        };
 
         init();
-            //.then(function () {
-            //    self.loading = false;
-            //}, function (err) {
-            //    failFeedback(err)
-            //});
-
-        //var failFeedback = function (error) {
-        //    console.log('Error: ');
-        //    console.log(JSON.stringify(error))
-        //};
 
     }]);
