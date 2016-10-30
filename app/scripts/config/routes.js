@@ -15,7 +15,7 @@ angular.module('lanceSolidario')
             .when('/', {
                 templateUrl: 'views/common/home.html',
                 controller: 'HomeCtrl',
-                controllerAs: 'home'
+                controllerAs: 'homeCtrl'
             })
             .when('/login', {
                 templateUrl: 'views/user/login.html',
