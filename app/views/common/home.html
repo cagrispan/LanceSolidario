@@ -42,82 +42,32 @@
     <div class="container">
         <div class="row">
             <h2>Leilões Futuros:</h2>
+            <hr>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3"
+                 ng-repeat="auction in homeCtrl.auctionList | filter:{status:'active'} | orderBy:endDate | limitTo:4">
 
-            <!-- Card 1 -->
-            <a href="#/auctions/template" class="link-no-style">
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    <div class="panel panel-default auction-card">
-                        <div class="panel-image">
-                            <img src="../images/product_playstation_3.jpg" class="img-responsive" alt="">
-                        </div>
+                <div class="panel panel-default auction-card">
+                    <div class="value text-center">
+                        <span ng-if="auction.status === 'active'">Termina em</span><span ng-if="auction.status === 'pending'">Começa em</span>
+                    </div>
 
-                        <div class="counter text-center">
-                            00:00:00:00
-                        </div>
+                    <div class="panel-image">
+                        <img ng-src="data:image/*;base64,{{auction.image}}" class="img-responsive" alt="">
+                    </div>
 
-                        <div class="value text-center">
-                            R$399,00
-                        </div>
+                    <div class="counter text-center">
+                        <timer countdown="auction.duration"
+                               max-time-unit="'hour'"
+                               interval="1000">
+                            {{hours}}:{{minutes}}:{{seconds}}
+                        </timer>
+                    </div>
+
+                    <div class="value text-center">
+                        {{auction.maxBid ? auction.maxBid : auction.minimumBid| currency:'R$ '}}
                     </div>
                 </div>
-            </a>
-
-            <!-- Card 2 -->
-            <a href="#/auctions/template" class="link-no-style">
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    <div class="panel panel-default auction-card">
-                        <div class="panel-image">
-                            <img src="../images/product_playstation_3.jpg" class="img-responsive" alt="">
-                        </div>
-
-                        <div class="counter text-center">
-                            00:00:00:00
-                        </div>
-
-                        <div class="value text-center">
-                            R$399,00
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 3 -->
-            <a href="#/auctions/template" class="link-no-style">
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    <div class="panel panel-default auction-card">
-                        <div class="panel-image">
-                            <img src="../images/product_playstation_3.jpg" class="img-responsive" alt="">
-                        </div>
-
-                        <div class="counter text-center">
-                            00:00:00:00
-                        </div>
-
-                        <div class="value text-center">
-                            R$399,00
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 4 -->
-            <a href="#/auctions/template" class="link-no-style">
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    <div class="panel panel-default auction-card">
-                        <div class="panel-image">
-                            <img src="../images/product_playstation_3.jpg" class="img-responsive" alt="">
-                        </div>
-
-                        <div class="counter text-center">
-                            00:00:00:00
-                        </div>
-
-                        <div class="value text-center">
-                            R$399,00
-                        </div>
-                    </div>
-                </div>
-            </a>
+            </div>
         </div>
     </div>
 </div>
