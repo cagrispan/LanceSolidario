@@ -18,7 +18,6 @@ angular.module('lanceSolidario')
             } else {
                 self.user = facebookAPI.user;
                 self.product = shareData.get('lastProduct');
-                console.log($routeParams);
                 if (self.product) {
                     self.product._loadImages();
                 } else if ($routeParams.productId) {
