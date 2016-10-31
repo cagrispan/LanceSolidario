@@ -87,7 +87,9 @@ angular.module('lanceSolidario')
                 controllerAs: 'purchaseListCtrl'
             })
             .when('/user/purchases/:purchaseId', {
-                templateUrl: 'views/purchase/edit.html'
+                templateUrl: 'views/purchase/edit.html',
+                controller: 'PurchaseDetailCtrl',
+                controllerAs: 'purchaseDetailCtrl'
             })
 
             //Auctions

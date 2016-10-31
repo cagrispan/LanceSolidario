@@ -41,4 +41,9 @@ angular.module('lanceSolidario.image', [
     'lanceSolidario.image.image'
 ]);
 
+angular.module('lanceSolidario.purchase', [
+    'lanceSolidario.purchase.purchaseResource',
+    'lanceSolidario.purchase.purchase'
+]);
+
 angular.module('utils',['lanceSolidario']);
