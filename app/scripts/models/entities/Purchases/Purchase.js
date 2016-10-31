@@ -42,6 +42,21 @@
                  Delivery
                  */
                 this.isDelivered = null;
+
+                /*
+                 Methods
+                 */
+                this._load = function () {
+                    var purchase = this;
+                    return purchaseResource.load(purchase)
+                        .then(function (result) {
+                            purchase._set(result);
+                        });
+                };
+
+                this._update = function () {
+                    return purchaseResource.update(this);
+                };
             }
 
             Purchase._listAll = function (user) {
