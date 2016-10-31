@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('PurchaseListCtrl', ['facebookAPI', '$location', 'Purchase', function (facebookAPI, $location, Purchase) {
+    .controller('PurchaseListCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', function (facebookAPI, $location, Purchase, shareData) {
 
         var self = this;
 
@@ -23,6 +23,11 @@ angular.module('lanceSolidario')
 
         self.pay = function (purchase) {
             alert(purchase)
+        };
+
+        self.purchaseDetail = function (purchase) {
+            shareData.set(purchase, 'lastPurchase');
+            $location.path('/purchases/'+purchase.purchaseId);
         };
 
         init();
