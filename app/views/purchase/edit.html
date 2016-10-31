@@ -37,7 +37,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Vendedor</label>
                                 <div class="col-sm-10">
-                                    Fulado da silva. (41) 1234-1234
+                                    {{}} (41) 1234-1234
                                 </div>
                             </div>
 
@@ -51,25 +51,34 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Valor</label>
                                 <div class="col-sm-10">
-                                    R$389,90 (taxa adiministrativa: R$ 00,00)
+                                    {{purchaseDetailCtrl.purchase.maxBid | currency:'R$ '}} (taxa adiministrativa: R$ 00,00)
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Pagamento</label>
-                                <div class="col-sm-10">
-                                    Não realizado
+                                <div class="col-sm-7">
+                                    {{purchaseDetailCtrl.purchase.isPaid ? 'Pago':'Pendente'}}
                                 </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-primary" ng-click="purchaseDetailCtrl.pay()" ng-if="!purchaseDetailCtrl.purchase.isPaid">
+                                        <i class="fa fa-money"></i> &nbsp; Pagar esta compra
+                                    </button>
+                                </div>
+
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label text-right">Recebimento</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option> Não confirmada</option>
-                                        <option> Efetuada</option>
-                                        <option> Não efetuada</option>
-                                    </select>
+                                <label class="col-sm-2 col-form-label text-right">Entrega</label>
+                                <div class="col-sm-7">
+                                    {{purchaseDetailCtrl.purchase.isDelivered ? 'Entregue':'Pendente'}}
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-success"
+                                            ng-if="!purchaseDetailCtrl.purchase.isDelivered"
+                                            ng-click="purchaseDetailCtrl.confirmDelivery()">
+                                        <i class="fa fa-check"></i> &nbsp; Confirmar Recebimento
+                                    </button>
                                 </div>
                             </div>
 
@@ -89,17 +98,6 @@
                                             Cancelar esta compra
                                         </a>
                                     </div>
-
-
-
-                                    <button class="btn btn-primary">
-                                        <i class="fa fa-money"></i> &nbsp; Pagar esta compra
-                                    </button>
-
-
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fa fa-check"></i> &nbsp; Salvar
-                                    </button>
                                 </div>
                             </div>
                         </div>
