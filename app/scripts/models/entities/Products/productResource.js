@@ -77,6 +77,7 @@
             var headers = {};
             var endpoint = '';
             var token = apiToken.getApiToken();
+            console.log('To aqui');
 
             //Validate and Mapping
             if (token) {
@@ -94,6 +95,7 @@
             //Make the request
             return webService.read(endpoint, headers).then(
                 function (resolve) {
+                    console.log('To aqui 2');
                     return resolve.data;
                 }
             );
