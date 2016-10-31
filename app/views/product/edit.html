@@ -24,7 +24,7 @@
                                 <label for="product-name" class="col-sm-2 col-form-label">Título da Doação</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control form-control-lg" id="product-name"
-                                           ng-model="productCtrl.product.title">
+                                           ng-model="productCtrl.product.title" ng-readonly="!(productCtrl.product.status==='Pendente')">
                                 </div>
                             </div>
 
@@ -32,13 +32,13 @@
                                 <label for="product-description" class="col-sm-2 col-form-label">Descrição</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control form-control-lg" id="product-description"
-                                              rows="8" ng-model="productCtrl.product.description"></textarea>
+                                              rows="8" ng-model="productCtrl.product.description" ng-readonly="!(productCtrl.product.status==='Pendente')"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row" ng-if="productCtrl.product.status==='Pendente'">
                                 <div class="col-sm-12 text-right">
-                                    <button type="submit" class="btn btn-success" ng-click="productCtrl.update()">
+                                    <button type="submit" class="btn btn-success" ng-click="productCtrl.update()" >
                                         Salvar
                                     </button>
                                 </div>
@@ -49,7 +49,7 @@
                         <h3>Imagens da doação:</h3>
                         <br>
 
-                        <div class="col-xs-3 v-m-parent" ng-if="productCtrl.product.imageList.length<3">
+                        <div class="col-xs-3 v-m-parent" ng-if="productCtrl.product.imageList.length<3" ng-show="productCtrl.product.status==='Pendente'">
                             <div class="dummy"></div>
                             <label class="add-new-image v-m-child">
                                 <i class="fa fa-plus fa-2x"></i><br>
@@ -107,10 +107,21 @@
                                     <td ng-if="auction.status === 'finished'">Encerrado</td>
 
                                     <td>
-                                        <button ng-click="productCtrl.closeAuction(auction)"
-                                                ng-show="auction.status ==='active'" class="btn btn-xs btn-danger"
-                                                ng-model="singleModel"
-                                                uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+                                    <td ng-click="$event.stopPropagation()">
+                                        <button
+                                            ng-show="auction.status ==='active'" class="btn btn-xs btn-danger"
+                                            ng-model="singleModel"
+                                            uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0"
+                                            ng-if="!bid.isDeleted" class="btn btn-xs btn-danger"
+                                            mwl-confirm
+                                            title="Atenção!!"
+                                            message="Deseja realmente realizar essa ação?"
+                                            confirm-text="Confirmar"
+                                            cancel-text="Cancelar"
+                                            on-confirm="productCtrl.closeAuction(auction)"
+                                            confirm-button-type="danger"
+                                            placement="left"
+                                            cancel-button-type="default">
                                             <i class="fa fa-stop"></i> &nbsp;
                                             Cancelar Leilão
                                         </button>

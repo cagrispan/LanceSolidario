@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('ProductDetailCtrl', ['facebookAPI', '$location', 'shareData', 'Image', '$q', function (facebookAPI, $location, shareData, Image, $q) {
+    .controller('ProductDetailCtrl', ['facebookAPI', '$location', 'shareData', 'Image', 'Product', '$q', 'ngToast', '$routeParams', function (facebookAPI, $location, shareData, Image, Product, $q, ngToast, $routeParams) {
 
         var self = this;
 
@@ -10,13 +10,37 @@ angular.module('lanceSolidario')
         function init() {
             //Useful flags
             self.loading = true;
+            shareData.set($location.path(), 'lastPath');
+
 
             if (!facebookAPI.user) {
                 $location.path('/login');
             } else {
                 self.user = facebookAPI.user;
                 self.product = shareData.get('lastProduct');
-                self.product._loadImages();
+                if (self.product) {
+                    self.product._loadImages();
+                } else if ($routeParams.productId) {
+
+                    self.product = new Product();
+                    self.product.productId = $routeParams.productId;
+                    self.product.facebookId = facebookAPI.user.facebookId;
+
+
+                    self.product._load().then(function () {
+                        return self.product._loadAuctions().catch(function () {
+                            failFeedback('Problemas ao carregar os leilões do produto. Tente novamente.');
+                        }).then(function () {
+                            return self.product._loadImages().catch(function () {
+                                failFeedback('Problemas ao carregar o produto. Tente novamente.');
+                            })
+                        })
+                    });
+                }
+                else {
+                    failFeedback('Problemas ao carregar o produto. Tente novamente.');
+                    $location('user/products')
+                }
                 self.imagesToRemove = [];
             }
         }
@@ -58,14 +82,14 @@ angular.module('lanceSolidario')
                     var promises = [];
 
                     for (i = 0; i < self.product.imageList.length; i++) {
-                        if(!self.product.imageList[i].imageId){
+                        if (!self.product.imageList[i].imageId) {
                             promise = self.product.imageList[i]._add(self.user);
                             promises.push(promise);
                         }
                     }
 
                     for (i = 0; i < self.imagesToRemove.length; i++) {
-                        if(self.product.imageList[i].imageId){
+                        if (self.product.imageList[i].imageId) {
                             promise = self.imagesToRemove[i]._remove(self.user);
                             promises.push(promise);
                         }
@@ -73,20 +97,20 @@ angular.module('lanceSolidario')
 
                     $q.all(promises).then(function () {
                         self.product._load().then(function () {
-                            shareData.set(self.product,'lastProduct');
-                            successFeedback('Produto alterado com sucesso');
+                            shareData.set(self.product, 'lastProduct');
+
                         });
                     }, function (err) {
-                        failFeedback(err)
+                        failFeedback('Problema ao atualizar as imagens. Tente novamente.')
                     });
 
                 }, function (err) {
-                    failFeedback(err)
+                    failFeedback('Problema ao salvar os dados da doação. Tente novamente.')
                 })
         };
 
         self.removeImage = function (index) {
-            if(self.product.imageList[index].imageId){
+            if (self.product.imageList[index].imageId) {
                 self.imagesToRemove.push(self.product.imageList[index]);
             }
             self.product.imageList.splice(index, 1);
@@ -96,12 +120,16 @@ angular.module('lanceSolidario')
             auction.isClosed = true;
             auction._update()
                 .then(function () {
-                    return self.product._loadAuctions();
+                    successFeedback('Leilão fechado com sucesso');
+                    return self.product._loadAuctions().catch(function () {
+                        failFeedback('Problemas ao carregar os Leilões do produto. Atualize a página.');
+                    });
                 })
                 .then(function () {
                     self.product._getStatus();
                 });
         };
+
 
         self.auctionDetail = function (auction) {
             shareData.set(self.product, 'lastProduct');
@@ -110,12 +138,14 @@ angular.module('lanceSolidario')
         };
 
         var successFeedback = function (message) {
-            alert(message);
+            ngToast.success(message);
         };
 
         var failFeedback = function (error) {
-            console.log('Error: ');
+            ngToast.danger('<b> Erro!</b>' + (typeof error) === 'string' ? error : 'Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 
-    }]);
+    }
+
+    ]);
