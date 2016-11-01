@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="container-fluid auction">
-        <form class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard">
+        <form class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard">
 
 
             <div class="panel panel-default">
@@ -13,11 +13,11 @@
                             <h1>Doação</h1>
                         </div>
 
-                        <div class="col-xs-2">
+                        <div class="col-sm-2 hidden-xs">
                             <img src="images/auction-bag.png" class="icon" data-pin-no-hover="true">
                         </div>
 
-                        <div class="col-xs-10 form-group">
+                        <div class="col-sm-10 form-group">
 
                             <label for="auction_product">
                                 Escolha qual dos seus produtos você irá leiloar:
@@ -39,15 +39,15 @@
 
                     <!-- Institution Section -->
                     <div class="row">
-                        <div class="col-xs-12 title">
+                        <div class="col-sm-12 title">
                             <h1>Instituição</h1>
                         </div>
 
-                        <div class="col-xs-2">
+                        <div class="col-sm-2 hidden-xs">
                             <img src="images/auction-institution.png" class="icon" data-pin-no-hover="true">
                         </div>
 
-                        <div class="col-xs-10 form-group">
+                        <div class="col-sm-10 form-group">
                             <p>
                                 Atualmente, nosso único parceiro para recebemento das doações, é o TETO. Você pode
                                 conhecer
@@ -71,11 +71,11 @@
                             <h1>Valor Inicial</h1>
                         </div>
 
-                        <div class="col-xs-2">
+                        <div class="col-sm-2 hidden-xs">
                             <img src="images/auction-price.png" class="icon" data-pin-no-hover="true">
                         </div>
 
-                        <div class="col-xs-10 form-group">
+                        <div class="col-sm-10 form-group">
                             <label for="auction_price"> Qual o valor inicial?</label>
                             <input type="number" class="form-control" id="auction_price" min="5.0" step="0.01"
                                    placeholder="Ex: R$ 50,00" ng-model="auctionCtrl.auctionToAdd.minimumBid" required>
@@ -88,13 +88,11 @@
                             <h1>Data de Inicio e Tempo de leilão</h1>
                         </div>
 
-                        <div class="col-xs-2">
+                        <div class="col-sm-2 hidden-xs">
                             <img src="images/auction-date.png" class="icon" data-pin-no-hover="true">
                         </div>
 
-                        <div class="col-xs-10 form-group">
-
-
+                        <div class="col-sm-10 form-group">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
                                 <label> Quando será iniciado seu leilão?</label>
                                 <p>{{auctionCtrl.dt | date:'fullDate' }}</p>
@@ -133,11 +131,11 @@
                             <h1>Valor Inicial</h1>
                         </div>
 
-                        <div class="col-xs-2">
+                        <div class="col-sm-2 hidden-xs">
                             <img src="images/auction-send.png" class="icon" data-pin-no-hover="true">
                         </div>
 
-                        <div class="col-xs-10 form-group">
+                        <div class="col-sm-10 form-group">
                             <p>
                                 Neste primeiro momento, o envio é combinado entre o
                                 comprador e o doador.
@@ -151,11 +149,11 @@
                             <h1>Tudo certo?!</h1>
                         </div>
 
-                        <div class="col-xs-2">
+                        <div class="col-sm-2 hidden-xs">
                             <img src="images/auction-finish.png" class="icon" data-pin-no-hover="true">
                         </div>
 
-                        <div class="col-xs-10 form-group">
+                        <div class="col-sm-10 form-group">
                             <table class="table table-striped">
                                 <tr>
                                     <td><b>Produto:</b></td>
