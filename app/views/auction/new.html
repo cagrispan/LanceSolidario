@@ -3,162 +3,195 @@
     <div class="container-fluid auction">
         <form class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard">
 
-            <!-- Product Section -->
-            <div class="row section text-center">
-                <img src="images/auction-bag.png" class="step-image" data-pin-no-hover="true">
-                <h1>1</h1>
 
-                <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 col-centered">
-                    <div class="form-group">
-                        <label for="auction_product">
-                            Escolha qual dos seus produtos você irá leiloar:
-                        </label>
-                        <select class="form-control" id="auction_product"
-                                ng-options="product as product.title for product in auctionCtrl.user.productList"
-                                ng-model="auctionCtrl.product">
-                        </select>
-                        <br>
+            <div class="panel panel-default">
+                <div class="panel-body">
 
-                        <label> Não tem produtos cadastrados?</label>
-                        <a href="#/user/products/add" class="form-control btn btn-success btn-md">
-                            Criar novo produto
-                        </a>
+                    <!-- Product Section -->
+                    <div class="row">
+                        <div class="col-xs-12 title">
+                            <h1>Doação</h1>
+                        </div>
 
-                    </div>
-                </div>
-            </div>
+                        <div class="col-xs-2">
+                            <img src="images/auction-bag.png" class="icon" data-pin-no-hover="true">
+                        </div>
 
-            <!-- Institution Section -->
-            <div class="row section text-center">
-                <img src="images/auction-institution.png" class="step-image" data-pin-no-hover="true">
-                <h1>2</h1>
+                        <div class="col-xs-10 form-group">
 
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <div class="form-group">
-                        <p>
-                            Atualmente, nosso único parceiro para recebemento das doações, é o TETO. Você pode conhecer
-                            mais sobre o trabalho deles através do link:<br>
+                            <label for="auction_product">
+                                Escolha qual dos seus produtos você irá leiloar:
+                            </label>
 
-                            <a href="http://www.techo.org/paises/brasil/">http://www.techo.org/paises/brasil/</a>
-                        </p>
+                            <select class="form-control" id="auction_product"
+                                    ng-options="product as product.title for product in auctionCtrl.user.productList"
+                                    ng-model="auctionCtrl.product">
+                            </select>
 
-                        <div class="checkbox">
-                            <label><input type="checkbox" required><b>Eu aceito que o valor sera entregue ao TETO.</b></label>
+                            <br>
+
+                            Não tem produtos cadastrados?
+                            <a href="#/user/products/add">
+                                Criar novo produto
+                            </a>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Cover Section -->
-            <div class="row section text-center">
-                <img src="images/auction-image.png" class="step-image" data-pin-no-hover="true">
-                <h1>3</h1>
-
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <p>
-                        Por favor, escolha uma das imagens enviadas para servir como capa do seu produto.
-                    </p>
-
+                    <!-- Institution Section -->
                     <div class="row">
-                        <img src="images/cup.jpg" class="cover-image" data-pin-no-hover="true">
-                        <img src="images/cup.jpg" class="cover-image" data-pin-no-hover="true">
-                        <img src="images/cup.jpg" class="cover-image" data-pin-no-hover="true">
-                        <img src="images/cup.jpg" class="cover-image" data-pin-no-hover="true">
-                    </div>
-                </div>
-            </div>
+                        <div class="col-xs-12 title">
+                            <h1>Instituição</h1>
+                        </div>
 
-            <!-- Stating Price Section -->
-            <div class="row section text-center">
-                <img src="images/auction-price.png" class="step-image" data-pin-no-hover="true">
-                <h1>4</h1>
+                        <div class="col-xs-2">
+                            <img src="images/auction-institution.png" class="icon" data-pin-no-hover="true">
+                        </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <div class="form-group">
-                        <label for="auction_price"> Qual o valor inicial?</label>
-                        <input type="number" class="form-control" id="auction_price" min="5.0" step="0.01"
-                               placeholder="Ex: R$ 50,00" ng-model="auctionCtrl.auctionToAdd.minimumBid" required>
-                    </div>
-                </div>
-            </div>
+                        <div class="col-xs-10 form-group">
+                            <p>
+                                Atualmente, nosso único parceiro para recebemento das doações, é o TETO. Você pode
+                                conhecer
+                                mais sobre o trabalho deles através do link:<br>
 
-            <!-- Date Section -->
-            <div class="row section text-center">
-                <img src="images/auction-date.png" class="step-image" data-pin-no-hover="true">
-                <h1>5</h1>
+                                <a href="http://www.techo.org/paises/brasil/">http://www.techo.org/paises/brasil/</a>
+                            </p>
 
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <b> Quando será iniciado seu leilão?</b>
+                            <br>
 
-                    <p>{{auctionCtrl.dt | date:'fullDate' }}</p>
-
-                    <div class="row well well-sm">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <div style="display:inline-block;">
-                                <div uib-datepicker ng-model="auctionCtrl.dt" datepicker-options="auctionCtrl.options"></div>
+                            <div class="checkbox">
+                                <label><input type="checkbox" required><b>Eu aceito que o valor sera entregue ao
+                                    TETO.</b></label>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <b>Hora de Início:</b>
+                    <!-- Starting Price Section -->
+                    <div class="row">
+                        <div class="col-xs-12 title">
+                            <h1>Valor Inicial</h1>
+                        </div>
 
-                            <div uib-timepicker ng-model="auctionCtrl.dt" ng-change="auctionCtrl.changed()" hour-step="auctionCtrl.hstep"
-                                 minute-step="auctionCtrl.mstep"
-                                 show-meridian="auctionCtrl.ismeridian"></div>
+                        <div class="col-xs-2">
+                            <img src="images/auction-price.png" class="icon" data-pin-no-hover="true">
+                        </div>
+
+                        <div class="col-xs-10 form-group">
+                            <label for="auction_price"> Qual o valor inicial?</label>
+                            <input type="number" class="form-control" id="auction_price" min="5.0" step="0.01"
+                                   placeholder="Ex: R$ 50,00" ng-model="auctionCtrl.auctionToAdd.minimumBid" required>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Shipping Section -->
-            <div class="row section text-center">
-                <img src="images/auction-send.png" class="step-image" data-pin-no-hover="true">
-                <h1>6</h1>
+                    <!-- Date Section -->
+                    <div class="row">
+                        <div class="col-xs-12 title">
+                            <h1>Data de Inicio e Tempo de leilão</h1>
+                        </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <p>
-                        Neste primeiro momento, o envio é combinado entre o
-                        comprador e o doador.
-                    </p>
-                </div>
-            </div>
+                        <div class="col-xs-2">
+                            <img src="images/auction-date.png" class="icon" data-pin-no-hover="true">
+                        </div>
 
-            <!-- Finish Section -->
-            <div class="row section text-center">
-                <img src="images/auction-finish.png" class="step-image" data-pin-no-hover="true">
-                <h1>Feito!</h1>
+                        <div class="col-xs-10 form-group">
 
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-centered">
-                    <table class="table table-striped">
-                        <tr>
-                            <td><b>Produto:</b></td>
-                            <td>{{auctionCtrl.product.title}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Instituição:</b></td>
-                            <td> TETO</td>
-                        </tr>
-                        <tr>
-                            <td><b>Valor Inicial:</b></td>
-                            <td>{{auctionCtrl.auctionToAdd.minimumBid | currency}}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Taxa Administrativa:</b></td>
-                            <td> 0,00</td>
-                        </tr>
-                        <tr>
-                            <td><b>Envio:</b></td>
-                            <td> Contato entre as partes</td>
-                        </tr>
-                    </table>
 
-                    <div class="container-fluid text-center">
-                        <button type="submit" class="btn btn-lg btn-success" ng-click="auctionCtrl.addAuction()">
-                            Tudo certo! Criar leilão
-                        </button>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
+                                <label> Quando será iniciado seu leilão?</label>
+                                <p>{{auctionCtrl.dt | date:'fullDate' }}</p>
+                                <div style="display:inline-block;">
+                                    <div uib-datepicker ng-model="auctionCtrl.dt"
+                                         datepicker-options="auctionCtrl.options"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
+                                <b>Hora de Início:</b>
+
+                                <div uib-timepicker ng-model="auctionCtrl.dt" ng-change="auctionCtrl.changed()"
+                                     hour-step="auctionCtrl.hstep"
+                                     minute-step="auctionCtrl.mstep"
+                                     show-meridian="auctionCtrl.ismeridian"
+                                     class="col-centered"></div>
+
+                                <br>
+
+                                <label> Tempo ativo:</label>
+                                <select class="form-control">
+                                    <option value="6">6h</option>
+                                    <option value="12">12h</option>
+                                    <option value="24">24h</option>
+                                    <option value="72">72h</option>
+                                </select>
+
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Shipping Section -->
+                    <div class="row">
+                        <div class="col-xs-12 title">
+                            <h1>Valor Inicial</h1>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <img src="images/auction-send.png" class="icon" data-pin-no-hover="true">
+                        </div>
+
+                        <div class="col-xs-10 form-group">
+                            <p>
+                                Neste primeiro momento, o envio é combinado entre o
+                                comprador e o doador.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Finish Section -->
+                    <div class="row">
+                        <div class="col-xs-12 title">
+                            <h1>Tudo certo?!</h1>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <img src="images/auction-finish.png" class="icon" data-pin-no-hover="true">
+                        </div>
+
+                        <div class="col-xs-10 form-group">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td><b>Produto:</b></td>
+                                    <td>{{auctionCtrl.product.title}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Instituição:</b></td>
+                                    <td> TETO</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Valor Inicial:</b></td>
+                                    <td>{{auctionCtrl.auctionToAdd.minimumBid | currency}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Taxa Administrativa:</b></td>
+                                    <td> 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Envio:</b></td>
+                                    <td> Contato entre as partes</td>
+                                </tr>
+                            </table>
+
+                            <div class="container-fluid text-center">
+                                <button type="submit" class="btn btn-lg btn-success"
+                                        ng-click="auctionCtrl.addAuction()">
+                                    Tudo certo! Criar leilão
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIM DO PAINEL -->
                 </div>
             </div>
+
         </form>
     </div>
 </div>
