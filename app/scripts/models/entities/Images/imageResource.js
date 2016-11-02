@@ -21,7 +21,7 @@
                 return $q.reject({errorMessage: 'Access token missing'});
             }
             if (user && user.facebookId) {
-                endpoint = '/users/' + user.facebookId + '/products/'+ image.productId +'/images';
+                endpoint = '/users/' + user.facebookId + '/products/' + image.productId + '/images';
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -48,7 +48,7 @@
                 return $q.reject({errorMessage: 'Access token missing'});
             }
             if (user && user.facebookId) {
-                endpoint = '/users/' + user.facebookId + '/products/'+ image.productId +'/images/' + image.imageId;
+                endpoint = '/users/' + user.facebookId + '/products/' + image.productId + '/images/' + image.imageId;
             } else {
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
@@ -67,17 +67,16 @@
             var token = apiToken.getApiToken();
 
             //Validate and Mapping
-            if (token) {
-                headers.token = token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
 
 
             if (product && product.facebookId) {
-                endpoint = '/users/' + product.facebookId + '/products/'+ product.productId +'/images';
+                endpoint = '/users/' + product.facebookId + '/products/' + product.productId + '/images';
             } else {
-                return $q.reject({errorMessage: 'FacebookId missing'});
+                if (product && product.userId) {
+                    endpoint = '/users/' + product.userId+ '/products/' + product.productId + '/images';
+                } else {
+                    return $q.reject({errorMessage: 'FacebookId missing'});
+                }
             }
 
             //Make the request

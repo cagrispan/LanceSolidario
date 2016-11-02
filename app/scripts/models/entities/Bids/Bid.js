@@ -22,6 +22,10 @@
              */
             this.auctionId = null;
 
+            /*
+             USer Object
+             */
+            this.userId = null;
 
             /*
              Number

@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product','Bid', function (userResource, Entity, Address, Email, Telephone, Product, Bid) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', 'Bid', function (userResource, Entity, Address, Email, Telephone, Product, Bid) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -14,6 +14,7 @@
             //identification
             this.facebookId = null;
             this.facebookToken = null;
+            this.profilePicture = null;
             this.token = null;
 
             //personal info
@@ -82,6 +83,16 @@
                     .then(function (userReturned) {
                         user._set(userReturned);
                         user.birthday = new Date(user.birthday);
+                        return user;
+                    });
+            };
+
+            this._loadPublicInformation = function () {
+                var user = this;
+                var loadUserPromise = userResource.loadPublicInformation(user);
+                return loadUserPromise
+                    .then(function (userReturned) {
+                        user._set(userReturned);
                         return user;
                     });
             };
@@ -170,8 +181,8 @@
             this._loadBids = function () {
                 var user = this;
                 var bid = new Bid();
-                return bid._listByUser(user).then(function(returnList){
-                   user.bidList = returnList;
+                return bid._listByUser(user).then(function (returnList) {
+                    user.bidList = returnList;
                 });
             };
 

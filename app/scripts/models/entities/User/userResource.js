@@ -76,6 +76,25 @@
             );
         };
 
+        self.loadPublicInformation = function (user) {
+            var headers = {};
+            var endpoint = "";
+
+            //Validate and Mapping
+            if (user && user.facebookId) {
+                endpoint = '/users/'+ user.facebookId;
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
 
         // Address
 
