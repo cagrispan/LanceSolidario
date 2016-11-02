@@ -8,14 +8,14 @@ angular.module('utils')
 
         this.watchLoginChange = function () {
 
-            $facebook.login().then(function(res) {
+            $facebook.login().then(function (res) {
                 if (res.status === 'connected') {
                     self.getUserInfo(res.authResponse.accessToken);
                 }
                 else {
                     self.user = null;
                 }
-            }, function(err){
+            }, function (err) {
                 console.log(err);
             });
         };
@@ -32,12 +32,18 @@ angular.module('utils')
                     user.facebookToken = facebookToken;
 
                     getUserPicture(facebookToken)
+
                         .then(function () {
                             return user._updateAPIToken();
                         })
                         .then(function () {
                             return user._load();
                         })
+                        .then(function () {
+                            user.profilePicture = self.profilePicture;
+                            return user._save();
+                        })
+
                         .then(function () {
 
                             self.user = user;

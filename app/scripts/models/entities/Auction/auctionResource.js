@@ -137,14 +137,6 @@
         self.load = function (auction) {
             var headers = {};
             var endpoint = '';
-            var token = apiToken.getApiToken();
-
-            //Validate and Mapping
-            if (token) {
-                headers.token = token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
 
             if (auction && auction.auctionId) {
                 endpoint = '/auctions/' + auction.auctionId;

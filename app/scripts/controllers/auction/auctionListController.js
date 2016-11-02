@@ -9,7 +9,7 @@ angular.module('lanceSolidario')
                 //Useful flags
                 self.loading = true;
 
-                Auction._listAll()
+                    Auction._listAll()
                     .then(function (auctionList) {
                         self.auctionList = auctionList;
 
@@ -22,10 +22,24 @@ angular.module('lanceSolidario')
                                 self.auctionList[i].duration = 0;
                             }
                         }
-
                     });
-
             }
+
+            self.openDetail = function(auction){
+              shareData.set(auction, 'lastAuction');
+                $location('auctions/'+auction.auctionId);
+            };
+
+
+            var successFeedback = function (message) {
+                ngToast.success(message);
+            };
+
+
+            var failFeedback = function (error) {
+                ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
+                console.log(JSON.stringify(error))
+            };
 
             init();
         }]);

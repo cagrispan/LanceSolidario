@@ -33,6 +33,11 @@
                 this.facebookId = null;
 
                 /*
+                 User Object
+                 */
+                this.userId = null;
+
+                /*
                  Number
                  */
                 this.minimumBid = null;
@@ -89,8 +94,8 @@
                 };
 
                 this._load = function () {
-                    return auctionResource.load(this).then(function (response) {
-                        var auction = this;
+                    var auction = this;
+                    return auctionResource.load(auction).then(function (response) {
                         auction._setAuction(response);
                         return auction;
                     });
