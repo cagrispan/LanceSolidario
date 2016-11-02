@@ -98,6 +98,28 @@
   font-size: 14pt;
   font-weight: bold;
 }
+.auction .wizard .panel-body {
+  padding-top: 0;
+}
+.auction .wizard .panel-body > .row {
+  border-bottom: solid 1px #DDDDDD;
+  min-height: 30vh;
+  padding-top: 5px;
+  padding-bottom: 40px;
+}
+.auction .wizard .panel-body > .row .title h1 {
+  font-size: 16pt;
+  margin-bottom: 20px;
+}
+.auction .wizard .panel-body > .row .icon {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.auction .wizard .panel-body > .row .uib-timepicker {
+  margin-left: auto;
+  margin-right: auto;
+}
 .auction-card .counter {
   padding: 0 0 0 0 !important;
   margin: 0 0 0 0 !important;
@@ -120,42 +142,6 @@
 @media only screen and (max-width: 529px) {
   .auction-card .value {
     font-size: 10px;
-  }
-}
-/* Large Devices, Wide Screens */
-@media only screen and (min-width: 1129px) {
-  .step-image {
-    max-width: 200px;
-    max-height: 200px;
-    width: 20%;
-    height: 20%;
-  }
-}
-/* Medium Devices, Desktops */
-@media only screen and (min-width: 950px) and (max-width: 1128px) {
-  .step-image {
-    max-width: 250px;
-    max-height: 250px;
-    width: 25%;
-    height: 25%;
-  }
-}
-/* Small Devices, Tablets */
-@media only screen and (min-width: 530px) and (max-width: 949px) {
-  .step-image {
-    max-width: 300px;
-    max-height: 300px;
-    width: 30%;
-    height: 30%;
-  }
-}
-/* Extra Small Devices, Phones */
-@media only screen and (max-width: 529px) {
-  .step-image {
-    max-width: 300px;
-    max-height: 300px;
-    width: 35%;
-    height: 35%;
   }
 }
 .content .full-section .back-image {

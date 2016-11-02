@@ -127,6 +127,36 @@
             font-weight: bold;
         }
     }
+
+    .wizard {
+        .panel-body {
+            padding-top: 0;
+
+            > .row {
+                border-bottom: solid 1px #DDDDDD;
+                min-height: 30vh;
+
+                padding-top: 5px;
+                padding-bottom: 40px;
+
+                .title h1 {
+                    font-size: 16pt;
+                    margin-bottom: 20px;
+                }
+
+                .icon {
+                    width: 70%;
+                    margin-left: 15%;
+                    margin-right: 15%;
+                }
+
+                .uib-timepicker {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+    }
 }
 
 .auction-card {
@@ -154,49 +184,5 @@
         @media @mobile {
             font-size: 10px;
         }
-    }
-}
-
-/* Large Devices, Wide Screens */
-@media @desktop-xl {
-    .step-image {
-        max-width: 200px;
-        max-height: 200px;
-
-        width: 20%;
-        height: 20%;
-    }
-}
-
-/* Medium Devices, Desktops */
-@media @desktop {
-    .step-image {
-        max-width: 250px;
-        max-height: 250px;
-
-        width: 25%;
-        height: 25%;
-    }
-}
-
-/* Small Devices, Tablets */
-@media @tablet {
-    .step-image {
-        max-width: 300px;
-        max-height: 300px;
-
-        width: 30%;
-        height: 30%;
-    }
-}
-
-/* Extra Small Devices, Phones */
-@media @mobile {
-    .step-image {
-        max-width: 300px;
-        max-height: 300px;
-
-        width: 35%;
-        height: 35%;
     }
 }
