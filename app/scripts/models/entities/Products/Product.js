@@ -18,7 +18,6 @@
 
                 this.description = null;
                 this.isUsed = null;
-                this.isDeleted = null;
                 this.isSold = null;
                 this.auctionList = null;
                 this.status = null;

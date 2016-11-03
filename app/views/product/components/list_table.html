@@ -8,9 +8,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="product in productCtrl.user.productList | filter:{isDeleted:false}" ng-click="productCtrl.productDetail(product)">
+    <tr ng-repeat="product in productCtrl.user.productList" ng-click="productCtrl.productDetail(product)">
         <td>{{product.title}}</td>
-        <td>{{product.status}}</td>
+        <td ng-if="product.status==='pending'">Pendente</td>
+        <td ng-if="product.status==='auctioning'">Em Leilão</td>
+        <td ng-if="product.status==='awaiting'">Agendado</td>
+        <td ng-if="product.status==='sold'">Vendido</td>
         <td ng-if="false">
             <button class="btn btn-xs btn-danger" ng-show="product.status ==='Pendente'" ng-click="productCtrl.removeProduct(product)">
                 <i class="fa fa-trash"></i>
