@@ -14,17 +14,9 @@ angular.module('lanceSolidario')
                 self.user = facebookAPI.user;
                 return self.user._loadProducts()
                     .then(function () {
-                        var promisses = [];
-                        for (var prodIndx in self.user.productList) {
-                            var product = self.user.productList[prodIndx];
-                            promisses.push(product._loadAuctions());
-                        }
-                        return $q.all(promisses);
-                    })
-                    .then(function () {
                         self.loading = false;
                     }, function (err) {
-                        failFeedback(err)
+                        failFeedback(err);
                     });
             }
         }
@@ -32,31 +24,9 @@ angular.module('lanceSolidario')
 
         init();
 
-        self.stopAuction = function (product) {
-            alert('yey')
-        };
-
-        self.startAuction = function (product) {
-            alert('yey')
-        };
-
         self.productDetail = function (product) {
             shareData.set(product, 'lastProduct');
             $location.path('/user/products/' + product.productId);
-        };
-
-        self.removeProduct = function (product) {
-            if (!product.auctionList) {
-                product.isDeleted = true;
-                product._update().then(function () {
-                    init();
-                    successFeedback('Yay');
-                }, function (err) {
-                    failFeedback(err)
-                })
-            } else {
-                failFeedback('Esse produto não pode ser removido');
-            }
         };
 
         var successFeedback = function (message) {
@@ -64,8 +34,8 @@ angular.module('lanceSolidario')
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b> Houve algum problema na requisição. Tente novamente.');
-            console.log('Error: ' + error);
+            var aux = (typeof error) == 'string';
+            ngToast.danger('<b> Erro!</b>' + aux ? error : 'Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 
