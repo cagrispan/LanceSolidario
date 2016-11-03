@@ -17,10 +17,18 @@ angular.module('lanceSolidario')
                 self.auctionToAdd.facebookId = self.user.facebookId;
                 self.auctionToAdd.institutionId = 1;
                 self.finalTimeToAdd = '2';
-                self.product;
+                self.product = null;
 
 
-                self.user._loadProducts().catch(function () {
+                self.user._loadProducts().then(function () {
+                    var i = 0;
+                    while (self.product === null && i < self.user.productList.length) {
+                        if (self.user.productList[i] && self.user.productList[i].status === 'pending') {
+                            self.product = self.user.productList[i];
+                        }
+                        i++;
+                    }
+                }, function () {
                     failFeedback('Problema ao carregar suas doações. Tente novamente.');
                 });
             }
