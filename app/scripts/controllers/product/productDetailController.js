@@ -19,7 +19,16 @@ angular.module('lanceSolidario')
                 self.user = facebookAPI.user;
                 self.product = shareData.get('lastProduct');
                 if (self.product) {
-                    self.product._loadImages();
+
+                    self.product._loadAuctions()
+                        .then(function () {
+                            self.product._loadImages().catch(function () {
+                                failFeedback('Problemas ao carregar o produto. Tente novamente.');
+                            });
+                        }, function () {
+                            failFeedback('Problemas ao carregar os leilões do produto. Tente novamente.');
+                        })
+                    
                 } else if ($routeParams.productId) {
 
                     self.product = new Product();
@@ -27,15 +36,19 @@ angular.module('lanceSolidario')
                     self.product.facebookId = facebookAPI.user.facebookId;
 
 
-                    self.product._load().then(function () {
-                        return self.product._loadAuctions().catch(function () {
-                            failFeedback('Problemas ao carregar os leilões do produto. Tente novamente.');
-                        }).then(function () {
-                            return self.product._loadImages().catch(function () {
-                                failFeedback('Problemas ao carregar o produto. Tente novamente.');
-                            })
+                    self.product._load()
+                        .then(function () {
+                            self.product._loadAuctions();
                         })
-                    });
+                        .then(function () {
+                            self.product._loadImages().catch(function () {
+                                failFeedback('Problemas ao carregar o produto. Tente novamente.');
+                            });
+                        }, function () {
+                            failFeedback('Problemas ao carregar os leilões do produto. Tente novamente.');
+                        })
+
+
                 }
                 else {
                     failFeedback('Problemas ao carregar o produto. Tente novamente.');
@@ -122,7 +135,7 @@ angular.module('lanceSolidario')
         };
 
         self.closeAuction = function (auction) {
-            auction.isClosed = true;
+            auction.isCanceled = true;
             auction._update()
                 .then(function () {
                     successFeedback('Leilão fechado com sucesso');
@@ -153,4 +166,5 @@ angular.module('lanceSolidario')
 
     }
 
-    ]);
+    ])
+;
