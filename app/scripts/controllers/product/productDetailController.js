@@ -82,24 +82,25 @@ angular.module('lanceSolidario')
 
                         var promises = [];
 
-                        for (i = 0; i < self.product.imageList.length; i++) {
+                        var i;
+
+                        for (i in self.product.imageList) {
                             if (!self.product.imageList[i].imageId) {
                                 promise = self.product.imageList[i]._add(self.user);
                                 promises.push(promise);
                             }
                         }
 
-                        for (i = 0; i < self.imagesToRemove.length; i++) {
-                            if (self.product.imageList[i].imageId) {
-                                promise = self.imagesToRemove[i]._remove(self.user);
-                                promises.push(promise);
-                            }
+                        for (i in self.imagesToRemove) {
+                            promise = self.imagesToRemove[i]._remove(self.user);
+                            promises.push(promise);
                         }
 
                         $q.all(promises).then(function () {
                             self.product._load().then(function () {
                                 shareData.set(self.product, 'lastProduct');
-
+                                successFeedback('Produto salvo com sucesso.');
+                                init();
                             });
                         }, function (err) {
                             failFeedback('Problema ao atualizar as imagens. Tente novamente.')
