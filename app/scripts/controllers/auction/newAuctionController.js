@@ -1,12 +1,13 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('NewAuctionCtrl', ['facebookAPI', '$location', 'Auction', function (facebookAPI, $location, Auction) {
+    .controller('NewAuctionCtrl', ['facebookAPI', '$location', 'Auction', 'shareData', 'ngToast', function (facebookAPI, $location, Auction, shareData, ngToast) {
 
         var self = this;
 
         function init() {
             //Useful flags
             self.loading = true;
+            shareData.set($location.path(), 'lastPath');
 
             if (!facebookAPI.user) {
                 $location.path('/login');
@@ -15,42 +16,54 @@ angular.module('lanceSolidario')
                 self.auctionToAdd = new Auction();
                 self.auctionToAdd.facebookId = self.user.facebookId;
                 self.auctionToAdd.institutionId = 1;
+                self.finalTimeToAdd = '2';
+                self.product;
 
-                self.user._loadProducts().then(function () {
-                    self.product = self.user.productList[0];
-                },function () {
-                    failFeedback('Load Products Error');
+
+                self.user._loadProducts().catch(function () {
+                    failFeedback('Problema ao carregar suas doações. Tente novamente.');
                 });
             }
         }
 
-        self.addAuction = function () {
-            self.auctionToAdd.productId = self.product.productId;
-            self.auctionToAdd.startDate = self.dt;
-            self.auctionToAdd.endDate = new Date();
-            self.auctionToAdd.endDate.setDate(self.dt.getDate()+2);
 
-            self.auctionToAdd._add().then(function () {
-                successFeedback('Leilão Adicionado com sucesso');
-            }, function () {
-                failFeedback('Auction Add Error');
-            });
+        self.addAuction = function () {
+            if (self.dt < new Date()) {
+                failFeedback('O inicio do leilão deve ser posterior a data atual. Verifique os dados e tente novamente.');
+            } else {
+                if (!self.product) {
+                    failFeedback('É necessario escolher uma doação para o leilão.')
+                } else {
+                    self.auctionToAdd.productId = self.product.productId;
+                    self.auctionToAdd.startDate = self.dt;
+                    self.auctionToAdd.endDate = self.dt;
+                    self.auctionToAdd.endDate.setDate(self.dt.getDate() + parseFloat(self.finalTimeToAdd));
+
+                    self.auctionToAdd._add().then(function (data) {
+                        successFeedback('Leilão Adicionado com sucesso');
+                        $location.path('/auctions/' + data.auctionId);
+                    }, function () {
+                        failFeedback('Problemas ao adicionar leilão. Verifique as informações e tente novamente.');
+                    });
+                }
+            }
         };
 
 
         var successFeedback = function (message) {
-            alert(message);
+            ngToast.success(message);
         };
 
         var failFeedback = function (error) {
-            alert('Erro');
+            var aux = (typeof error) == 'string';
+            ngToast.danger('<b> Erro!</b>' + aux ? error : 'Houve algum problema na requisição. Tente novamente.');
             console.log(JSON.stringify(error))
         };
 
         init();
 
 
-        //---------------------------------- Date Control -----------------------------------
+//---------------------------------- Date Control -----------------------------------
 
 
         self.setDate = function (year, month, day) {
@@ -92,4 +105,6 @@ angular.module('lanceSolidario')
 
         self.dt = date;
         self.options.minDate = new Date();
-    }]);
+    }
+    ])
+;
