@@ -26,6 +26,11 @@
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
 
+            delete objectToSend.productId;
+            delete objectToSend.auctionList;
+            delete objectToSend.imageList;
+            delete objectToSend.status;
+
             //Make the request
             return webService.add(endpoint, objectToSend, headers).then(
                 function (resolve) {
@@ -64,6 +69,10 @@
 
                 return $q.reject({errorMessage: 'FacebookId missing'});
             }
+
+            delete objectToSend.auctionList;
+            delete objectToSend.imageList;
+            delete objectToSend.status;
 
             //Make the request
             return webService.update(endpoint, objectToSend, headers).then(
