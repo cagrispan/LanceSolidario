@@ -21,6 +21,7 @@
                 this.isDeleted = null;
                 this.isSold = null;
                 this.auctionList = null;
+                this.status = null;
 
                 //Image
                 this.imageList = null;

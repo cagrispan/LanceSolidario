@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="container-fluid auction">
-        <form class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard">
+        <form class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 wizard" ng-submit="auctionCtrl.addAuction()">
 
 
             <div class="panel panel-default">
@@ -24,9 +24,9 @@
                             </label>
 
                             <select class="form-control" id="auction_product"
-                                    ng-options="product as product.title for product in auctionCtrl.user.productList"
-                                    ng-model="auctionCtrl.product">
-                            </select>
+                                    ng-options="product as product.title for product in auctionCtrl.user.productList | filter:{status:'pending'}"
+                                    ng-model="auctionCtrl.product" >
+                            </select >
 
                             <br>
 
@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="col-sm-10 form-group">
-                            <label for="auction_price"> Qual o valor inicial?</label>
+                            <label for="auction_price"> Qual o valor inicial? R$ </label>
                             <input type="number" class="form-control" id="auction_price" min="5.0" step="0.01"
                                    placeholder="Ex: R$ 50,00" ng-model="auctionCtrl.auctionToAdd.minimumBid" required>
                         </div>
@@ -114,11 +114,12 @@
                                 <br>
 
                                 <label> Tempo ativo:</label>
-                                <select class="form-control">
-                                    <option value="6">6h</option>
-                                    <option value="12">12h</option>
-                                    <option value="24">24h</option>
-                                    <option value="72">72h</option>
+                                <select ng-model='auctionCtrl.finalTimeToAdd' ng-init="2" class="form-control">
+                                    <option value="0.25">6h</option>
+                                    <option value="0.5">12h</option>
+                                    <option value="1">24h</option>
+                                    <option value="2">2d</option>
+                                    <option value="7">7d</option>
                                 </select>
 
                             </div>
@@ -128,7 +129,7 @@
                     <!-- Shipping Section -->
                     <div class="row">
                         <div class="col-xs-12 title">
-                            <h1>Valor Inicial</h1>
+                            <h1>Envio</h1>
                         </div>
 
                         <div class="col-sm-2 hidden-xs">
@@ -178,8 +179,7 @@
                             </table>
 
                             <div class="container-fluid text-center">
-                                <button type="submit" class="btn btn-lg btn-success"
-                                        ng-click="auctionCtrl.addAuction()">
+                                <button type="submit" class="btn btn-lg btn-success">
                                     Tudo certo! Criar leilão
                                 </button>
                             </div>
