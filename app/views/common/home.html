@@ -41,18 +41,23 @@
 
     <div class="container">
         <div class="row">
-            <h2>Leilões Futuros:</h2>
+            <h2>Leilões Acontecendo:</h2>
             <hr>
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3"
                  ng-repeat="auction in homeCtrl.auctionList | filter:{status:'active'} | orderBy:endDate | limitTo:4">
 
                 <div class="panel panel-default auction-card">
                     <div class="value text-center">
-                        <span ng-if="auction.status === 'active'">Termina em</span><span ng-if="auction.status === 'pending'">Começa em</span>
+                        [ Título: ] {{auction.title.substring(0,20) + "..."}}
                     </div>
 
                     <div class="panel-image">
                         <img ng-src="data:image/*;base64,{{auction.image}}" class="img-responsive" alt="">
+                    </div>
+
+                    <div class="text-center">
+                        <span ng-if="auction.status === 'active'">Termina em</span>
+                        <span ng-if="auction.status === 'pending'">Começa em</span>
                     </div>
 
                     <div class="counter text-center">
