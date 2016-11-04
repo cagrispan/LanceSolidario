@@ -2,6 +2,16 @@
 .auction .container {
   padding-top: 20px !important;
 }
+.auction .container form {
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-bottom: 35px;
+}
+.auction .container form #search {
+  margin-left: 15px;
+  margin-right: 15px;
+  min-width: 40vw;
+}
 .auction .section {
   padding-top: 8%;
   padding-bottom: 8%;
