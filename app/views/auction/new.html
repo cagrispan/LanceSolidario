@@ -114,12 +114,14 @@
                                 <br>
 
                                 <label> Tempo ativo:</label>
-                                <select ng-model='auctionCtrl.finalTimeToAdd' ng-init="2" class="form-control">
-                                    <option value="0.25">6h</option>
-                                    <option value="0.5">12h</option>
-                                    <option value="1">24h</option>
-                                    <option value="2">2d</option>
-                                    <option value="7">7d</option>
+                                <select ng-model='auctionCtrl.finalTimeToAdd' ng-init="2" class="form-control" convert-to-number>
+                                    <option value="1">1 dias</option>
+                                    <option value="2">2 dias</option>
+                                    <option value="3">3 dias</option>
+                                    <option value="4">4 dias</option>
+                                    <option value="5">5 dias</option>
+                                    <option value="6">6 dias</option>
+                                    <option value="7">7 dias</option>
                                 </select>
 
                             </div>

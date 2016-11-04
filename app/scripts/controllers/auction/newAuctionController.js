@@ -36,7 +36,7 @@ angular.module('lanceSolidario')
 
 
         self.addAuction = function () {
-            if (self.dt < new Date()) {
+            if (false) {
                 failFeedback('O inicio do leilão deve ser posterior a data atual. Verifique os dados e tente novamente.');
             } else {
                 if (!self.product) {
@@ -44,9 +44,9 @@ angular.module('lanceSolidario')
                 } else {
                     self.auctionToAdd.productId = self.product.productId;
                     self.auctionToAdd.startDate = self.dt;
-                    self.auctionToAdd.endDate = self.dt;
-                    self.auctionToAdd.endDate.setDate(self.dt.getDate() + parseFloat(self.finalTimeToAdd));
-
+                    self.auctionToAdd.endDate = new Date();
+                    self.auctionToAdd.endDate.setDate(self.dt.getDate() + parseInt(self.finalTimeToAdd));
+                    console.log()
                     self.auctionToAdd._add().then(function (data) {
                         successFeedback('Leilão Adicionado com sucesso');
                         $location.path('/auctions/' + data.auctionId);

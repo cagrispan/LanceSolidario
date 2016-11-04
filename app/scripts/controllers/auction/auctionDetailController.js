@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout',
-        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout) {
+    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route',
+        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route) {
 
             var self = this;
             var mSecondsToGetBids = 3000;
@@ -11,11 +11,10 @@ angular.module('lanceSolidario')
             self.newBid = null;
             self.duration = false;
             self.donor = {};
-            self.user = {facebookId: ''};
+            self.user = {facebookId: 'noUser'};
             self.wining = 'first';
             self.auctionFinish = false;
             self.winningBid = {userId: ''};
-
 
             function init() {
                 //Useful flags
@@ -34,14 +33,19 @@ angular.module('lanceSolidario')
                 if (self.auction) {
                     self.loading = false;
 
+                    self.duration = getCountDown();
+
+
+                    //TODO: This one is a big shit #1
                     if (self.auction.status === 'finished') {
                         self.auctionFinish = true;
-                    } else {
-                        self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
                     }
-                    if (self.duration < 0) {
+
+                    //TODO: This one is a big shit #2
+                    if (self.duration <= 0) {
                         self.duration = 0.0001;
                     }
+
                     loadDonor(self.auction.userId);
                     loadProduct();
                     loadBidsTask(self.auction);
@@ -51,15 +55,18 @@ angular.module('lanceSolidario')
                     self.auction = new Auction();
                     self.auction.auctionId = $routeParams.auctionId;
 
-                    self.auction._load().then(function () {
 
+                    self.auction._load().then(function () {
+                        self.duration = getCountDown();
+
+                        //TODO: This one is a big shit #1
                         if (self.auction.status === 'finished') {
                             self.auctionFinish = true;
-                        } else {
-                            self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
-                            if (self.duration < 0) {
-                                self.duration = 0.0001;
-                            }
+                        }
+
+                        //TODO: This one is a big shit #2
+                        if (self.duration <= 0) {
+                            self.duration = 0.0001;
                         }
 
                         loadDonor(self.auction.userId);
@@ -140,6 +147,18 @@ angular.module('lanceSolidario')
                 }
             }
 
+            function getCountDown() {
+                if (self.auction.status === 'pending') {
+                    console.log((new Date(self.auction.startDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000);
+                    return (new Date(self.auction.startDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000;
+                } else if (self.auction.status === 'active') {
+                    console.log((new Date(self.auction.endDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000);
+                    return (new Date(self.auction.endDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000;
+                } else {
+                    return 0;
+                }
+            }
+
             function getWinningBid() {
                 self.auction.bidList.sort(function (a, b) {
                     return b.bid - a.bid;
@@ -150,11 +169,14 @@ angular.module('lanceSolidario')
                         return self.auction.bidList[indx];
                     }
                 }
+                return self.winningBid;
             }
 
 
             self.finishAction = function () {
-                self.auctionFinish = true;
+                if (self.auction.status ==='active' || self.auction.status ==='pending'  ) {
+                    $route.reload();
+                }
             };
 
 
@@ -191,7 +213,7 @@ angular.module('lanceSolidario')
                 if (!facebookAPI.user) {
                     ngToast.info('Por favor, realize login para fazer um lance.');
                     $timeout($location.path.bind($location, '/login'), 100);
-                } else if (self.auction.bidList[self.auction.bidList.length - 1].userId === self.user.facebookId) {
+                } else if (self.winningBid.userId === self.user.facebookId) {
                     ngToast.warning('O seu lance ainda esta ganhando esse leilão, realmente deseja cobrir seu próprio lance?');
                     self.showBidForm = !self.showBidForm;
 
@@ -210,11 +232,10 @@ angular.module('lanceSolidario')
 
             var failFeedback = function (error) {
                 var aux = (typeof error) == 'string';
-                ngToast.danger('<b> Erro!</b>' + aux ? error : 'Houve algum problema na requisição. Tente novamente.');
+                ngToast.danger('<b> Erro!</b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
                 console.log(JSON.stringify(error))
             };
 
 
             init();
-        }])
-;
+        }]);
