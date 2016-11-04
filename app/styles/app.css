@@ -441,6 +441,45 @@
   background: #FFFFFF !important;
   color: #3c3c3c !important;
 }
+.page404 .wallpaper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  background-image: url("../images/404bg.gif");
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+.page404 .wallpaper .fadeover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  height: 100vh;
+  width: 100vw;
+}
+.page404 .wallpaper .fadeover .message {
+  color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 2px 2px 0 #0f0f0f;
+  padding-top: calc(50vh - 150px);
+  height: 200px;
+  width: 400px;
+}
+.page404 .wallpaper .fadeover .message h1 {
+  font-size: 50pt;
+}
+.page404 .wallpaper .fadeover .message p {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
 @font-face {
   font-family: markMyWords;
   src: url('../fonts/mark_my_words.ttf');
