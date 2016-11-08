@@ -45,7 +45,7 @@
             );
         };
 
-        self.load = function (purchase, user) {
+        self.load = function (purchase) {
             var headers = {};
             var endpoint = '';
             var token = apiToken.getApiToken();
@@ -57,8 +57,8 @@
                 return $q.reject({errorMessage: 'Access token missing'});
             }
 
-            if (user && user.facebookId) {
-                endpoint = '/users/' + user.facebookId + '/purchases/' + purchase.purchaseId ;
+            if (purchase && purchase.facebookId) {
+                endpoint = '/users/' + purchase.facebookId + '/purchases/' + purchase.purchaseId ;
             } else {
                 return $q.reject({errorMessage: 'Id missing'});
             }
