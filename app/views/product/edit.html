@@ -47,38 +47,45 @@
                             </div>
                         </form>
                     </div>
-                    <div class="container-fluid image-manager">
+
+                    <div class="col-sm-12 container-fluid">
                         <h3>Imagens da doação:</h3>
                         <br>
 
-                        <div class="col-xs-3 v-m-parent" ng-if="productCtrl.product.imageList.length<3"
+                        <div class="col-sm-12 text-center" ng-if="productCtrl.product.imageList.length<3"
                              ng-show="productCtrl.product.status==='pending'">
-                            <div class="dummy"></div>
-                            <label class="add-new-image v-m-child">
-                                <i class="fa fa-plus fa-2x"></i><br>
+                            <label class="btn btn-primary">
+                                <i class="fa fa-plus"></i>
+
                                 Escolher Imagens <input type="file" style="display: none;"
                                                         ng-model="productCtrl.image"
                                                         on-after-validate="productCtrl.addImage"
                                                         maxsize="5000" base-sixty-four-input>
                             </label>
                         </div>
+                    </div>
 
-                        <div class="col-xs-3" ng-repeat="image in productCtrl.product.imageList">
-                            <div class="dummy"></div>
+                    <div class="col-sm-12 container-fluid image-manager">
 
-                            <div class="thumbnail-square"
-                                 ng-style="{'background-image': 'url(data:image/*;base64,{{image.base64}})'}">
-                                <div class="fade-hover text-right">
-                                    <button class="btn btn-danger btn-xs"
-                                            ng-show="productCtrl.product.status==='pending'"
-                                            ng-click="productCtrl.removeImage($index)">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
+                        <div class="col-xs-4" ng-repeat="image in productCtrl.product.imageList">
+                            <div class="panel panel-default">
+                                <div class="col-xs-12">
+                                    <div class="dummy"></div>
+                                    <div class="thumbnail-square"
+                                         ng-style="{'background-image': 'url(data:image/*;base64,{{image.base64}})'}">
+                                        <div class="fade-hover text-right">
+                                            <button class="btn btn-danger btn-xs"
+                                                    ng-click="productCtrl.removeImage($index)">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
+
                     <br>
                     <div class="col-md-12" ng-if="productCtrl.product.imageList.length>=3">*Número máximo de fotos
                         atingido.
