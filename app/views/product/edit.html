@@ -56,6 +56,7 @@
                              ng-show="productCtrl.product.status==='pending'">
                             <label class="btn btn-primary">
                                 <i class="fa fa-plus"></i>
+
                                 Escolher Imagens <input type="file" style="display: none;"
                                                         ng-model="productCtrl.image"
                                                         on-after-validate="productCtrl.addImage"
@@ -116,16 +117,17 @@
                                     <td>{{auction.endDate | date:'dd/MM/yyyy hh:mm'}}</td>
                                     <td ng-if="auction.status === 'pending'">Agendado</td>
                                     <td ng-if="auction.status === 'active'">Em Leilão</td>
-                                    <td ng-if="auction.status === 'closed'">Cancelado</td>
-                                    <td ng-if="auction.status === 'finished'">Encerrado</td>
+                                    <td ng-if="auction.status === 'closed'">Encerrado</td>
+                                    <td ng-if="auction.status === 'canceled'">Cancelado</td>
 
                                     <td>
                                     <td ng-click="$event.stopPropagation()">
                                         <button
-                                            ng-show="auction.status ==='active'" class="btn btn-xs btn-danger"
+                                            ng-show="auction.status ==='active'||auction.status ==='pending'"
+                                            class="btn btn-xs btn-danger"
                                             ng-model="singleModel"
                                             uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0"
-                                            ng-if="!bid.isDeleted" class="btn btn-xs btn-danger"
+                                            class="btn btn-xs btn-danger"
                                             mwl-confirm
                                             title="Atenção!!"
                                             message="Deseja realmente realizar essa ação?"

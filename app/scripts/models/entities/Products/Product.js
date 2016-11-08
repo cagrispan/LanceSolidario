@@ -21,6 +21,8 @@
                 this.isSold = null;
                 this.auctionList = null;
                 this.status = null;
+                //TODO: FIX THIS SHIT
+                this.userId = null;
 
                 //Image
                 this.imageList = null;
