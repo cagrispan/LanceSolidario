@@ -194,7 +194,7 @@
                     auction.endDate = new Date(auction.endDate);
                     auction.startDate = new Date(auction.startDate);
                     //TODO: FIX THIS SHIT
-                    auction.userId = auction.facebookId;
+                    auction.userId = auction.userId ? auction.userId : auction.facebookId;
                     return auction;
                 }
 
