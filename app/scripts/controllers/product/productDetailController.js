@@ -28,12 +28,13 @@ angular.module('lanceSolidario')
                         }, function () {
                             failFeedback('Problemas ao carregar os leilões do produto. Tente novamente.');
                         })
-                    
+
                 } else if ($routeParams.productId) {
 
                     self.product = new Product();
                     self.product.productId = $routeParams.productId;
-                    self.product.facebookId = facebookAPI.user.facebookId;
+                    self.product.facebookId= facebookAPI.user.facebookId;
+                    self.product.userId = facebookAPI.user.facebookId;
 
 
                     self.product._load()

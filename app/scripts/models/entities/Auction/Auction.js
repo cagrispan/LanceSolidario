@@ -191,22 +191,10 @@
                 this._setAuction = function (objectToSet) {
                     var auction = this;
                     auction._set(objectToSet);
-
-                    //Auction
-                    if (objectToSet.auctionId) {
-                        var auction = new Auction();
-                        auction.auctionId = objectToSet.auctionId;
-                        auction.endDate = new Date(auction.endDate);
-                        auction.startDate = new Date(auction.startDate);
-                        auction.auction = auction;
-                    }
-
-                    /*//Institution
-                     if(auctionList[i].institutionId){
-                     var institution = new Institution();
-                     institution.institutionId = auctionList[i].institutionId;
-                     auction.institution = institution;
-                     }//*/
+                    auction.endDate = new Date(auction.endDate);
+                    auction.startDate = new Date(auction.startDate);
+                    //TODO: FIX THIS SHIT
+                    auction.userId = auction.facebookId;
                     return auction;
                 }
 
