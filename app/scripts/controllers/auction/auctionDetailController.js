@@ -175,7 +175,7 @@ angular.module('lanceSolidario')
 
             self.finishAction = function () {
                 if (self.auction.status ==='active' || self.auction.status ==='pending'  ) {
-                    $route.reload();
+                    $timeout($route.reload(),1000);
                 }
             };
 
