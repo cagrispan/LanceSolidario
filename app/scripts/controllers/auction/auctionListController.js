@@ -9,7 +9,7 @@ angular.module('lanceSolidario')
                 //Useful flags
                 self.loading = true;
 
-                    Auction._listAll()
+                Auction._listAll()
                     .then(function (auctionList) {
                         self.auctionList = auctionList;
 
@@ -25,9 +25,9 @@ angular.module('lanceSolidario')
                     });
             }
 
-            self.openDetail = function(auction){
-              shareData.set(auction, 'lastAuction');
-                $location('auctions/'+auction.auctionId);
+            self.openDetail = function (auction) {
+                shareData.set(auction, 'lastAuction');
+                $location.path('auctions/' + auction.auctionId);
             };
 
 
@@ -37,7 +37,7 @@ angular.module('lanceSolidario')
 
 
             var failFeedback = function (error) {
-                ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
+                ngToast.danger('<b> Erro!</b>' + (typeof error) === 'string' ? error : 'Houve algum problema na requisição. Tente novamente.');
                 console.log(JSON.stringify(error))
             };
 

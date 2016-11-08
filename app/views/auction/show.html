@@ -38,17 +38,36 @@
 
                             <div class="col-sm-6 text-center">
                                 <div class="details">
-                                    <div class="counter" ng-if="!auctionDetailCtrl.auctionFinish">
-                                        <timer ng-if="auctionDetailCtrl.duration" countdown="auctionDetailCtrl.duration" max-time-unit="'hour'"
-                                               interval="1000" finish-callback="auctionDetailCtrl.finishAuction()">
-                                            {{hours<10?'0'+hours:hours}}:{{minutes<10?'0'+minutes:minutes}}:{{seconds<10? '0'+seconds:seconds}}
+                                    <div class="value" ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
+                                        <p>
+                                            Leilão Finalizado!!
+                                        </p>
+                                    </div>
+
+                                    <div class="value text-center" ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
+                                        <p>
+                                            Esse leilão foi cancelado.
+                                        </p>
+                                    </div>
+
+                                    <div class="value text-center" ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
+                                        <p>
+                                            Inicia em :
+                                        </p>
+                                    </div>
+
+                                    <div class="value text-center" ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
+                                        <p >
+                                            Termina em:
+                                        </p>
+                                    </div>
+
+                                    <div class="counter" ng-if="!auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
+                                        <timer ng-if="auctionDetailCtrl.duration" countdown="auctionDetailCtrl.duration" max-time-unit="'day'"
+                                               interval="1000" finish-callback="auctionDetailCtrl.finishAction()">
+                                            {{days}}d  {{hours<10?'0'+hours:hours}}h {{minutes<10?'0'+minutes:minutes}}m {{seconds<10? '0'+seconds:seconds}}s
                                         </timer>
 
-                                    </div>
-                                    <div class="counter" ng-if="auctionDetailCtrl.auctionFinish">
-                                        <span>
-                                            Leilão Finalizado!!
-                                        </span>
                                     </div>
                                     <div class="value">
                                         <p>{{auctionDetailCtrl.winningBid.bid
@@ -67,9 +86,8 @@
                                         </table>
                                     </div>
 
-                                    <div class="button">
+                                    <div class="button" ng-if="auctionDetailCtrl.auction.status === 'active'">
                                         <button class="btn btn-block btn-success btn-lg"
-                                                ng-disabled="auctionDetailCtrl.auctionFinish"
                                                 ng-click="auctionDetailCtrl.preBid()"
                                                 data-target="#bid">
                                             <i class="fa fa-gavel"></i> &nbsp; Dar Lance
@@ -77,7 +95,7 @@
                                     </div>
                                 </div>
 
-                                <div ng-if="auctionDetailCtrl.wining">Você esta Ganhando esse leilão!</div>
+                                <div ng-if="auctionDetailCtrl.winingBid.userId === auctionDetailCtrl.user.facebookId">Você esta Ganhando esse leilão!</div>
 
                                 <span id="bid" ng-if="auctionDetailCtrl.showBidForm">
                                     <br>

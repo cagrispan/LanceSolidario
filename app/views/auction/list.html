@@ -24,19 +24,17 @@
 
 
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3"
-                 ng-repeat="auction in auctionListCtrl.auctionList | filter:{status:'!closed'} | orderBy:endDate">
+                 ng-repeat="auction in auctionListCtrl.auctionList | orderBy:endDate">
 
-                <div class="panel panel-default auction-card">
-                    <div class="value text-center">
-                         [ Título ] {{auction.substring(0,20) + "..."}}
-                    </div>
-
+                <div class="panel panel-default auction-card" ng-click ="auctionListCtrl.openDetail(auction)">
                     <div class="panel-image">
                         <img ng-src="data:image/*;base64,{{auction.image}}" class="img-responsive" alt="">
                     </div>
 
                     <div class="text-center">
                         <span ng-if="auction.status === 'active'">Termina em</span>
+                        <span ng-if="auction.status === 'canceled'">Cancelado</span>
+                        <span ng-if="auction.status === 'closed'">Encerrado</span>
                         <span ng-if="auction.status === 'pending'">Começa em</span>
                     </div>
 
