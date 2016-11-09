@@ -44,6 +44,9 @@
             <h2>Leilões Acontecendo:</h2>
             <hr>
 
+            <div class="loading" ng-show="!(homeCtrl.auctionList | filter: {status: 'active'})">
+            </div>
+
             <span ng-if="(homeCtrl.auctionList | filter: {status: 'active'}).length <= 0">
                 Não há leilões abertos no momento.
             </span>
