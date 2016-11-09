@@ -1,30 +1,28 @@
 <div class="auction">
     <div class="container">
         <form class="form row">
-            <div class="form-group col-sm-8 col-md-10">
-                <label for="search" class="control-label">Buscar por: </label>
-                <input type="text" class="form-control" id="search" placeholder="">
-            </div>
-
-            <div class="form-group col-sm-4 col-md-2">
+            <!-- <div class="form-group col-sm-8 col-md-10">
+                 <label for="search" class="control-label"> </label>
+                 <input type="text" ng-model="auctionListCtrl.searchParam" class="form-control" id="search" placeholder="">
+             </div>
+               -->
+            <div class="form-group col-sm-4 col-md-3">
                 <label for="order" class=" control-label">Ordenar: </label>
-                <select class="form-control" id="order" placeholder="">
-                    <option value=""></option>
-                    <option value="">Nome</option>
-                    <option value="">Leilões Abertos</option>
-                    <option value="">Menor Preço</option>
-                    <option value="">Maior Preço</option>
+                <select class="form-control" id="order"
+                        ng-options="orderBy as orderBy.title for orderBy in auctionListCtrl.orderByList"
+                        ng-model="auctionListCtrl.orderBy">
                 </select>
             </div>
         </form>
 
         <div class="container-fluid">
-
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3"
-                 ng-repeat="auction in auctionListCtrl.auctionList | filter:{status:'!canceled'} | orderBy:endDate">
+                 ng-repeat="auction in (auctionListCtrl.auctionList | filter:{status:'!canceled'})| filter:{status:auctionListCtrl.orderBy.status}| orderBy:auctionListCtrl.orderBy.orderBy:auctionListCtrl.orderBy.reverse">
 
-
-                <div class="panel panel-default auction-card">
+                <div class="panel panel-default auction-card" ng-click="auctionListCtrl.openDetail(auction)">
+                    <!--<div class="value text-center">
+                        {{ auction.title.substring(0,20) + "..."}}
+                    </div>-->
                     <div class="col-xs-12 image">
                         <div class="dummy"></div>
                         <div class="thumbnail-square"
@@ -45,14 +43,15 @@
                         </div>
 
                         <timer countdown="auction.duration"
-                               max-time-unit="'hour'"
-                               interval="1000">
-                            {{hours}}:{{minutes}}:{{seconds}}
+                               max-time-unit="'day'"
+                               interval="1000" finish-callback="auctionDetailCtrl.finishAction()">
+                            {{days}}d {{hours<10?'0'+hours:hours}}h {{minutes<10?'0'+minutes:minutes}}m {{seconds<10?
+                            '0'+seconds:seconds}}s
                         </timer>
                     </div>
 
                     <div class="value text-center">
-                        {{auction.maxBid ? auction.maxBid : auction.minimumBid| currency:'R$ '}}
+                        {{auction.bid| currency:'R$ '}}
                     </div>
 
                 </div>
