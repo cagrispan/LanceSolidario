@@ -1,13 +1,43 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AuctionListCtrl', ['facebookAPI', '$location', 'Auction', 'shareData',
-        function (facebookAPI, $location, Auction, shareData) {
+    .controller('AuctionListCtrl', ['facebookAPI', '$location', 'Auction', 'shareData', 'ngToast',
+        function (facebookAPI, $location, Auction, shareData, ngToast) {
 
             var self = this;
 
+            self.orderByList =
+                [
+                    {
+                        title: 'Preço mais alto',
+                        status: 'active',
+                        reverse: true,
+                        orderBy: 'bid'
+                    },
+                    {
+                        title: 'Preço mais baixo',
+                        status: 'active',
+                        reverse: false,
+                        orderBy: 'bid'
+                    },
+                    {
+                        title: 'Mais próximo des terminar',
+                        status: 'active',
+                        reverse: false,
+                        orderBy: 'endDate'
+                    },
+                    {
+                        title: 'Mais próximo de começar',
+                        status: 'pending',
+                        reverse: false,
+                        orderBy: 'startDate'
+                    }
+                ];
+
+            self.orderBy = self.orderByList[0];
             function init() {
                 //Useful flags
                 self.loading = true;
+
 
                 Auction._listAll()
                     .then(function (auctionList) {
@@ -21,7 +51,10 @@ angular.module('lanceSolidario')
                             } else {
                                 self.auctionList[i].duration = 0;
                             }
+                            self.auctionList[i].bid = parseFloat(self.auctionList[i].maxBid ? self.auctionList[i].maxBid : self.auctionList[i].minimumBid);
                         }
+                    }, function (err) {
+                        failFeedback(err, 'Problemas ao carregar os leilão.Tente novamente.');
                     });
             }
 
@@ -35,9 +68,9 @@ angular.module('lanceSolidario')
                 ngToast.success(message);
             };
 
-
-            var failFeedback = function (error) {
-                ngToast.danger('<b> Erro!</b>' + (typeof error) === 'string' ? error : 'Houve algum problema na requisição. Tente novamente.');
+            var failFeedback = function (error, message) {
+                var aux = (typeof error) == 'string';
+                ngToast.danger('<b> Erro!</b>' + (aux ? error : (message? ' '+ message: ' Houve algum problema na requisição. Tente novamente.')));
                 console.log(JSON.stringify(error))
             };
 
