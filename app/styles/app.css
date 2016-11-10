@@ -46,82 +46,106 @@
 .auction .section .cover-image:hover {
   border: solid #e38d13 1px;
 }
-.auction .show .title {
+.auction .opened {
+  color: #FFFFFF;
+  background: #00CF92;
+}
+.auction .closed {
+  color: #0e0e0e;
+  background: #a8a8a8;
+}
+.auction .scheduled {
+  color: #FFFFFF;
+  background: #016DB8;
+}
+.auction .canceled {
+  color: #FFFFFF;
+  background: #b80e03;
+}
+.auction .title {
   color: #05283F;
   font-size: 20pt;
 }
-.auction .show .info .details {
+.auction .auction-info .details {
   border: solid 1px #DDDDDD;
 }
-.auction .show .info .details .value > p {
+.auction .auction-info .details .photo-view {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 500px;
+}
+.auction .auction-info .details .value > p {
   font-size: 40px;
 }
 @media only screen and (max-width: 529px) {
-  .auction .show .info .details .value > p {
+  .auction .auction-info .details .value > p {
     font-size: 20px;
   }
 }
-.auction .show .info .details .value table {
+.auction .auction-info .details .value table {
   border: 0;
   width: 100%;
   margin-bottom: 0;
 }
-.auction .show .info .details .counter {
-  color: #FFFFFF;
+.auction .auction-info .details .counter {
   font-size: 40px;
   width: 100%;
-  background: #00CF92;
 }
 @media only screen and (max-width: 529px) {
-  .auction .show .info .details .counter {
+  .auction .auction-info .details .counter {
     font-size: 20px;
   }
 }
-.auction .show .info .details .button > .btn {
+.auction .auction-info .details .counter p {
+  font-size: 15px;
+}
+.auction .auction-info .details .button > .btn {
   height: 50px;
   font-size: 20px;
   background-color: #00CF92;
 }
 @media only screen and (max-width: 529px) {
-  .auction .show .info .details .button > .btn {
+  .auction .auction-info .details .button > .btn {
     height: 50px;
     font-size: 20px;
   }
 }
-.auction .show .info .details .button > .btn:hover {
+.auction .auction-info .details .button > .btn:hover {
   background: #40D7AB;
 }
-.auction .show .info .details p {
+.auction .auction-info .details p {
   margin-bottom: 0;
 }
-.auction .show .info-icon {
+.auction .info-icon {
   display: block;
   margin: 0 auto;
-  width: 50%;
+  width: 20%;
 }
-.auction .show h2 {
+.auction h2 {
   font-size: 14pt;
   font-weight: bold;
 }
-.auction .wizard .panel-body {
+.auction .panel-body {
   padding-top: 0;
 }
-.auction .wizard .panel-body > .row {
+.auction .panel-body > .row {
   border-bottom: solid 1px #DDDDDD;
   min-height: 30vh;
   padding-top: 5px;
   padding-bottom: 40px;
 }
-.auction .wizard .panel-body > .row .title h1 {
+.auction .panel-body > .row .title h1 {
   font-size: 16pt;
   margin-bottom: 20px;
 }
-.auction .wizard .panel-body > .row .icon {
+.auction .panel-body > .row .icon {
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
 }
-.auction .wizard .panel-body > .row .uib-timepicker {
+.auction .panel-body > .row .uib-timepicker {
   margin-left: auto;
   margin-right: auto;
 }
@@ -146,18 +170,6 @@
   .auction-card .counter timer {
     font-size: 10px;
   }
-}
-.auction-card .opened {
-  color: #FFFFFF;
-  background: #00CF92;
-}
-.auction-card .closed {
-  color: #0e0e0e;
-  background: #a8a8a8;
-}
-.auction-card .scheduled {
-  color: #FFFFFF;
-  background: #016DB8;
 }
 .auction-card .value {
   -webkit-margin-before: 0 !important;
@@ -203,7 +215,7 @@
 .content .full-section .back-image h2 {
   font-size: 35pt !important;
 }
-.content .info {
+.content .home-info {
   height: 35vh !important;
 }
 .login-box {

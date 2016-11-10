@@ -62,107 +62,134 @@
         .cover-image:hover {
             border: solid #e38d13 1px;
         }
+
     }
 
-    .show {
-        .title {
-            color: #05283F;
-            font-size: 20pt;
+    .opened {
+        color: #FFFFFF;
+        background: #00CF92;
+    }
 
-        }
+    .closed {
+        color: #0e0e0e;
+        background: #a8a8a8;
+    }
 
-        .info {
-            .details {
-                border: solid 1px #DDDDDD;
+    .scheduled {
+        color: #FFFFFF;
+        background: #016DB8;
+    }
 
-                .value {
-                    > p {
-                        font-size: 40px;
+    .canceled {
+        color: #FFFFFF;
+        background: #b80e03;
+    }
 
-                        @media @mobile {
-                            font-size: 20px;
-                        }
-                    }
+    .title {
+        color: #05283F;
+        font-size: 20pt;
+    }
 
-                    table {
-                        border: 0;
-                        width: 100%;
-                        margin-bottom: 0;
-                    }
-                }
+    .auction-info {
+        .details {
+            border: solid 1px #DDDDDD;
 
-                .counter {
-                    color: #FFFFFF;
+            .photo-view {
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
 
+                height: 500px;
+            }
+
+            .value {
+                > p {
                     font-size: 40px;
+
+                    @media @mobile {
+                        font-size: 20px;
+                    }
+                }
+
+                table {
+                    border: 0;
                     width: 100%;
-                    background: #00CF92;
-
-                    @media @mobile {
-                        font-size: 20px;
-                    }
-
-                }
-
-                .button > .btn {
-                    height: 50px;
-                    font-size: 20px;
-                    background-color: #00CF92;
-
-                    @media @mobile {
-                        height: 50px;
-                        font-size: 20px;
-                    }
-                }
-
-                .button > .btn:hover {
-                    background: #40D7AB;
-                }
-
-                p {
                     margin-bottom: 0;
                 }
             }
-        }
 
-        .info-icon {
-            display: block;
-            margin: 0 auto;
-            width: 50%;
-        }
+            .counter {
 
-        h2 {
-            font-size: 14pt;
-            font-weight: bold;
+                font-size: 40px;
+                width: 100%;
+
+                @media @mobile {
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 15px;
+                };
+
+            }
+
+            .button > .btn {
+                height: 50px;
+                font-size: 20px;
+                background-color: #00CF92;
+
+                @media @mobile {
+                    height: 50px;
+                    font-size: 20px;
+                }
+            }
+
+            .button > .btn:hover {
+                background: #40D7AB;
+            }
+
+            p {
+                margin-bottom: 0;
+            }
         }
     }
 
-    .wizard {
-        .panel-body {
-            padding-top: 0;
+    .info-icon {
+        display: block;
+        margin: 0 auto;
+        width: 20%;
+    }
 
-            > .row {
-                border-bottom: solid 1px #DDDDDD;
-                min-height: 30vh;
+    h2 {
+        font-size: 14pt;
+        font-weight: bold;
+    }
 
-                padding-top: 5px;
-                padding-bottom: 40px;
+    .panel-body {
+        padding-top: 0;
 
-                .title h1 {
-                    font-size: 16pt;
-                    margin-bottom: 20px;
-                }
+        > .row {
+            border-bottom: solid 1px #DDDDDD;
+            min-height: 30vh;
 
-                .icon {
-                    width: 70%;
-                    margin-left: 15%;
-                    margin-right: 15%;
-                }
+            padding-top: 5px;
+            padding-bottom: 40px;
 
-                .uib-timepicker {
-                    margin-left: auto;
-                    margin-right: auto;
-                }
+            .title h1 {
+                font-size: 16pt;
+                margin-bottom: 20px;
+            }
+
+            .icon {
+                width: 70%;
+                margin-left: 15%;
+                margin-right: 15%;
+            }
+
+            .uib-timepicker {
+                margin-left: auto;
+                margin-right: auto;
             }
         }
     }
@@ -193,21 +220,6 @@
             }
         }
 
-    }
-
-    .opened {
-        color: #FFFFFF;
-        background: #00CF92;
-    }
-
-    .closed {
-        color: #0e0e0e;
-        background: #a8a8a8;
-    }
-
-    .scheduled {
-        color: #FFFFFF;
-        background: #016DB8;
     }
 
     .value {
