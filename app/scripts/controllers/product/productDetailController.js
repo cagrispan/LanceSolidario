@@ -33,7 +33,7 @@ angular.module('lanceSolidario')
 
                     self.product = new Product();
                     self.product.productId = $routeParams.productId;
-                    self.product.facebookId= facebookAPI.user.facebookId;
+                    self.product.facebookId = facebookAPI.user.facebookId;
                     self.product.userId = facebookAPI.user.facebookId;
 
 
@@ -64,29 +64,34 @@ angular.module('lanceSolidario')
         self.addImage = function (event, imageList) {
 
             var found = false;
+            if (imageList[0].filesize < 1000000) {
+                var image = new Image();
+                image.base64 = imageList[0].base64;
+                image.productId = self.product.productId;
 
-            var image = new Image();
-            image.base64 = imageList[0].base64;
-            image.productId = self.product.productId;
+                if (self.product.imageList.length > 0) {
 
-            if (self.product.imageList.length > 0) {
-
-                for (i = 0; i < self.product.imageList.length; i++) {
-                    if (self.product.imageList[i].base64 === image.base64) {
-                        found = true;
+                    for (i = 0; i < self.product.imageList.length; i++) {
+                        if (self.product.imageList[i].base64 === image.base64) {
+                            found = true;
+                        }
                     }
-                }
 
-                if (!found) {
+                    if (!found) {
+                        self.product.imageList.push(image);
+                    }
+
+                } else {
                     self.product.imageList.push(image);
                 }
 
-            } else {
-                self.product.imageList.push(image);
+                self.image = null;
+            }else{
+                self.image = null;
+                failFeedback('A imagem é muito pesada, verifique se ela possui menos de 1 MB.')
             }
-
-            self.image = null;
-        };
+        }
+        ;
 
 
         self.update = function () {
@@ -160,8 +165,9 @@ angular.module('lanceSolidario')
             ngToast.success(message);
         };
 
-        var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b>' + (typeof error) === 'string' ? error : 'Houve algum problema na requisição. Tente novamente.');
+        var failFeedback = function (error, message) {
+            var aux = (typeof error) == 'string';
+            ngToast.danger('<b> Erro!</b>' + (aux ? error : (message? ' '+ message: ' Houve algum problema na requisição. Tente novamente.')));
             console.log(JSON.stringify(error))
         };
 

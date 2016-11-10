@@ -102,12 +102,12 @@ angular.module('utils')
             });
         };
 
-        this.feed = function () {
+        this.feed = function (path, message) {
             FB.ui({
                 method: 'feed',
                 name: 'Lance Solidário',
-                description: 'Leiloe aquilo que não precisa mais e destine o valor arrecadado para uma instituição de sua escolha!',
-                link: 'local.lancesolidario.com.br:9000',
+                description: message? message : 'Leiloe aquilo que não precisa mais e destine o valor arrecadado para uma instituição de sua escolha!',
+                link: path ? ('local.lancesolidario.com.br:9000/#' + path) : 'local.lancesolidario.com.br:9000',
                 caption: 'Melhore o mundo num lance.'
             });
         };

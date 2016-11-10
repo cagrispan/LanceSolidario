@@ -117,17 +117,19 @@ angular.module('lanceSolidario')
             }
 
             function loadBidsTask(auction) {
-                auction._loadBids().then(function () {
-                    self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
-                    self.winningBid = getWinningBid();
-                    winingVerify();
-                    if ($location.path() === actualPath)
-                        $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
-                }, function (err) {
-                    if ($location.path() === actualPath)
-                        $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
-                    failFeedback('Problemas ao carregar os lances.');
-                })
+                if (auction.status === 'active') {
+                    auction._loadBids().then(function () {
+                        self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
+                        self.winningBid = getWinningBid();
+                        winingVerify();
+                        if ($location.path() === actualPath)
+                            $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
+                    }, function (err) {
+                        if ($location.path() === actualPath)
+                            $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
+                        failFeedback('Problemas ao carregar os lances.');
+                    })
+                }
             }
 
             function winingVerify() {
@@ -174,8 +176,8 @@ angular.module('lanceSolidario')
 
 
             self.finishAction = function () {
-                if (self.auction.status ==='active' || self.auction.status ==='pending'  ) {
-                    $timeout($route.reload(),1000);
+                if (self.auction.status === 'active' || self.auction.status === 'pending') {
+                    $timeout($route.reload(), 1000);
                 }
             };
 
@@ -223,7 +225,7 @@ angular.module('lanceSolidario')
             };
 
             self.feed = function () {
-                facebookAPI.feed();
+                facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para o Teto. Qeu tal dar um lance e ajudar essa instituição!?');
             };
 
             var successFeedback = function (message) {

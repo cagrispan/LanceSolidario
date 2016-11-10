@@ -97,7 +97,7 @@
             if (product && product.facebookId) {
                 endpoint = '/users/' + product.facebookId + '/products/' + product.productId ;
             } else {
-                return $q.reject({errorMessage: 'Id missing'});
+                return $q.reject({errorMessage: 'facebookId missing'});
             }
 
             //Make the request

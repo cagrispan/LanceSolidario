@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('HomeCtrl', ['Auction',function (Auction) {
+    .controller('HomeCtrl', ['Auction', 'shareData', '$location', function (Auction, shareData, $location) {
         var self = this;
 
         function init() {
@@ -20,6 +20,11 @@ angular.module('lanceSolidario')
 
                 });
         }
+
+        self.openDetail = function (auction) {
+            shareData.set(auction, 'lastAuction');
+            $location.path('auctions/' + auction.auctionId);
+        };
 
         init();
     }]);
