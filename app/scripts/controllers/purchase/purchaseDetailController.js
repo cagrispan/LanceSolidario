@@ -24,23 +24,27 @@ angular.module('lanceSolidario')
                             .then(function () {
                                 var promises = [];
                                 self.product = new Product();
-                                self.product.productId = self.auction.productId;
-                                promises.push(self.product._load());
+                                promises.push(self.product._listByAuction(self.auction).then(function (productList) {
+                                    self.product = productList[0];
+                                    if(!self.product ){
+                                        failFeedback('Problemas ao carregar dados do produto. Tente novamente.');
+                                    }
+                                }));
 
                                 self.productDonor = new User();
-                                self.productDonor.facebookId = self.auction.facebookId;
-                                //promises.push(self.productDonor._load());
+                                self.productDonor.facebookId = self.auction.userId;
+                                promises.push(self.productDonor._loadPublicInformation());
 
                                 return $q.all(promises);
                             })
                             .catch(function (err) {
-                                failFeedback(err);
+                                failFeedback(err,' Problemas ao carregar dados da compra. Tente novamente.');
                             });
 
                     } else if ($routeParams.purchaseId) {
 
                         self.purchase = new Purchase();
-                        self.purchase.facebookId =  self.user.facebookId;
+                        self.purchase.facebookId = self.user.facebookId;
                         self.purchase.purchaseId = $routeParams.purchaseId;
 
                         self.purchase._load()
@@ -51,21 +55,25 @@ angular.module('lanceSolidario')
                                     .then(function () {
                                         var promises = [];
                                         self.product = new Product();
-                                        self.product.productId = self.auction.productId;
-                                        promises.push(self.product._load());
+                                        promises.push(self.product._listByAuction(self.auction).then(function (productList) {
+                                            self.product = productList[0];
+                                            if(!self.product ){
+                                                failFeedback(' Problemas ao carregar dados da compra. Tente novamente.');
+                                            }
+                                        }));
 
                                         self.productDonor = new User();
-                                        self.productDonor.facebookId = self.auction.facebookId;
-                                        //promises.push(self.productDonor._load());
+                                        self.productDonor.facebookId = self.auction.userId;
+                                        promises.push(self.productDonor._loadPublicInformation());
 
                                         return $q.all(promises);
                                     })
                                     .catch(function (err) {
-                                        failFeedback(err);
+                                        failFeedback(err,' Problemas ao carregar dados da compra. Tente novamente.');
                                     });
-                            })
-                            .catch(function (err) {
-                                failFeedback(err);
+                            }, function (err) {
+
+                                failFeedback(err,' Problemas ao carregar dados da compra. Tente novamente.');
                             });
 
 
@@ -76,15 +84,17 @@ angular.module('lanceSolidario')
             }
 
             self.pay = function () {
-                alert('PagSeguro');
             };
 
             self.confirmDelivery = function () {
-                self.purchase.isDelivered = true;
-                self.purchase._update(self.user)
+                var purchase = angular.copy(self.purchase);
+                purchase.isDelivered = true;
+                purchase._update()
                     .then(function () {
-                        self.purchase._load(self.user);
-                    })
+                        self.purchase._load();
+                    }).catch(function(err){
+                    failFeedback(err,'Houve um problema ao atualizar o estado de entrega. Tente novamente.')
+                })
             };
 
 
@@ -92,9 +102,9 @@ angular.module('lanceSolidario')
                 ngToast.success(message);
             };
 
-            var failFeedback = function (error) {
+            var failFeedback = function (error, message) {
                 var aux = (typeof error) == 'string';
-                ngToast.danger('<b> Erro! </b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
+                ngToast.danger('<b> Erro!</b>' + (aux ? error : (message? ' '+ message: ' Houve algum problema na requisição. Tente novamente.')));
                 console.log(JSON.stringify(error))
             };
 

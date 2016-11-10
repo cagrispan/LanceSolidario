@@ -6,7 +6,7 @@
     angular.module('lanceSolidario.purchase.purchaseResource', ['utils']).service('purchaseResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
-        self.update = function (purchase, user) {
+        self.update = function (purchase) {
             var headers = {};
             var endpoint = "";
             var token = apiToken.getApiToken();
@@ -30,8 +30,8 @@
             }
 
 
-            if (user && user.facebookId) {
-                endpoint = '/users/'+user.facebookId+'/purchases/'+purchaseId;
+            if (purchase && purchase.facebookId) {
+                endpoint = '/users/'+purchase.facebookId+'/purchases/'+purchaseId;
             } else {
 
                 return $q.reject({errorMessage: 'FacebookId missing'});

@@ -29,6 +29,11 @@
                 this.auctionId = null;
 
                 /*
+                 Auction
+                 */
+                this.url = null;
+
+                /*
                  Value
                  */
                 this.maxBid = null;
@@ -42,6 +47,11 @@
                  Delivery
                  */
                 this.isDelivered = null;
+
+                /*
+                 Buyer Id
+                 */
+                this.facebookId = null;
 
                 /*
                  Methods
