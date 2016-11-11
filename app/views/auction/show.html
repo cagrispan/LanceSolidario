@@ -34,9 +34,9 @@
                             <h1>{{auctionDetailCtrl.product.title}}</h1>
                         </div>
 
-                        <div class="container-fluid auction-info">
+                        <div class="container-fluid auction-info no-padding">
                             <!-- Image -->
-                            <div class="col-sm-6 container-fluid" ng-if="auctionDetailCtrl.product">
+                            <div class="col-md-6 container-fluid" ng-if="auctionDetailCtrl.product">
                                 <!--<img ng-src="data:image/*;base64,{{auctionDetailCtrl.product.imageList[0].base64}}"
                                      alt="" class="img-responsive">-->
                                 <div class="col-xs-12">
@@ -48,7 +48,7 @@
                             </div>
 
                             <!-- Details -->
-                            <div class="col-sm-6 text-center">
+                            <div class="col-md-6 text-center">
                                 <div class="details">
                                     <div class="value">
 
@@ -87,23 +87,53 @@
                                         </timer>
 
                                     </div>
-                                    <div class="value" ng-show="auctionDetailCtrl.winningBid.bid">
-                                        <p>{{auctionDetailCtrl.winningBid.bid
+                                    <div class="value">
+                                        <p ng-show="!auctionDetailCtrl.winningBid.bid">
+                                            R$ 00,00
+                                        </p>
+                                        <p ng-show="auctionDetailCtrl.winningBid.bid">{{auctionDetailCtrl.winningBid.bid
                                             | currency:'R$ '}}&nbsp;</p>
+
+                                        <div ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
+                                            Você esta Ganhando esse leilão!
+                                        </div>
                                     </div>
 
-                                    <div class="button" ng-if="auctionDetailCtrl.auction.status === 'active'">
-                                        <button class="btn btn-block btn-success btn-lg"
-                                                ng-click="auctionDetailCtrl.preBid()"
-                                                data-target="#bid">
-                                            <i class="fa fa-gavel"></i> &nbsp; Dar Lance
-                                        </button>
-                                    </div>
+                                    <form class="form-group no-padding no-margin" ng-show="!auctionDetailCtrl.auctionFinish">
+                                        <div class="auction-form">
+                                            <span id="bid">
+                                                <br>
+                                                    <label class="sr-only" for="input-amount">Valor (em reais)</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">R$</div>
+                                                        <input type="number" class="form-control " id="input-amount"
+                                                               placeholder="Valor" step="0.01"
+                                                               ng-model="auctionDetailCtrl.newBid">
+                                                    </div>
+
+                                                    <div>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</button>
+                                                    </div>
+
+                                            </span>
+                                        </div>
+
+                                        <div class="button">
+                                            <button class="btn btn-block btn-success btn-lg"
+                                                    ng-click="auctionDetailCtrl.bid()"
+                                                    data-target="#bid">
+                                                <i class="fa fa-gavel"></i> &nbsp; Dar Lance
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
 
-                                <div ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
-                                    Você esta Ganhando esse leilão!
-                                </div>
+
                             </div>
                         </div>
 
@@ -191,21 +221,6 @@
                             </table>
 
                             <div>
-                                <span id="bid" ng-if="auctionDetailCtrl.showBidForm">
-                                    <br>
-                                    <form class="form-group">
-                                        <label class="sr-only" for="input-amount">Valor (em reais)</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">R$</div>
-                                            <input type="number" class="form-control " id="input-amount"
-                                                   placeholder="Valor" step="0.01" ng-model="auctionDetailCtrl.newBid">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="submit"
-                                                        ng-click="auctionDetailCtrl.bid()">Confirmar</button>
-                                              </span>
-                                        </div>
-                                    </form>
-                                </span>
                             </div>
                         </div>
 

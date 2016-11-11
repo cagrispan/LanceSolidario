@@ -2,10 +2,14 @@
 .auction .container {
   padding-top: 20px !important;
 }
-.auction .container form {
-  padding-left: 30px;
-  padding-right: 30px;
+.auction .container .auction-form {
+  padding-left: 10px;
+  padding-right: 10px;
   margin-bottom: 35px;
+}
+.auction .container .auction-form .btn-warning {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .auction .section {
   padding-top: 8%;
@@ -69,13 +73,6 @@
 .auction .auction-info .details {
   border: solid 1px #DDDDDD;
 }
-.auction .auction-info .details .photo-view {
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  height: 500px;
-}
 .auction .auction-info .details .value > p {
   font-size: 40px;
 }
@@ -90,12 +87,17 @@
   margin-bottom: 0;
 }
 .auction .auction-info .details .counter {
-  font-size: 40px;
+  font-size: 20px;
   width: 100%;
 }
-@media only screen and (max-width: 529px) {
+@media only screen and (min-width: 530px) and (max-width: 949px) {
   .auction .auction-info .details .counter {
-    font-size: 20px;
+    font-size: 30px;
+  }
+}
+@media only screen and (min-width: 1129px) {
+  .auction .auction-info .details .counter {
+    font-size: 40px;
   }
 }
 .auction .auction-info .details .counter p {

@@ -21,7 +21,6 @@ angular.module('lanceSolidario')
                 self.loading = true;
                 shareData.set($location.path(), 'lastPath');
                 actualPath = $location.path();
-                self.showBidForm = false;
 
                 self.product = shareData.get('lastProduct');
                 self.auction = shareData.get('lastAuction');
@@ -183,46 +182,44 @@ angular.module('lanceSolidario')
 
 
             self.bid = function () {
-
-                if (!facebookAPI.user) {
-                    ngToast.info('Por favor, realize login para fazer um lance.');
-                    $timeout($location.path.bind($location, '/login'), 500);
-                } else {
-                    if (!self.auctionFinish) {
-                        if (self.newBid < self.winningBid.bid) {
-                            failFeedback('Eii! Seu lance deve ser maior que o lance atual. Verifique o valor inserido.');
-                        } else {
-                            var bid = new Bid();
-                            bid.auctionId = self.auction.auctionId;
-                            bid.bid = self.newBid;
-                            bid._add(self.user).then(
-                                function () {
-                                    self.auction._loadBids();
-                                    self.newBid = '';
-                                    self.showBidForm = false;
-                                    successFeedback('Parabéns, seu lance foi efetuado com sucesso.');
-                                }, function () {
-                                    failFeedback('Ocorreu um problema ao salvar o seu lance, verifique se um lance maior já não foi efetuado.');
-                                });
-                        }
-                    } else {
-                        failFeedback('Esse leilão já foi encerrado.');
-                    }
-                }
-            };
-
-            self.preBid = function () {
                 if (!facebookAPI.user) {
                     ngToast.info('Por favor, realize login para fazer um lance.');
                     $timeout($location.path.bind($location, '/login'), 100);
-                } else if (self.winningBid.userId === self.user.facebookId) {
-                    ngToast.warning('O seu lance ainda esta ganhando esse leilão, realmente deseja cobrir seu próprio lance?');
-                    self.showBidForm = !self.showBidForm;
+                }else if (!self.auctionFinish) {
+                    if (self.newBid < self.winningBid.bid) {
+                        failFeedback('Eii! Seu lance deve ser maior que o lance atual. Verifique o valor inserido.');
+                        return;
+                    }
+
+                    if (self.winningBid.userId === self.user.facebookId && !confirm('O seu lance ainda esta ganhando esse leilão, realmente deseja cobrir seu próprio lance?')) {
+                        return;
+                    }
+
+
+                    var bid = new Bid();
+                    bid.auctionId = self.auction.auctionId;
+                    bid.bid = self.newBid;
+                    bid._add(self.user).then(
+                        function () {
+                            self.auction._loadBids();
+                            self.newBid = '';
+                            successFeedback('Parabéns, seu lance foi efetuado com sucesso.');
+                        }, function () {
+                            failFeedback('Ocorreu um problema ao salvar o seu lance, verifique se um lance maior já não foi efetuado.');
+                        });
 
                 } else {
-                    self.showBidForm = !self.showBidForm;
+                    failFeedback('Esse leilão já foi encerrado.');
                 }
             };
+
+            self.increaseBid = function (value) {
+                if (!self.newBid) {
+                    self.newBid += self.winningBid.bid;
+                }
+
+                self.newBid += value;
+            }
 
             self.feed = function () {
                 facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para o Teto. Qeu tal dar um lance e ajudar essa instituição!?');

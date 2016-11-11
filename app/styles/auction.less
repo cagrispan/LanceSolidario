@@ -4,10 +4,15 @@
     }
 
     .container {
-        form {
-            padding-left: 30px;
-            padding-right: 30px;
+        .auction-form {
+            padding-left: 10px;
+            padding-right: 10px;
             margin-bottom: 35px;
+
+            .btn-warning {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
         }
 
     }
@@ -94,15 +99,6 @@
         .details {
             border: solid 1px #DDDDDD;
 
-            .photo-view {
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-
-                height: 500px;
-            }
-
             .value {
                 > p {
                     font-size: 40px;
@@ -121,11 +117,15 @@
 
             .counter {
 
-                font-size: 40px;
+                font-size: 20px;
                 width: 100%;
 
-                @media @mobile {
-                    font-size: 20px;
+                @media @tablet {
+                    font-size: 30px;
+                }
+
+                @media @desktop-xl {
+                    font-size: 40px;
                 }
 
                 p {
