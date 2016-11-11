@@ -3,21 +3,24 @@
 
         <div class="col-sm-2 hidden-xs">
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Doador:</b>
+                </div>
                 <div class="panel-body text-center">
-                    <a href="#/users/1">
-                        <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" class="img-responsive img-circle" alt="">
-                        <h4>{{auctionDetailCtrl.donor.name}}</h4>
-                    </a>
+                    <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" data-pin-no-hover="true"
+                         class="img-responsive img-circle" alt="">
+                    <h4>{{auctionDetailCtrl.donor.name}}</h4>
                     Curitiba, Paraná <br>
                 </div>
             </div>
 
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Instituição:</b>
+                </div>
                 <div class="panel-body text-center">
-                    <a href="">
-                        <img src="images/auction-institution.png" class="img-responsive" alt="">
-                        <h4>TETO</h4>
-                    </a>
+                    <img src="images/institution-teto.png" data-pin-no-hover="true" class="img-responsive" alt="">
+                    <h4>TETO</h4>
                 </div>
             </div>
         </div>
@@ -26,148 +29,201 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="container-fluid">
-                        <div class="row title">
+
+                        <div class="title">
                             <h1>{{auctionDetailCtrl.product.title}}</h1>
                         </div>
-                        <button ng-click="auctionDetailCtrl.feed()">Compartilhar</button>
 
-                        <div class="row info">
-                            <div class="col-sm-6" ng-if="auctionDetailCtrl.product">
-                                <img ng-src="data:image/*;base64,{{auctionDetailCtrl.product.imageList[0].base64}}" alt="" class="img-responsive">
+                        <div class="container-fluid auction-info no-padding">
+                            <!-- Image -->
+                            <div class="col-md-6 container-fluid" ng-if="auctionDetailCtrl.product">
+                                <!--<img ng-src="data:image/*;base64,{{auctionDetailCtrl.product.imageList[0].base64}}"
+                                     alt="" class="img-responsive">-->
+                                <div class="col-xs-12">
+                                    <div class="dummy"></div>
+                                    <div class="thumbnail-square"
+                                         ng-style="{'background-image': 'url(data:image/*;base64,'+auctionDetailCtrl.product.imageList[0].base64+')'}">
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-sm-6 text-center">
+                            <!-- Details -->
+                            <div class="col-md-6 text-center">
                                 <div class="details">
-                                    <div class="value" ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
-                                        <p>
+                                    <div class="value">
+
+                                    </div>
+
+                                    <div class="counter"
+                                         ng-if="!auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'"
+                                         ng-class="{
+                                            opened: (auctionDetailCtrl.auction.status === 'active'),
+                                            closed: (auctionDetailCtrl.auction.status === 'closed'),
+                                            canceled: (auctionDetailCtrl.auction.status === 'canceled'),
+                                            scheduled: (auctionDetailCtrl.auction.status === 'pending')
+                                         }">
+
+                                        <p ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
                                             Leilão Finalizado!!
                                         </p>
-                                    </div>
 
-                                    <div class="value text-center" ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
-                                        <p>
+                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
                                             Esse leilão foi cancelado.
                                         </p>
-                                    </div>
 
-                                    <div class="value text-center" ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
-                                        <p>
+                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
                                             Inicia em :
                                         </p>
-                                    </div>
 
-                                    <div class="value text-center" ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
-                                        <p >
+                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
                                             Termina em:
                                         </p>
-                                    </div>
 
-                                    <div class="counter" ng-if="!auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
-                                        <timer ng-if="auctionDetailCtrl.duration" countdown="auctionDetailCtrl.duration" max-time-unit="'day'"
+                                        <timer ng-if="auctionDetailCtrl.duration" countdown="auctionDetailCtrl.duration"
+                                               max-time-unit="'day'"
                                                interval="1000" finish-callback="auctionDetailCtrl.finishAction()">
-                                            {{days}}d  {{hours<10?'0'+hours:hours}}h {{minutes<10?'0'+minutes:minutes}}m {{seconds<10? '0'+seconds:seconds}}s
+                                            {{days}}d {{hours<10?'0'+hours:hours}}h {{minutes<10?'0'+minutes:minutes}}m
+                                            {{seconds<10? '0'+seconds:seconds}}s
                                         </timer>
 
                                     </div>
                                     <div class="value">
-                                        <p>{{auctionDetailCtrl.winningBid.bid
-                                            | currency:'R$ '}}</p>
-                                        <table class="table">
-                                            <tr>
-                                                <td class="text-right col-xs-6">{{auctionDetailCtrl.auction.minimumBid
-                                                    | currency:'R$ '}}
-                                                </td>
-                                                <td class=" text-left col-xs-6">valor inicial</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right col-xs-6">+ R$ 0,00</td>
-                                                <td class=" text-left col-xs-6">de taxa administrativa.</td>
-                                            </tr>
-                                        </table>
+                                        <p ng-show="!auctionDetailCtrl.winningBid.bid">
+                                            R$ 00,00
+                                        </p>
+                                        <p ng-show="auctionDetailCtrl.winningBid.bid">{{auctionDetailCtrl.winningBid.bid
+                                            | currency:'R$ '}}&nbsp;</p>
+
+                                        <div ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
+                                            Você esta Ganhando esse leilão!
+                                        </div>
                                     </div>
 
-                                    <div class="button" ng-if="auctionDetailCtrl.auction.status === 'active'">
-                                        <button class="btn btn-block btn-success btn-lg"
-                                                ng-click="auctionDetailCtrl.preBid()"
-                                                data-target="#bid">
-                                            <i class="fa fa-gavel"></i> &nbsp; Dar Lance
-                                        </button>
-                                    </div>
-                                </div>
+                                    <form class="form-group no-padding no-margin" ng-show="!auctionDetailCtrl.auctionFinish">
+                                        <div class="auction-form">
+                                            <span id="bid">
+                                                <br>
+                                                    <label class="sr-only" for="input-amount">Valor (em reais)</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">R$</div>
+                                                        <input type="number" class="form-control " id="input-amount"
+                                                               placeholder="Valor" step="0.01"
+                                                               ng-model="auctionDetailCtrl.newBid">
+                                                    </div>
 
-                                <div ng-if="auctionDetailCtrl.winingBid.userId === auctionDetailCtrl.user.facebookId">Você esta Ganhando esse leilão!</div>
+                                                    <div>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</button>
+                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</button>
+                                                    </div>
 
-                                <span id="bid" ng-if="auctionDetailCtrl.showBidForm">
-                                    <br>
-                                    <form class="form-group">
-                                        <label class="sr-only" for="input-amount">Valor (em reais)</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">R$</div>
-                                            <input type="number" class="form-control " id="input-amount"
-                                                   placeholder="Valor" step="0.01" ng-model="auctionDetailCtrl.newBid">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="submit" ng-click="auctionDetailCtrl.bid()">Confirmar</button>
-                                              </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="button">
+                                            <button class="btn btn-block btn-success btn-lg"
+                                                    ng-click="auctionDetailCtrl.bid()"
+                                                    data-target="#bid">
+                                                <i class="fa fa-gavel"></i> &nbsp; Dar Lance
+                                            </button>
                                         </div>
                                     </form>
-                                </span>
+                                </div>
+
+
                             </div>
                         </div>
 
-                        <br>
+                        <!-- IMAGES --><br>
+                        &nbsp;
+                        <div class="container-fluid">
+                            <div class="loading" ng-show="!auctionDetailCtrl.product.imageList"></div>
 
-                        <div class="row">
-                            <h2> Descrição </h2>
+                            <h2>IMAGENS</h2>
+                            <div class="col-xs-4"
+                                 ng-repeat="image in auctionDetailCtrl.product.imageList">
+
+
+                                <div class="col-xs-12">
+                                    <div class="dummy"></div>
+                                    <div class="thumbnail-square"
+                                         ng-style="{'background-image': 'url(data:image/*;base64,{{image.base64}})'}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        &nbsp;
+                        <!-- SOCIAL --><br>
+                        <div class="container-fluid">
+                            <h2>REDES SOCIAIS</h2>
+
+                            <button class="btn btn-lg btn-facebook" ng-click="auctionDetailCtrl.feed()">
+                                <i class="fa fa-facebook"></i>
+                                Compartilhar
+                            </button>
+                        </div>
+
+                        <!-- DESCRIPTION --><br>
+                        <div class="container-fluid">
+                            <h2> DESCRIÇÃO </h2>
                             <p>{{auctionDetailCtrl.product.description}}</p>
 
-                            <p ng-if="!auctionDetailCtrl.product.isUsed"> *Produto Novo.</p>
-                            <p ng-if="auctionDetailCtrl.product.isUsed"> *Produto Usado.</p>
+                            <b>
+                                <p ng-if="!auctionDetailCtrl.product.isUsed"> *Produto Novo.</p>
+                                <p ng-if="auctionDetailCtrl.product.isUsed"> *Produto Usado.</p>
+                            </b>
                         </div>
 
-
-                        <br>
-
-                        <div class="row text-center">
-                            <div class="col-xs-4">
-                                <img src="images/auction-institution.png" class="info-icon" alt="">
-                                <h2>INSTITUIÇÃO</h2>
-                                <p>
-                                    TETO
-                                </p>
-                            </div>
-
-                            <div class="col-xs-4">
-                                <img src="images/auction-send.png" class="info-icon" alt="">
-                                <h2>ENVIO</h2>
-                                <p>Contato entre as partes</p>
-                            </div>
-
-                            <div class="col-xs-4">
-                                <img src="images/auction-price.png" class="info-icon" alt="">
-                                <h2>PAGAMENTO</h2>
-                                <p>Relizado através do pagseguro</p>
-                            </div>
+                        <!-- SEND METHOD --><br>
+                        <div class="container-fluid">
+                            <h2>ENVIO</h2>
+                            <p>
+                                Contato entre as partes
+                            </p>
                         </div>
 
-                        <br>
+                        <!-- PAYMENT --><br>
+                        <div class="container-fluid">
+                            <h2>PAGAMENTO</h2>
+                            <p>
+                                Relizado através do pagseguro
+                            </p>
+                        </div>
 
-                        <div class="row">
-                            <h2>
-                                Ultimos Lances: &nbsp;
-                                <button class="btn btn-default btn-xs">
-                                    <i class="fa fa-refresh"></i>
-                                </button>
-                            </h2>
+                        <!-- BIDS --><br>
+                        <div class="container-fluid">
+                            <h2>ÚLTIMOS LANCES: &nbsp;</h2>
+
                             <table class="table table-striped">
                                 <tbody>
-                                <tr ng-repeat="bid in auctionDetailCtrl.auction.bidList | orderBy:{bid:true}| limitTo: 5 | filter:{isDeleted:false}">
+                                <tr ng-repeat="bid in auctionDetailCtrl.auction.bidList | orderBy:{bid:true} | limitTo: 5 | filter:{isDeleted:false}"
+                                    ng-class="{
+                                        warning: (
+                                            bid.userId === auctionDetailCtrl.user.facebookId &&
+                                            bid !== auctionDetailCtrl.winningBid
+                                        ),
+                                        success: (
+                                            bid === auctionDetailCtrl.winningBid && bid.userId === auctionDetailCtrl.user.facebookId
+                                        )
+                                    }">
+
                                     <td>{{bid.bid | currency:'R$ '}}</td>
                                     <td>{{bid.date | date:'dd/MM/yyyy hh:mm'}}</td>
-                                    <td ><span ng-if="bid.userId === auctionDetailCtrl.user.facebookId">Esse lance é seu!</span></td>
+                                    <td><span
+                                        ng-if="bid.userId === auctionDetailCtrl.user.facebookId">Esse lance é seu!</span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
