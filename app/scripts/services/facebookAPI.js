@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', 'shareData', '$q', '$facebook', function ($rootScope, $location, User, apiToken, shareData, $q, $facebook) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', 'shareData', '$q', '$facebook','$route', function ($rootScope, $location, User, apiToken, shareData, $q, $facebook, $route) {
 
         var self = this;
         self.user = null;
@@ -86,6 +86,14 @@ angular.module('utils')
             } else {
                 return false;
             }
+
+        };
+
+        this.logout = function(){
+            self.user = null;
+            $rootScope.user = null;
+            $location.path('/');
+            $route.reload();
 
         };
 

@@ -150,10 +150,8 @@ angular.module('lanceSolidario')
 
             function getCountDown() {
                 if (self.auction.status === 'pending') {
-                    console.log((new Date(self.auction.startDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000);
                     return (new Date(self.auction.startDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000;
                 } else if (self.auction.status === 'active') {
-                    console.log((new Date(self.auction.endDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000);
                     return (new Date(self.auction.endDate).getTime() - new Date(self.auction.currentServerDate).getTime()) / 1000;
                 } else {
                     return 0;
@@ -186,7 +184,7 @@ angular.module('lanceSolidario')
                     ngToast.info('Por favor, realize login para fazer um lance.');
                     $timeout($location.path.bind($location, '/login'), 100);
                 }else if (!self.auctionFinish) {
-                    if (self.newBid < self.winningBid.bid) {
+                    if (self.newBid <= self.winningBid.bid) {
                         failFeedback('Eii! Seu lance deve ser maior que o lance atual. Verifique o valor inserido.');
                         return;
                     }
@@ -229,7 +227,7 @@ angular.module('lanceSolidario')
                 }
 
                 self.newBid += value;
-            }
+            };
 
             self.feed = function () {
                 facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para o Teto. Qeu tal dar um lance e ajudar essa instituição!?');
