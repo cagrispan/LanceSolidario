@@ -195,6 +195,12 @@ angular.module('lanceSolidario')
                         return;
                     }
 
+                    if (!self.winningBid &&  self.newBid <= self.auction.minimumBid)
+                    {
+                        failFeedback('Ops! Seu lance deve ser maior que o <b>valor mínimo</b>. Verifique o valor inserido.');
+                        return;
+                    }
+
 
                     var bid = new Bid();
                     bid.auctionId = self.auction.auctionId;
@@ -215,7 +221,11 @@ angular.module('lanceSolidario')
 
             self.increaseBid = function (value) {
                 if (!self.newBid) {
-                    self.newBid += self.winningBid.bid;
+                    if(self.winningBid.bid) {
+                        self.newBid += self.winningBid.bid;
+                    }else {
+                        self.newBid += self.auction.minimumBid;
+                    }
                 }
 
                 self.newBid += value;

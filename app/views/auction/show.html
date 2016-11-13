@@ -83,14 +83,15 @@
                                                max-time-unit="'day'"
                                                interval="1000" finish-callback="auctionDetailCtrl.finishAction()">
                                             {{days}}d {{hours<10?'0'+hours:hours}}h {{minutes<10?'0'+minutes:minutes}}m
-                                            {{seconds<10? '0'+seconds:seconds}}s
+                                            {{seconds <10? '0'+seconds:seconds}}s
                                         </timer>
 
                                     </div>
                                     <div class="value">
                                         <p ng-show="!auctionDetailCtrl.winningBid.bid">
-                                            R$ 00,00
+                                            {{auctionDetailCtrl.auction.minimumBid | currency:'R$ '}}
                                         </p>
+
                                         <p ng-show="auctionDetailCtrl.winningBid.bid">{{auctionDetailCtrl.winningBid.bid
                                             | currency:'R$ '}}&nbsp;</p>
 
@@ -99,7 +100,8 @@
                                         </div>
                                     </div>
 
-                                    <form class="form-group no-padding no-margin" ng-show="!auctionDetailCtrl.auctionFinish">
+                                    <form class="form-group no-padding no-margin"
+                                          ng-show="!(auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'pending')">
                                         <div class="auction-form">
                                             <span id="bid">
                                                 <br>
@@ -108,7 +110,9 @@
                                                         <div class="input-group-addon">R$</div>
                                                         <input type="number" class="form-control " id="input-amount"
                                                                placeholder="Valor" step="0.01"
-                                                               ng-model="auctionDetailCtrl.newBid">
+                                                               ng-model="auctionDetailCtrl.newBid"
+                                                               value='{{auctionDetailCtrl.auction.minimumBid}}'
+                                                               min='{{auctionDetailCtrl.auction.minimumBid}}'>
                                                     </div>
 
                                                     <div>
