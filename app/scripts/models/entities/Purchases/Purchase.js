@@ -41,7 +41,7 @@
                 /*
                  Payment
                  */
-                this.isPayed = null;
+                this.isPaid = null;
 
                 /*
                  Delivery
