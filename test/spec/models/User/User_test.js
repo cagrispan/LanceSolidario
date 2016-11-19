@@ -51,6 +51,7 @@
             it('should call createOrUpdate method of resource with a user like parameter', function () {
                 var user = new User();
                 user.facebookId = 'ThisIdExists';
+                user.birthday = new Date();
                 var fakePromise = $q.when();
                 spyOn(userResource, 'createOrUpdate').and.returnValue(fakePromise);
                 var x = user._save();

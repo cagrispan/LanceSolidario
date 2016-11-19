@@ -115,7 +115,7 @@ angular.module('lanceSolidario')
 
         $facebookProvider.setAppId('145525159212250');
 
-        $facebookProvider.setPermissions("user_birthday");
+        $facebookProvider.setPermissions('user_birthday');
     }])
     .run(function () {
 
