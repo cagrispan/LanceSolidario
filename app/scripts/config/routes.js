@@ -62,6 +62,11 @@ angular.module('lanceSolidario')
                 controller: 'UserUpdate',
                 controllerAs: 'userCtrl'
             })
+            .when('/user/logout', {
+                templateUrl: 'views/user/logout.html',
+                controller: 'UserLogoutController',
+                controllerAs: 'logoutCtrl'
+            })
             .when('/user/address', {
                 templateUrl: 'views/user/edit_address.html',
                 controller: 'AddressUpdate',
