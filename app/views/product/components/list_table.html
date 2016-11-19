@@ -14,7 +14,7 @@
         <td ng-if="product.status==='auctioning'">Em Leilão</td>
         <td ng-if="product.status==='awaiting'">Agendado</td>
         <td ng-if="product.status==='sold'">Vendido</td>
-        <td ng-if="product.status==='awaitingProcess'">Leilão em processo de finalização</td>
+        <td ng-if="product.status==='awaitingProcess'">Leilão finalizado. Pagamento pendente.</td>
 
         <td ng-if="false" >
             <button class="btn btn-xs btn-danger" ng-show="product.status ==='pending'" ng-click="productCtrl.removeProduct(product)">

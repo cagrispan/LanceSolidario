@@ -30,6 +30,7 @@ angular.module('lanceSolidario')
                 }
 
                 if (self.auction) {
+                    shareData.set({},'lastAuction');
                     self.loading = false;
 
                     self.duration = getCountDown();

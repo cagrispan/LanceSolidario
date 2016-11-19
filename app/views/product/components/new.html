@@ -7,7 +7,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="form-group">
                         <label for="product_title">Título da Doação:</label>
-                        <input type="text" class="form-control" ng-model="productCtrl.newProduct.title"
+                        <input type="text" class="form-control" ng-model="productCtrl.newProduct.title" ng-disabled="productCtrl.addLoad"
                                id="product_title"
                                placeholder="Ex: Camera Fotográfica" required>
                     </div>
@@ -28,8 +28,8 @@
                         <label for="product_description">É usado?
                             <input type="checkbox" class="form-control" ng-model="productCtrl.newProduct.isUsed"
                                    id="product_isUsed">
+                            </input>
                         </label>
-                        </input>
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
                                 <div class="thumbnail-square"
                                      ng-style="{'background-image': 'url(data:image/*;base64,{{image.base64}})'}">
                                     <div class="fade-hover text-right">
-                                        <button class="btn btn-danger btn-xs"
+                                        <button class="btn btn-danger btn-xs" ng-disabled="productCtrl.addLoad"
                                                 ng-click="productCtrl.removeImage($index)">
                                             <i class="fa fa-remove"></i>
                                         </button>
@@ -68,7 +68,7 @@
 
                 <div class="container-fluid margin-default">
                     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" ng-disabled="productCtrl.addLoad">
                             Cadastrar Produto
                         </button>
                     </div>

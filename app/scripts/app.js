@@ -29,7 +29,7 @@ angular.module('lanceSolidario', [
             horizontalPosition: 'right',
             dismissButton: true,
             className: 'info',
-            timeout: 6500
+            timeout: 2000
         }
     );
 }]);

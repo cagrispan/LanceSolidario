@@ -114,6 +114,8 @@ angular.module('lanceSolidario')
             .otherwise({redirectTo: '/404'});
 
         $facebookProvider.setAppId('145525159212250');
+
+        $facebookProvider.setPermissions('user_birthday');
     }])
     .run(function () {
 

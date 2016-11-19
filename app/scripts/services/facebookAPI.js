@@ -22,7 +22,7 @@ angular.module('utils')
 
         this.getUserInfo = function (facebookToken) {
 
-            FB.api('/me', function (response) {
+            FB.api('/me?fields=id,name,birthday', function (response) {
                 $rootScope.$apply(function () {
 
                     var user = new User();
@@ -30,6 +30,7 @@ angular.module('utils')
                     user.name = response.name;
                     user.facebookId = response.id;
                     user.facebookToken = facebookToken;
+                    user.birthday = new Date(response.birthday);
 
                     getUserPicture(facebookToken)
 

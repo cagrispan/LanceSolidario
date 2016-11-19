@@ -82,7 +82,9 @@
                 return loadUserPromise
                     .then(function (userReturned) {
                         user._set(userReturned);
+
                         user.birthday = new Date(user.birthday);
+                        user.birthday.setDate(user.birthday.getDate() +1);
                         return user;
                     });
             };
@@ -99,6 +101,7 @@
 
             this._save = function () {
                 var user = this;
+                user.birthday.setDate(user.birthday.getDate() - 1);
                 return userResource.createOrUpdate(user);
             };
 
