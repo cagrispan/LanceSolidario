@@ -1,4 +1,18 @@
 /* app css stylesheet */
+.about .partners .thumbnail-square {
+  background-size: contain;
+  background-size: 90%;
+}
+.about hr {
+  border: solid #dadada 1px;
+}
+.about h1 {
+  margin-bottom: 30pt;
+}
+.about .panel .image {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 .auction .container {
   padding-top: 20px !important;
 }
@@ -219,6 +233,48 @@
 }
 .content .home-info {
   height: 35vh !important;
+}
+.institution .container {
+  padding-top: 0 !important;
+}
+.institution .container .cover {
+  background: url('../images/index_cover_2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 300px;
+}
+.institution .container .logo-background {
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  border: solid #DFDFDF 4px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: -110px;
+  height: 220px;
+  width: 220px;
+}
+.institution .container .logo-background .logo {
+  background: url('../images/auction-institution.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  height: 190px;
+  width: 190px;
+  top: 50%;
+  left: 50%;
+  margin: -95px 0px 0px -95px;
+  border-radius: 50%;
+}
+.institution .container .about {
+  position: relative;
+  top: -100px;
+}
+.institution .container .about .title {
+  font-size: 30pt;
+  text-align: center;
 }
 .login-box {
   background: #FFFFFF;
