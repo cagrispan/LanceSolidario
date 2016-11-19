@@ -5,7 +5,9 @@ angular.module('lanceSolidario')
 
             var self = this;
 
+
             function init() {
+                self.addLoad = false;
 
                 shareData.set($location.path(), 'lastPath');
 
@@ -21,13 +23,14 @@ angular.module('lanceSolidario')
             }
 
             self.addProduct = function () {
+                self.addLoad = true;
                 self.newProduct._add().then(function (result) {
 
                     var image = new Image();
                     image.productId = result.productId;
 
                     var promises = [];
-
+                    ngToast.create('As imagens estão sendo enviadas para o servidor. Aguarde ser redirecionado.');
                     for (var i = 0; i < self.images.length; i++) {
                         image.base64 = self.images[i].base64;
                         var promise = image._add(self.user);

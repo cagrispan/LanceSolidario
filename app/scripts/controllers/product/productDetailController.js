@@ -19,7 +19,7 @@ angular.module('lanceSolidario')
                 self.user = facebookAPI.user;
                 self.product = shareData.get('lastProduct');
                 if (self.product) {
-
+                    shareData.set(false,'lastProduct');
                     self.product._loadAuctions()
                         .then(function () {
                             self.product._loadImages().catch(function () {
@@ -145,9 +145,7 @@ angular.module('lanceSolidario')
             auction._update()
                 .then(function () {
                     successFeedback('Leilão fechado com sucesso');
-                    return self.product._loadAuctions().catch(function () {
-                        failFeedback('Problemas ao carregar os Leilões do produto. Atualize a página.');
-                    });
+                    init();
                 })
                 .then(function () {
                     self.product._getStatus();

@@ -89,11 +89,11 @@
                                     </div>
                                     <div class="value">
                                         <p ng-show="!auctionDetailCtrl.winningBid.bid">
-                                            {{auctionDetailCtrl.auction.minimumBid | currency:'R$ '}}
+                                            {{auctionDetailCtrl.auction.minimumBid | currency}}
                                         </p>
 
                                         <p ng-show="auctionDetailCtrl.winningBid.bid">{{auctionDetailCtrl.winningBid.bid
-                                            | currency:'R$ '}}&nbsp;</p>
+                                            | currency}}&nbsp;</p>
 
                                         <div ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
                                             Você esta Ganhando esse leilão!
@@ -215,7 +215,7 @@
                                         )
                                     }">
 
-                                    <td>{{bid.bid | currency:'R$ '}}</td>
+                                    <td>{{bid.bid | currency}}</td>
                                     <td>{{bid.date | date:'dd/MM/yyyy hh:mm'}}</td>
                                     <td><span
                                         ng-if="bid.userId === auctionDetailCtrl.user.facebookId">Esse lance é seu!</span>
