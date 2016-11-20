@@ -2,18 +2,19 @@
     <thead>
     <tr>
         <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Leilão:</th>
-        <th class="col-xs-3 col-sm-2 col-md-3 col-lg-3">Valor:</th>
-        <th class="col-xs-3 col-sm-2 col-md-3 col-lg-3">Data:</th>
-        <th class="col-xs-3 col-sm-2 col-md-3 col-lg-3">Estado:</th>
-        <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>
+        <th class="col-xs-7 col-sm-7 col-md-7 col-lg-7">Data:</th>
+        <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Valor:</th>
+
+        <!--<th class="col-xs-3 col-sm-2 col-md-3 col-lg-3">Estado:</th>
+        <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></th>-->
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="bid in bidCtrl.user.bidList" ng-click="bidCtrl.auctionDetail(bid.auctionId)">
+    <tr ng-repeat="bid in bidCtrl.user.bidList | orderBy:'date':true" ng-click="bidCtrl.auctionDetail(bid.auctionId)">
         <td>{{bid.auctionId}}</td>
-        <td>{{bid.bid | currency}}</td>
         <td>{{bid.date | date:'dd/MM/yyyy hh:mm'}}</td>
-        <td>{{bid.isDeleted ? 'Cancelado' : 'Ativo'}}</td>
+        <td>{{bid.bid | currency}}</td>
+        <!--<td>{{bid.isDeleted ? 'Cancelado' : 'Ativo'}}</td>
         <td ng-click="$event.stopPropagation()">
             <button
                 ng-if="!bid.isDeleted" class="btn btn-xs btn-danger"
@@ -28,7 +29,7 @@
                 cancel-button-type="default">
                 <i class="fa fa-close"></i> Cancelar Lance
             </button>
-        </td>
+        </td>-->
     </tr>
     </tbody>
 </table>
