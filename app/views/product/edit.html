@@ -37,11 +37,17 @@
                                               ng-readonly="!(productCtrl.product.status==='pending')"></textarea-->
 
                                     <div text-angular ng-if="(productCtrl.product.status==='pending')"
+                                         ta-toolbar="[
+                                            ['h1','h2','h3'],
+                                            ['bold','italics','underline'],
+                                            ['ul', 'ol'],
+                                            ['justifyLeft', 'justifyCenter', 'justifyRight'],
+                                            ['insertImage','insertLink', 'insertVideo']]"
                                          ng-model="productCtrl.product.description"
                                          id="product-description"
                                          required></div>
 
-                                    <div
+                                    <div class="htmlBinding"
                                         ng-bind-html="productCtrl.product.description"
                                         ng-if="!(productCtrl.product.status==='pending')"></div>
                                 </div>

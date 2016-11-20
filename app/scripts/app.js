@@ -35,4 +35,6 @@ angular.module('lanceSolidario', [
             timeout: 2000
         }
     );
+
+
 }]);
