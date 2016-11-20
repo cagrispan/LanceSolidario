@@ -176,6 +176,10 @@
   margin-right: auto;
 }
 .auction-card .image {
+  background-image: url("../images/picture.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -210,6 +214,13 @@
 }
 .auction-card:hover {
   cursor: pointer;
+}
+.contact .cover {
+  background: url('../images/contact.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  height: 380px;
 }
 .content .full-section .back-image {
   height: 65vh !important;

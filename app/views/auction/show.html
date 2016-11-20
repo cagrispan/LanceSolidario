@@ -1,5 +1,5 @@
 <div class="no-pad-bot auction">
-    <div class="container show">
+    <div class="container">
 
         <div class="col-sm-2 hidden-xs">
             <div class="panel panel-default">
@@ -49,10 +49,10 @@
 
                         <div class="container-fluid auction-info no-padding">
                             <!-- Image -->
-                            <div class="col-md-6 container-fluid" ng-if="auctionDetailCtrl.product">
+                            <div class="col-md-6 container-fluid auction-card" ng-if="auctionDetailCtrl.product">
                                 <!--<img ng-src="data:image/*;base64,{{auctionDetailCtrl.product.imageList[0].base64}}"
                                      alt="" class="img-responsive">-->
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 image">
                                     <div class="dummy"></div>
                                     <div class="thumbnail-square"
                                          ng-style="{'background-image': 'url(data:image/*;base64,'+auctionDetailCtrl.product.imageList[0].base64+')'}">
