@@ -176,6 +176,10 @@
   margin-right: auto;
 }
 .auction-card .image {
+  background-image: url("../images/picture.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
