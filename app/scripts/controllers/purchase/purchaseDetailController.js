@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('PurchaseDetailCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', 'Auction', 'Product', 'User', 'ngToast', '$routeParams', '$q','Institution',
+    .controller('PurchaseDetailCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', 'Auction', 'Product', 'User', 'ngToast', '$routeParams', '$q', 'Institution',
         function (facebookAPI, $location, Purchase, shareData, Auction, Product, User, ngToast, $routeParams, $q, Institution) {
 
             var self = this;
@@ -17,37 +17,7 @@ angular.module('lanceSolidario')
                     self.user = facebookAPI.user;
                     self.purchase = shareData.get('lastPurchase');
                     if (self.purchase) {
-
-                        self.auction = new Auction();
-                        self.auction.auctionId = self.purchase.auctionId;
-                        self.auction._load()
-                            .then(function () {
-                                    self.institution = new Institution();
-                                    self.institution.institutionId = self.auction.institutionId;
-                                    self.institution._load().catch(function () {
-                                        failFeedback('Problemas ao carregar dados da Instituição. Tente novamente.');
-                                    });
-
-                                    var promises = [];
-                                    self.product = new Product();
-                                    promises.push(self.product._listByAuction(self.auction).then(function (productList) {
-                                        self.product = productList[0];
-                                        if (!self.product) {
-                                            failFeedback('Problemas ao carregar dados do produto. Tente novamente.');
-                                        }
-                                    }));
-
-                                    self.purchase._loadDonor(self.auction.userId).then(function(result){
-                                        self.donorUser = result;
-                                    });
-                                    promises.push(self.productDonor._loadPublicInformation());
-
-                                    return $q.all(promises);
-                                }
-                            )
-                            .catch(function (err) {
-                                failFeedback(err, ' Problemas ao carregar dados da compra. Tente novamente.');
-                            });
+                        purchaseInfoLoad();
 
                     } else if ($routeParams.purchaseId) {
 
@@ -57,34 +27,7 @@ angular.module('lanceSolidario')
 
                         self.purchase._load()
                             .then(function () {
-                                self.auction = new Auction();
-                                self.auction.auctionId = self.purchase.auctionId;
-                                self.auction._load()
-                                    .then(function () {
-                                        self.institution = new Institution();
-                                        self.institution.institutionId = self.auction.institutionId;
-                                        self.institution._load().catch(function () {
-                                            failFeedback('Problemas ao carregar dados da Instituição. Tente novamente.');
-                                        });
-
-                                        var promises = [];
-                                        self.product = new Product();
-                                        promises.push(self.product._listByAuction(self.auction).then(function (productList) {
-                                            self.product = productList[0];
-                                            if (!self.product) {
-                                                failFeedback(' Problemas ao carregar dados da compra. Tente novamente.');
-                                            }
-                                        }));
-
-                                        self.purchase._loadDonor(self.auction.userId).then(function(result){
-                                            self.donorUser = result;
-                                        });
-
-                                        return $q.all(promises);
-                                    })
-                                    .catch(function (err) {
-                                        failFeedback(err, ' Problemas ao carregar dados da compra. Tente novamente.');
-                                    });
+                                purchaseInfoLoad();
                             }, function (err) {
 
                                 failFeedback(err, ' Problemas ao carregar dados da compra. Tente novamente.');
@@ -98,6 +41,11 @@ angular.module('lanceSolidario')
             }
 
             self.pay = function () {
+                if (self.purchase.isPaid) {
+                    ngToast.info('O pagamento já foi realizado.');
+                } else {
+                    $window.open(self.purchase.url);
+                }
             };
 
             self.confirmDelivery = function () {
@@ -111,6 +59,41 @@ angular.module('lanceSolidario')
                 })
             };
 
+
+            var purchaseInfoLoad = function () {
+                self.auction = new Auction();
+                self.auction.auctionId = self.purchase.auctionId;
+                return self.auction._load()
+                    .then(function () {
+                            console.log(self.auction.userId);
+
+                            self.purchase._loadDonor(self.auction.userId).then(function (result) {
+                                self.donorUser = result;
+                                console.log(self.donorUser);
+                            });
+
+                            self.institution = new Institution();
+                            self.institution.institutionId = self.auction.institutionId;
+                            self.institution._load().catch(function () {
+                                failFeedback('Problemas ao carregar dados da Instituição. Tente novamente.');
+                            });
+
+                            var promises = [];
+                            self.product = new Product();
+
+                            promises.push(self.product._listByAuction(self.auction).then(function (productList) {
+                                self.product = productList[0];
+                                if (!self.product) {
+                                    failFeedback('Problemas ao carregar dados do produto. Tente novamente.');
+                                }
+                            }));
+                            return $q.all(promises);
+                        }
+                    )
+                    .catch(function (err) {
+                        failFeedback(err, ' Problemas ao carregar dados da compra. Tente novamente.');
+                    });
+            };
 
             var successFeedback = function (message) {
                 ngToast.success(message);
