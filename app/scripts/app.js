@@ -14,6 +14,7 @@ angular.module('lanceSolidario', [
     'timer',
     'naif.base64',
     'ngFacebook',
+    'textAngular',
     'lanceSolidario.user',
     'lanceSolidario.product',
     'lanceSolidario.auction',

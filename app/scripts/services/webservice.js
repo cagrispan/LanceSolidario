@@ -1,5 +1,5 @@
 'use strict';
-var globalConfig = {backendBasePath:'http://192.168.2.108:7780'};//{backendBasePath:'http://172.20.245.6:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
+var globalConfig = {backendBasePath:'http://192.168.2.114:7780'};//{backendBasePath:'http://172.20.245.6:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
 angular.module('utils')
     .service('webService', ['$http', '$q',  function ($http, $q) {
         //TODO:Define global variables config

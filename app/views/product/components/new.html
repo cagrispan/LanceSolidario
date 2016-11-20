@@ -16,16 +16,21 @@
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="form-group">
                         <label for="product_description">Descrição do produto:</label>
-                        <textarea class="form-control" ng-model="productCtrl.newProduct.description"
+                        <!--textarea class="form-control" ng-model="productCtrl.newProduct.description"
                                   id="product_description"
                                   placeholder="Ex: Possui 45 megapixels, com zoom ótico de 30x, visor lcd, levemente riscada."
                                   rows="5" required>
-                        </textarea>
+                        </textarea-->
+
+                        <div text-angular
+                             ng-model="productCtrl.newProduct.description"
+                             id="product_description"
+                             required></div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="form-group">
-                        <label for="product_description">É usado?
+                        <label for="product_isUsed">É usado?
                             <input type="checkbox" class="form-control" ng-model="productCtrl.newProduct.isUsed"
                                    id="product_isUsed">
                             </input>
