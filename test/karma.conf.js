@@ -49,6 +49,7 @@ module.exports = function(config) {
       'bower_components/angular-ui-utils/index.js',
       'bower_components/angular-viacep/dist/angular-viacep.js',
       'bower_components/ng-facebook/ngFacebook.js',
+      'bower_components/angular-google-distance/src/angular-google-distance.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/app.js',

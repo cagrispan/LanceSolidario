@@ -59,10 +59,10 @@
 
                             <br>
 
-                            <div class="checkbox">
-                                <label><input type="checkbox" required><b>EU ACEITO que o valor seja entregue ao
-                                    TETO.</b></label>
-                            </div>
+                            <select class="form-control" id="auction_institution"
+                                    ng-options="institution as institution.name for institution in auctionCtrl.institutionList"
+                                    ng-model="auctionCtrl.institution" required>
+                            </select>
                         </div>
                     </div>
 
@@ -166,11 +166,11 @@
                             <table class="table table-striped">
                                 <tr>
                                     <td><b>Produto:</b></td>
-                                    <td>{{auctionCtrl.product.title}}</td>
+                                    <td>{{auctionCtrl.product.title}}{{auctionCtrl.product? auctionCtrl.product.title: 'Nenhum produto selecionado.'}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Instituição:</b></td>
-                                    <td> TETO</td>
+                                    <td> {{auctionCtrl.institution? auctionCtrl.institution.name: 'Nenhuma instituição selecionada.'}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Valor Inicial:</b></td>

@@ -46,4 +46,9 @@ angular.module('lanceSolidario.purchase', [
     'lanceSolidario.purchase.purchase'
 ]);
 
+angular.module('lanceSolidario.institution', [
+    'lanceSolidario.institution.institutionResource',
+    'lanceSolidario.institution.institution'
+]);
+
 angular.module('utils',['lanceSolidario']);

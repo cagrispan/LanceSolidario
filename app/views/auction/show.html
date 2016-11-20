@@ -10,7 +10,7 @@
                     <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" data-pin-no-hover="true"
                          class="img-responsive img-circle" alt="">
                     <h4>{{auctionDetailCtrl.donor.name}}</h4>
-                    Curitiba, Paraná <br>
+                    {{auctionDetailCtrl.donor.address.city}}, {{auctionDetailCtrl.donor.address.state}}<br>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                     <div class="container-fluid">
 
                         <div class="title">
-                            <h1>{{auctionDetailCtrl.product.title}}</h1>
+                            <h1>{{auctionDetailCtrl.product.title}}{{auctionDetailCtrl.distance}}</h1>
                         </div>
 
                         <div class="container-fluid auction-info no-padding">
@@ -51,7 +51,21 @@
                             <div class="col-md-6 text-center">
                                 <div class="details">
                                     <div class="value">
+                                        <p ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
+                                            Leilão Finalizado
+                                        </p>
 
+                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
+                                            Leilão Cancelado
+                                        </p>
+
+                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
+                                            Inicia em:
+                                        </p>
+
+                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
+                                            Termina em:
+                                        </p>
                                     </div>
 
                                     <div class="counter"
@@ -63,21 +77,7 @@
                                             scheduled: (auctionDetailCtrl.auction.status === 'pending')
                                          }">
 
-                                        <p ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
-                                            Leilão Finalizado!!
-                                        </p>
 
-                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
-                                            Esse leilão foi cancelado.
-                                        </p>
-
-                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
-                                            Inicia em :
-                                        </p>
-
-                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
-                                            Termina em:
-                                        </p>
 
                                         <timer ng-if="auctionDetailCtrl.duration" countdown="auctionDetailCtrl.duration"
                                                max-time-unit="'day'"
@@ -100,10 +100,11 @@
                                         </div>
                                     </div>
 
-                                    <form class="form-group no-padding no-margin"
-                                          ng-show="!(auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'pending')">
-                                        <div class="auction-form">
+                                    <form class="form-group no-padding no-margin" ng-submit="auctionDetailCtrl.bid()"
+                                          ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
+                                        <div class="auction-form" >
                                             <span id="bid">
+
                                                 <br>
                                                     <label class="sr-only" for="input-amount">Valor (em reais)</label>
                                                     <div class="input-group">
@@ -111,17 +112,16 @@
                                                         <input type="number" class="form-control " id="input-amount"
                                                                placeholder="Valor" step="0.01"
                                                                ng-model="auctionDetailCtrl.newBid"
-                                                               value='{{auctionDetailCtrl.auction.minimumBid}}'
-                                                               min='{{auctionDetailCtrl.auction.minimumBid}}'>
+                                                               min='{{auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid}}'>
                                                     </div>
 
                                                     <div>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</button>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</div>
                                                     </div>
 
                                             </span>
@@ -129,7 +129,7 @@
 
                                         <div class="button">
                                             <button class="btn btn-block btn-success btn-lg"
-                                                    ng-click="auctionDetailCtrl.bid()"
+                                                    type="submit"
                                                     data-target="#bid">
                                                 <i class="fa fa-gavel"></i> &nbsp; Dar Lance
                                             </button>
