@@ -27,10 +27,9 @@ angular.module('lanceSolidario')
 
                 if (facebookAPI.user) {
                     self.user = facebookAPI.user;
-
                 }
 
-                if (self.auction) {
+                if (self.auction && self.auction.auctionId) {
                     shareData.set(false, 'lastAuction');
                     self.loading = false;
 
@@ -60,30 +59,33 @@ angular.module('lanceSolidario')
 
 
                     self.auction._load().then(function () {
-                        self.duration = getCountDown();
+                        if(!self.auction.status){
+                            $location.path('404');
+                        }else {
 
-                        //TODO: This one is a big shit #1
-                        if (self.auction.status === 'finished') {
-                            self.auctionFinish = true;
+                            self.duration = getCountDown();
+
+                            //TODO: This one is a big shit #1
+                            if (self.auction.status === 'finished') {
+                                self.auctionFinish = true;
+                            }
+
+                            //TODO: This one is a big shit #2
+                            if (self.duration <= 0) {
+                                self.duration = 0.0001;
+                            }
+
+                            loadDonor(self.auction.userId);
+                            loadInstitution(self.auction.institutionId);
+                            loadProduct();
+                            loadBidsTask(self.auction);
                         }
-
-                        //TODO: This one is a big shit #2
-                        if (self.duration <= 0) {
-                            self.duration = 0.0001;
-                        }
-
-                        loadDonor(self.auction.userId);
-                        loadInstitution(self.auction.institutionId);
-                        loadProduct();
-                        loadBidsTask(self.auction);
-
                     }, function (err) {
                         failFeedback(err);
                     });
 
                 } else {
-                    failFeedback('Problemas ao carregar o leilão. Tente novamente.');
-                    $location('user/auctions');
+                    $location.path('404');
                 }
             }
 
