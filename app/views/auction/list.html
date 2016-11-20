@@ -21,7 +21,7 @@
 
 
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3"
-                 ng-repeat="auction in (auctionListCtrl.auctionList | filter:{status:'!canceled'})| filter:{status:auctionListCtrl.orderBy.status}| orderBy:auctionListCtrl.orderBy.orderBy:auctionListCtrl.orderBy.reverse">
+                 ng-repeat="auction in (auctionListCtrl.auctionList | filter:{status:'!canceled'})| filter:auctionListCtrl.orderBy.filter| orderBy:auctionListCtrl.orderBy.orderBy:auctionListCtrl.orderBy.reverse">
 
                 <div class="panel panel-default auction-card" ng-click="auctionListCtrl.openDetail(auction)">
                     <!--<div class="value text-center">

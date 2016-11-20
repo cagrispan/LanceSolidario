@@ -9,25 +9,25 @@ angular.module('lanceSolidario')
                 [
                     {
                         title: 'Preço mais alto',
-                        status: 'active',
+                        filter:{},
                         reverse: true,
                         orderBy: 'bid'
                     },
                     {
                         title: 'Preço mais baixo',
-                        status: 'active',
+                        filter:{},
                         reverse: false,
                         orderBy: 'bid'
                     },
                     {
                         title: 'Mais próximo des terminar',
-                        status: 'active',
+                        filter:{status:'active'},
                         reverse: false,
                         orderBy: 'endDate'
                     },
                     {
                         title: 'Mais próximo de começar',
-                        status: 'pending',
+                        filter:{status:'pending'},
                         reverse: false,
                         orderBy: 'startDate'
                     }
