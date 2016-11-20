@@ -22,6 +22,8 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" uib-dropdown dropdown-append-to-body ng-if="!$root.user">
+                <li><a href="#/contact">Contato</a></li>
+
                 <li><a href="#/login">Entrar</a></li>
             </ul>
 
@@ -31,7 +33,10 @@
                     <a href="#/user">Olá, {{$root.user.name.split(' ')[0]}}!</a>
                 </li>
 
+
                 <li><a href="#/user/auctions/add">Leiloar um item</a></li>
+                <li><a href="#/contact">Contato</a></li>
+
                 <li class="options">
                     <a href="" uib-dropdown-toggle><i class="fa fa-gear"></i></a>
                     <ul class=" dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
@@ -49,6 +54,7 @@
                         <li role="menuitem"><a href="#/user/logout">&nbsp; Sair</a></li>
                     </ul>
                 </li>
+
             </ul>
         </div>
     </div>

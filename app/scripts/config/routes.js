@@ -17,6 +17,9 @@ angular.module('lanceSolidario')
                 controller: 'HomeCtrl',
                 controllerAs: 'homeCtrl'
             })
+            .when('/contact', {
+                templateUrl: 'views/common/contact.html',
+            })
             .when('/login', {
                 templateUrl: 'views/user/login.html',
                 controller: 'LoginCtrl',

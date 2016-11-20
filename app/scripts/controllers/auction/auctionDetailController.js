@@ -257,8 +257,8 @@ angular.module('lanceSolidario')
             };
 
             self.feed = function () {
-                facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para o Teto. Qeu tal dar um lance e ajudar essa instituição!?');
-            };
+                facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para a instituição '+self.institution.name+'. Melhore o mundo em um lance.',self.product.title);
+        };
 
             self.openInstitution = function () {
                 shareData.set(self.institution, 'lastInstitution');
