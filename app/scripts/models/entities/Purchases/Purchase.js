@@ -69,6 +69,7 @@
 
                 this._loadDonor = function (donorId) {
                     var purchase = this;
+
                     return purchaseResource.loadDonor(purchase,donorId)
                         .then(function (result) {
                             return result;
@@ -94,6 +95,7 @@
                         var purchase;
                         for (var i in purchaseList) {
                             purchase = new Purchase();
+                            purchase.facebookId = response.facebookId;
                             purchase._set(purchaseList[i]);
                             purchaseListToReturn.push(purchase);
                         }

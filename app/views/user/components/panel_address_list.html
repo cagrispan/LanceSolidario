@@ -3,7 +3,7 @@
         <div class="panel-title text-left">
             Endereços:
             <div class="input-group-btn pull-right">
-                <button class="btn btn-xs btn-success" ng-click="addressCtrl.newAddress()">
+                <button ng-if="!(addressCtrl.user.addressList.length>0)" class="btn btn-xs btn-success" ng-click="addressCtrl.newAddress()">
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
