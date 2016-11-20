@@ -1,6 +1,6 @@
 'use strict';
 angular.module('utils')
-    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', 'shareData', '$q', '$facebook','$route', function ($rootScope, $location, User, apiToken, shareData, $q, $facebook, $route) {
+    .service('facebookAPI', ['$rootScope', '$location', 'User', 'apiToken', 'shareData', '$q', '$facebook', '$route', function ($rootScope, $location, User, apiToken, shareData, $q, $facebook, $route) {
 
         var self = this;
         self.user = null;
@@ -90,7 +90,7 @@ angular.module('utils')
 
         };
 
-        this.logout = function(){
+        this.logout = function () {
             self.user = null;
             $rootScope.user = null;
             $location.path('/');
@@ -111,13 +111,13 @@ angular.module('utils')
             });
         };
 
-        this.feed = function (path, message) {
+        this.feed = function (path, message, name) {
             FB.ui({
                 method: 'feed',
-                name: 'Lance Solidário',
-                description: message? message : 'Leiloe aquilo que não precisa mais e destine o valor arrecadado para uma instituição de sua escolha!',
+                name: name ? name : 'Lance Solidário. Melhore o mundo em um lance.',
+                description: message ? message : 'No Lance Solidário, todo o valor arrecadado é doado a uma instituição filantrópica. Participe!',
                 link: path ? ('local.lancesolidario.com.br:9000/#' + path) : 'local.lancesolidario.com.br:9000',
-                caption: 'Melhore o mundo num lance.'
+                caption: 'lancesolidario.com.br'
             });
         };
 
