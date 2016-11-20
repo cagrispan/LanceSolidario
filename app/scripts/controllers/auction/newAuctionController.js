@@ -37,7 +37,8 @@ angular.module('lanceSolidario')
                         }
                         i++;
                     }
-                    if (self.productList.length > 0) {
+
+                    if (self.productList && self.productList.length > 0) {
                         self.product = self.productList[0];
                     }
 

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route', 'distanceAPI',
-        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route, distanceAPI) {
+    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route', 'distanceAPI','Institution',
+        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route, distanceAPI,Institution) {
 
             var self = this;
             var mSecondsToGetBids = 3000;
@@ -48,6 +48,7 @@ angular.module('lanceSolidario')
                     }
 
                     loadDonor(self.auction.userId);
+                    loadInstitution(self.auction.institutionId);
 
                     loadProduct();
                     loadBidsTask(self.auction);
@@ -72,6 +73,7 @@ angular.module('lanceSolidario')
                         }
 
                         loadDonor(self.auction.userId);
+                        loadInstitution(self.auction.institutionId);
                         loadProduct();
                         loadBidsTask(self.auction);
 
@@ -113,7 +115,7 @@ angular.module('lanceSolidario')
                 self.donor = new User();
                 self.donor.address = {};
                 self.donor.facebookId = facebookId;
-                return self.donor._loadPublicInformation().then(function(){
+                return self.donor._loadPublicInformation().then(function () {
                     if (self.user.facebookId) {
                         self.user._loadAddresses().then(function () {
                             return distanceAPI.get(self.donor.address.cep, self.user.addressList[0].cep)
@@ -125,8 +127,17 @@ angular.module('lanceSolidario')
                             }
                         })
                     }
-                },function (err) {
+                }, function (err) {
                     failFeedback(err, 'Problemas ao carregar os dados do Doador. Tente novamente.');
+                });
+
+            }
+
+            function loadInstitution(institutionId) {
+                self.institution = new Institution();
+                self.institution.institutionId = institutionId;
+                return self.institution._load().catch(function (err) {
+                    failFeedback(err, 'Problemas ao carregar os dados da INstituição. Tente novamente.');
                 });
 
             }

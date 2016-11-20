@@ -40,7 +40,6 @@
                 var institutionListToReturn = [];
 
                 return institutionResource.loadAll().then(function (response) {
-                    console.log(response);
                     var institutionList = [];
 
                     if (response.institutions) {

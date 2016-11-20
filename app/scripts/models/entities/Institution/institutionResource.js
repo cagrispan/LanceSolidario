@@ -8,7 +8,24 @@
 
         self.loadAll = function () {
             var headers = {};
-            var endpoint ='/institutions';
+            var endpoint = '/institutions';
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
+        self.load = function (institution) {
+            var headers = {};
+
+            if (institution && institution.institutionId) {
+                var endpoint = '/institutions/' + institution.institutionId;
+            } else {
+                return $q.reject({errorMessage: 'institution id missing'});
+            }
+
             //Make the request
             return webService.read(endpoint, headers).then(
                 function (resolve) {
