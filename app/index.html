@@ -65,6 +65,8 @@
     ga('send', 'pageview');
 </script>
 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAvOmHqM6WGhYXfZW3xKbeIlw8vjTpWB3c&sensor=false"></script>
+
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -96,6 +98,7 @@
 <script src="bower_components/angular-ui-utils/index.js"></script>
 <script src="bower_components/angular-viacep/dist/angular-viacep.js"></script>
 <script src="bower_components/ng-facebook/ngFacebook.js"></script>
+<script src="bower_components/angular-google-distance/src/angular-google-distance.js"></script>
 <!-- endbower -->
 
 
@@ -144,6 +147,7 @@
 <script src="scripts/services/facebookAPI.js"></script>
 <script src="scripts/services/shareData.js"></script>
 <script src="scripts/services/telephoneMaskFilter.js"></script>
+<script src="scripts/services/distanceAPI.js"></script>
 
 <!-- Modules -->
 
@@ -176,6 +180,10 @@
 <!-- Purchase -->
 <script src="scripts/models/entities/Purchases/purchaseResource.js"></script>
 <script src="scripts/models/entities/Purchases/Purchase.js"></script>
+<!-- Institution -->
+<script src="scripts/models/entities/Institution/institutionResource.js"></script>
+<script src="scripts/models/entities/Institution/Institution.js"></script>
+
 <!-- endbuild -->
 
 </body>

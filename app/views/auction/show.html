@@ -10,7 +10,7 @@
                     <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" data-pin-no-hover="true"
                          class="img-responsive img-circle" alt="">
                     <h4>{{auctionDetailCtrl.donor.name}}</h4>
-                    Curitiba, Paraná <br>
+                    {{auctionDetailCtrl.donor.address.city}}, {{auctionDetailCtrl.donor.address.state}}<br>
                 </div>
             </div>
 
@@ -19,8 +19,9 @@
                     <b>Instituição:</b>
                 </div>
                 <div class="panel-body text-center">
-                    <img src="images/institution-teto.png" data-pin-no-hover="true" class="img-responsive" alt="">
-                    <h4>TETO</h4>
+                    <img src="data:image/*;base64,{{auctionDetailCtrl.institution.logo}}" data-pin-no-hover="true" class="img-responsive" alt="">
+
+                    <h4>{{auctionDetailCtrl.institution.name}}</h4>
                 </div>
             </div>
         </div>
@@ -31,7 +32,19 @@
                     <div class="container-fluid">
 
                         <div class="title">
-                            <h1>{{auctionDetailCtrl.product.title}}</h1>
+
+                            <h1>{{auctionDetailCtrl.product.title}}
+                                <button class="btn btn-md btn-facebook pull-right" ng-click="auctionDetailCtrl.feed()">
+                                    <i class="fa fa-facebook"></i>
+                                    Compartilhar
+                                </button>
+                            </h1>
+
+                        </div>
+
+
+                        <div class="distance" ng-if="auctionDetailCtrl.distance">
+                            <h2>Este produto está a <b>{{auctionDetailCtrl.distance}}</b> de você!</h2>
                         </div>
 
                         <div class="container-fluid auction-info no-padding">
@@ -50,9 +63,7 @@
                             <!-- Details -->
                             <div class="col-md-6 text-center">
                                 <div class="details">
-                                    <div class="value">
 
-                                    </div>
 
                                     <div class="counter"
                                          ng-if="!auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'"
@@ -63,21 +74,23 @@
                                             scheduled: (auctionDetailCtrl.auction.status === 'pending')
                                          }">
 
-                                        <p ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
-                                            Leilão Finalizado!!
-                                        </p>
+                                        <div class="value">
+                                            <p ng-if="auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'">
+                                                Leilão Finalizado
+                                            </p>
 
-                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
-                                            Esse leilão foi cancelado.
-                                        </p>
+                                            <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'canceled'">
+                                                Leilão Cancelado
+                                            </p>
 
-                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
-                                            Inicia em :
-                                        </p>
+                                            <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'pending'">
+                                                Inicia em:
+                                            </p>
 
-                                        <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
-                                            Termina em:
-                                        </p>
+                                            <p ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
+                                                Termina em:
+                                            </p>
+                                        </div>
 
                                         <timer ng-if="auctionDetailCtrl.duration" countdown="auctionDetailCtrl.duration"
                                                max-time-unit="'day'"
@@ -100,10 +113,13 @@
                                         </div>
                                     </div>
 
-                                    <form class="form-group no-padding no-margin"
-                                          ng-show="!(auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'pending')">
-                                        <div class="auction-form">
+
+
+                                    <form class="form-group no-padding no-margin" ng-submit="auctionDetailCtrl.bid()"
+                                          ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
+                                        <div class="auction-form" >
                                             <span id="bid">
+
                                                 <br>
                                                     <label class="sr-only" for="input-amount">Valor (em reais)</label>
                                                     <div class="input-group">
@@ -111,17 +127,16 @@
                                                         <input type="number" class="form-control " id="input-amount"
                                                                placeholder="Valor" step="0.01"
                                                                ng-model="auctionDetailCtrl.newBid"
-                                                               value='{{auctionDetailCtrl.auction.minimumBid}}'
-                                                               min='{{auctionDetailCtrl.auction.minimumBid}}'>
+                                                               min='{{auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid}}'>
                                                     </div>
 
                                                     <div>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</button>
-                                                        <button class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</button>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</div>
+                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</div>
                                                     </div>
 
                                             </span>
@@ -129,7 +144,7 @@
 
                                         <div class="button">
                                             <button class="btn btn-block btn-success btn-lg"
-                                                    ng-click="auctionDetailCtrl.bid()"
+                                                    type="submit"
                                                     data-target="#bid">
                                                 <i class="fa fa-gavel"></i> &nbsp; Dar Lance
                                             </button>
@@ -160,17 +175,6 @@
                             </div>
                         </div>
 
-                        &nbsp;
-                        <!-- SOCIAL --><br>
-                        <div class="container-fluid">
-                            <h2>REDES SOCIAIS</h2>
-
-                            <button class="btn btn-lg btn-facebook" ng-click="auctionDetailCtrl.feed()">
-                                <i class="fa fa-facebook"></i>
-                                Compartilhar
-                            </button>
-                        </div>
-
                         <!-- DESCRIPTION --><br>
                         <div class="container-fluid">
                             <h2> DESCRIÇÃO </h2>
@@ -182,27 +186,65 @@
                             </b>
                         </div>
 
-                        <!-- SEND METHOD --><br>
-                        <div class="container-fluid">
-                            <h2>ENVIO</h2>
-                            <p>
-                                Contato entre as partes
-                            </p>
+                        <hr>
+
+                        <!-- STATUS -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right"> CONDIÇÔES DO ITEM </label>
+
+                            <div class="col-sm-9">
+                                <p ng-if="!auctionDetailCtrl.product.isUsed"> *Produto Novo.</p>
+                                <p ng-if="auctionDetailCtrl.product.isUsed"> *Produto Usado.</p>
+                            </div>
                         </div>
 
-                        <!-- PAYMENT --><br>
-                        <div class="container-fluid">
-                            <h2>PAGAMENTO</h2>
-                            <p>
-                                Relizado através do pagseguro
-                            </p>
+                        <!-- SEND METHOD -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">ENVIO</label>
+                            <div class="col-sm-9">
+                                Contato entre as partes
+                            </div>
                         </div>
+
+                        <!-- PAYMENT -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">PAGAMENTO</label>
+                            <div class="col-sm-9">
+                                Relizado através do pagseguro
+                            </div>
+                        </div>
+
+                        <!-- INITIAL VALUE -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">VALOR INICIAL</label>
+                            <div class="col-sm-9">
+                                {{auctionDetailCtrl.auction.minimumBid | currency}}
+                            </div>
+                        </div>
+
+                        <!-- TAX -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">TAXA ADMINISTRATIVA</label>
+                            <div class="col-sm-9">
+                                R$00,00
+                            </div>
+                        </div>
+
+                        <!-- DISTANCE -->
+                        <div class="form-group row" ng-if="auctionDetailCtrl.distance">
+                            <label class="col-sm-3 col-form-label text-right">DISTÂNCIA</label>
+                            <div class="col-sm-9">
+                                {{auctionDetailCtrl.distance}}
+                            </div>
+                        </div>
+
+                        <hr>
 
                         <!-- BIDS --><br>
                         <div class="container-fluid">
                             <h2>ÚLTIMOS LANCES: &nbsp;</h2>
 
-                            <table class="table table-striped">
+                            <table class="table">
                                 <tbody>
                                 <tr ng-repeat="bid in auctionDetailCtrl.auction.bidList | orderBy:{bid:true} | limitTo: 5 | filter:{isDeleted:false}"
                                     ng-class="{

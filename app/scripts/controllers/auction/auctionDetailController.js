@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route',
-        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route) {
+    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route', 'distanceAPI','Institution',
+        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route, distanceAPI,Institution) {
 
             var self = this;
             var mSecondsToGetBids = 3000;
@@ -11,7 +11,7 @@ angular.module('lanceSolidario')
             self.newBid = null;
             self.duration = false;
             self.donor = {};
-            self.user = {facebookId: 'noUser'};
+            self.user = {facebookId: null};
             self.wining = 'first';
             self.auctionFinish = false;
             self.winningBid = {userId: ''};
@@ -27,10 +27,11 @@ angular.module('lanceSolidario')
 
                 if (facebookAPI.user) {
                     self.user = facebookAPI.user;
+
                 }
 
                 if (self.auction) {
-                    shareData.set({},'lastAuction');
+                    shareData.set(false, 'lastAuction');
                     self.loading = false;
 
                     self.duration = getCountDown();
@@ -47,6 +48,8 @@ angular.module('lanceSolidario')
                     }
 
                     loadDonor(self.auction.userId);
+                    loadInstitution(self.auction.institutionId);
+
                     loadProduct();
                     loadBidsTask(self.auction);
                 }
@@ -70,6 +73,7 @@ angular.module('lanceSolidario')
                         }
 
                         loadDonor(self.auction.userId);
+                        loadInstitution(self.auction.institutionId);
                         loadProduct();
                         loadBidsTask(self.auction);
 
@@ -109,28 +113,49 @@ angular.module('lanceSolidario')
 
             function loadDonor(facebookId) {
                 self.donor = new User();
+                self.donor.address = {};
                 self.donor.facebookId = facebookId;
-                return self.donor._loadPublicInformation().catch(function (err) {
+                return self.donor._loadPublicInformation().then(function () {
+                    if (self.user.facebookId) {
+                        self.user._loadAddresses().then(function () {
+                            return distanceAPI.get(self.donor.address.cep, self.user.addressList[0].cep)
+                        }).then(function (distanceObject) {
+                            if (distanceObject && distanceObject.rows[0] && distanceObject.rows[0].elements[0]) {
+                                self.distance = distanceObject['rows'][0]['elements'][0]['distance']['text'];
+                            } else {
+                                self.distance = null;
+                            }
+                        })
+                    }
+                }, function (err) {
                     failFeedback(err, 'Problemas ao carregar os dados do Doador. Tente novamente.');
                 });
 
             }
 
-            function loadBidsTask(auction) {
-                if (auction.status === 'active') {
-                    auction._loadBids().then(function () {
-                        self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
-                        self.winningBid = getWinningBid();
-                        winingVerify();
-                        if ($location.path() === actualPath)
-                            $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
-                    }, function (err) {
-                        if ($location.path() === actualPath)
-                            $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
-                        failFeedback('Problemas ao carregar os lances.');
-                    })
-                }
+            function loadInstitution(institutionId) {
+                self.institution = new Institution();
+                self.institution.institutionId = institutionId;
+                return self.institution._load().catch(function (err) {
+                    failFeedback(err, 'Problemas ao carregar os dados da INstituição. Tente novamente.');
+                });
+
             }
+
+            function loadBidsTask(auction) {
+                auction._loadBids().then(function () {
+                    self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
+                    self.winningBid = getWinningBid();
+                    winingVerify();
+                    if ($location.path() === actualPath && auction.status === 'active')
+                        $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
+                }, function (err) {
+                    if ($location.path() === actualPath)
+                        $timeout(loadBidsTask.bind(self, self.auction), mSecondsToGetBids);
+                    failFeedback('Problemas ao carregar os lances.');
+                })
+            }
+
 
             function winingVerify() {
                 if (self.wining === 'first') {
@@ -184,18 +209,13 @@ angular.module('lanceSolidario')
                 if (!facebookAPI.user) {
                     ngToast.info('Por favor, realize login para fazer um lance.');
                     $timeout($location.path.bind($location, '/login'), 100);
-                }else if (!self.auctionFinish) {
+                } else if (!self.auctionFinish) {
                     if (self.newBid <= self.winningBid.bid) {
                         failFeedback('Eii! Seu lance deve ser maior que o lance atual. Verifique o valor inserido.');
                         return;
                     }
 
-                    if (self.winningBid.userId === self.user.facebookId && !confirm('O seu lance ainda esta ganhando esse leilão, realmente deseja cobrir seu próprio lance?')) {
-                        return;
-                    }
-
-                    if (!self.winningBid &&  self.newBid <= self.auction.minimumBid)
-                    {
+                    if (!self.winningBid && self.newBid <= self.auction.minimumBid) {
                         failFeedback('Ops! Seu lance deve ser maior que o <b>valor mínimo</b>. Verifique o valor inserido.');
                         return;
                     }
@@ -206,9 +226,14 @@ angular.module('lanceSolidario')
                     bid.bid = self.newBid;
                     bid._add(self.user).then(
                         function () {
-                            self.auction._loadBids();
-                            self.newBid = '';
-                            successFeedback('Parabéns, seu lance foi efetuado com sucesso.');
+                            self.auction._loadBids().then(function () {
+                                successFeedback('Parabéns, seu lance foi efetuado com sucesso.');
+                                self.duration = (new Date(self.auction.endDate).getTime() - new Date().getTime()) / 1000;
+                                self.winningBid = getWinningBid();
+                                winingVerify();
+                                self.newBid = '';
+
+                            });
                         }, function () {
                             failFeedback('Ocorreu um problema ao salvar o seu lance, verifique se um lance maior já não foi efetuado.');
                         });
@@ -220,13 +245,12 @@ angular.module('lanceSolidario')
 
             self.increaseBid = function (value) {
                 if (!self.newBid) {
-                    if(self.winningBid.bid) {
-                        self.newBid += self.winningBid.bid;
-                    }else {
-                        self.newBid += self.auction.minimumBid;
+                    if (self.winningBid.bid) {
+                        self.newBid = self.winningBid.bid;
+                    } else {
+                        self.newBid = self.auction.minimumBid;
                     }
                 }
-
                 self.newBid += value;
             };
 
