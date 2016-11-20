@@ -53,6 +53,9 @@
                  */
                 this.facebookId = null;
 
+
+                this.donorUser = null;
+
                 /*
                  Methods
                  */
@@ -61,6 +64,14 @@
                     return purchaseResource.load(purchase)
                         .then(function (result) {
                             purchase._set(result);
+                        });
+                };
+
+                this._loadDonor = function (donorId) {
+                    var purchase = this;
+                    return purchaseResource.loadDonor(purchase,donorId)
+                        .then(function (result) {
+                            return result;
                         });
                 };
 
