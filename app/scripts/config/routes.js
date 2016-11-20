@@ -22,16 +22,17 @@ angular.module('lanceSolidario')
                 controller: 'LoginCtrl',
                 controllerAs: 'loginCtrl'
             })
-            .when('/institutions', {
+            .when('/institutions/:institutionId', {
                 templateUrl: 'views/institution/show.html',
+                controller:'InstitutionDetailCtrl',
+                controllerAs:'institutionDetailCtrl'
             })
             .when('/partners', {
-                templateUrl: 'views/common/partners.html',
+                templateUrl: 'views/common/partners.html'
             })
             .when('/about', {
-                templateUrl: 'views/common/about.html',
+                templateUrl: 'views/common/about.html'
             })
-
 
             //Auctions
             .when('/auctions', {

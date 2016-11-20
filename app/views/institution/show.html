@@ -5,8 +5,9 @@
         </div>
 
         <div class="logo-background v-m-parent">
-            <div class="logo v-m-child">
-
+            <div class="logo v-m-child"
+                 ng-style="{'background-image': 'url(data:image/*;base64,'+institutionDetailCtrl.institution.logo+')'}">
+                <!--img ng-src="data:image/*;base64,{{institutionDetailCtrl.institution.logo}}" data-pin-no-hover="true"  alt=""-->
             </div>
         </div>
 
@@ -15,39 +16,34 @@
             <div class="col-lg-8 col-md-10 col-sm-12 col-centered">
 
 
-                <h2 class="title">Nome da Instituição</h2>
+                <h2 class="title"> {{institutionDetailCtrl.institution.name}}</h2>
 
                 <h3>Sobre:</h3>
                 <p>
-                    [O que faz? A quem atende? Como realiza o atendimento]
-
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                    eu
-                    fugiat
-                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                    mollit
-                    anim id est laborum
+                    {{institutionDetailCtrl.institution.about}}
                 </p>
 
                 <h3>Localidade:</h3>
                 <p>
-                    Rua qualquer, bairo nenhum, cidade outra;
+                    {{institutionDetailCtrl.institution.city}}, {{institutionDetailCtrl.institution.state}}
+
                 </p>
 
                 <h3>Responsável:</h3>
                 <p>
-                    Fulano da silva pereira.
+                    {{institutionDetailCtrl.institution.responsible}}
                 </p>
 
                 <h3>Contato</h3>
                 <p>
-                    (41) 99999-9999
+                    {{institutionDetailCtrl.institution.telephone}}
                 </p>
+
+                <h3>Saiba mais</h3>
+                <a target='blank' href='http://{{institutionDetailCtrl.institution.page}}'>
+                    {{institutionDetailCtrl.institution.page}}
+                </a>
+
             </div>
         </div>
     </div>
