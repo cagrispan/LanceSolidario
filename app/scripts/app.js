@@ -22,7 +22,9 @@ angular.module('lanceSolidario', [
     'lanceSolidario.email',
     'lanceSolidario.image',
     'lanceSolidario.telephone',
-    'lanceSolidario.purchase'
+    'lanceSolidario.purchase',
+    'lanceSolidario.institution',
+    'angular.google.distance'
 ]).config(['ngToastProvider', function(ngToast) {
     ngToast.configure(
         {

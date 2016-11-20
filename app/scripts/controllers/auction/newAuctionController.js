@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('NewAuctionCtrl', ['facebookAPI', '$location', 'Auction', 'shareData', 'ngToast', function (facebookAPI, $location, Auction, shareData, ngToast) {
+    .controller('NewAuctionCtrl', ['facebookAPI', '$location', 'Auction', 'shareData', 'ngToast', 'Institution', function (facebookAPI, $location, Auction, shareData, ngToast, Institution) {
 
         var self = this;
 
@@ -8,7 +8,7 @@ angular.module('lanceSolidario')
             //Useful flags
             self.loading = true;
             shareData.set($location.path(), 'lastPath');
-
+            self.institutions = [];
             if (!facebookAPI.user) {
                 $location.path('/login');
             } else {
@@ -20,6 +20,15 @@ angular.module('lanceSolidario')
                 self.product = null;
 
 
+                Institution._listAll().then(function (institutions) {
+                    self.institutionList = institutions;
+                    if (self.institutionList.length > 0) {
+                        self.institution = self.institutionList[0];
+                    }
+                }, function (err) {
+                    failFeedback(err);
+                });
+
                 self.user._loadProducts().then(function () {
                     var i = 0;
                     while (self.product === null && i < self.user.productList.length) {
@@ -28,6 +37,12 @@ angular.module('lanceSolidario')
                         }
                         i++;
                     }
+
+                    if (self.productList && self.productList.length > 0) {
+                        self.product = self.productList[0];
+                    }
+
+
                 }, function () {
                     failFeedback('Problema ao carregar suas doações. Tente novamente.');
                 });
@@ -39,16 +54,20 @@ angular.module('lanceSolidario')
             if (false) {
                 failFeedback('O inicio do leilão deve ser posterior a data atual. Verifique os dados e tente novamente.');
             } else {
+                if (!self.institution) {
+                    failFeedback('É necessario escolher uma instituição.');
+                    return;
+                }
                 if (!self.product) {
                     failFeedback('É necessario escolher uma doação para o leilão.')
                 } else {
+                    self.auctionToAdd.institutionId = self.institution.institutionId;
                     self.auctionToAdd.productId = self.product.productId;
                     self.auctionToAdd.startDate = self.dt;
                     self.auctionToAdd.endDate = new Date();
                     self.auctionToAdd.endDate.setDate(self.dt.getDate() + parseInt(self.finalTimeToAdd));
                     if (self.auctionToAdd.startDate.getTime() < (new Date().getTime())) {
                         failFeedback('A data/horário de inicio deve ser maior ou igual à atual.');
-
                     } else {
                         self.auctionToAdd._add().then(function (data) {
                             successFeedback('Leilão Adicionado com sucesso');
