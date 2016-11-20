@@ -31,7 +31,12 @@
                     <div class="container-fluid">
 
                         <div class="title">
-                            <h1>{{auctionDetailCtrl.product.title}}</h1>
+                            <h1>{{auctionDetailCtrl.product.title}}
+                                <button class="btn btn-lg btn-facebook pull-right" ng-click="auctionDetailCtrl.feed()">
+                                    <i class="fa fa-facebook"></i>
+                                    Compartilhar
+                                </button>
+                            </h1>
                         </div>
 
                         <div class="container-fluid auction-info no-padding">
@@ -160,17 +165,6 @@
                             </div>
                         </div>
 
-                        &nbsp;
-                        <!-- SOCIAL --><br>
-                        <div class="container-fluid">
-                            <h2>REDES SOCIAIS</h2>
-
-                            <button class="btn btn-lg btn-facebook" ng-click="auctionDetailCtrl.feed()">
-                                <i class="fa fa-facebook"></i>
-                                Compartilhar
-                            </button>
-                        </div>
-
                         <!-- DESCRIPTION --><br>
                         <div class="container-fluid">
                             <h2> DESCRIÇÃO </h2>
@@ -182,21 +176,59 @@
                             </b>
                         </div>
 
-                        <!-- SEND METHOD --><br>
-                        <div class="container-fluid">
-                            <h2>ENVIO</h2>
-                            <p>
-                                Contato entre as partes
-                            </p>
+                        <hr>
+
+                        <!-- STATUS -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right"> CONDIÇÔES DO ITEM </label>
+
+                            <div class="col-sm-9">
+                                <p ng-if="!auctionDetailCtrl.product.isUsed"> *Produto Novo.</p>
+                                <p ng-if="auctionDetailCtrl.product.isUsed"> *Produto Usado.</p>
+                            </div>
                         </div>
 
-                        <!-- PAYMENT --><br>
-                        <div class="container-fluid">
-                            <h2>PAGAMENTO</h2>
-                            <p>
-                                Relizado através do pagseguro
-                            </p>
+                        <!-- SEND METHOD -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">ENVIO</label>
+                            <div class="col-sm-9">
+                                Contato entre as partes
+                            </div>
                         </div>
+
+                        <!-- PAYMENT -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">PAGAMENTO</label>
+                            <div class="col-sm-9">
+                                Relizado através do pagseguro
+                            </div>
+                        </div>
+
+                        <!-- INITIAL VALUE -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">VALOR INICIAL</label>
+                            <div class="col-sm-9">
+                                {{auctionDetailCtrl.auction.minimumBid | currency}}
+                            </div>
+                        </div>
+
+                        <!-- TAX -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">TAXA ADMINISTRATIVA</label>
+                            <div class="col-sm-9">
+                                R$00,00
+                            </div>
+                        </div>
+
+                        <!-- DISTANCE -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">DISTÂNCIA</label>
+                            <div class="col-sm-9">
+                                5 Km
+                            </div>
+                        </div>
+
+                        <hr>
 
                         <!-- BIDS --><br>
                         <div class="container-fluid">
