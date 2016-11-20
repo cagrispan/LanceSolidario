@@ -16,7 +16,7 @@ angular.module('utils')
                 .getDistanceMatrix(args)
                 .then(function (distanceMatrix) {
                     return distanceMatrix;
-                })
+                });
         };
 
         this.getApiToken = function () {
