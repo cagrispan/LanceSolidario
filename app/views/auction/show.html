@@ -41,6 +41,11 @@
 
                         </div>
 
+
+                        <div class="distance" ng-if="auctionDetailCtrl.distance">
+                            <h2>Este produto está a <b>{{auctionDetailCtrl.distance}}</b> de você!</h2>
+                        </div>
+
                         <div class="container-fluid auction-info no-padding">
                             <!-- Image -->
                             <div class="col-md-6 container-fluid" ng-if="auctionDetailCtrl.product">
