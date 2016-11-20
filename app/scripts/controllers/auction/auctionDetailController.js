@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route', 'distanceAPI','Institution',
-        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route, distanceAPI,Institution) {
+    .controller('AuctionDetailCtrl', ['facebookAPI', '$location', 'Bid', 'shareData', 'ngToast', '$routeParams', 'Auction', 'Product', 'User', '$timeout', '$route', 'distanceAPI', 'Institution',
+        function (facebookAPI, $location, Bid, shareData, ngToast, $routeParams, Auction, Product, User, $timeout, $route, distanceAPI, Institution) {
 
             var self = this;
             var mSecondsToGetBids = 3000;
@@ -256,6 +256,11 @@ angular.module('lanceSolidario')
 
             self.feed = function () {
                 facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para o Teto. Qeu tal dar um lance e ajudar essa instituição!?');
+            };
+
+            self.openInstitution = function () {
+                shareData.set(self.institution, 'lastInstitution');
+                $location.path('/institutions/' + self.institution.institutionId);
             };
 
             var successFeedback = function (message) {
