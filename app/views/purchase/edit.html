@@ -21,18 +21,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Nome do Item</label>
                                 <div class="col-sm-10">
-                                    <p href="">{{purchaseDetailCtrl.product.title}}</p>
+                                    <p>{{purchaseDetailCtrl.product.title}}
+                                    <a ng-href="#/auctions/{{purchaseDetailCtrl.purchase.auctionId}}">Ver leilão</a></p>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label text-right">Descrição</label>
-                                <div class="col-sm-10">
-                                    <p>{{purchaseDetailCtrl.product.description}}</p>
-                                </div>
-                            </div>
-
-                            <div class="form-group row" >
                                 <label class="col-sm-2 col-form-label text-right">Vendedor</label>
                                 <div class="col-sm-10">
                                     {{purchaseDetailCtrl.donorUser.name}}
@@ -50,7 +44,7 @@
                                 <label class="col-sm-2 col-form-label text-right">Instituição</label>
                                 <div class="col-sm-10">
                                     {{purchaseDetailCtrl.institution.name}}
-                            </div>
+                                </div>
                             </div>
 
                             <div class="form-group row">
@@ -63,49 +57,52 @@
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Pagamento</label>
-                                <div class="col-sm-7">
+                                <div class="col-sm-10">
                                     {{purchaseDetailCtrl.purchase.isPaid ? 'Pago':'Pendente'}}
-                                </div>
-                                <div class="col-sm-3">
-                                    <a href="{{purchaseDetailCtrl.purchase.url}}" target="_blank" >
-                                        <button class="btn btn-primary" ng-click="purchaseDetailCtrl.pay()"
-                                                ng-if="!purchaseDetailCtrl.purchase.isPaid">
-                                            <i class="fa fa-money"></i> &nbsp; Pagar esta compra
-                                        </button>
-                                    </a>
+
+                                    <div class="pull-right">
+                                        <a href="{{purchaseDetailCtrl.purchase.url}}" target="_blank">
+                                            <button class="btn btn-primary" ng-click="purchaseDetailCtrl.pay()"
+                                                    ng-if="!purchaseDetailCtrl.purchase.isPaid">
+                                                <i class="fa fa-money"></i> &nbsp; Pagar esta compra
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
 
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Entrega</label>
-                                <div class="col-sm-7">
+                                <div class="col-sm-10">
                                     {{purchaseDetailCtrl.purchase.isDelivered ? 'Entregue':'Pendente'}}
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-success"
+                                                ng-if="!purchaseDetailCtrl.purchase.isDelivered"
+                                                ng-click="purchaseDetailCtrl.confirmDelivery()">
+                                            <i class="fa fa-check"></i> &nbsp; Confirmar Recebimento
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <button type="submit" class="btn btn-success"
-                                            ng-if="!purchaseDetailCtrl.purchase.isDelivered"
-                                            ng-click="purchaseDetailCtrl.confirmDelivery()">
-                                        <i class="fa fa-check"></i> &nbsp; Confirmar Recebimento
-                                    </button>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-10 col-lg-offset-2 text-right">
+                                    <div class="text-left">
+                                        *Caso não efetue o pagamento, a compra sera cancelada em 7 dias.
+                                    </div>
+                                    <div class="text-left">
+                                        Se deseja cancelar a compra e já efetou o pagamento, entre em contato através do email:
+                                        contato@lancesolidario.com.br.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <br>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-10 col-lg-offset-2 text-right">
-                        <div class="text-left">
-                            *Caso não efetue o pagamento, a compra sera cancelada em 7 dias.
-                        </div>
-                        <div class="text-left">
-                            Se já houver efetuado o pagamento, entre em contato através do email: contato@lancesolidario.com.br.
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
         </div>

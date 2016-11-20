@@ -211,6 +211,13 @@
 .auction-card:hover {
   cursor: pointer;
 }
+.contact .cover {
+  background: url('../images/contact.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  height: 380px;
+}
 .content .full-section .back-image {
   height: 65vh !important;
   background-size: cover;
