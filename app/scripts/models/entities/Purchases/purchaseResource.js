@@ -31,7 +31,7 @@
 
 
             if (purchase && purchase.facebookId) {
-                endpoint = '/users/'+purchase.facebookId+'/purchases/'+purchaseId;
+                endpoint = '/users/' + purchase.facebookId + '/purchases/' + purchaseId;
             } else {
 
                 return $q.reject({errorMessage: 'FacebookId missing'});
@@ -58,7 +58,37 @@
             }
 
             if (purchase && purchase.facebookId) {
-                endpoint = '/users/' + purchase.facebookId + '/purchases/' + purchase.purchaseId ;
+                endpoint = '/users/' + purchase.facebookId + '/purchases/' + purchase.purchaseId;
+            } else {
+                return $q.reject({errorMessage: 'Id missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data;
+                }
+            );
+        };
+
+        self.loadDonor = function (purchase, donorId) {
+            var headers = {};
+            var endpoint = '';
+            var token = apiToken.getApiToken();
+
+            //Validate and Mapping
+            if (token) {
+                headers.token = token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (!(purchase && purchase.facebookId)) {
+                return $q.reject({errorMessage: 'Id missing'});
+            }
+
+            if (donorId) {
+                endpoint = '/users/' + purchase.facebookId + '/purchases/' + purchase.purchaseId + '/donors/' + donorId;
             } else {
                 return $q.reject({errorMessage: 'Id missing'});
             }

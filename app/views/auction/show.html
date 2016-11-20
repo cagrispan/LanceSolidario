@@ -178,12 +178,8 @@
                         <!-- DESCRIPTION --><br>
                         <div class="container-fluid">
                             <h2> DESCRIÇÃO </h2>
-                            <p>{{auctionDetailCtrl.product.description}}</p>
-
-                            <b>
-                                <p ng-if="!auctionDetailCtrl.product.isUsed"> *Produto Novo.</p>
-                                <p ng-if="auctionDetailCtrl.product.isUsed"> *Produto Usado.</p>
-                            </b>
+                            <div ng-bind-html="auctionDetailCtrl.product.description"
+                                 class="htmlBinding"></div>
                         </div>
 
                         <hr>

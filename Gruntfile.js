@@ -220,7 +220,8 @@ module.exports = function (grunt) {
         wiredep: {
             app: {
                 src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: /\.\.\//
+                ignorePath: /\.\.\//,
+                exclude: [ 'bower_components/angular-sanitize/angular-sanitize.js' ]
             },
             test: {
                 devDependencies: true,
@@ -236,7 +237,8 @@ module.exports = function (grunt) {
                             js: '\'{{filePath}}\','
                         }
                     }
-                }
+                },
+
             }
         },
 
