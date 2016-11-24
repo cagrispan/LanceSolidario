@@ -172,33 +172,6 @@
                 }
             );
         };
-
-        //Products
-        self.loadProducts = function (user) {
-            var headers = {};
-            var endpoint = '';
-
-            //Validate and Mapping
-            if (user && user.token) {
-                headers.token = user.token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
-
-            if (user && user.facebookId) {
-                endpoint = '/users/'+user.facebookId+'/products';
-            } else {
-                return $q.reject({errorMessage: 'FacebookId missing'});
-            }
-
-            //Make the request
-            return webService.read(endpoint, headers).then(
-                function (resolve) {
-                    return resolve.data.products;
-                }
-            );
-        };
-
     }
     ])
 })

@@ -196,6 +196,11 @@
              * Static Methods
              */
 
+
+            /*
+             * List all Auctions
+             * Documented 23/11/2016
+             */
             Auction._listAll = function (params) {
                 var auctionListtoReturn = [];
 

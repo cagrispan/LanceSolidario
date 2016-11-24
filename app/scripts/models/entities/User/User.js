@@ -87,7 +87,7 @@
             };
 
             /*
-             * List the bid of a Auction
+             * Load public information of an User
              * Documented 23/11/2016
              */
             this._loadPublicInformation = function () {
@@ -164,20 +164,16 @@
                     });
             };
 
+
+            /*
+             * List the products of an User
+             * Documented 23/11/2016
+             */
             this._loadProducts = function () {
                 var user = this;
-                return userResource.loadProducts(user)
+                return Product._listProductsByUser(user)
                     .then(function (productsList) {
-                        user.productList = [];
-                        if (productsList && productsList[0]) {
-                            var product;
-                            for (var i in productsList) {
-                                product = new Product();
-                                product._set(productsList[i]);
-                                product.facebookId = user.facebookId;
-                                user.productList.push(product);
-                            }
-                        }
+                        user.productList = productsList;
                         return user;
                     });
             };

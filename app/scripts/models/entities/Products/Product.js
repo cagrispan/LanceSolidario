@@ -92,6 +92,27 @@
             }
 
             /*
+             * List products of an User
+             * Documented 23/11/2016
+             */
+            Product._listProductsByUser = function (user) {
+                return productResource.loadProductsByUser(user)
+                    .then(function (productsList) {
+                        var productListToReturn = [];
+                        if (productsList && productsList[0]) {
+                            var product;
+                            for (var i in productsList) {
+                                product = new Product();
+                                product._set(productsList[i]);
+                                product.facebookId = user.facebookId;
+                                productListToReturn.push(product);
+                            }
+                        }
+                        return productListToReturn;
+                    });
+            };
+
+            /*
              * List images of a product
              * Documented 23/11/2016
              */
