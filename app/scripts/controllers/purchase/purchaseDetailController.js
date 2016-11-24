@@ -1,7 +1,7 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('PurchaseDetailCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', 'Auction', 'Product', 'User', 'ngToast', '$routeParams', '$q', 'Institution',
-        function (facebookAPI, $location, Purchase, shareData, Auction, Product, User, ngToast, $routeParams, $q, Institution) {
+    .controller('PurchaseDetailCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', 'Auction', 'Product', 'User', 'ngToast', '$routeParams', '$q', 'Institution','$window',
+        function (facebookAPI, $location, Purchase, shareData, Auction, Product, User, ngToast, $routeParams, $q, Institution, $window) {
 
             var self = this;
 
@@ -32,11 +32,7 @@ angular.module('lanceSolidario')
 
                                 failFeedback(err, ' Problemas ao carregar dados da compra. Tente novamente.');
                             });
-
-
                     }
-
-
                 }
             }
 
@@ -44,6 +40,7 @@ angular.module('lanceSolidario')
                 if (self.purchase.isPaid) {
                     ngToast.info('O pagamento já foi realizado.');
                 } else {
+                    console.log(self.purchase.url);
                     $window.open(self.purchase.url);
                 }
             };

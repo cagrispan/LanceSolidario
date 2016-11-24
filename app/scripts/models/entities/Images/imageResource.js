@@ -61,6 +61,10 @@
             );
         };
 
+        /*
+         * List images of a product
+         * Documented 23/11/2016
+         */
         self.loadImagesByProduct = function (product) {
             var headers = {};
             var endpoint = '';
@@ -68,7 +72,7 @@
 
             //Validate and Mapping
 
-
+            //TODO Need to be unified
             if (product && product.facebookId) {
                 endpoint = '/users/' + product.facebookId + '/products/' + product.productId + '/images';
             } else {

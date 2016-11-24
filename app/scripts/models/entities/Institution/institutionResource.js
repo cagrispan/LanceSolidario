@@ -17,6 +17,11 @@
             );
         };
 
+
+        /*
+         * Load an institution
+         * Documented 23/11/2016
+         */
         self.load = function (institution) {
             var headers = {};
 

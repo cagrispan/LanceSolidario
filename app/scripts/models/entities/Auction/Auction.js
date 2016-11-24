@@ -93,6 +93,15 @@
                     return auctionResource.update(this);
                 };
 
+
+                /*
+                 * Load Methods
+                 */
+
+                /*
+                 * Load information of an Auction
+                 * Documented 23/11/2016
+                 */
                 this._load = function () {
                     var auction = this;
                     return auctionResource.load(auction).then(function (response) {
@@ -102,35 +111,17 @@
                 };
 
 
+                /*
+                 * List the bid of an Auction
+                 * Documented 23/11/2016
+                 */
                 this._loadBids = function () {
                     var auction = this;
-                    var bid = new Bid();
-                    return bid._listByAuction(auction).then(function (returnList) {
+                    return Bid._listByAuction(auction).then(function (returnList) {
                         auction.bidList = returnList;
                     });
                 };
 
-                this._listAll = function (params) {
-                    var auctionListtoReturn = [];
-
-                    return auctionResource.loadAll(params).then(function (response) {
-                        var auctionList = [];
-
-                        if (response.auctions) {
-                            auctionList = response.auctions;
-                        }
-
-                        if (auctionList && auctionList[0]) {
-                            var auction;
-                            for (var i in auctionList) {
-                                auction = new Auction();
-                                auction._setAuction(auctionList[i]);
-                                auctionListtoReturn.push(auction);
-                            }
-                        }
-                        return auctionListtoReturn;
-                    });
-                };
 
 
                 this._listByUser = function (user) {
@@ -193,12 +184,17 @@
                     auction._set(objectToSet);
                     auction.endDate = new Date(auction.endDate);
                     auction.startDate = new Date(auction.startDate);
-                    //TODO: FIX THIS SHIT
+                    //TODO: FIX NEED TO BE UNIFIED
                     auction.userId = auction.userId ? auction.userId : auction.facebookId;
                     return auction;
                 }
 
             }
+
+
+            /*
+             * Static Methods
+             */
 
             Auction._listAll = function (params) {
                 var auctionListtoReturn = [];

@@ -82,6 +82,10 @@
             );
         };
 
+        /*
+         * Load information of a product
+         * Documented 23/11/2016
+         */
         self.load = function (product) {
             var headers = {};
             var endpoint = '';
@@ -108,6 +112,10 @@
             );
         };
 
+        /*
+         * Load information of a product
+         * Documented 23/11/2016
+         */
         self.loadProductsByAuction = function (auction) {
             var headers = {};
             var endpoint = '';

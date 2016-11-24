@@ -134,6 +134,11 @@
             );
         };
 
+
+        /*
+         * Load information of an Auction
+         * Documented 23/11/2016
+         */
         self.load = function (auction) {
             var headers = {};
             var endpoint = '';

@@ -55,7 +55,7 @@
              */
             this.bidList = null;
 
-
+            //Seq Diagram OK
             //Method
             //If not exist, create a new user
             this._updateAPIToken = function () {
@@ -67,15 +67,12 @@
                 })
             };
 
+
             this._getToken = function () {
                 return this.token;
             };
 
-
-            this._remove = function () {
-                return true;
-            };
-
+            //Seq Diagram OK
             this._load = function () {
                 var user = this;
                 var loadUserPromise = userResource.load(user);
@@ -89,6 +86,10 @@
                     });
             };
 
+            /*
+             * List the bid of a Auction
+             * Documented 23/11/2016
+             */
             this._loadPublicInformation = function () {
                 var user = this;
                 var loadUserPromise = userResource.loadPublicInformation(user);
@@ -99,6 +100,7 @@
                     });
             };
 
+            //Seq Diagram OK
             this._save = function () {
                 var user = this;
                 user.birthday.setDate(user.birthday.getDate() - 1);

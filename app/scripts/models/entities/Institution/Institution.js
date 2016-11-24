@@ -26,6 +26,11 @@
                 /*
                  Methods
                  */
+
+                /*
+                 * Load an institution
+                 * Documented 23/11/2016
+                 */
                 this._load = function () {
                     var institution = this;
                     return institutionResource.load(institution)
