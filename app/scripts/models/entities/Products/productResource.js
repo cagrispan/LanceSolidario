@@ -6,6 +6,11 @@
     angular.module('lanceSolidario.product.productResource', ['utils']).service('productResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+
+        /*
+         * Add a new product
+         * Documented 25/11/2016
+         */
         self.add = function (product) {
             var headers = {};
             var endpoint = "";
@@ -39,6 +44,10 @@
             );
         };
 
+        /*
+         * Update information of a product
+         * Documented 23/11/2016
+         */
         self.update = function (product) {
             var headers = {};
             var endpoint = "";

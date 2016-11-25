@@ -55,9 +55,13 @@
              */
             this.bidList = null;
 
-            //Seq Diagram OK
-            //Method
-            //If not exist, create a new user
+            //Methods
+
+
+            /*
+             * Update Token of an User, if user does not exist, a new one will be created
+             * Documented 25/11/2016
+             */
             this._updateAPIToken = function () {
                 var user = this;
                 return userResource.getToken(user).then(function (resolve) {
@@ -72,7 +76,10 @@
                 return this.token;
             };
 
-            //Seq Diagram OK
+            /*
+             * Load information of an User
+             * Documented 25/11/2016
+             */
             this._load = function () {
                 var user = this;
                 var loadUserPromise = userResource.load(user);
@@ -100,7 +107,10 @@
                     });
             };
 
-            //Seq Diagram OK
+            /*
+             * Update the information of an User
+             * Documented 25/11/2016
+             */
             this._save = function () {
                 var user = this;
                 user.birthday.setDate(user.birthday.getDate() - 1);

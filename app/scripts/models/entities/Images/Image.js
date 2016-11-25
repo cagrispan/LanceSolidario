@@ -30,10 +30,19 @@
                 /*
                  Methods
                  */
+
+                /*
+                 * Add a image for a product
+                 * Documented 25/11/2016
+                 */
                 this._add = function (user) {
                     return imageResource.add(this, user);
                 };
 
+                /*
+                 * Remove a image of a product
+                 * Documented 23/11/2016
+                 */
                 this._remove = function (user) {
                     return imageResource.remove(this, user);
                 };

@@ -6,6 +6,10 @@
     angular.module('lanceSolidario.user.userResource', ['utils']).service('userResource', ['webService', '$q', function (webService, $q) {
         var self = this;
 
+        /*
+         * Update access Token of an User, if the user does not exist, a new one will be created
+         * Documented 25/11/2016
+         */
         self.getToken = function (user) {
             //Config
             var endpoint = '/auth';
@@ -24,6 +28,10 @@
             );
         };
 
+        /*
+         * Update the information of an User
+         * Documented 25/11/2016
+         */
         self.createOrUpdate = function (user) {
             var headers = {};
             var endpoint = "";
@@ -51,6 +59,10 @@
             );
         };
 
+        /*
+         * Load information of an User
+         * Documented 25/11/2016
+         */
         self.load = function (user) {
             var headers = {};
             var endpoint = "";

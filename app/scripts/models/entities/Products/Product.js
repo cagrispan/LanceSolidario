@@ -28,10 +28,19 @@
                 this.imageList = null;
 
                 //methods
+
+                /*
+                 * Add a new product
+                 * Documented 25/11/2016
+                 */
                 this._add = function () {
                     return productResource.add(this);
                 };
 
+                /*
+                 * Update information of a product
+                 * Documented 25/11/2016
+                 */
                 this._update = function () {
                     return productResource.update(this);
                 };
@@ -49,11 +58,13 @@
                 };
 
 
-                //TODO: Need Unit tests
+                /*
+                 * List auctions of a product
+                 * Documented 25/11/2016
+                 */
                 this._loadAuctions = function () {
                     var product = this;
-                    var auction = new Auction();
-                    return auction._listByProduct(product).then(function (returnList) {
+                    return Auction._listByProduct(product).then(function (returnList) {
                         product.auctionList = returnList;
                         product._getStatus();
                     });

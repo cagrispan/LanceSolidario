@@ -1,4 +1,4 @@
-'use strict';
+    'use strict';
 angular.module('lanceSolidario')
     .controller('LoginCtrl', ['facebookAPI',
         function ( facebookAPI) {

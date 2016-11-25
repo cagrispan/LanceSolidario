@@ -100,6 +100,10 @@
             );
         };
 
+        /*
+         * List Auctions by Product
+         * Documented 25/11/2016
+         */
         //TODO: Need Unit tests
         self.loadAuctionsByProduct = function (product) {
             var headers = {};
