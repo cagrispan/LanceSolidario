@@ -88,7 +88,7 @@
                         user._set(userReturned);
 
                         user.birthday = new Date(user.birthday);
-                        user.birthday.setDate(user.birthday.getDate() +1);
+                        user.birthday.setDate(user.birthday.getDate() + 1);
                         return user;
                     });
             };
@@ -118,60 +118,41 @@
             };
 
 
+            /*
+             * List Address of an User
+             * Documented 26/11/2016
+             */
             this._loadAddresses = function () {
                 var user = this;
-                return userResource.loadAddresses(user)
+                return Address._listByUser(user)
                     .then(function (addressList) {
-                        user.addressList = [];
-                        if (addressList && addressList[0]) {
-                            var address;
-                            user.addressList = [];
-                            for (var i in addressList) {
-                                address = new Address();
-                                address._set(addressList[i]);
-                                address.facebookId = user.facebookId;
-                                user.addressList.push(address);
-                            }
-                        }
-                        return user;
+                        user.addressList = addressList;
                     })
             };
 
+            /*
+             * List the emails of an User
+             * Documented 25/11/2016
+             */
             this._loadEmails = function () {
                 var user = this;
-                return userResource.loadEmails(user)
+                return Email._listByUser(user)
                     .then(function (emailList) {
-                        user.emailList = [];
-                        if (emailList && emailList[0]) {
-                            var email;
-                            for (var i in emailList) {
-                                email = new Email();
-                                email._set(emailList[i]);
-                                email.facebookId = user.facebookId;
-                                user.emailList.push(email);
-                            }
-                        }
-                        return user;
+                        user.emailList = emailList;
                     })
             };
 
 
+            /*
+             * List the telephones of an User
+             * Documented 25/11/2016
+             */
             this._loadTelephones = function () {
                 var user = this;
-                return userResource.loadTelephones(user)
-                    .then(function (telephonesList) {
-                        user.telephoneList = [];
-                        if (telephonesList && telephonesList[0]) {
-                            var telephone;
-                            for (var i in telephonesList) {
-                                telephone = new Telephone();
-                                telephone._set(telephonesList[i]);
-                                telephone.facebookId = user.facebookId;
-                                user.telephoneList.push(telephone);
-                            }
-                        }
-                        return user;
-                    });
+                return Telephone._listByUser(user)
+                    .then(function (telephoneList) {
+                        user.telephoneList = telephoneList;
+                    })
             };
 
 
@@ -181,7 +162,7 @@
              */
             this._loadProducts = function () {
                 var user = this;
-                return Product._listProductsByUser(user)
+                return Product._listByUser(user)
                     .then(function (productsList) {
                         user.productList = productsList;
                         return user;

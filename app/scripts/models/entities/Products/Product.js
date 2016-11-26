@@ -106,7 +106,7 @@
              * List products of an User
              * Documented 23/11/2016
              */
-            Product._listProductsByUser = function (user) {
+            Product._listByUser = function (user) {
                 return productResource.loadProductsByUser(user)
                     .then(function (productsList) {
                         var productListToReturn = [];
