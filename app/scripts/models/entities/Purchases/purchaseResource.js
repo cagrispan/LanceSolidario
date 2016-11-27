@@ -6,6 +6,11 @@
     angular.module('lanceSolidario.purchase.purchaseResource', ['utils']).service('purchaseResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+
+        /*
+         * Update information of a purchase
+         * Documented 26/11/2016
+         */
         self.update = function (purchase) {
             var headers = {};
             var endpoint = "";
@@ -45,6 +50,10 @@
             );
         };
 
+        /*
+         * Load information of a purchase
+         * Documented 26/11/2016
+         */
         self.load = function (purchase) {
             var headers = {};
             var endpoint = '';
@@ -71,6 +80,11 @@
             );
         };
 
+
+        /*
+         * Load donor information of a purchase
+         * Documented 26/11/2016
+         */
         self.loadDonor = function (purchase, donorId) {
             var headers = {};
             var endpoint = '';
@@ -101,7 +115,11 @@
             );
         };
 
-        self.loadAll = function (user) {
+        /*
+         * List the products of an User
+         * Documented 26/11/2016
+         */
+        self.loadByUser = function (user) {
             var headers = {};
             var endpoint = '';
             var token = apiToken.getApiToken();

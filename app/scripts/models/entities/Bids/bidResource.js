@@ -6,6 +6,11 @@
     angular.module('lanceSolidario.bid.bidResource', ['utils']).service('bidResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+
+        /*
+         * Add a Bid
+         * Documented 26/11/2016
+         */
         self.add = function (bid, user) {
             var headers = {};
             var endpoint = "";

@@ -46,6 +46,11 @@
                 /*
                  Methods
                  */
+
+                /*
+                 * Add a Bid
+                 * Documented 26/11/2016
+                 */
                 this._add = function (user) {
                     return bidResource.add(this, user);
                 };

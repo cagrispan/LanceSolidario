@@ -85,10 +85,20 @@
                 /*
                  Methods
                  */
+
+                /*
+                 * Add a new Auction
+                 * Documented 26/11/2016
+                 */
                 this._add = function () {
                     return auctionResource.add(this);
                 };
 
+
+                /*
+                 * Update an Auction, use to cancel
+                 * Documented 26/11/2016
+                 */
                 this._update = function () {
                     return auctionResource.update(this);
                 };

@@ -77,7 +77,6 @@ angular.module('lanceSolidario')
 
                             var promises = [];
                             self.product = new Product();
-
                             promises.push(self.product._listByAuction(self.auction).then(function (productList) {
                                 self.product = productList[0];
                                 if (!self.product) {

@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', 'Bid', function (userResource, Entity, Address, Email, Telephone, Product, Bid) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', 'Bid', 'Purchase', function (userResource, Entity, Address, Email, Telephone, Product, Bid, Purchase) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -167,6 +167,18 @@
                         user.productList = productsList;
                         return user;
                     });
+            };
+
+
+            /*
+             * List the purchases of an User
+             * Documented 26/11/2016
+             */
+            this._loadPurchases = function () {
+                var user = this;
+                return Purchase._listPurchasesByUser(user).then(function (purchaseList) {
+                    user.purchaseList = purchaseList;
+                });
             };
 
             //TODO: Need Unit tests

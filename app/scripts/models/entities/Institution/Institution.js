@@ -41,6 +41,10 @@
 
             }
 
+            /*
+             * List all institutions
+             * Documented 26/11/2016
+             */
             Institution._listAll = function () {
                 var institutionListToReturn = [];
 

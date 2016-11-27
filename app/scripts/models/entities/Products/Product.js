@@ -124,7 +124,7 @@
             };
 
             /*
-             * List images of a product
+             * List products of an Auction
              * Documented 23/11/2016
              */
             Product._listByAuction = function (auction) {
