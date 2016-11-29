@@ -59,6 +59,11 @@
                 /*
                  Methods
                  */
+
+                /*
+                 * Load donor information of a purchase
+                 * Documented 26/11/2016
+                 */
                 this._load = function () {
                     var purchase = this;
                     return purchaseResource.load(purchase)
@@ -67,24 +72,38 @@
                         });
                 };
 
+
+                /*
+                 * Load donor information of a purchase
+                 * Documented 26/11/2016
+                 */
                 this._loadDonor = function (donorId) {
                     var purchase = this;
 
-                    return purchaseResource.loadDonor(purchase,donorId)
+                    return purchaseResource.loadDonor(purchase, donorId)
                         .then(function (result) {
                             return result;
                         });
                 };
 
+
+                /*
+                 * Update donor information of a purchase
+                 * Documented 26/11/2016
+                 */
                 this._update = function () {
                     return purchaseResource.update(this);
                 };
             }
 
-            Purchase._listAll = function (user) {
+            /*
+             * List the products of an User
+             * Documented 26/11/2016
+             */
+            Purchase._listPurchasesByUser = function (user) {
                 var purchaseListToReturn = [];
 
-                return purchaseResource.loadAll(user).then(function (response) {
+                return purchaseResource.loadByUser(user).then(function (response) {
                     var purchaseList = [];
 
                     if (response.purchases) {

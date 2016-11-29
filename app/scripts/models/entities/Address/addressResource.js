@@ -6,6 +6,10 @@
     angular.module('lanceSolidario.address.addressResource', ['utils']).service('addressResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+        /*
+         * Add a new Address for an User
+         * Documented 26/11/2016
+         */
         self.add = function (address) {
             var headers = {};
             var endpoint = "";
@@ -34,6 +38,10 @@
             );
         };
 
+        /*
+         * Update an Address for an User
+         * Documented 26/11/2016
+         */
         self.update = function (address) {
             var headers = {};
             var endpoint = "";
@@ -73,6 +81,10 @@
             );
         };
 
+        /*
+         * Remove an Address of an User
+         * Documented 26/11/2016
+         */
         self.remove = function (address) {
             var headers = {};
             var endpoint = "";
@@ -108,6 +120,34 @@
             return webService.remove(endpoint, headers).then(
                 function (resolve) {
                     return resolve.data;
+                }
+            );
+        };
+
+        /*
+         * List the addresses of an User
+         * Documented 26/11/2016
+         */
+        self.loadAddressesByUser= function (user) {
+            var headers = {};
+            var endpoint = '';
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/addresses';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.addresses;
                 }
             );
         };

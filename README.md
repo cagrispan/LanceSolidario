@@ -4,10 +4,14 @@
 [![ Issue Count](https://codeclimate.com/github/cagrispan/LanceSolidario/badges/issue_count.svg)](https://codeclimate.com/github/cagrispan/LanceSolidario)
 
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
+Lance Solidario is an Angular App that allows people to donate money to institutions by auctioning products.
+
+We hope to help those institutions to survive and to offer better services to the community.
 
 ## Getting Started
+
+This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
+version 0.15.1.
 
 ### Prerequisites
 

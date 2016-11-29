@@ -6,6 +6,10 @@
     angular.module('lanceSolidario.email.emailResource', ['utils']).service('emailResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+        /*
+        * Add an email of an User
+        * Documented 26/11/2016
+        */
         self.add = function (email) {
             var headers = {};
             var endpoint = "";
@@ -78,6 +82,10 @@
             );
         };
 
+        /*
+         * Remove email of an User
+         * Documented 26/11/2016
+         */
         self.remove = function (email) {
             var headers = {};
             var endpoint = "";
@@ -116,6 +124,36 @@
                 }
             );
         };
+
+        /*
+         * List the emails of an User
+         * Documented 25/11/2016
+         */
+        self.loadEmailsByUser = function (user) {
+            var headers = {};
+            var endpoint = '';
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/emails' ;
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.emails;
+                }
+            );
+        };
+
+
 
         //server.delete('/users/:id/email/:id') //delete email
     }
