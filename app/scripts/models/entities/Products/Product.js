@@ -28,14 +28,27 @@
                 this.imageList = null;
 
                 //methods
+
+                /*
+                 * Add a new product
+                 * Documented 25/11/2016
+                 */
                 this._add = function () {
                     return productResource.add(this);
                 };
 
+                /*
+                 * Update information of a product
+                 * Documented 25/11/2016
+                 */
                 this._update = function () {
                     return productResource.update(this);
                 };
 
+                /*
+                 * Load information of a product
+                 * Documented 23/11/2016
+                 */
                 this._load = function () {
                     var product = this;
                     return productResource.load(product)
@@ -44,50 +57,26 @@
                         });
                 };
 
-                this._listByAuction = function (auction) {
-                    var productListtoReturn = [];
-                    return productResource.loadProductsByAuction(auction).then(function (response) {
-                        var productList = [];
-                        var facebookId = '';
 
-                        if (response.products) {
-                            productList = response.products;
-                        }
-                        if (auction.userId) {
-                            facebookId = auction.userId;
-                        }
-                        else if (response.facebookId) {
-                            facebookId = response.facebookId;
-                        }
-
-                        if (productList && productList[0]) {
-                            var product;
-                            for (var i in productList) {
-                                product = new Product();
-                                product._set(productList[i]);
-                                product.facebookId = facebookId;
-                                productListtoReturn.push(product);
-                            }
-                        }
-
-                        return productListtoReturn;
-                    });
-                };
-
-                //TODO: Need Unit tests
+                /*
+                 * List auctions of a product
+                 * Documented 25/11/2016
+                 */
                 this._loadAuctions = function () {
                     var product = this;
-                    var auction = new Auction();
-                    return auction._listByProduct(product).then(function (returnList) {
+                    return Auction._listByProduct(product).then(function (returnList) {
                         product.auctionList = returnList;
                         product._getStatus();
                     });
                 };
 
+                /*
+                 * List images of a product
+                 * Documented 23/11/2016
+                 */
                 this._loadImages = function () {
                     var product = this;
-                    var image = new Image();
-                    return image._listByProduct(product).then(function (returnList) {
+                    return Image._listByProduct(product).then(function (returnList) {
                         product.imageList = returnList;
                     });
                 };
@@ -112,6 +101,61 @@
                     }
                 };
             }
+
+            /*
+             * List products of an User
+             * Documented 23/11/2016
+             */
+            Product._listByUser = function (user) {
+                return productResource.loadProductsByUser(user)
+                    .then(function (productsList) {
+                        var productListToReturn = [];
+                        if (productsList && productsList[0]) {
+                            var product;
+                            for (var i in productsList) {
+                                product = new Product();
+                                product._set(productsList[i]);
+                                product.facebookId = user.facebookId;
+                                productListToReturn.push(product);
+                            }
+                        }
+                        return productListToReturn;
+                    });
+            };
+
+            /*
+             * List products of an Auction
+             * Documented 23/11/2016
+             */
+            Product._listByAuction = function (auction) {
+                var productListtoReturn = [];
+                return productResource.loadProductsByAuction(auction).then(function (response) {
+                    var productList = [];
+                    var facebookId = '';
+
+                    if (response.products) {
+                        productList = response.products;
+                    }
+                    if (auction.userId) {
+                        facebookId = auction.userId;
+                    }
+                    else if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
+
+                    if (productList && productList[0]) {
+                        var product;
+                        for (var i in productList) {
+                            product = new Product();
+                            product._set(productList[i]);
+                            product.facebookId = facebookId;
+                            productListtoReturn.push(product);
+                        }
+                    }
+
+                    return productListtoReturn;
+                });
+            };
 
             return Product;
         }

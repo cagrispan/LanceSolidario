@@ -7,61 +7,78 @@
     angular.module('lanceSolidario.bid.bid', ['lanceSolidario.bid.bidResource', 'lanceSolidario.auction.auction'])
         .factory('Bid', ['bidResource', 'Entity', function (bidResource, Entity) {
 
-        angular.extend(Bid.prototype, Entity.prototype);
-        Bid.prototype.constructor = Bid;
+            angular.extend(Bid.prototype, Entity.prototype);
+            Bid.prototype.constructor = Bid;
 
-        function Bid() {
+            function Bid() {
+
+                /*
+                 Id
+                 */
+                this.bidId = null;
+
+                /*
+                 Auction Object
+                 */
+                this.auctionId = null;
+
+                /*
+                 USer Object
+                 */
+                this.userId = null;
+
+                /*
+                 Number
+                 */
+                this.bid = null;
+
+                /*
+                 Date
+                 */
+                this.date = null;
+
+                /*
+                 Boolean
+                 */
+                this.isDeleted = null;
+
+
+                /*
+                 Methods
+                 */
+
+                /*
+                 * Add a Bid
+                 * Documented 26/11/2016
+                 */
+                this._add = function (user) {
+                    return bidResource.add(this, user);
+                };
+
+                this._update = function () {
+                    return bidResource.update(this);
+                };
+
+
+
+            }
 
             /*
-             Id
+             * List the bids of an User
+             * Documented 27/11/2016
              */
-            this.bidId = null;
-
-            /*
-             Auction Object
-             */
-            this.auctionId = null;
-
-            /*
-             USer Object
-             */
-            this.userId = null;
-
-            /*
-             Number
-             */
-            this.bid = null;
-
-            /*
-             Date
-             */
-            this.date = null;
-
-            /*
-            Boolean
-            */
-            this.isDeleted = null;
-
-
-            /*
-             Methods
-             */
-            this._add = function (user) {
-                return bidResource.add(this, user);
-            };
-
-            this._update = function () {
-                return bidResource.update(this);
-            };
-
-            this._listByUser = function (user) {
+            Bid._listByUser = function (user) {
                 var bidListToReturn = [];
                 return bidResource.loadBidsByUser(user).then(function (response) {
                     var bidList = [];
                     var facebookId = '';
 
-                    if(response.bids){  bidList = response.bids;}
-                    if(response.facebookId){  facebookId = response.facebookId;}
+                    if (response.bids) {
+                        bidList = response.bids;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
 
                     if (bidList && bidList[0]) {
                         var bid;
@@ -76,14 +93,22 @@
                 });
             };
 
-            this._listByAuction = function (auction) {
+            /*
+            * List the bid of a Auction
+            * Documented 23/11/2016
+             */
+            Bid._listByAuction = function (auction) {
                 var bidListtoReturn = [];
                 return bidResource.loadBidsByAuction(auction).then(function (response) {
                     var bidList = [];
                     var facebookId = '';
 
-                    if(response.bids){  bidList = response.bids;}
-                    if(response.facebookId){  facebookId = response.facebookId;}
+                    if (response.bids) {
+                        bidList = response.bids;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
 
                     if (bidList && bidList[0]) {
                         var bid;
@@ -96,11 +121,13 @@
                     }
                     return bidListtoReturn;
                 });
-            }
+            };
 
-        }
 
-        return Bid
-    }]);
+
+
+
+            return Bid
+        }]);
 })(angular);
 

@@ -6,6 +6,10 @@
     angular.module('lanceSolidario.image.imageResource', ['utils']).service('imageResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+        /*
+         * Add a image for a product
+         * Documented 25/11/2016
+         */
         self.add = function (image, user) {
             var headers = {};
             var endpoint = "";
@@ -36,6 +40,10 @@
             );
         };
 
+        /*
+         * Remove a image of a product
+         * Documented 23/11/2016
+         */
         self.remove = function (image, user) {
             var headers = {};
             var endpoint = "";
@@ -61,6 +69,10 @@
             );
         };
 
+        /*
+         * List images of a product
+         * Documented 23/11/2016
+         */
         self.loadImagesByProduct = function (product) {
             var headers = {};
             var endpoint = '';
@@ -68,7 +80,7 @@
 
             //Validate and Mapping
 
-
+            //TODO Need to be unified
             if (product && product.facebookId) {
                 endpoint = '/users/' + product.facebookId + '/products/' + product.productId + '/images';
             } else {
