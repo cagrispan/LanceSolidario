@@ -81,6 +81,11 @@
             );
         };
 
+
+        /*
+         * List the bids of an User
+         * Documented 27/11/2016
+         */
         self.loadBidsByUser = function (user) {
             var headers = {};
             var endpoint = '';

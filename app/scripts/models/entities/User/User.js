@@ -181,11 +181,13 @@
                 });
             };
 
-            //TODO: Need Unit tests
+            /*
+             * List the bids of an User
+             * Documented 27/11/2016
+             */
             this._loadBids = function () {
                 var user = this;
-                var bid = new Bid();
-                return bid._listByUser(user).then(function (returnList) {
+                return Bid._listByUser(user).then(function (returnList) {
                     user.bidList = returnList;
                 });
             };

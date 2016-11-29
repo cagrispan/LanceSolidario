@@ -59,32 +59,39 @@
                     return bidResource.update(this);
                 };
 
-                this._listByUser = function (user) {
-                    var bidListToReturn = [];
-                    return bidResource.loadBidsByUser(user).then(function (response) {
-                        var bidList = [];
-                        var facebookId = '';
 
-                        if (response.bids) {
-                            bidList = response.bids;
-                        }
-                        if (response.facebookId) {
-                            facebookId = response.facebookId;
-                        }
 
-                        if (bidList && bidList[0]) {
-                            var bid;
-                            for (var i in bidList) {
-                                bid = new Bid();
-                                bid._set(bidList[i]);
-                                bid.facebookId = facebookId;
-                                bidListToReturn.push(bid);
-                            }
-                        }
-                        return bidListToReturn;
-                    });
-                };
             }
+
+            /*
+             * List the bids of an User
+             * Documented 27/11/2016
+             */
+            Bid._listByUser = function (user) {
+                var bidListToReturn = [];
+                return bidResource.loadBidsByUser(user).then(function (response) {
+                    var bidList = [];
+                    var facebookId = '';
+
+                    if (response.bids) {
+                        bidList = response.bids;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
+
+                    if (bidList && bidList[0]) {
+                        var bid;
+                        for (var i in bidList) {
+                            bid = new Bid();
+                            bid._set(bidList[i]);
+                            bid.facebookId = facebookId;
+                            bidListToReturn.push(bid);
+                        }
+                    }
+                    return bidListToReturn;
+                });
+            };
 
             /*
             * List the bid of a Auction
