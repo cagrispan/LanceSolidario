@@ -12,6 +12,10 @@
             this.emailId = null;
             this.email = null;
 
+            /*
+             * Add email for an User
+             * Documented 26/11/2016
+             */
             this._add = function(){
                 return emailResource.add(this);
             };
@@ -20,6 +24,10 @@
                 return emailResource.update(this);
             };
 
+            /*
+             * Remove email of an User
+             * Documented 26/11/2016
+             */
             this._remove = function(){
                 return emailResource.remove(this);
             };
@@ -35,6 +43,28 @@
                 }
             }
         }
+
+        /*
+         * List the emails of an User
+         * Documented 25/11/2016
+         */
+        Email._listByUser = function(user){
+            return emailResource.loadEmailsByUser(user)
+                .then(function (emailList) {
+                    var emailListToReturn = [];
+                    if (emailList && emailList[0]) {
+                        var email;
+                        for (var i in emailList) {
+                            email = new Email();
+                            email._set(emailList[i]);
+                            email.facebookId = user.facebookId;
+                            emailListToReturn.push(email);
+                        }
+                    }
+                    return emailListToReturn;
+                })
+
+        };
 
         return Email;
     }]);

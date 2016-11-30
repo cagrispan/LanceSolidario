@@ -48,7 +48,6 @@ angular.module('lanceSolidario')
 
                     loadDonor(self.auction.userId);
                     loadInstitution(self.auction.institutionId);
-
                     loadProduct();
                     loadBidsTask(self.auction);
                 }
@@ -94,9 +93,9 @@ angular.module('lanceSolidario')
                     self.product._loadImages();
 
                 } else {
-                    self.product = new Product();
 
-                    self.product._listByAuction(self.auction).then(function (productsList) {
+
+                    Product._listByAuction(self.auction).then(function (productsList) {
                         if (productsList.length > 0) {
                             self.product = productsList[0];
                             return self.product._loadImages().catch(function (err) {
