@@ -88,7 +88,7 @@ angular.module('lanceSolidario')
                 self.image = null;
             }else{
                 self.image = null;
-                failFeedback('A imagem é muito pesada, verifique se ela possui menos de 1 MB.')
+                ngToast.warning('A imagem é muito pesada, verifique se ela possui menos de 1 MB.')
             }
         }
         ;
@@ -96,6 +96,14 @@ angular.module('lanceSolidario')
 
         self.update = function () {
             if (self.product.status === 'pending') {
+                if(!self.product.description){
+                    failFeedback('A descrição da doação é um campo obrigatório.');
+                    return;
+                }
+                if(!(self.product.imageList.length>0)){
+                    ngToast.warning('A doação deve conter ao menos uma imagem.');
+                    return;
+                }
                 self.product._update()
                     .then(function () {
 
