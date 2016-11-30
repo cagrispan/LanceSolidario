@@ -62,11 +62,11 @@ angular.module('lanceSolidario')
                 self.auction.auctionId = self.purchase.auctionId;
                 return self.auction._load()
                     .then(function () {
-                            console.log(self.auction.userId);
+                            //console.log(self.auction.userId);
 
                             self.purchase._loadDonor(self.auction.userId).then(function (result) {
                                 self.donorUser = result;
-                                console.log(self.donorUser);
+                                //console.log(self.donorUser);
                             });
 
                             self.institution = new Institution();
@@ -76,9 +76,8 @@ angular.module('lanceSolidario')
                             });
 
                             var promises = [];
-                            self.product = new Product();
-                            promises.push(self.product._listByAuction(self.auction).then(function (productList) {
-                                self.product = productList[0];
+                            promises.push(Product._listByAuction(self.auction).then(function (productList) {
+                                self.product = productList.pop();
                                 if (!self.product) {
                                     failFeedback('Problemas ao carregar dados do produto. Tente novamente.');
                                 }

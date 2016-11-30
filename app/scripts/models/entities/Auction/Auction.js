@@ -133,6 +133,9 @@
                 };
 
 
+                /*
+                 * Find usages, delete if nothing is found
+                 */
                 this._listByUser = function (user) {
                     var auctionListtoReturn = [];
 
