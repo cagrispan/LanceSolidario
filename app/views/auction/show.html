@@ -125,7 +125,7 @@
                                                         <input type="number" class="form-control " id="input-amount"
                                                                placeholder="Valor" step="0.01"
                                                                ng-model="auctionDetailCtrl.newBid"
-                                                               min='{{auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid}}'>
+                                                               min='{{(auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid )+0.01}}'>
                                                     </div>
 
                                                     <div>
