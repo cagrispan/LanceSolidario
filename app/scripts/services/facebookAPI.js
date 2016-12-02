@@ -111,10 +111,10 @@ angular.module('utils')
             });
         };
 
-        this.feed = function (path, message, name) {
+        this.feed = function (path, message, title) {
             FB.ui({
                 method: 'feed',
-                name: name ? name : 'Lance Solidário. Melhore o mundo em um lance.',
+                name: title ? title : 'Lance Solidário. Melhore o mundo em um lance.',
                 description: message ? message : 'No Lance Solidário, todo o valor arrecadado é doado a uma instituição filantrópica. Participe!',
                 link: path ? ('local.lancesolidario.com.br:9000/#' + path) : 'local.lancesolidario.com.br:9000',
                 caption: 'lancesolidario.com.br'
