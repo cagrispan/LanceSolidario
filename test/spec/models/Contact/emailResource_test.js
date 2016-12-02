@@ -242,5 +242,69 @@
             }));
         });
 
+        describe('loadEmails', function () {
+
+            it('should receive a 200', inject(function () {
+                httpBackend.expect('GET', globalConfig.backendBasePath + '/users/' + 'validFacebookId/' + 'emails'
+                ).respond(200, {emails: [{email: 'email1@gmail.com'}, {email: 'email2@gmail.com'}]});
+
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = emailResource.loadEmailsByUser({'facebookId': 'validFacebookId', 'token': 'validAccessToken'});
+                httpBackend.flush();
+
+                promise.then(function (resolve) {
+                    expect(resolve[0].email).toBe('email1@gmail.com');
+                    expect(resolve[1].email).toBe('email2@gmail.com');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).not.toHaveBeenCalled();
+            }));
+
+
+            it('should get an fail request, request with invalid token/facebookId', inject(function () {
+                httpBackend.expect('GET', globalConfig.backendBasePath + '/users/' + 'invalidFacebookId/' + 'emails').respond(404, {
+                    'message': 'parameters missing.'
+                });
+                var errorCallback = jasmine.createSpy('errorCallback');
+
+                promise = emailResource.loadEmailsByUser({
+                    'facebookId': 'invalidFacebookId',
+                    'token': 'invalidAccessToken'
+                });
+
+                httpBackend.flush();
+
+                promise.then(function (resolve) {
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+            it('should return a rejected promise when not send a facebookId', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = emailResource.loadEmailsByUser({token: 'validAccessToken'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+
+            it('should return a rejected promise when not send a token', inject(function () {
+                var errorCallback = jasmine.createSpy('errorCallback');
+                promise = emailResource.loadEmailsByUser({facebookId: 'validFacebookId'});
+                promise.then(function (resolve) {
+                    expect(resolve.errorMessage).toBe('FacebookId missing');
+                }, errorCallback);
+                scope.$digest();
+                expect(errorCallback).toHaveBeenCalled();
+
+            }));
+        });
+
     });
 })();

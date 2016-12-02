@@ -19,7 +19,7 @@ angular.module('lanceSolidario')
                 self.user = facebookAPI.user;
                 self.product = shareData.get('lastProduct');
                 if (self.product) {
-                    shareData.set(false,'lastProduct');
+                    shareData.set(false, 'lastProduct');
                     self.product._loadAuctions()
                         .then(function () {
                             self.product._loadImages().catch(function () {
@@ -86,9 +86,9 @@ angular.module('lanceSolidario')
                 }
 
                 self.image = null;
-            }else{
+            } else {
                 self.image = null;
-                failFeedback('A imagem é muito pesada, verifique se ela possui menos de 1 MB.')
+                ngToast.warning('A imagem é muito pesada, verifique se ela possui menos de 1 MB.')
             }
         }
         ;
@@ -96,6 +96,14 @@ angular.module('lanceSolidario')
 
         self.update = function () {
             if (self.product.status === 'pending') {
+                if (!self.product.description) {
+                    failFeedback('A descrição da doação é um campo obrigatório.');
+                    return;
+                }
+                if (!(self.product.imageList.length > 0)) {
+                    ngToast.warning('A doação deve conter ao menos uma imagem.');
+                    return;
+                }
                 self.product._update()
                     .then(function () {
 
@@ -165,11 +173,8 @@ angular.module('lanceSolidario')
 
         var failFeedback = function (error, message) {
             var aux = (typeof error) == 'string';
-            ngToast.danger('<b> Erro!</b>' + (aux ? error : (message? ' '+ message: ' Houve algum problema na requisição. Tente novamente.')));
+            ngToast.danger('<b> Erro!</b>' + (aux ? error : (message ? ' ' + message : ' Houve algum problema na requisição. Tente novamente.')));
             console.log(JSON.stringify(error))
         };
 
-    }
-
-    ])
-;
+    }]);

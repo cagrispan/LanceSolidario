@@ -32,7 +32,7 @@ angular.module('lanceSolidario', [
             horizontalPosition: 'right',
             dismissButton: true,
             className: 'info',
-            timeout: 2000
+            timeout: 3000
         }
     );
 

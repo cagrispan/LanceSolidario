@@ -6,6 +6,10 @@
     angular.module('lanceSolidario.telephone.telephoneResource', ['utils']).service('telephoneResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+        /*
+         * Add a telephone for an User
+         * Documented 26/11/2016
+         */
         self.add = function (telephone) {
             var headers = {};
             var endpoint = "";
@@ -73,6 +77,10 @@
             );
         };
 
+        /*
+         * Remove telephone of an User
+         * Documented 26/11/2016
+         */
         self.remove = function (telephone) {
             var headers = {};
             var endpoint = "";
@@ -107,6 +115,35 @@
             return webService.remove(endpoint, headers).then(
                 function (resolve) {
                     return resolve.data;
+                }
+            );
+        };
+
+        /*
+         * List telephonee of an User
+         * Documented 26/11/2016
+         */
+        self.loadTelephonesByUser = function (user) {
+            var headers = {};
+            var endpoint = '';
+
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/telephones';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.telephones;
                 }
             );
         };

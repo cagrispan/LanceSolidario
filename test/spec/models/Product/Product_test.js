@@ -53,7 +53,6 @@
 
             it('should call load method of resource with a auction like parameter', function () {
                 var auction = {};
-                var product = new Product();
                 auction.auctionId = 'validAuctionId';
                 var fakePromise = $q.when({
                     'auctionId': 'validAuctionId',
@@ -64,7 +63,7 @@
                     }]
                 });
                 spyOn(productResource, 'loadProductsByAuction').and.returnValue(fakePromise);
-                var result = product._listByAuction({'auctionId':'validAuctionId'});
+                var result = Product._listByAuction({'auctionId':'validAuctionId'});
 
                 expect(productResource.loadProductsByAuction).toHaveBeenCalledWith({'auctionId':'validAuctionId'});
                 result.then(function (result) {

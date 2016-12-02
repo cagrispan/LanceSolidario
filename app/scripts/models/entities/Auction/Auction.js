@@ -85,14 +85,33 @@
                 /*
                  Methods
                  */
+
+                /*
+                 * Add a new Auction
+                 * Documented 26/11/2016
+                 */
                 this._add = function () {
                     return auctionResource.add(this);
                 };
 
+
+                /*
+                 * Update an Auction, use to cancel
+                 * Documented 26/11/2016
+                 */
                 this._update = function () {
                     return auctionResource.update(this);
                 };
 
+
+                /*
+                 * Load Methods
+                 */
+
+                /*
+                 * Load information of an Auction
+                 * Documented 23/11/2016
+                 */
                 this._load = function () {
                     var auction = this;
                     return auctionResource.load(auction).then(function (response) {
@@ -102,37 +121,21 @@
                 };
 
 
+                /*
+                 * List the bid of an Auction
+                 * Documented 23/11/2016
+                 */
                 this._loadBids = function () {
                     var auction = this;
-                    var bid = new Bid();
-                    return bid._listByAuction(auction).then(function (returnList) {
+                    return Bid._listByAuction(auction).then(function (returnList) {
                         auction.bidList = returnList;
                     });
                 };
 
-                this._listAll = function (params) {
-                    var auctionListtoReturn = [];
 
-                    return auctionResource.loadAll(params).then(function (response) {
-                        var auctionList = [];
-
-                        if (response.auctions) {
-                            auctionList = response.auctions;
-                        }
-
-                        if (auctionList && auctionList[0]) {
-                            var auction;
-                            for (var i in auctionList) {
-                                auction = new Auction();
-                                auction._setAuction(auctionList[i]);
-                                auctionListtoReturn.push(auction);
-                            }
-                        }
-                        return auctionListtoReturn;
-                    });
-                };
-
-
+                /*
+                 * Find usages, delete if nothing is found
+                 */
                 this._listByUser = function (user) {
                     var auctionListtoReturn = [];
 
@@ -160,46 +163,28 @@
                     });
                 };
 
-                //TODO: Need Unit tests
-                this._listByProduct = function (product) {
-                    var auctionListtoReturn = [];
-                    return auctionResource.loadAuctionsByProduct(product).then(function (response) {
-                        var auctionList = [];
-                        var facebookId = '';
-
-                        if (response.auctions) {
-                            auctionList = response.auctions;
-                        }
-                        if (response.facebookId) {
-                            facebookId = response.facebookId;
-                        }
-
-                        if (auctionList && auctionList[0]) {
-                            var auction;
-                            for (var i in auctionList) {
-                                auction = new Auction();
-                                auction.facebookId = facebookId;
-                                auction._setAuction(auctionList[i]);
-                                auctionListtoReturn.push(auction);
-                            }
-                        }
-                        return auctionListtoReturn;
-                    });
-                };
-
-
                 this._setAuction = function (objectToSet) {
                     var auction = this;
                     auction._set(objectToSet);
                     auction.endDate = new Date(auction.endDate);
                     auction.startDate = new Date(auction.startDate);
-                    //TODO: FIX THIS SHIT
+                    //TODO: FIX NEED TO BE UNIFIED
                     auction.userId = auction.userId ? auction.userId : auction.facebookId;
                     return auction;
                 }
 
             }
 
+
+            /*
+             * Static Methods
+             */
+
+
+            /*
+             * List all Auctions
+             * Documented 23/11/2016
+             */
             Auction._listAll = function (params) {
                 var auctionListtoReturn = [];
 
@@ -214,6 +199,37 @@
                         var auction;
                         for (var i in auctionList) {
                             auction = new Auction();
+                            auction._setAuction(auctionList[i]);
+                            auctionListtoReturn.push(auction);
+                        }
+                    }
+                    return auctionListtoReturn;
+                });
+            };
+
+            /*
+             * List Auctions by Product
+             * Documented 25/11/2016
+             */
+            //TODO: Need Unit tests
+            Auction._listByProduct = function (product) {
+                var auctionListtoReturn = [];
+                return auctionResource.loadAuctionsByProduct(product).then(function (response) {
+                    var auctionList = [];
+                    var facebookId = '';
+
+                    if (response.auctions) {
+                        auctionList = response.auctions;
+                    }
+                    if (response.facebookId) {
+                        facebookId = response.facebookId;
+                    }
+
+                    if (auctionList && auctionList[0]) {
+                        var auction;
+                        for (var i in auctionList) {
+                            auction = new Auction();
+                            auction.facebookId = facebookId;
                             auction._setAuction(auctionList[i]);
                             auctionListtoReturn.push(auction);
                         }
