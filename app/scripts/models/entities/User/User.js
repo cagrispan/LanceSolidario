@@ -4,7 +4,7 @@
 
 (function (angular) {
     'use strict';
-    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', 'Bid', function (userResource, Entity, Address, Email, Telephone, Product, Bid) {
+    angular.module('lanceSolidario.user.user', ['lanceSolidario.user.userResource', 'lanceSolidario.address.address', 'lanceSolidario.telephone.telephone', 'lanceSolidario.email.email', 'lanceSolidario.product.product', 'lanceSolidario.bid.bid']).factory('User', ['userResource', 'Entity', 'Address', 'Email', 'Telephone', 'Product', 'Bid', 'Purchase', function (userResource, Entity, Address, Email, Telephone, Product, Bid, Purchase) {
 
         angular.extend(User.prototype, Entity.prototype);
         User.prototype.constructor = User;
@@ -55,9 +55,13 @@
              */
             this.bidList = null;
 
+            //Methods
 
-            //Method
-            //If not exist, create a new user
+
+            /*
+             * Update Token of an User, if user does not exist, a new one will be created
+             * Documented 25/11/2016
+             */
             this._updateAPIToken = function () {
                 var user = this;
                 return userResource.getToken(user).then(function (resolve) {
@@ -67,15 +71,15 @@
                 })
             };
 
+
             this._getToken = function () {
                 return this.token;
             };
 
-
-            this._remove = function () {
-                return true;
-            };
-
+            /*
+             * Load information of an User
+             * Documented 25/11/2016
+             */
             this._load = function () {
                 var user = this;
                 var loadUserPromise = userResource.load(user);
@@ -84,11 +88,15 @@
                         user._set(userReturned);
 
                         user.birthday = new Date(user.birthday);
-                        user.birthday.setDate(user.birthday.getDate() +1);
+                        user.birthday.setDate(user.birthday.getDate() + 1);
                         return user;
                     });
             };
 
+            /*
+             * Load public information of an User
+             * Documented 23/11/2016
+             */
             this._loadPublicInformation = function () {
                 var user = this;
                 var loadUserPromise = userResource.loadPublicInformation(user);
@@ -99,6 +107,10 @@
                     });
             };
 
+            /*
+             * Update the information of an User
+             * Documented 25/11/2016
+             */
             this._save = function () {
                 var user = this;
                 user.birthday.setDate(user.birthday.getDate() - 1);
@@ -106,85 +118,76 @@
             };
 
 
+            /*
+             * List Address of an User
+             * Documented 26/11/2016
+             */
             this._loadAddresses = function () {
                 var user = this;
-                return userResource.loadAddresses(user)
+                return Address._listByUser(user)
                     .then(function (addressList) {
-                        user.addressList = [];
-                        if (addressList && addressList[0]) {
-                            var address;
-                            user.addressList = [];
-                            for (var i in addressList) {
-                                address = new Address();
-                                address._set(addressList[i]);
-                                address.facebookId = user.facebookId;
-                                user.addressList.push(address);
-                            }
-                        }
-                        return user;
+                        user.addressList = addressList;
                     })
             };
 
+            /*
+             * List the emails of an User
+             * Documented 25/11/2016
+             */
             this._loadEmails = function () {
                 var user = this;
-                return userResource.loadEmails(user)
+                return Email._listByUser(user)
                     .then(function (emailList) {
-                        user.emailList = [];
-                        if (emailList && emailList[0]) {
-                            var email;
-                            for (var i in emailList) {
-                                email = new Email();
-                                email._set(emailList[i]);
-                                email.facebookId = user.facebookId;
-                                user.emailList.push(email);
-                            }
-                        }
-                        return user;
+                        user.emailList = emailList;
                     })
             };
 
 
+            /*
+             * List the telephones of an User
+             * Documented 25/11/2016
+             */
             this._loadTelephones = function () {
                 var user = this;
-                return userResource.loadTelephones(user)
-                    .then(function (telephonesList) {
-                        user.telephoneList = [];
-                        if (telephonesList && telephonesList[0]) {
-                            var telephone;
-                            for (var i in telephonesList) {
-                                telephone = new Telephone();
-                                telephone._set(telephonesList[i]);
-                                telephone.facebookId = user.facebookId;
-                                user.telephoneList.push(telephone);
-                            }
-                        }
-                        return user;
-                    });
+                return Telephone._listByUser(user)
+                    .then(function (telephoneList) {
+                        user.telephoneList = telephoneList;
+                    })
             };
 
+
+            /*
+             * List the products of an User
+             * Documented 23/11/2016
+             */
             this._loadProducts = function () {
                 var user = this;
-                return userResource.loadProducts(user)
+                return Product._listByUser(user)
                     .then(function (productsList) {
-                        user.productList = [];
-                        if (productsList && productsList[0]) {
-                            var product;
-                            for (var i in productsList) {
-                                product = new Product();
-                                product._set(productsList[i]);
-                                product.facebookId = user.facebookId;
-                                user.productList.push(product);
-                            }
-                        }
+                        user.productList = productsList;
                         return user;
                     });
             };
 
-            //TODO: Need Unit tests
+
+            /*
+             * List the purchases of an User
+             * Documented 26/11/2016
+             */
+            this._loadPurchases = function () {
+                var user = this;
+                return Purchase._listPurchasesByUser(user).then(function (purchaseList) {
+                    user.purchaseList = purchaseList;
+                });
+            };
+
+            /*
+             * List the bids of an User
+             * Documented 27/11/2016
+             */
             this._loadBids = function () {
                 var user = this;
-                var bid = new Bid();
-                return bid._listByUser(user).then(function (returnList) {
+                return Bid._listByUser(user).then(function (returnList) {
                     user.bidList = returnList;
                 });
             };
