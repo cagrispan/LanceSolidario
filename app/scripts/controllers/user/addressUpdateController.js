@@ -26,7 +26,7 @@ angular.module('lanceSolidario')
         }
 
 
-        self.deleteAddress = function (addressToDelete) {
+        self.removeAddress = function (addressToDelete) {
             addressToDelete._remove().then(function () {
                 return self.user._loadAddresses();
             }).then(function () {

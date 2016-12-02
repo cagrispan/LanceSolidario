@@ -29,7 +29,7 @@ angular.module('lanceSolidario')
                     failFeedback(err);
                 });
 
-                self.user._loadProducts().then(function () {
+                    self.user._loadProducts().then(function () {
                     var i = 0;
                     while (self.product === null && i < self.user.productList.length) {
                         if (self.user.productList[i] && self.user.productList[i].status === 'pending') {

@@ -7,43 +7,61 @@
     angular.module('lanceSolidario.image.image', ['lanceSolidario.image.imageResource'])
         .factory('Image', ['imageResource', 'Entity', function (imageResource, Entity) {
 
-        angular.extend(Image.prototype, Entity.prototype);
-        Image.prototype.constructor = Image;
+            angular.extend(Image.prototype, Entity.prototype);
+            Image.prototype.constructor = Image;
 
-        function Image() {
+            function Image() {
+
+                /*
+                 Id
+                 */
+                this.imageId = null;
+
+                /*
+                 Product Object
+                 */
+                this.productId = null;
+
+                /*
+                 Base64
+                 */
+                this.base64 = null;
+
+                /*
+                 Methods
+                 */
+
+                /*
+                 * Add a image for a product
+                 * Documented 25/11/2016
+                 */
+                this._add = function (user) {
+                    return imageResource.add(this, user);
+                };
+
+                /*
+                 * Remove a image of a product
+                 * Documented 23/11/2016
+                 */
+                this._remove = function (user) {
+                    return imageResource.remove(this, user);
+                };
+
+
+            }
 
             /*
-             Id
+             * List images of a product
+             * Documented 23/11/2016
              */
-            this.imageId = null;
-
-            /*
-             Product Object
-             */
-            this.productId = null;
-
-            /*
-             Base64
-             */
-            this.base64 = null;
-
-            /*
-             Methods
-             */
-            this._add = function (user) {
-                return imageResource.add(this, user);
-            };
-
-            this._remove = function (user) {
-                return imageResource.remove(this, user);
-            };
-
-            this._listByProduct = function (product) {
+            Image._listByProduct = function (product) {
                 var imageListToReturn = [];
                 return imageResource.loadImagesByProduct(product).then(function (response) {
                     var imageList = [];
 
-                    if(response){  imageList = response}
+                    if (response) {
+                        imageList = response
+                    }
 
                     if (imageList && imageList[0]) {
                         var image;
@@ -57,9 +75,7 @@
                     return imageListToReturn;
                 });
             };
-        }
-
-        return Image;
-    }]);
+            return Image;
+        }]);
 })(angular);
 

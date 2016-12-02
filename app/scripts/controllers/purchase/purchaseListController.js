@@ -13,11 +13,11 @@ angular.module('lanceSolidario')
                 $location.path('/login');
             } else {
                 self.user = facebookAPI.user;
-                Purchase._listAll(self.user)
-                    .then(function (purchaseList) {
-                        self.purchaseList = purchaseList;
-                    }, function () {
-                        failFeedback('Problemas ao carregar suas compras. Tente novamente.')
+                    self.user._loadPurchases()
+                    .then(function () {
+                        self.purchaseList = self.user.purchaseList;
+                    }, function (err) {
+                        failFeedback('Problemas ao carregar suas compras. Tente novamente.',err)
                     })
             }
         }
@@ -33,9 +33,9 @@ angular.module('lanceSolidario')
             ngToast.success(message);
         };
 
-        var failFeedback = function (error) {
-            var aux = (typeof error) == 'string';
-            ngToast.danger('<b> Erro!</b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
+        var failFeedback = function (msg, error) {
+            var aux = (typeof msg) == 'string';
+            ngToast.danger('<b> Erro!</b>' + (aux ? msg : ' Houve algum problema na requisição. Tente novamente.'));
             console.log(JSON.stringify(error))
         };
 

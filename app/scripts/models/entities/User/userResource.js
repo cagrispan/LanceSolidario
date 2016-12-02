@@ -6,6 +6,10 @@
     angular.module('lanceSolidario.user.userResource', ['utils']).service('userResource', ['webService', '$q', function (webService, $q) {
         var self = this;
 
+        /*
+         * Update access Token of an User, if the user does not exist, a new one will be created
+         * Documented 25/11/2016
+         */
         self.getToken = function (user) {
             //Config
             var endpoint = '/auth';
@@ -24,6 +28,10 @@
             );
         };
 
+        /*
+         * Update the information of an User
+         * Documented 25/11/2016
+         */
         self.createOrUpdate = function (user) {
             var headers = {};
             var endpoint = "";
@@ -51,6 +59,10 @@
             );
         };
 
+        /*
+         * Load information of an User
+         * Documented 25/11/2016
+         */
         self.load = function (user) {
             var headers = {};
             var endpoint = "";
@@ -94,111 +106,6 @@
                 }
             );
         };
-
-
-        // Address
-
-        self.loadAddresses = function (user) {
-            var headers = {};
-            var endpoint = '';
-            //Validate and Mapping
-            if (user && user.token) {
-                headers.token = user.token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
-
-            if (user && user.facebookId) {
-                endpoint = '/users/'+user.facebookId+'/addresses';
-            } else {
-                return $q.reject({errorMessage: 'FacebookId missing'});
-            }
-
-            //Make the request
-            return webService.read(endpoint, headers).then(
-                function (resolve) {
-                    return resolve.data.addresses;
-                }
-            );
-        };
-
-        // Emails
-        self.loadEmails = function (user) {
-            var headers = {};
-            var endpoint = '';
-            //Validate and Mapping
-            if (user && user.token) {
-                headers.token = user.token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
-
-            if (user && user.facebookId) {
-                endpoint = '/users/'+user.facebookId+'/emails' ;
-            } else {
-                return $q.reject({errorMessage: 'FacebookId missing'});
-            }
-
-            //Make the request
-            return webService.read(endpoint, headers).then(
-                function (resolve) {
-                    return resolve.data.emails;
-                }
-            );
-        };
-
-        //Telephones
-        self.loadTelephones = function (user) {
-            var headers = {};
-            var endpoint = '';
-
-            //Validate and Mapping
-            if (user && user.token) {
-                headers.token = user.token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
-
-            if (user && user.facebookId) {
-                endpoint = '/users/'+user.facebookId+'/telephones';
-            } else {
-                return $q.reject({errorMessage: 'FacebookId missing'});
-            }
-
-            //Make the request
-            return webService.read(endpoint, headers).then(
-                function (resolve) {
-                    return resolve.data.telephones;
-                }
-            );
-        };
-
-        //Products
-        self.loadProducts = function (user) {
-            var headers = {};
-            var endpoint = '';
-
-            //Validate and Mapping
-            if (user && user.token) {
-                headers.token = user.token;
-            } else {
-                return $q.reject({errorMessage: 'Access token missing'});
-            }
-
-            if (user && user.facebookId) {
-                endpoint = '/users/'+user.facebookId+'/products';
-            } else {
-                return $q.reject({errorMessage: 'FacebookId missing'});
-            }
-
-            //Make the request
-            return webService.read(endpoint, headers).then(
-                function (resolve) {
-                    return resolve.data.products;
-                }
-            );
-        };
-
     }
     ])
 })
