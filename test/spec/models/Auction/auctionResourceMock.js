@@ -18,12 +18,13 @@
         self.loadAll = function (params) {
         };
 
-        self.loadAuctions = function (user) {
+        self.loadAuctionsByUser = function (user) {
         };
 
         self.update = function (auction) {
 
         }
+
     }
     ])
 })(angular);
