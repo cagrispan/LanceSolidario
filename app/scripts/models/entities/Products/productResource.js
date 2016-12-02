@@ -6,6 +6,11 @@
     angular.module('lanceSolidario.product.productResource', ['utils']).service('productResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+
+        /*
+         * Add a new product
+         * Documented 25/11/2016
+         */
         self.add = function (product) {
             var headers = {};
             var endpoint = "";
@@ -39,6 +44,10 @@
             );
         };
 
+        /*
+         * Update information of a product
+         * Documented 23/11/2016
+         */
         self.update = function (product) {
             var headers = {};
             var endpoint = "";
@@ -82,6 +91,10 @@
             );
         };
 
+        /*
+         * Load information of a product
+         * Documented 23/11/2016
+         */
         self.load = function (product) {
             var headers = {};
             var endpoint = '';
@@ -108,6 +121,39 @@
             );
         };
 
+        /*
+         * List products by User
+         * Documented 23/11/2016
+         */
+        self.loadProductsByUser = function (user) {
+            var headers = {};
+            var endpoint = '';
+
+            //Validate and Mapping
+            if (user && user.token) {
+                headers.token = user.token;
+            } else {
+                return $q.reject({errorMessage: 'Access token missing'});
+            }
+
+            if (user && user.facebookId) {
+                endpoint = '/users/'+user.facebookId+'/products';
+            } else {
+                return $q.reject({errorMessage: 'FacebookId missing'});
+            }
+
+            //Make the request
+            return webService.read(endpoint, headers).then(
+                function (resolve) {
+                    return resolve.data.products;
+                }
+            );
+        };
+
+        /*
+         * Load information of a product
+         * Documented 23/11/2016
+         */
         self.loadProductsByAuction = function (auction) {
             var headers = {};
             var endpoint = '';

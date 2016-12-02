@@ -55,70 +55,6 @@
             })
         });
 
-        describe('loadList', function () {
-
-            it('should call load method of resource with a user like parameter and populate product/institution object', function () {
-                var user = {};
-                var auction = new Auction();
-                user.facebookId = 'validFacebookId';
-                var fakePromise = $q.when({
-                    'facebookId': 'validFacebookId',
-                    'auctions': [{
-                        'auctionId': 'validAuctionId',
-                        'institutionId': 'validInstitutionId1',
-                        'productId': 'validProductId1'
-                    }, {
-                        'auctionId': 'validAuctionId2',
-                        'institutionId': 'validInstitutionId2',
-                        'productId': 'validProductId2'
-                    }]
-                });
-                spyOn(auctionResource, 'loadAuctions').and.returnValue(fakePromise);
-                var result = auction._listByUser({'facebookId': 'validFacebookId'});
-
-                expect(auctionResource.loadAuctions).toHaveBeenCalledWith({'facebookId': 'validFacebookId'});
-                result.then(function (result) {
-                    expect(result[0].productId).toBe('validProductId1');
-                    //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
-                    expect(result[1].productId).toBe('validProductId2');
-                    //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
-                });
-                rootScope.$digest();
-            })
-        });
-
-        describe('loadList', function () {
-
-            it('should call listAll method of resource and populate product/institution object', function () {
-                var user = {};
-                var auction = new Auction();
-                user.facebookId = 'validFacebookId';
-                var fakePromise = $q.when({
-                    'auctions': [{
-                        'auctionId': 'validAuctionId',
-                        'institutionId': 'validInstitutionId1',
-                        'productId': 'validProductId1'
-                    }, {
-                        'auctionId': 'validAuctionId2',
-                        'institutionId': 'validInstitutionId2',
-                        'productId': 'validProductId2'
-                    }]
-                });
-                spyOn(auctionResource, 'loadAll').and.returnValue(fakePromise);
-                var result = auction._listAll({'facebookId': 'validFacebookId'});
-
-                expect(auctionResource.loadAll).toHaveBeenCalledWith({'facebookId': 'validFacebookId'});
-                result.then(function (result) {
-                    expect(result[0].productId).toBe('validProductId1');
-                    //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
-                    expect(result[1].productId).toBe('validProductId2');
-                    //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
-                });
-                rootScope.$digest();
-            })
-        });
-
-
 
         describe('load', function () {
 
@@ -134,6 +70,68 @@
             })
         });
 
+        // This method never is used
+        xdescribe('_listByUser', function () {
+
+            it('should call loadAll method of resource with a user like parameter and return the a list of Auction type objects with respective ids', function () {
+                var user = {};
+                user.facebookId = 'validFacebookId';
+                var fakePromise = $q.when({
+                    'facebookId': 'validFacebookId',
+                    'auctions': [{
+                        'auctionId': 'validAuctionId',
+                        'institutionId': 'validInstitutionId1',
+                        'productId': 'validProductId1'
+                    }, {
+                        'auctionId': 'validAuctionId2',
+                        'institutionId': 'validInstitutionId2',
+                        'productId': 'validProductId2'
+                    }]
+                });
+                spyOn(auctionResource, 'loadAuctionsByUser').and.returnValue(fakePromise);
+                var result = Auction._listByUser({'facebookId': 'validFacebookId'});
+
+                expect(auctionResource.loadAuctionsByUser).toHaveBeenCalledWith({'facebookId': 'validFacebookId'});
+                result.then(function (result) {
+                    expect(result[0].productId).toBe('validProductId1');
+                    //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
+                    expect(result[1].productId).toBe('validProductId2');
+                    //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
+                });
+                rootScope.$digest();
+            })
+        });
+
+        describe('loadList', function () {
+
+            it('should call listAll method of resource and populate product/institution object', function () {
+                var paramsToSend = {'limit':5};
+                var user= {};
+                user.facebookId = 'validFacebookId';
+                var fakePromise = $q.when({
+                    'auctions': [{
+                        'auctionId': 'validAuctionId',
+                        'institutionId': 'validInstitutionId1',
+                        'productId': 'validProductId1'
+                    }, {
+                        'auctionId': 'validAuctionId2',
+                        'institutionId': 'validInstitutionId2',
+                        'productId': 'validProductId2'
+                    }]
+                });
+                spyOn(auctionResource, 'loadAll').and.returnValue(fakePromise);
+                var result = Auction._listAll(paramsToSend);
+
+                expect(auctionResource.loadAll).toHaveBeenCalledWith({'limit': 5});
+                result.then(function (result) {
+                    expect(result[0].productId).toBe('validProductId1');
+                    //expect(result[0].institution.institutionId).toBe('validInstitutionId1');
+                    expect(result[1].productId).toBe('validProductId2');
+                    //expect(result[1].institution.institutionId).toBe('validInstitutionId2');
+                });
+                rootScope.$digest();
+            })
+        });
 
     });
 })();

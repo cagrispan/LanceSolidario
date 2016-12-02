@@ -60,7 +60,6 @@
 
             it('should call load method of resource with a user like parameter and populate auction/institution object', function () {
                 var user = {};
-                var bid = new Bid();
                 user.facebookId = 'validFacebookId';
                 var fakePromise = $q.when({
                     'facebookId': 'validFacebookId',
@@ -75,7 +74,7 @@
                     }]
                 });
                 spyOn(bidResource, 'loadBidsByUser').and.returnValue(fakePromise);
-                var result = bid._listByUser({'facebookId': 'validFacebookId'});
+                var result = Bid._listByUser({'facebookId': 'validFacebookId'});
 
                 expect(bidResource.loadBidsByUser).toHaveBeenCalledWith({'facebookId': 'validFacebookId'});
                 result.then(function (result) {
@@ -92,7 +91,6 @@
 
             it('should call load method of resource with a auction like parameter and populate auction/institution object', function () {
                 var auction = {};
-                var bid = new Bid();
                 auction.auctionId = 'validAuctionId';
                 var fakePromise = $q.when({
                     'auctionId': 'validAuctionId',
@@ -107,7 +105,7 @@
                     }]
                 });
                 spyOn(bidResource, 'loadBidsByAuction').and.returnValue(fakePromise);
-                var result = bid._listByAuction({'auctionId': 'validAuctionId'});
+                var result = Bid._listByAuction({'auctionId': 'validAuctionId'});
 
                 expect(bidResource.loadBidsByAuction).toHaveBeenCalledWith({'auctionId': 'validAuctionId'});
                 result.then(function (result) {

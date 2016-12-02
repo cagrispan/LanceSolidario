@@ -22,46 +22,20 @@ angular.module('lanceSolidario')
                 shareData.set($location.path(), 'lastPath');
                 actualPath = $location.path();
 
-                self.product = shareData.get('lastProduct');
-                self.auction = shareData.get('lastAuction');
+                //self.product = shareData.get('lastProduct');
+                //self.auction = shareData.get('lastAuction');
 
                 if (facebookAPI.user) {
                     self.user = facebookAPI.user;
                 }
-
-                if (self.auction && self.auction.auctionId) {
-                    shareData.set(false, 'lastAuction');
-                    self.loading = false;
-
-                    self.duration = getCountDown();
-
-
-                    //TODO: This one is a big shit #1
-                    if (self.auction.status === 'finished') {
-                        self.auctionFinish = true;
-                    }
-
-                    //TODO: This one is a big shit #2
-                    if (self.duration <= 0) {
-                        self.duration = 0.0001;
-                    }
-
-                    loadDonor(self.auction.userId);
-                    loadInstitution(self.auction.institutionId);
-
-                    loadProduct();
-                    loadBidsTask(self.auction);
-                }
-
-                else if ($routeParams.auctionId) {
+                if ($routeParams.auctionId) {
                     self.auction = new Auction();
                     self.auction.auctionId = $routeParams.auctionId;
 
-
                     self.auction._load().then(function () {
-                        if(!self.auction.status){
+                        if (!self.auction.status) {
                             $location.path('404');
-                        }else {
+                        } else {
 
                             self.duration = getCountDown();
 
@@ -94,9 +68,9 @@ angular.module('lanceSolidario')
                     self.product._loadImages();
 
                 } else {
-                    self.product = new Product();
 
-                    self.product._listByAuction(self.auction).then(function (productsList) {
+
+                    Product._listByAuction(self.auction).then(function (productsList) {
                         if (productsList.length > 0) {
                             self.product = productsList[0];
                             return self.product._loadImages().catch(function (err) {
@@ -257,8 +231,8 @@ angular.module('lanceSolidario')
             };
 
             self.feed = function () {
-                facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para a instituição '+self.institution.name+'. Melhore o mundo em um lance.',self.product.title);
-        };
+                facebookAPI.feed($location.path(), 'Veja o produto que encontrei no Lance Solidário, o valor arrecadado vai ser encaminhado para a instituição ' + self.institution.name + '. Melhore o mundo em um lance.', self.product.title);
+            };
 
             self.openInstitution = function () {
                 shareData.set(self.institution, 'lastInstitution');

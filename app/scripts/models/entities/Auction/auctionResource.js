@@ -6,6 +6,11 @@
     angular.module('lanceSolidario.auction.auctionResource', ['utils']).service('auctionResource', ['webService', '$q', 'apiToken', function (webService, $q, apiToken) {
         var self = this;
 
+
+        /*
+         * Add a new Auction
+         * Documented 26/11/2016
+         */
         self.add = function (auction) {
             var headers = {};
             var endpoint = "";
@@ -34,6 +39,11 @@
             );
         };
 
+
+        /*
+         * Update an Auction, use to cancel
+         * Documented 26/11/2016
+         */
         self.update = function (auction) {
             var headers = {};
             var endpoint = "";
@@ -100,6 +110,10 @@
             );
         };
 
+        /*
+         * List Auctions by Product
+         * Documented 25/11/2016
+         */
         //TODO: Need Unit tests
         self.loadAuctionsByProduct = function (product) {
             var headers = {};
@@ -134,6 +148,11 @@
             );
         };
 
+
+        /*
+         * Load information of an Auction
+         * Documented 23/11/2016
+         */
         self.load = function (auction) {
             var headers = {};
             var endpoint = '';
