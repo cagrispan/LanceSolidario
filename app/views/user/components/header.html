@@ -2,18 +2,17 @@
     <div class="container v-m-child">
 
 
-        <div class="col-md-12 col-lg-12 v-m-child"  ng-controller="ProfilePicture as profile">
+        <div class="col-md-12 col-lg-12 v-m-child" ng-controller="ProfilePicture as profile">
             <div class="v-m-parent">
-                <div class="profile-image v-m-child">
-                    <a href="#/user">
-                        <img src="{{profile.profilePicture}}" class="img-responsive">
-                    </a>
-                </div>
+                <a href="#/user">
+                    <div class="profile-image v-m-child"
+                         ng-style="{'background-image': 'url('+profile.profilePicture+')'}">
+                    </div>
+                </a>
                 <div class="profile-greetings v-m-child">
                     <h1>{{profile.user.name}}</h1>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

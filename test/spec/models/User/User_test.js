@@ -5,26 +5,26 @@
         var User;
         var userResource;
         var $q;
-        var Address;
         var rootScope;
 
+        var Address;
+        var Email;
+        var Telephone;
+        var Product;
+
         beforeEach(module('lanceSolidario.user.user', 'lanceSolidario.user.userResourceMock'));
-        beforeEach(inject(function (_userResource_, _User_, _$q_, _$rootScope_) {
+        beforeEach(inject(function (_userResource_, _User_, _Product_, _Email_, _Telephone_, _Address_, _$q_, _$rootScope_) {
             User = _User_;
             userResource = _userResource_;
             $q = _$q_;
             rootScope = _$rootScope_;
+            Product = _Product_;
 
-            Address = function () {
-                this.city = null;
-                this.complement = null;
-                this.zip = null;
-                this._set = function (address) {
-                    this.city = address.city;
-                    this.complement = address.complement;
-                    this.zip = address.zip;
-                }
-            }
+            Address = _Address_;
+            Email = _Email_;
+            Telephone = _Telephone_;
+            Product = _Product_;
+
         }));
 
         describe('new', function () {
@@ -97,12 +97,12 @@
                         state: 'Paraná'
                     }
                 ]);
-                spyOn(userResource, 'loadAddresses').and.returnValue(fakePromise);
+                spyOn(Address, '_listByUser').and.returnValue(fakePromise);
 
                 user._loadAddresses();
                 rootScope.$apply();
 
-                expect(userResource.loadAddresses).toHaveBeenCalledWith(user);
+                expect(Address._listByUser).toHaveBeenCalledWith(user);
                 expect(user.addressList[0].city).toBe('Araucária');
                 expect(user.addressList[1].city).toBe('Curitiba');
             });
@@ -124,12 +124,12 @@
 
                     }
                 ]);
-                spyOn(userResource, 'loadTelephones').and.returnValue(fakePromise);
+                spyOn(Telephone, '_listByUser').and.returnValue(fakePromise);
 
                 user._loadTelephones();
                 rootScope.$apply();
 
-                expect(userResource.loadTelephones).toHaveBeenCalledWith(user);
+                expect(Telephone._listByUser).toHaveBeenCalledWith(user);
                 expect(user.telephoneList[0].telephone).toBe('12345678');
                 expect(user.telephoneList[1].telephone).toBe('87654321');
             });
@@ -151,12 +151,12 @@
 
                     }
                 ]);
-                spyOn(userResource, 'loadEmails').and.returnValue(fakePromise);
+                spyOn(Email, '_listByUser').and.returnValue(fakePromise);
 
                 user._loadEmails();
                 rootScope.$apply();
 
-                expect(userResource.loadEmails).toHaveBeenCalledWith(user);
+                expect(Email._listByUser).toHaveBeenCalledWith(user);
                 expect(user.emailList[0].email).toBe('asd@lol.com');
                 expect(user.emailList[1].email).toBe('akr@gmail.com');
             });
@@ -176,15 +176,14 @@
                     },
                     {
                         productId: '87654321'
-
                     }
                 ]);
-                spyOn(userResource, 'loadProducts').and.returnValue(fakePromise);
+                spyOn(Product, '_listByUser').and.returnValue(fakePromise);
 
                 user._loadProducts();
                 rootScope.$apply();
 
-                expect(userResource.loadProducts).toHaveBeenCalledWith(user);
+                expect(Product._listByUser).toHaveBeenCalledWith(user);
                 expect(user.productList[0].productId).toBe('12345678');
                 expect(user.productList[1].productId).toBe('87654321');
             });
