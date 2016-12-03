@@ -182,17 +182,18 @@ angular.module('lanceSolidario')
 
 
             self.bid = function () {
+
                 if (!facebookAPI.user) {
                     ngToast.info('Por favor, realize login para fazer um lance.');
                     $timeout($location.path.bind($location, '/login'), 100);
                 } else if (!self.auctionFinish) {
-                    if (self.newBid <= self.winningBid.bid) {
-                        failFeedback('Eii! Seu lance deve ser maior que o lance atual. Verifique o valor inserido.');
+
+                    if (self.newBid < self.auction.minimumBid) {
+                        failFeedback('Ops! Seu lance deve ser maior que o <b>valor mínimo</b>. Verifique o valor inserido.');
                         return;
                     }
-
-                    if (!self.winningBid && self.newBid <= self.auction.minimumBid) {
-                        failFeedback('Ops! Seu lance deve ser maior que o <b>valor mínimo</b>. Verifique o valor inserido.');
+                    if (self.winningBid && self.newBid <= self.winningBid.bid) {
+                        failFeedback('Ops! Seu lance deve ser maior que o <b>lance atual</b>. Verifique o valor inserido.');
                         return;
                     }
 
@@ -245,7 +246,7 @@ angular.module('lanceSolidario')
 
             var failFeedback = function (error) {
                 var aux = (typeof error) == 'string';
-                ngToast.danger('<b> Erro!</b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
+                ngToast.danger('<b> Erro! </b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
                 console.log(JSON.stringify(error))
             };
 
