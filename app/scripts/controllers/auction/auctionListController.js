@@ -20,7 +20,7 @@ angular.module('lanceSolidario')
                         orderBy: 'bid'
                     },
                     {
-                        title: 'Mais próximo des terminar',
+                        title: 'Mais próximo de terminar',
                         filter:{status:'active'},
                         reverse: false,
                         orderBy: 'endDate'
