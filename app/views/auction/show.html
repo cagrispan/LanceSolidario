@@ -7,18 +7,8 @@
                     <b>Doador:</b>
                 </div>
                 <div class="panel-body text-center">
-                    <div class="col-xs-12 image no-padding no-margin">
-                        <div class="dummy"></div>
-                        <div class="thumbnail-square"
-                             ng-style="{'background-image': 'url(' + auctionDetailCtrl.donor.profilePicture +')'}">
-                        </div>
-                    </div>
-
-                    <div class="donor-image">
-                        <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" data-pin-no-hover="true"
-                             class="img-responsive full-width" alt="">
-                    </div>
-
+                    <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" data-pin-no-hover="true"
+                         class="img-responsive img-circle" alt="">
                     <h4>{{auctionDetailCtrl.donor.name}}</h4>
                     {{auctionDetailCtrl.donor.address.city}}, {{auctionDetailCtrl.donor.address.state}}<br>
                 </div>
@@ -67,13 +57,15 @@
 
                             <!-- Details -->
                             <div class="col-md-6 text-center">
+                                <button class="btn btn-lg btn-facebook btn-block"
+                                        ng-click="auctionDetailCtrl.feed()">
+                                    <i class="fa fa-facebook"></i>
+                                    Compartilhar
+                                </button>
+                                <br>
                                 <div class="details">
 
-                                    <button class="btn btn-lg btn-facebook btn-block"
-                                            ng-click="auctionDetailCtrl.feed()">
-                                        <i class="fa fa-facebook"></i>
-                                        Compartilhar
-                                    </button>
+
 
                                     <div class="counter"
                                          ng-if="!auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'"
@@ -132,13 +124,16 @@
 
                                                 <br>
                                                     <label class="sr-only" for="input-amount">Valor (em reais)</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">R$</div>
-                                                        <input type="number" class="form-control " id="input-amount"
-                                                               placeholder="Valor" step="0.01"
-                                                               ng-model="auctionDetailCtrl.newBid"
-                                                               min='{{(auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid )+0.01}}'>
-                                                    </div>
+
+                                                        <input type="text" class="form-control" placeholder="Ex: 50,00"
+                                                               id="input-amount"
+                                                               ng-model="auctionDetailCtrl.newBid" ui-money-mask
+                                                               required>
+                                                <!--input type="number" class="form-control " id="input-amount"
+                                                       placeholder="Valor" step="0.01" ng-pattern="/^[0-9]+(\,[0-9]{1,2})?$/"
+                                                       ng-model="auctionDetailCtrl.newBid"
+                                                       min='{{auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid}}'-->
+
 
                                                     <div>
                                                         <div class="btn btn-warning"

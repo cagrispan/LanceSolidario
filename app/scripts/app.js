@@ -24,7 +24,8 @@ angular.module('lanceSolidario', [
     'lanceSolidario.telephone',
     'lanceSolidario.purchase',
     'lanceSolidario.institution',
-    'angular.google.distance'
+    'angular.google.distance',
+    'ui.utils.masks'
 ]).config(['ngToastProvider', function(ngToast) {
     ngToast.configure(
         {
