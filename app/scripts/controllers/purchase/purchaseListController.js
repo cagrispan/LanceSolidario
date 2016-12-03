@@ -1,6 +1,6 @@
 'use strict';
 angular.module('lanceSolidario')
-    .controller('PurchaseListCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', 'ngToast', function (facebookAPI, $location, Purchase, shareData, ngToast) {
+    .controller('PurchaseListCtrl', ['facebookAPI', '$location', 'Purchase', 'shareData', 'ngToast', '$route', function (facebookAPI, $location, Purchase, shareData, ngToast, $route) {
 
         var self = this;
 
@@ -13,15 +13,18 @@ angular.module('lanceSolidario')
                 $location.path('/login');
             } else {
                 self.user = facebookAPI.user;
-                    self.user._loadPurchases()
+                self.user._loadPurchases()
                     .then(function () {
                         self.purchaseList = self.user.purchaseList;
                     }, function (err) {
-                        failFeedback('Problemas ao carregar suas compras. Tente novamente.',err)
+                        failFeedback('Problemas ao carregar suas compras. Tente novamente.', err)
                     })
             }
         }
 
+        self.refreshPage = function () {
+            $route.reload();
+        };
 
 
         self.purchaseDetail = function (purchase) {
