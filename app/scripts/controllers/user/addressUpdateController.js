@@ -44,16 +44,22 @@ angular.module('lanceSolidario')
 
 
         self.saveAddress = function () {
-            self.addressToAdd._save().then(function () {
-                return self.user._loadAddresses();
-            }).then(function () {
-                self.isCollapsed = true;
-                self.addressToAdd = new Address();
-                self.addressToAdd.facebookId = self.user.facebookId;
-                successFeedback('Endereço adicionado com sucesso.');
-            }, function () {
-                failFeedback('Problema ao adicionar um endereço.');
-            });
+            if (self.form.zipcode.$error.cep) {
+                failFeedback('Insira um cep válido para continuar.');
+            } else if (!self.addressToAdd.cep) {
+                failFeedback('O campo CEP é obrigatório.');
+            } else {
+                self.addressToAdd._save().then(function () {
+                    return self.user._loadAddresses();
+                }).then(function () {
+                    self.isCollapsed = true;
+                    self.addressToAdd = new Address();
+                    self.addressToAdd.facebookId = self.user.facebookId;
+                    successFeedback('Endereço adicionado com sucesso.');
+                }, function () {
+                    failFeedback('Problema ao adicionar um endereço.');
+                });
+            }
         };
 
         self.discartChanges = function () {
@@ -75,9 +81,11 @@ angular.module('lanceSolidario')
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
+            var aux = (typeof error) == 'string';
+            ngToast.danger('<b> Erro! </b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
             console.log(JSON.stringify(error))
         };
+
 
         init();
     }]);

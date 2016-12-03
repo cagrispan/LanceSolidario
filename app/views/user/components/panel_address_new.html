@@ -1,5 +1,5 @@
 <div class="panel panel-default panel-collapse" uib-collapse="addressCtrl.isCollapsed">
-    <form class="panel-body" ng-submit="addressCtrl.saveAddress()">
+    <form name="addressCtrl.form" class="panel-body" ng-submit="addressCtrl.saveAddress()">
         <br>
         <!-- Endereço -->
         <div class="container-fluid">
@@ -8,8 +8,9 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group">
                     <label for="user_address_zipcode" >CEP:</label>
-                    <input type="text" ui-mask="99999-999" class="form-control" id="user_address_zipcode"
-                           ng-model="addressCtrl.addressToAdd.cep" via-cep="cep" required>
+                    <input name="zipcode" type="text"  -mask class="form-control" id="user_address_zipcode"
+                           ng-model="addressCtrl.addressToAdd.cep" via-cep="cep" ui-br-cep-mask required>
+
                 </div>
             </div>
 
