@@ -112,6 +112,10 @@
                                             ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
                                             Você está <b>GANHANDO</b> este leilão!
                                         </div>
+                                        <div
+                                            ng-if="auctionDetailCtrl.auction.bidList.length===0">
+                                            Esse leilão ainda não possui lances.
+                                        </div>
                                     </div>
 
 

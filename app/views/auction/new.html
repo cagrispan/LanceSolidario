@@ -26,7 +26,7 @@
 
                             <select class="form-control" id="auction_product"
                                     ng-options="product as product.title for product in auctionCtrl.user.productList | filter:{status:'pending'}"
-                                    ng-model="auctionCtrl.product">
+                                    ng-model="auctionCtrl.product" required>
                             </select>
 
                             <br>

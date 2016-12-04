@@ -49,6 +49,11 @@
                 this.isDelivered = null;
 
                 /*
+                 Delivery
+                 */
+                this.isCanceled = null;
+
+                /*
                  Buyer Id
                  */
                 this.facebookId = null;

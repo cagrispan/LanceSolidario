@@ -17,10 +17,7 @@ angular.module('lanceSolidario')
                     self.user = facebookAPI.user;
                     self.purchase = shareData.get('lastPurchase');
                     shareData.set(false,'lastPurchase');
-                    if (self.purchase) {
-                        purchaseInfoLoad();
-
-                    } else if ($routeParams.purchaseId) {
+                    if ($routeParams.purchaseId) {
 
                         self.purchase = new Purchase();
                         self.purchase.facebookId = self.user.facebookId;
@@ -32,6 +29,8 @@ angular.module('lanceSolidario')
                             }, function (err) {
                                 $location.path('/404');
                             });
+                    }else{
+                        $location.path('/404');
                     }
                 }
             }
@@ -50,6 +49,7 @@ angular.module('lanceSolidario')
                 purchase.isDelivered = true;
                 purchase._update()
                     .then(function () {
+                        successFeedback('A confirmação de entrega foi realizada com sucesso.');
                         self.purchase._load();
                     }).catch(function (err) {
                     failFeedback(err, 'Houve um problema ao atualizar o estado de entrega. Tente novamente.')

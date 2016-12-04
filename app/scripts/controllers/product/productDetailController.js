@@ -177,7 +177,7 @@ angular.module('lanceSolidario')
 
         var failFeedback = function (error, message) {
             var aux = (typeof error) == 'string';
-            ngToast.danger('<b> Erro!</b>' + (aux ? error : (message ? ' ' + message : ' Houve algum problema na requisição. Tente novamente.')));
+            ngToast.danger('<b> Erro! </b>' + (' '+ (aux ? error : (message ? ' ' + message : ' Houve algum problema na requisição. Tente novamente.'))));
             console.log(JSON.stringify(error))
         };
 

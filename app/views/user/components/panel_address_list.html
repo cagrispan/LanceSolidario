@@ -12,7 +12,7 @@
     </div>
     <div class="panel-body">
         <table class="table table-hover">
-            <tr ng-repeat="address in addressCtrl.user.addressList">
+            <tr ng-repeat="address in addressCtrl.user.addressList" ng-if="addressCtrl.isCollapsed">
                 <td class="col-sm-11"
                     ng-click="addressCtrl.showAddress(address)">
                     <p>
