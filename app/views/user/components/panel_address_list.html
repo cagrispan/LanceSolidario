@@ -1,8 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title text-left">
-            Endereços:
-            <div class="input-group-btn pull-right">
+            Endereço:
+            <div class="row text-center panel-heading-button pull-right">
                 <button ng-if="!(addressCtrl.user.addressList.length>0)" class="btn btn-xs btn-success" ng-click="addressCtrl.newAddress()">
                     <i class="fa fa-plus"></i>
                 </button>
@@ -41,4 +41,6 @@
             </tr>
         </table>
     </div>
+    <div ng-include="'views/user/components/panel_address_new.html'" ng-if="!addressCtrl.isCollapsed"></div>
+
 </div>
