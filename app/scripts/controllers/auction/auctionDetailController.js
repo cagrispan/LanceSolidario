@@ -94,7 +94,11 @@ angular.module('lanceSolidario')
                 return self.donor._loadPublicInformation().then(function () {
                     if (self.user.facebookId) {
                         self.user._loadAddresses().then(function () {
-                            return distanceAPI.get(self.donor.address.cep, self.user.addressList[0].cep)
+                            if(self.donor&&self.donor.address&&self.donor.address.cep&&self.user&&self.user.addressList[0]&&self.user.addressList[0].cep) {
+                                return distanceAPI.get(self.donor.address.cep, self.user.addressList[0].cep)
+                            }else{
+                                return false;
+                            }
                         }).then(function (distanceObject) {
                             if (distanceObject && distanceObject.rows[0] && distanceObject.rows[0].elements[0]) {
                                 self.distance = distanceObject['rows'][0]['elements'][0]['distance']['text'];
