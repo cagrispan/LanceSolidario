@@ -40,6 +40,11 @@ angular.module('lanceSolidario')
                     self.product._load()
                         .then(function () {
                             self.product._loadAuctions();
+                            if(!self.product.title){
+                                $location.path('/404');
+                            }
+                        },function(){
+                            $location.path('/404');
                         })
                         .then(function () {
                             self.product._loadImages().catch(function () {
@@ -52,8 +57,7 @@ angular.module('lanceSolidario')
 
                 }
                 else {
-                    failFeedback('Problemas ao carregar o produto. Tente novamente.');
-                    $location('user/products')
+                    $location.path('/404');
                 }
                 self.imagesToRemove = [];
             }

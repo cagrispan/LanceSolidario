@@ -16,6 +16,7 @@ angular.module('lanceSolidario')
 
                     self.user = facebookAPI.user;
                     self.purchase = shareData.get('lastPurchase');
+                    shareData.set(false,'lastPurchase');
                     if (self.purchase) {
                         purchaseInfoLoad();
 
@@ -29,8 +30,7 @@ angular.module('lanceSolidario')
                             .then(function () {
                                 purchaseInfoLoad();
                             }, function (err) {
-
-                                failFeedback(err, ' Problemas ao carregar dados da compra. Tente novamente.');
+                                $location.path('/404');
                             });
                     }
                 }
