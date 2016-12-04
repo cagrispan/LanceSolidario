@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-default" ng-click="auctionDetailCtrl.openInstitution()">
+            <div class="panel panel-default" ng-click="auctionDetailCtrl.openInstitution()  ">
                 <div class="panel-heading">
                     <b>Instituição:</b>
                 </div>
@@ -110,7 +110,7 @@
                                             | currency}}&nbsp;</p>
                                         <div
                                             ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
-                                            Você está Ganhando esse leilão!
+                                            Você está <b>GANHANDO</b> este leilão!
                                         </div>
                                     </div>
 
@@ -250,7 +250,7 @@
                             <h2>ÚLTIMOS LANCES: &nbsp;</h2>
                             <div
                                 ng-if="auctionDetailCtrl.auction.bidList.length===0">
-                                Esse leilão ainda não tem lances, seja o primeiro!!
+                                Esse leilão ainda não possui lances.
                             </div>
 
                             <table class="table">
