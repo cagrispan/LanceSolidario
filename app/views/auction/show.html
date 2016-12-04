@@ -10,7 +10,7 @@
                     <img ng-src="{{auctionDetailCtrl.donor.profilePicture}}" data-pin-no-hover="true"
                          class="img-responsive img-circle" alt="">
                     <h4>{{auctionDetailCtrl.donor.name}}</h4>
-                    {{auctionDetailCtrl.donor.address.city}}, {{auctionDetailCtrl.donor.address.state}}<br>
+                    {{auctionDetailCtrl.donor.address.city}} {{auctionDetailCtrl.donor.address.state? ',':''}} {{auctionDetailCtrl.donor.address.state}}
                 </div>
             </div>
 
@@ -58,13 +58,12 @@
                             <!-- Details -->
                             <div class="col-md-6 text-center">
                                 <button class="btn btn-lg btn-facebook btn-block"
-                                        ng-click="auctionDetailCtrl.feed()">
-                                    <i class="fa fa-facebook"></i>
+                                        ng-click="auctionDetailCtrl.feed()" ng-if="auctionDetailCtrl.auction.status !== 'canceled'">
+                                    <i class="fa fa-facebook" ></i>
                                     Compartilhar
                                 </button>
                                 <br>
                                 <div class="details">
-
 
 
                                     <div class="counter"
@@ -109,10 +108,9 @@
 
                                         <p ng-show="auctionDetailCtrl.winningBid.bid">{{auctionDetailCtrl.winningBid.bid
                                             | currency}}&nbsp;</p>
-
                                         <div
                                             ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
-                                            Você esta Ganhando esse leilão!
+                                            Você está Ganhando esse leilão!
                                         </div>
                                     </div>
 
@@ -250,6 +248,10 @@
                         <!-- BIDS --><br>
                         <div class="container-fluid">
                             <h2>ÚLTIMOS LANCES: &nbsp;</h2>
+                            <div
+                                ng-if="auctionDetailCtrl.auction.bidList.length===0">
+                                Esse leilão ainda não tem lances, seja o primeiro!!
+                            </div>
 
                             <table class="table">
                                 <tbody>
