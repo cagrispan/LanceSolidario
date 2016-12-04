@@ -19,7 +19,8 @@
                     <b>Instituição:</b>
                 </div>
                 <div class="panel-body text-center">
-                    <img ng-src="data:image/*;base64,{{auctionDetailCtrl.institution.logo}}" data-pin-no-hover="true" class="img-responsive" alt="">
+                    <img ng-src="data:image/*;base64,{{auctionDetailCtrl.institution.logo}}" data-pin-no-hover="true"
+                         class="img-responsive" alt="">
 
                     <h4>{{auctionDetailCtrl.institution.name}}</h4>
                 </div>
@@ -56,12 +57,15 @@
 
                             <!-- Details -->
                             <div class="col-md-6 text-center">
+                                <button class="btn btn-lg btn-facebook btn-block"
+                                        ng-click="auctionDetailCtrl.feed()">
+                                    <i class="fa fa-facebook"></i>
+                                    Compartilhar
+                                </button>
+                                <br>
                                 <div class="details">
 
-                                    <button class="btn btn-lg btn-facebook btn-block" ng-click="auctionDetailCtrl.feed()">
-                                        <i class="fa fa-facebook"></i>
-                                        Compartilhar
-                                    </button>
+
 
                                     <div class="counter"
                                          ng-if="!auctionDetailCtrl.auctionFinish || auctionDetailCtrl.auction.status === 'closed'"
@@ -106,35 +110,44 @@
                                         <p ng-show="auctionDetailCtrl.winningBid.bid">{{auctionDetailCtrl.winningBid.bid
                                             | currency}}&nbsp;</p>
 
-                                        <div ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
+                                        <div
+                                            ng-if="auctionDetailCtrl.winningBid.userId === auctionDetailCtrl.user.facebookId">
                                             Você esta Ganhando esse leilão!
                                         </div>
                                     </div>
 
 
-
                                     <form class="form-group no-padding no-margin" ng-submit="auctionDetailCtrl.bid()"
                                           ng-if="!auctionDetailCtrl.auctionFinish && auctionDetailCtrl.auction.status === 'active'">
-                                        <div class="auction-form" >
+                                        <div class="auction-form">
                                             <span id="bid">
 
                                                 <br>
                                                     <label class="sr-only" for="input-amount">Valor (em reais)</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon">R$</div>
-                                                        <input type="number" class="form-control " id="input-amount"
-                                                               placeholder="Valor" step="0.01"
-                                                               ng-model="auctionDetailCtrl.newBid"
-                                                               min='{{auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid}}'>
-                                                    </div>
+
+                                                        <input type="text" class="form-control" placeholder="Ex: 50,00"
+                                                               id="input-amount"
+                                                               ng-model="auctionDetailCtrl.newBid" ui-money-mask
+                                                               required>
+                                                <!--input type="number" class="form-control " id="input-amount"
+                                                       placeholder="Valor" step="0.01" ng-pattern="/^[0-9]+(\,[0-9]{1,2})?$/"
+                                                       ng-model="auctionDetailCtrl.newBid"
+                                                       min='{{auctionDetailCtrl.auction.winningBid.bid ? auctionDetailCtrl.auction.winningBid.bid : auctionDetailCtrl.auction.minimumBid}}'-->
+
 
                                                     <div>
-                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(2)"> +2</div>
-                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(5)"> +5</div>
-                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(10)"> +10</div>
-                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(20)"> +20</div>
-                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(50)"> +50</div>
-                                                        <div class="btn btn-warning" ng-click="auctionDetailCtrl.increaseBid(100)"> +100</div>
+                                                        <div class="btn btn-warning"
+                                                             ng-click="auctionDetailCtrl.increaseBid(2)"> +2</div>
+                                                        <div class="btn btn-warning"
+                                                             ng-click="auctionDetailCtrl.increaseBid(5)"> +5</div>
+                                                        <div class="btn btn-warning"
+                                                             ng-click="auctionDetailCtrl.increaseBid(10)"> +10</div>
+                                                        <div class="btn btn-warning"
+                                                             ng-click="auctionDetailCtrl.increaseBid(20)"> +20</div>
+                                                        <div class="btn btn-warning"
+                                                             ng-click="auctionDetailCtrl.increaseBid(50)"> +50</div>
+                                                        <div class="btn btn-warning"
+                                                             ng-click="auctionDetailCtrl.increaseBid(100)"> +100</div>
                                                     </div>
 
                                             </span>

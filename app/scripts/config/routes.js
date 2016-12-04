@@ -53,12 +53,12 @@ angular.module('lanceSolidario')
             //---------------- Authenticated routes ----------------
 
 
-            //Dashboard
+            /*/Dashboard
             .when('/user', {
                 templateUrl: 'views/user/dashboard.html',
                 controller: 'DashboardCtrl',
                 controllerAs: 'dashboardCtrl'
-            })
+            })/*/
 
             //Profile
             .when('/user/profile', {

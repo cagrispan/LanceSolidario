@@ -51,6 +51,15 @@ angular.module('lanceSolidario')
 
 
         self.addAuction = function () {
+            if (self.auctionToAdd.minimumBid<=5) {
+                failFeedback('O lance mínimo deve ser um valor acima de R$ 5,00.');
+                return;
+            }
+            if (self.auctionToAdd.minimumBid>1000000000) {
+                failFeedback('O lance mínimo deve ser um valor menor que R$1.000.000.000,00');
+                return;
+            }
+
             if (false) {
                 failFeedback('O inicio do leilão deve ser posterior a data atual. Verifique os dados e tente novamente.');
             } else {
@@ -77,6 +86,16 @@ angular.module('lanceSolidario')
                         });
                     }
                 }
+            }
+        };
+
+        self.validateMinimumBid = function(){
+            if (self.auctionToAdd.minimumBid<=5) {
+                failFeedback('O lance mínimo deve ser um valor acima de R$ 5,00.');
+            }
+
+            if (self.auctionToAdd.minimumBid>1000000000) {
+                failFeedback('O lance mínimo deve ser um valor menor que R$1.000.000.000,00');
             }
         };
 

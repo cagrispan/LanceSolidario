@@ -16,7 +16,7 @@ angular.module('lanceSolidario')
 
                     self.institution._load()
                         .catch(function (err) {
-                            failFeedback(err, ' Problemas ao carregar dados da instituição. Tente novamente.');
+                            $location.path('/404');
                         });
                 }else{
                     shareData.set(false,'lastInstitution');

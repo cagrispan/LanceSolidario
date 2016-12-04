@@ -52,6 +52,10 @@ angular.module('lanceSolidario')
         };
 
         self.addTelephone = function () {
+            if (verifyInArray(self.user.telephoneList,self.telephoneToAdd.telephone,'telephone')) {
+                failFeedback('Este telefone já foi adicionado.');
+                return;
+            }
             self.telephoneToAdd._add().then(function () {
                 return self.user._loadTelephones();
             }).then(function () {
@@ -62,7 +66,12 @@ angular.module('lanceSolidario')
             });
         };
 
+
         self.addEmail = function () {
+            if (verifyInArray(self.user.emailList,self.emailToAdd.email,'email')) {
+                failFeedback('Este email8 já foi adicionado.');
+                return;
+            }
             self.emailToAdd._add().then(function () {
                 return self.user._loadEmails();
             }).then(function () {
@@ -73,13 +82,24 @@ angular.module('lanceSolidario')
             });
         };
 
+        var verifyInArray = function (arrayToSearch, value, propertyName) {
+
+            for (var tIndx in arrayToSearch) {
+                if (arrayToSearch.hasOwnProperty(tIndx) && arrayToSearch[tIndx] && arrayToSearch[tIndx][propertyName] === value) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
 
         var successFeedback = function (message) {
             ngToast.success(message);
         };
 
         var failFeedback = function (error) {
-            ngToast.danger('<b> Erro!</b>' + (typeof error)=== 'string' ? error: 'Houve algum problema na requisição. Tente novamente.');
+            var aux = (typeof error) == 'string';
+            ngToast.danger('<b> Erro! </b>' + (aux ? error : ' Houve algum problema na requisição. Tente novamente.'));
             console.log(JSON.stringify(error))
         };
 
