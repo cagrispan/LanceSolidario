@@ -19,9 +19,10 @@
                 <h2 class="title"> {{institutionDetailCtrl.institution.name}}</h2>
 
                 <h3>Sobre:</h3>
-                <p>
-                    {{institutionDetailCtrl.institution.about}}
-                </p>
+
+                <div ng-bind-html="institutionDetailCtrl.institution.about"
+                    ></div>
+
 
                 <h3>Localidade:</h3>
                 <p>
