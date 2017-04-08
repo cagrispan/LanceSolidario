@@ -1,5 +1,5 @@
 'use strict';
-var globalConfig = {backendBasePath:'http://localhost:7780'};//{backendBasePath:'http://172.20.245.6:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
+var globalConfig = {backendBasePath:'http://159.203.125.160:7780'};//{backendBasePath:'http://172.20.245.6:7780'};//{'backendBasePath':'http://10.41.1.57:7780'};
 angular.module('utils')
     .service('webService', ['$http', '$q',  function ($http, $q) {
         //TODO:Define global variables config
@@ -57,20 +57,20 @@ angular.module('utils')
         var request = function (req) {
             var d = new $q.defer();
 
-            $http(req).success(function (data, status, headers, config) {
+            $http(req).then(function (response) {
                 d.resolve({
-                    data: data,
-                    status: status,
-                    headers: headers,
-                    config: config
+                    data: response.data,
+                    status: response.status,
+                    headers: response.headers,
+                    config: response.config
                 });
-            }).error(function (data, status, headers, config) {
+            }).catch(function (response){
                 //$log.error('Request to endpoint ' + endpoint + ' failed');
                 d.reject({
-                    data: data,
-                    status: status,
-                    headers: headers,
-                    config: config
+                    data: response.data,
+                    status: response.status,
+                    headers: response.headers,
+                    config: response.config
                 });
             });
 

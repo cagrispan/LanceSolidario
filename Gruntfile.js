@@ -221,7 +221,7 @@ module.exports = function (grunt) {
             app: {
                 src: ['<%= yeoman.app %>/index.html'],
                 ignorePath: /\.\.\//,
-                exclude: [ 'bower_components/angular-sanitize/angular-sanitize.js' ]
+                exclude: ['bower_components/angular-sanitize/angular-sanitize.js']
             },
             test: {
                 devDependencies: true,
@@ -363,7 +363,7 @@ module.exports = function (grunt) {
                     usemin: 'scripts/scripts.js'
                 },
                 cwd: '<%= yeoman.app %>',
-                src: 'views/{,*/}*.html',
+                src: ['views/{,*/}*.html', 'views/**/*.html'],
                 dest: '.tmp/templateCache.js'
             }
         },
@@ -400,7 +400,8 @@ module.exports = function (grunt) {
                         '*.{ico,png,txt}',
                         '*.html',
                         'images/{,*/}*.{webp}',
-                        'styles/fonts/{,*/}*.*'
+                        'styles/fonts/{,*/}*.*',
+                        'fonts/*.*'
                     ]
                 }, {
                     expand: true,
@@ -448,12 +449,12 @@ module.exports = function (grunt) {
         less: {
             development: {
                 files: {
-                    'app/styles/app.css': 'app/styles/app.less'
+                    'app/styles/app.css': 'app/styles/*.less'
                 }
             },
             production: {
                 files: {
-                    'app/styles/app.css': 'app/styles/app.less'
+                    'app/styles/app.css': 'app/styles/*.less'
                 }
             }
         },
@@ -465,7 +466,7 @@ module.exports = function (grunt) {
                     ignore: ['cliches', 'double negatives']
                 }
             },
-            files: ['app/views/*.html']
+            files: ['app/views/**/*.html']
         }
     });
 

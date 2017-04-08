@@ -7,8 +7,13 @@ angular.module('lanceSolidario')
 
 
             function init() {
-                self.addLoad = false;
 
+                ngToast.warning('Ei, essa funcionalidade ainda não esta aberta ao publico, para mais informações entre em contato com a equipe Lance Solidário.');
+
+                self.addLoad = false;
+                $location.path(shareData.get('lastPath'));
+
+                /*
                 shareData.set($location.path(), 'lastPath');
 
                 if (!facebookAPI.user) {
@@ -20,6 +25,7 @@ angular.module('lanceSolidario')
                     self.newProduct.isUsed = false;
                     self.images = [];
                 }
+                */
             }
 
             self.addProduct = function () {

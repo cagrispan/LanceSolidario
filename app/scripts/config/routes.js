@@ -1,6 +1,8 @@
 'use strict';
 angular.module('lanceSolidario')
     .config(['$locationProvider', '$routeProvider', '$facebookProvider', function ($locationProvider, $routeProvider, $facebookProvider) {
+        $locationProvider.hashPrefix('');
+
         //noinspection JSUnresolvedFunction
         $routeProvider
 
