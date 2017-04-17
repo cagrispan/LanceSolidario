@@ -24,8 +24,9 @@ angular.module('lanceSolidario', [
     'lanceSolidario.telephone',
     'lanceSolidario.purchase',
     'lanceSolidario.institution',
-    'angular.google.distance'
-]).config(['ngToastProvider', function(ngToast) {
+    'angular.google.distance',
+    'angular-google-analytics'
+]).config(['AnalyticsProvider', 'ngToastProvider', function (AnalyticsProvider, ngToast) {
     ngToast.configure(
         {
             verticalPosition: 'top',
@@ -35,6 +36,8 @@ angular.module('lanceSolidario', [
             timeout: 3000
         }
     );
-
-
+    AnalyticsProvider.setAccount('UA-96994270-1');  //UU-XXXXXXX-X should be your tracking code
+}]).run(['Analytics', function (Analytics) {
 }]);
+
+
